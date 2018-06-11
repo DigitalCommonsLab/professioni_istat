@@ -1,4 +1,6 @@
 
+var urlData = "data/example.json";
+
 var margin = {
       top: 20, right: 120, bottom: 20, left: 120
     },
@@ -7,7 +9,7 @@ var margin = {
 
 var i = 0,
     duration = 750,
-    root;
+    dataRoot;
 
 var tree = d3.layout.tree()
     .size([height, width]);
@@ -19,14 +21,15 @@ var svg = d3.select("#graph").append("svg")
     .attr("width", width + margin.right + margin.left)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    .style("height", height+'px');
 
-d3.json("data/example.json", function(error, flare) {
+d3.json(urlData, function(error, flare) {
   if (error) throw error;
 
-  root = flare;
-  root.x0 = height / 2;
-  root.y0 = 0;
+  dataRoot = flare;
+  dataRoot.x0 = height / 2;
+  dataRoot.y0 = 0;
 
   function collapse(d) {
     if (d.children) {
@@ -36,16 +39,16 @@ d3.json("data/example.json", function(error, flare) {
     }
   }
 
-  root.children.forEach(collapse);
-  update(root);
-});
+  dataRoot.children.forEach(collapse);
 
-d3.select(self.frameElement).style("height", "800px");
+  update(dataRoot);
+
+});
 
 function update(source) {
 
   // Compute the new tree layout.
-  var nodes = tree.nodes(root).reverse(),
+  var nodes = tree.nodes(dataRoot).reverse(),
       links = tree.links(nodes);
 
   // Normalize for fixed-depth.
@@ -59,7 +62,19 @@ function update(source) {
   var nodeEnter = node.enter().append("g")
       .attr("class", "node")
       .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
-      .on("click", click);
+      .on("click", function click(d) {
+
+        if (d.children) {
+          d._children = d.children;
+          d.children = null;
+        } else {
+          d.children = d._children;
+          d._children = null;
+        }
+        
+        update(d);
+
+      });
 
   nodeEnter.append("circle")
       .attr("r", 1e-6)
@@ -127,16 +142,4 @@ function update(source) {
     d.x0 = d.x;
     d.y0 = d.y;
   });
-}
-
-// Toggle children on click.
-function click(d) {
-  if (d.children) {
-    d._children = d.children;
-    d.children = null;
-  } else {
-    d.children = d._children;
-    d._children = null;
-  }
-  update(d);
 }

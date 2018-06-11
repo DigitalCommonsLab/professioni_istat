@@ -18,3 +18,8 @@
   stroke: #ccc;
   stroke-width: 1.5px;
 }
+
+#graph {
+	float: left;
+	border: 1px solid blue
+}
