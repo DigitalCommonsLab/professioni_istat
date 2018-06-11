@@ -166,9 +166,8 @@ $(function() {
     });
   }
 
-  d3.json(urlData, function(error, json) {
-    if (error) throw error;
-
+  utils.getData(urlData, function(json) {
+  
     dataRoot = json;
     dataRoot.x0 = height / 2;
     dataRoot.y0 = 0;

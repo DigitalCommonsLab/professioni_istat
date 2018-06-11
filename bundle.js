@@ -1,3 +1,18 @@
+(function () {
+  var socket = document.createElement('script')
+  var script = document.createElement('script')
+  socket.setAttribute('src', 'http://localhost:3001/socket.io/socket.io.js')
+  script.type = 'text/javascript'
+
+  socket.onload = function () {
+    document.head.appendChild(script)
+  }
+  script.text = ['window.socket = io("http://localhost:3001");',
+  'socket.on("bundle", function() {',
+  'console.log("livereaload triggered")',
+  'window.location.reload();});'].join('\n')
+  document.head.appendChild(socket)
+}());
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 var css = ".node{cursor:pointer}.node circle{fill:#fff;stroke:#4682b4;stroke-width:1.5px}.node text{font:10px sans-serif}.link{fill:none;stroke:#ccc;stroke-width:1.5px}#graph{float:left;border:1px solid #00f}div.tooltip{position:absolute;text-align:center;width:300px;height:150px;padding:2px;font:12px sans-serif;background:#fff;box-shadow:2px 2px 6px rgba(0,0,0,.2);border:1px solid rgba(0,0,0,.2);border-radius:3px;pointer-events:none}"; (require("browserify-css").createStyle(css, { "href": "main.css" }, { "insertAt": "bottom" })); module.exports = css;
 },{"browserify-css":5}],2:[function(require,module,exports){
@@ -37907,9 +37922,8 @@ $(function() {
     });
   }
 
-  d3.json(urlData, function(error, json) {
-    if (error) throw error;
-
+  utils.getData(urlData, function(json) {
+  
     dataRoot = json;
     dataRoot.x0 = height / 2;
     dataRoot.y0 = 0;
@@ -37948,9 +37962,11 @@ module.exports = {
 		return color;
 	},
 
-    getData: function(url, cb) {
+    getData: function(url, cb, cache) {
+        
+        cache = _.isUndefined(cache) ? true : cache;
 
-        if(true || !localStorage[url]) {
+        if(cache && !localStorage[url]) {
             $.getJSON(url, function(json) {
                 
                 try {

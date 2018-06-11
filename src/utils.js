@@ -15,9 +15,11 @@ module.exports = {
 		return color;
 	},
 
-    getData: function(url, cb) {
+    getData: function(url, cb, cache) {
+        
+        cache = _.isUndefined(cache) ? true : cache;
 
-        if(true || !localStorage[url]) {
+        if(cache && !localStorage[url]) {
             $.getJSON(url, function(json) {
                 
                 try {
