@@ -37754,7 +37754,10 @@ function config (name) {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],126:[function(require,module,exports){
+/*
+  original: https://bl.ocks.org/mbostock/4339083
 
+ */
 var $ = jQuery = require('jquery');
 var _ = require('underscore'); 
 var S = require('underscore.string');
@@ -37784,6 +37787,7 @@ $(function() {
       },
       width = 960 - margin.right - margin.left,
       height = 400 - margin.top - margin.bottom,
+      nodeRadius = 6,
       tooltipOffsetX = -10,
       tooltipOffsetY = 0;
 
@@ -37818,7 +37822,9 @@ $(function() {
 
     // Update the nodes…
     var node = svg.selectAll("g.node")
-        .data(nodes, function(d) { return d.id || (d.id = ++i); });
+        .data(nodes, function(d) {
+          return d.id || (d.id = ++i);
+        });
 
     // Enter any new nodes at the parent's previous position.
     var nodeEnter = node.enter().append("g")
@@ -37844,9 +37850,7 @@ $(function() {
         .on("mouseover", function(d) {    
             tooltip.transition()
                 .duration(timeDuration)
-                .style("opacity", .9);    
-            
-            console.log(d)
+                .style("opacity", 1);
 
             tooltip .html(tmpls.node_tooltip(d))  
                 .style("left", (d3.event.pageX - tooltipOffsetX) + "px")   
@@ -37871,7 +37875,7 @@ $(function() {
         .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
 
     nodeUpdate.select("circle")
-        .attr("r", 4.5)
+        .attr("r", nodeRadius)
         .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
 
     nodeUpdate.select("text")
