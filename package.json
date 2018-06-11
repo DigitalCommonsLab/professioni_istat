@@ -2,10 +2,7 @@
   "name": "professioni_istat",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "main": "bundle.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DigitalCommonsLab/professioni_istat.git"
@@ -19,5 +16,25 @@
   "dependencies": {
     "bootstrap": "^4.1.1",
     "d3": "^3.4.11"
+  },
+  "scripts": {
+    "build": "browserify src/main.js -o bundle.js",
+    "start": "watchify -p browserify-livereload src/main.js -o bundle.js"
+  },
+  "devDependencies": {
+    "browserify": "^16.2.2",
+    "browserify-css": "^0.14.0",
+    "browserify-livereload": "^1.0.10",
+    "watchify": "^3.11.0"
+  },
+  "browserify-css": {
+    "autoInject": true,
+    "minify": true,
+    "rootDir": "."
+  },
+  "browserify": {
+    "transform": [
+      "browserify-css"
+    ]
   }
 }
