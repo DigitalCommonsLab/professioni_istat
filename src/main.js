@@ -20,12 +20,16 @@ var tree = require('./tree');
 $(function() {
 
   tree.init('#tree', {
+    
     urlData: 'data/example.json',
 
     onSelect: function(id) {
 
-      tree.update();
-      
+      console.log('tree onSelect', id)
+
+//TODO using utils.getData(url+id, function(json) { ... });
+      tree.update(id, json);
+
     }
   })
 ;

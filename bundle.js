@@ -37774,12 +37774,16 @@ var tree = require('./tree');
 $(function() {
 
   tree.init('#tree', {
+    
     urlData: 'data/example.json',
 
     onSelect: function(id) {
 
-      tree.update();
-      
+      console.log('tree onSelect', id)
+
+//TODO using utils.getData(url+id, function(json) { ... });
+      tree.update(id, json);
+
     }
   })
 ;
@@ -37803,6 +37807,9 @@ module.exports = {
   	onSelect: function(e){ console.log('onClickNode',e); },
 
   	config: {
+  		
+  		urlData: '',
+
   		width: 960,
 		height: 400,
 		margin: {
@@ -37815,6 +37822,11 @@ module.exports = {
 		tooltipOffsetX: -10,
 		tooltipOffsetY: 0
   	},
+
+	getDataUrl: function(id) {
+		var url = '/';
+		return this.opts.urlData + url;
+	},
 
 	init: function(el, opts) {
 
@@ -37850,7 +37862,7 @@ module.exports = {
 			.attr("transform", "translate(" + self.opts.margin.left + "," + self.opts.margin.top + ")")
 			.style("height", self.opts.height+'px');
 
-		utils.getData(opts.urlData, function(json) {
+		utils.getData(self.opts.urlData, function(json) {
 
 			self.dataRoot = json;
 			self.dataRoot.x0 = self.opts.height / 2;
