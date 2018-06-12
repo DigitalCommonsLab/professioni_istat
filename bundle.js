@@ -1,3 +1,18 @@
+(function () {
+  var socket = document.createElement('script')
+  var script = document.createElement('script')
+  socket.setAttribute('src', 'http://localhost:3001/socket.io/socket.io.js')
+  script.type = 'text/javascript'
+
+  socket.onload = function () {
+    document.head.appendChild(script)
+  }
+  script.text = ['window.socket = io("http://localhost:3001");',
+  'socket.on("bundle", function() {',
+  'console.log("livereaload triggered")',
+  'window.location.reload();});'].join('\n')
+  document.head.appendChild(socket)
+}());
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 (function (process,__filename){
 /** vim: et:ts=4:sw=4:sts=4
@@ -303,7 +318,7 @@ function amdefine(module, requireFn) {
 module.exports = amdefine;
 
 }).call(this,require('_process'),"/node_modules/amdefine/amdefine.js")
-},{"_process":51,"path":49}],2:[function(require,module,exports){
+},{"_process":40,"path":38}],2:[function(require,module,exports){
 var css = "/*!\n * Bootstrap v4.1.1 (https://getbootstrap.com/)\n * Copyright 2011-2018 The Bootstrap Authors\n * Copyright 2011-2018 Twitter, Inc.\n * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)\n */:root{--blue:#007bff;--indigo:#6610f2;--purple:#6f42c1;--pink:#e83e8c;--red:#dc3545;--orange:#fd7e14;--yellow:#ffc107;--green:#28a745;--teal:#20c997;--cyan:#17a2b8;--white:#fff;--gray:#6c757d;--gray-dark:#343a40;--primary:#007bff;--secondary:#6c757d;--success:#28a745;--info:#17a2b8;--warning:#ffc107;--danger:#dc3545;--light:#f8f9fa;--dark:#343a40;--breakpoint-xs:0;--breakpoint-sm:576px;--breakpoint-md:768px;--breakpoint-lg:992px;--breakpoint-xl:1200px;--font-family-sans-serif:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\";--font-family-monospace:SFMono-Regular,Menlo,Monaco,Consolas,\"Liberation Mono\",\"Courier New\",monospace}*,::after,::before{box-sizing:border-box}html{font-family:sans-serif;line-height:1.15;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;-ms-overflow-style:scrollbar;-webkit-tap-highlight-color:transparent}@-ms-viewport{width:device-width}article,aside,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\";font-size:1rem;font-weight:400;line-height:1.5;color:#212529;text-align:left;background-color:#fff}[tabindex=\"-1\"]:focus{outline:0!important}hr{box-sizing:content-box;height:0;overflow:visible}h1,h2,h3,h4,h5,h6{margin-top:0;margin-bottom:.5rem}p{margin-top:0;margin-bottom:1rem}abbr[data-original-title],abbr[title]{text-decoration:underline;-webkit-text-decoration:underline dotted;text-decoration:underline dotted;cursor:help;border-bottom:0}address{margin-bottom:1rem;font-style:normal;line-height:inherit}dl,ol,ul{margin-top:0;margin-bottom:1rem}ol ol,ol ul,ul ol,ul ul{margin-bottom:0}dt{font-weight:700}dd{margin-bottom:.5rem;margin-left:0}blockquote{margin:0 0 1rem}dfn{font-style:italic}b,strong{font-weight:bolder}small{font-size:80%}sub,sup{position:relative;font-size:75%;line-height:0;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}a{color:#007bff;text-decoration:none;background-color:transparent;-webkit-text-decoration-skip:objects}a:hover{color:#0056b3;text-decoration:underline}a:not([href]):not([tabindex]){color:inherit;text-decoration:none}a:not([href]):not([tabindex]):focus,a:not([href]):not([tabindex]):hover{color:inherit;text-decoration:none}a:not([href]):not([tabindex]):focus{outline:0}code,kbd,pre,samp{font-family:SFMono-Regular,Menlo,Monaco,Consolas,\"Liberation Mono\",\"Courier New\",monospace;font-size:1em}pre{margin-top:0;margin-bottom:1rem;overflow:auto;-ms-overflow-style:scrollbar}figure{margin:0 0 1rem}img{vertical-align:middle;border-style:none}svg:not(:root){overflow:hidden}table{border-collapse:collapse}caption{padding-top:.75rem;padding-bottom:.75rem;color:#6c757d;text-align:left;caption-side:bottom}th{text-align:inherit}label{display:inline-block;margin-bottom:.5rem}button{border-radius:0}button:focus{outline:1px dotted;outline:5px auto -webkit-focus-ring-color}button,input,optgroup,select,textarea{margin:0;font-family:inherit;font-size:inherit;line-height:inherit}button,input{overflow:visible}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{padding:0;border-style:none}input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0}input[type=date],input[type=datetime-local],input[type=month],input[type=time]{-webkit-appearance:listbox}textarea{overflow:auto;resize:vertical}fieldset{min-width:0;padding:0;margin:0;border:0}legend{display:block;width:100%;max-width:100%;padding:0;margin-bottom:.5rem;font-size:1.5rem;line-height:inherit;color:inherit;white-space:normal}progress{vertical-align:baseline}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{outline-offset:-2px;-webkit-appearance:none}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{font:inherit;-webkit-appearance:button}output{display:inline-block}summary{display:list-item;cursor:pointer}template{display:none}[hidden]{display:none!important}.h1,.h2,.h3,.h4,.h5,.h6,h1,h2,h3,h4,h5,h6{margin-bottom:.5rem;font-family:inherit;font-weight:500;line-height:1.2;color:inherit}.h1,h1{font-size:2.5rem}.h2,h2{font-size:2rem}.h3,h3{font-size:1.75rem}.h4,h4{font-size:1.5rem}.h5,h5{font-size:1.25rem}.h6,h6{font-size:1rem}.lead{font-size:1.25rem;font-weight:300}.display-1{font-size:6rem;font-weight:300;line-height:1.2}.display-2{font-size:5.5rem;font-weight:300;line-height:1.2}.display-3{font-size:4.5rem;font-weight:300;line-height:1.2}.display-4{font-size:3.5rem;font-weight:300;line-height:1.2}hr{margin-top:1rem;margin-bottom:1rem;border:0;border-top:1px solid rgba(0,0,0,.1)}.small,small{font-size:80%;font-weight:400}.mark,mark{padding:.2em;background-color:#fcf8e3}.list-unstyled{padding-left:0;list-style:none}.list-inline{padding-left:0;list-style:none}.list-inline-item{display:inline-block}.list-inline-item:not(:last-child){margin-right:.5rem}.initialism{font-size:90%;text-transform:uppercase}.blockquote{margin-bottom:1rem;font-size:1.25rem}.blockquote-footer{display:block;font-size:80%;color:#6c757d}.blockquote-footer::before{content:\"\\2014 \\00A0\"}.img-fluid{max-width:100%;height:auto}.img-thumbnail{padding:.25rem;background-color:#fff;border:1px solid #dee2e6;border-radius:.25rem;max-width:100%;height:auto}.figure{display:inline-block}.figure-img{margin-bottom:.5rem;line-height:1}.figure-caption{font-size:90%;color:#6c757d}code{font-size:87.5%;color:#e83e8c;word-break:break-word}a>code{color:inherit}kbd{padding:.2rem .4rem;font-size:87.5%;color:#fff;background-color:#212529;border-radius:.2rem}kbd kbd{padding:0;font-size:100%;font-weight:700}pre{display:block;font-size:87.5%;color:#212529}pre code{font-size:inherit;color:inherit;word-break:normal}.pre-scrollable{max-height:340px;overflow-y:scroll}.container{width:100%;padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto}@media (min-width:576px){.container{max-width:540px}}@media (min-width:768px){.container{max-width:720px}}@media (min-width:992px){.container{max-width:960px}}@media (min-width:1200px){.container{max-width:1140px}}.container-fluid{width:100%;padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto}.row{display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;margin-right:-15px;margin-left:-15px}.no-gutters{margin-right:0;margin-left:0}.no-gutters>.col,.no-gutters>[class*=col-]{padding-right:0;padding-left:0}.col,.col-1,.col-10,.col-11,.col-12,.col-2,.col-3,.col-4,.col-5,.col-6,.col-7,.col-8,.col-9,.col-auto,.col-lg,.col-lg-1,.col-lg-10,.col-lg-11,.col-lg-12,.col-lg-2,.col-lg-3,.col-lg-4,.col-lg-5,.col-lg-6,.col-lg-7,.col-lg-8,.col-lg-9,.col-lg-auto,.col-md,.col-md-1,.col-md-10,.col-md-11,.col-md-12,.col-md-2,.col-md-3,.col-md-4,.col-md-5,.col-md-6,.col-md-7,.col-md-8,.col-md-9,.col-md-auto,.col-sm,.col-sm-1,.col-sm-10,.col-sm-11,.col-sm-12,.col-sm-2,.col-sm-3,.col-sm-4,.col-sm-5,.col-sm-6,.col-sm-7,.col-sm-8,.col-sm-9,.col-sm-auto,.col-xl,.col-xl-1,.col-xl-10,.col-xl-11,.col-xl-12,.col-xl-2,.col-xl-3,.col-xl-4,.col-xl-5,.col-xl-6,.col-xl-7,.col-xl-8,.col-xl-9,.col-xl-auto{position:relative;width:100%;min-height:1px;padding-right:15px;padding-left:15px}.col{-ms-flex-preferred-size:0;flex-basis:0;-ms-flex-positive:1;flex-grow:1;max-width:100%}.col-auto{-ms-flex:0 0 auto;flex:0 0 auto;width:auto;max-width:none}.col-1{-ms-flex:0 0 8.333333%;flex:0 0 8.333333%;max-width:8.333333%}.col-2{-ms-flex:0 0 16.666667%;flex:0 0 16.666667%;max-width:16.666667%}.col-3{-ms-flex:0 0 25%;flex:0 0 25%;max-width:25%}.col-4{-ms-flex:0 0 33.333333%;flex:0 0 33.333333%;max-width:33.333333%}.col-5{-ms-flex:0 0 41.666667%;flex:0 0 41.666667%;max-width:41.666667%}.col-6{-ms-flex:0 0 50%;flex:0 0 50%;max-width:50%}.col-7{-ms-flex:0 0 58.333333%;flex:0 0 58.333333%;max-width:58.333333%}.col-8{-ms-flex:0 0 66.666667%;flex:0 0 66.666667%;max-width:66.666667%}.col-9{-ms-flex:0 0 75%;flex:0 0 75%;max-width:75%}.col-10{-ms-flex:0 0 83.333333%;flex:0 0 83.333333%;max-width:83.333333%}.col-11{-ms-flex:0 0 91.666667%;flex:0 0 91.666667%;max-width:91.666667%}.col-12{-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}.order-first{-ms-flex-order:-1;order:-1}.order-last{-ms-flex-order:13;order:13}.order-0{-ms-flex-order:0;order:0}.order-1{-ms-flex-order:1;order:1}.order-2{-ms-flex-order:2;order:2}.order-3{-ms-flex-order:3;order:3}.order-4{-ms-flex-order:4;order:4}.order-5{-ms-flex-order:5;order:5}.order-6{-ms-flex-order:6;order:6}.order-7{-ms-flex-order:7;order:7}.order-8{-ms-flex-order:8;order:8}.order-9{-ms-flex-order:9;order:9}.order-10{-ms-flex-order:10;order:10}.order-11{-ms-flex-order:11;order:11}.order-12{-ms-flex-order:12;order:12}.offset-1{margin-left:8.333333%}.offset-2{margin-left:16.666667%}.offset-3{margin-left:25%}.offset-4{margin-left:33.333333%}.offset-5{margin-left:41.666667%}.offset-6{margin-left:50%}.offset-7{margin-left:58.333333%}.offset-8{margin-left:66.666667%}.offset-9{margin-left:75%}.offset-10{margin-left:83.333333%}.offset-11{margin-left:91.666667%}@media (min-width:576px){.col-sm{-ms-flex-preferred-size:0;flex-basis:0;-ms-flex-positive:1;flex-grow:1;max-width:100%}.col-sm-auto{-ms-flex:0 0 auto;flex:0 0 auto;width:auto;max-width:none}.col-sm-1{-ms-flex:0 0 8.333333%;flex:0 0 8.333333%;max-width:8.333333%}.col-sm-2{-ms-flex:0 0 16.666667%;flex:0 0 16.666667%;max-width:16.666667%}.col-sm-3{-ms-flex:0 0 25%;flex:0 0 25%;max-width:25%}.col-sm-4{-ms-flex:0 0 33.333333%;flex:0 0 33.333333%;max-width:33.333333%}.col-sm-5{-ms-flex:0 0 41.666667%;flex:0 0 41.666667%;max-width:41.666667%}.col-sm-6{-ms-flex:0 0 50%;flex:0 0 50%;max-width:50%}.col-sm-7{-ms-flex:0 0 58.333333%;flex:0 0 58.333333%;max-width:58.333333%}.col-sm-8{-ms-flex:0 0 66.666667%;flex:0 0 66.666667%;max-width:66.666667%}.col-sm-9{-ms-flex:0 0 75%;flex:0 0 75%;max-width:75%}.col-sm-10{-ms-flex:0 0 83.333333%;flex:0 0 83.333333%;max-width:83.333333%}.col-sm-11{-ms-flex:0 0 91.666667%;flex:0 0 91.666667%;max-width:91.666667%}.col-sm-12{-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}.order-sm-first{-ms-flex-order:-1;order:-1}.order-sm-last{-ms-flex-order:13;order:13}.order-sm-0{-ms-flex-order:0;order:0}.order-sm-1{-ms-flex-order:1;order:1}.order-sm-2{-ms-flex-order:2;order:2}.order-sm-3{-ms-flex-order:3;order:3}.order-sm-4{-ms-flex-order:4;order:4}.order-sm-5{-ms-flex-order:5;order:5}.order-sm-6{-ms-flex-order:6;order:6}.order-sm-7{-ms-flex-order:7;order:7}.order-sm-8{-ms-flex-order:8;order:8}.order-sm-9{-ms-flex-order:9;order:9}.order-sm-10{-ms-flex-order:10;order:10}.order-sm-11{-ms-flex-order:11;order:11}.order-sm-12{-ms-flex-order:12;order:12}.offset-sm-0{margin-left:0}.offset-sm-1{margin-left:8.333333%}.offset-sm-2{margin-left:16.666667%}.offset-sm-3{margin-left:25%}.offset-sm-4{margin-left:33.333333%}.offset-sm-5{margin-left:41.666667%}.offset-sm-6{margin-left:50%}.offset-sm-7{margin-left:58.333333%}.offset-sm-8{margin-left:66.666667%}.offset-sm-9{margin-left:75%}.offset-sm-10{margin-left:83.333333%}.offset-sm-11{margin-left:91.666667%}}@media (min-width:768px){.col-md{-ms-flex-preferred-size:0;flex-basis:0;-ms-flex-positive:1;flex-grow:1;max-width:100%}.col-md-auto{-ms-flex:0 0 auto;flex:0 0 auto;width:auto;max-width:none}.col-md-1{-ms-flex:0 0 8.333333%;flex:0 0 8.333333%;max-width:8.333333%}.col-md-2{-ms-flex:0 0 16.666667%;flex:0 0 16.666667%;max-width:16.666667%}.col-md-3{-ms-flex:0 0 25%;flex:0 0 25%;max-width:25%}.col-md-4{-ms-flex:0 0 33.333333%;flex:0 0 33.333333%;max-width:33.333333%}.col-md-5{-ms-flex:0 0 41.666667%;flex:0 0 41.666667%;max-width:41.666667%}.col-md-6{-ms-flex:0 0 50%;flex:0 0 50%;max-width:50%}.col-md-7{-ms-flex:0 0 58.333333%;flex:0 0 58.333333%;max-width:58.333333%}.col-md-8{-ms-flex:0 0 66.666667%;flex:0 0 66.666667%;max-width:66.666667%}.col-md-9{-ms-flex:0 0 75%;flex:0 0 75%;max-width:75%}.col-md-10{-ms-flex:0 0 83.333333%;flex:0 0 83.333333%;max-width:83.333333%}.col-md-11{-ms-flex:0 0 91.666667%;flex:0 0 91.666667%;max-width:91.666667%}.col-md-12{-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}.order-md-first{-ms-flex-order:-1;order:-1}.order-md-last{-ms-flex-order:13;order:13}.order-md-0{-ms-flex-order:0;order:0}.order-md-1{-ms-flex-order:1;order:1}.order-md-2{-ms-flex-order:2;order:2}.order-md-3{-ms-flex-order:3;order:3}.order-md-4{-ms-flex-order:4;order:4}.order-md-5{-ms-flex-order:5;order:5}.order-md-6{-ms-flex-order:6;order:6}.order-md-7{-ms-flex-order:7;order:7}.order-md-8{-ms-flex-order:8;order:8}.order-md-9{-ms-flex-order:9;order:9}.order-md-10{-ms-flex-order:10;order:10}.order-md-11{-ms-flex-order:11;order:11}.order-md-12{-ms-flex-order:12;order:12}.offset-md-0{margin-left:0}.offset-md-1{margin-left:8.333333%}.offset-md-2{margin-left:16.666667%}.offset-md-3{margin-left:25%}.offset-md-4{margin-left:33.333333%}.offset-md-5{margin-left:41.666667%}.offset-md-6{margin-left:50%}.offset-md-7{margin-left:58.333333%}.offset-md-8{margin-left:66.666667%}.offset-md-9{margin-left:75%}.offset-md-10{margin-left:83.333333%}.offset-md-11{margin-left:91.666667%}}@media (min-width:992px){.col-lg{-ms-flex-preferred-size:0;flex-basis:0;-ms-flex-positive:1;flex-grow:1;max-width:100%}.col-lg-auto{-ms-flex:0 0 auto;flex:0 0 auto;width:auto;max-width:none}.col-lg-1{-ms-flex:0 0 8.333333%;flex:0 0 8.333333%;max-width:8.333333%}.col-lg-2{-ms-flex:0 0 16.666667%;flex:0 0 16.666667%;max-width:16.666667%}.col-lg-3{-ms-flex:0 0 25%;flex:0 0 25%;max-width:25%}.col-lg-4{-ms-flex:0 0 33.333333%;flex:0 0 33.333333%;max-width:33.333333%}.col-lg-5{-ms-flex:0 0 41.666667%;flex:0 0 41.666667%;max-width:41.666667%}.col-lg-6{-ms-flex:0 0 50%;flex:0 0 50%;max-width:50%}.col-lg-7{-ms-flex:0 0 58.333333%;flex:0 0 58.333333%;max-width:58.333333%}.col-lg-8{-ms-flex:0 0 66.666667%;flex:0 0 66.666667%;max-width:66.666667%}.col-lg-9{-ms-flex:0 0 75%;flex:0 0 75%;max-width:75%}.col-lg-10{-ms-flex:0 0 83.333333%;flex:0 0 83.333333%;max-width:83.333333%}.col-lg-11{-ms-flex:0 0 91.666667%;flex:0 0 91.666667%;max-width:91.666667%}.col-lg-12{-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}.order-lg-first{-ms-flex-order:-1;order:-1}.order-lg-last{-ms-flex-order:13;order:13}.order-lg-0{-ms-flex-order:0;order:0}.order-lg-1{-ms-flex-order:1;order:1}.order-lg-2{-ms-flex-order:2;order:2}.order-lg-3{-ms-flex-order:3;order:3}.order-lg-4{-ms-flex-order:4;order:4}.order-lg-5{-ms-flex-order:5;order:5}.order-lg-6{-ms-flex-order:6;order:6}.order-lg-7{-ms-flex-order:7;order:7}.order-lg-8{-ms-flex-order:8;order:8}.order-lg-9{-ms-flex-order:9;order:9}.order-lg-10{-ms-flex-order:10;order:10}.order-lg-11{-ms-flex-order:11;order:11}.order-lg-12{-ms-flex-order:12;order:12}.offset-lg-0{margin-left:0}.offset-lg-1{margin-left:8.333333%}.offset-lg-2{margin-left:16.666667%}.offset-lg-3{margin-left:25%}.offset-lg-4{margin-left:33.333333%}.offset-lg-5{margin-left:41.666667%}.offset-lg-6{margin-left:50%}.offset-lg-7{margin-left:58.333333%}.offset-lg-8{margin-left:66.666667%}.offset-lg-9{margin-left:75%}.offset-lg-10{margin-left:83.333333%}.offset-lg-11{margin-left:91.666667%}}@media (min-width:1200px){.col-xl{-ms-flex-preferred-size:0;flex-basis:0;-ms-flex-positive:1;flex-grow:1;max-width:100%}.col-xl-auto{-ms-flex:0 0 auto;flex:0 0 auto;width:auto;max-width:none}.col-xl-1{-ms-flex:0 0 8.333333%;flex:0 0 8.333333%;max-width:8.333333%}.col-xl-2{-ms-flex:0 0 16.666667%;flex:0 0 16.666667%;max-width:16.666667%}.col-xl-3{-ms-flex:0 0 25%;flex:0 0 25%;max-width:25%}.col-xl-4{-ms-flex:0 0 33.333333%;flex:0 0 33.333333%;max-width:33.333333%}.col-xl-5{-ms-flex:0 0 41.666667%;flex:0 0 41.666667%;max-width:41.666667%}.col-xl-6{-ms-flex:0 0 50%;flex:0 0 50%;max-width:50%}.col-xl-7{-ms-flex:0 0 58.333333%;flex:0 0 58.333333%;max-width:58.333333%}.col-xl-8{-ms-flex:0 0 66.666667%;flex:0 0 66.666667%;max-width:66.666667%}.col-xl-9{-ms-flex:0 0 75%;flex:0 0 75%;max-width:75%}.col-xl-10{-ms-flex:0 0 83.333333%;flex:0 0 83.333333%;max-width:83.333333%}.col-xl-11{-ms-flex:0 0 91.666667%;flex:0 0 91.666667%;max-width:91.666667%}.col-xl-12{-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}.order-xl-first{-ms-flex-order:-1;order:-1}.order-xl-last{-ms-flex-order:13;order:13}.order-xl-0{-ms-flex-order:0;order:0}.order-xl-1{-ms-flex-order:1;order:1}.order-xl-2{-ms-flex-order:2;order:2}.order-xl-3{-ms-flex-order:3;order:3}.order-xl-4{-ms-flex-order:4;order:4}.order-xl-5{-ms-flex-order:5;order:5}.order-xl-6{-ms-flex-order:6;order:6}.order-xl-7{-ms-flex-order:7;order:7}.order-xl-8{-ms-flex-order:8;order:8}.order-xl-9{-ms-flex-order:9;order:9}.order-xl-10{-ms-flex-order:10;order:10}.order-xl-11{-ms-flex-order:11;order:11}.order-xl-12{-ms-flex-order:12;order:12}.offset-xl-0{margin-left:0}.offset-xl-1{margin-left:8.333333%}.offset-xl-2{margin-left:16.666667%}.offset-xl-3{margin-left:25%}.offset-xl-4{margin-left:33.333333%}.offset-xl-5{margin-left:41.666667%}.offset-xl-6{margin-left:50%}.offset-xl-7{margin-left:58.333333%}.offset-xl-8{margin-left:66.666667%}.offset-xl-9{margin-left:75%}.offset-xl-10{margin-left:83.333333%}.offset-xl-11{margin-left:91.666667%}}.table{width:100%;max-width:100%;margin-bottom:1rem;background-color:transparent}.table td,.table th{padding:.75rem;vertical-align:top;border-top:1px solid #dee2e6}.table thead th{vertical-align:bottom;border-bottom:2px solid #dee2e6}.table tbody+tbody{border-top:2px solid #dee2e6}.table .table{background-color:#fff}.table-sm td,.table-sm th{padding:.3rem}.table-bordered{border:1px solid #dee2e6}.table-bordered td,.table-bordered th{border:1px solid #dee2e6}.table-bordered thead td,.table-bordered thead th{border-bottom-width:2px}.table-borderless tbody+tbody,.table-borderless td,.table-borderless th,.table-borderless thead th{border:0}.table-striped tbody tr:nth-of-type(odd){background-color:rgba(0,0,0,.05)}.table-hover tbody tr:hover{background-color:rgba(0,0,0,.075)}.table-primary,.table-primary>td,.table-primary>th{background-color:#b8daff}.table-hover .table-primary:hover{background-color:#9fcdff}.table-hover .table-primary:hover>td,.table-hover .table-primary:hover>th{background-color:#9fcdff}.table-secondary,.table-secondary>td,.table-secondary>th{background-color:#d6d8db}.table-hover .table-secondary:hover{background-color:#c8cbcf}.table-hover .table-secondary:hover>td,.table-hover .table-secondary:hover>th{background-color:#c8cbcf}.table-success,.table-success>td,.table-success>th{background-color:#c3e6cb}.table-hover .table-success:hover{background-color:#b1dfbb}.table-hover .table-success:hover>td,.table-hover .table-success:hover>th{background-color:#b1dfbb}.table-info,.table-info>td,.table-info>th{background-color:#bee5eb}.table-hover .table-info:hover{background-color:#abdde5}.table-hover .table-info:hover>td,.table-hover .table-info:hover>th{background-color:#abdde5}.table-warning,.table-warning>td,.table-warning>th{background-color:#ffeeba}.table-hover .table-warning:hover{background-color:#ffe8a1}.table-hover .table-warning:hover>td,.table-hover .table-warning:hover>th{background-color:#ffe8a1}.table-danger,.table-danger>td,.table-danger>th{background-color:#f5c6cb}.table-hover .table-danger:hover{background-color:#f1b0b7}.table-hover .table-danger:hover>td,.table-hover .table-danger:hover>th{background-color:#f1b0b7}.table-light,.table-light>td,.table-light>th{background-color:#fdfdfe}.table-hover .table-light:hover{background-color:#ececf6}.table-hover .table-light:hover>td,.table-hover .table-light:hover>th{background-color:#ececf6}.table-dark,.table-dark>td,.table-dark>th{background-color:#c6c8ca}.table-hover .table-dark:hover{background-color:#b9bbbe}.table-hover .table-dark:hover>td,.table-hover .table-dark:hover>th{background-color:#b9bbbe}.table-active,.table-active>td,.table-active>th{background-color:rgba(0,0,0,.075)}.table-hover .table-active:hover{background-color:rgba(0,0,0,.075)}.table-hover .table-active:hover>td,.table-hover .table-active:hover>th{background-color:rgba(0,0,0,.075)}.table .thead-dark th{color:#fff;background-color:#212529;border-color:#32383e}.table .thead-light th{color:#495057;background-color:#e9ecef;border-color:#dee2e6}.table-dark{color:#fff;background-color:#212529}.table-dark td,.table-dark th,.table-dark thead th{border-color:#32383e}.table-dark.table-bordered{border:0}.table-dark.table-striped tbody tr:nth-of-type(odd){background-color:rgba(255,255,255,.05)}.table-dark.table-hover tbody tr:hover{background-color:rgba(255,255,255,.075)}@media (max-width:575.98px){.table-responsive-sm{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;-ms-overflow-style:-ms-autohiding-scrollbar}.table-responsive-sm>.table-bordered{border:0}}@media (max-width:767.98px){.table-responsive-md{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;-ms-overflow-style:-ms-autohiding-scrollbar}.table-responsive-md>.table-bordered{border:0}}@media (max-width:991.98px){.table-responsive-lg{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;-ms-overflow-style:-ms-autohiding-scrollbar}.table-responsive-lg>.table-bordered{border:0}}@media (max-width:1199.98px){.table-responsive-xl{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;-ms-overflow-style:-ms-autohiding-scrollbar}.table-responsive-xl>.table-bordered{border:0}}.table-responsive{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;-ms-overflow-style:-ms-autohiding-scrollbar}.table-responsive>.table-bordered{border:0}.form-control{display:block;width:100%;padding:.375rem .75rem;font-size:1rem;line-height:1.5;color:#495057;background-color:#fff;background-clip:padding-box;border:1px solid #ced4da;border-radius:.25rem;transition:border-color .15s ease-in-out,box-shadow .15s ease-in-out}@media screen and (prefers-reduced-motion:reduce){.form-control{transition:none}}.form-control::-ms-expand{background-color:transparent;border:0}.form-control:focus{color:#495057;background-color:#fff;border-color:#80bdff;outline:0;box-shadow:0 0 0 .2rem rgba(0,123,255,.25)}.form-control::-webkit-input-placeholder{color:#6c757d;opacity:1}.form-control::-moz-placeholder{color:#6c757d;opacity:1}.form-control:-ms-input-placeholder{color:#6c757d;opacity:1}.form-control::-ms-input-placeholder{color:#6c757d;opacity:1}.form-control::placeholder{color:#6c757d;opacity:1}.form-control:disabled,.form-control[readonly]{background-color:#e9ecef;opacity:1}select.form-control:not([size]):not([multiple]){height:calc(2.25rem + 2px)}select.form-control:focus::-ms-value{color:#495057;background-color:#fff}.form-control-file,.form-control-range{display:block;width:100%}.col-form-label{padding-top:calc(.375rem + 1px);padding-bottom:calc(.375rem + 1px);margin-bottom:0;font-size:inherit;line-height:1.5}.col-form-label-lg{padding-top:calc(.5rem + 1px);padding-bottom:calc(.5rem + 1px);font-size:1.25rem;line-height:1.5}.col-form-label-sm{padding-top:calc(.25rem + 1px);padding-bottom:calc(.25rem + 1px);font-size:.875rem;line-height:1.5}.form-control-plaintext{display:block;width:100%;padding-top:.375rem;padding-bottom:.375rem;margin-bottom:0;line-height:1.5;color:#212529;background-color:transparent;border:solid transparent;border-width:1px 0}.form-control-plaintext.form-control-lg,.form-control-plaintext.form-control-sm,.input-group-lg>.form-control-plaintext.form-control,.input-group-lg>.input-group-append>.form-control-plaintext.btn,.input-group-lg>.input-group-append>.form-control-plaintext.input-group-text,.input-group-lg>.input-group-prepend>.form-control-plaintext.btn,.input-group-lg>.input-group-prepend>.form-control-plaintext.input-group-text,.input-group-sm>.form-control-plaintext.form-control,.input-group-sm>.input-group-append>.form-control-plaintext.btn,.input-group-sm>.input-group-append>.form-control-plaintext.input-group-text,.input-group-sm>.input-group-prepend>.form-control-plaintext.btn,.input-group-sm>.input-group-prepend>.form-control-plaintext.input-group-text{padding-right:0;padding-left:0}.form-control-sm,.input-group-sm>.form-control,.input-group-sm>.input-group-append>.btn,.input-group-sm>.input-group-append>.input-group-text,.input-group-sm>.input-group-prepend>.btn,.input-group-sm>.input-group-prepend>.input-group-text{padding:.25rem .5rem;font-size:.875rem;line-height:1.5;border-radius:.2rem}.input-group-sm>.input-group-append>select.btn:not([size]):not([multiple]),.input-group-sm>.input-group-append>select.input-group-text:not([size]):not([multiple]),.input-group-sm>.input-group-prepend>select.btn:not([size]):not([multiple]),.input-group-sm>.input-group-prepend>select.input-group-text:not([size]):not([multiple]),.input-group-sm>select.form-control:not([size]):not([multiple]),select.form-control-sm:not([size]):not([multiple]){height:calc(1.8125rem + 2px)}.form-control-lg,.input-group-lg>.form-control,.input-group-lg>.input-group-append>.btn,.input-group-lg>.input-group-append>.input-group-text,.input-group-lg>.input-group-prepend>.btn,.input-group-lg>.input-group-prepend>.input-group-text{padding:.5rem 1rem;font-size:1.25rem;line-height:1.5;border-radius:.3rem}.input-group-lg>.input-group-append>select.btn:not([size]):not([multiple]),.input-group-lg>.input-group-append>select.input-group-text:not([size]):not([multiple]),.input-group-lg>.input-group-prepend>select.btn:not([size]):not([multiple]),.input-group-lg>.input-group-prepend>select.input-group-text:not([size]):not([multiple]),.input-group-lg>select.form-control:not([size]):not([multiple]),select.form-control-lg:not([size]):not([multiple]){height:calc(2.875rem + 2px)}.form-group{margin-bottom:1rem}.form-text{display:block;margin-top:.25rem}.form-row{display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;margin-right:-5px;margin-left:-5px}.form-row>.col,.form-row>[class*=col-]{padding-right:5px;padding-left:5px}.form-check{position:relative;display:block;padding-left:1.25rem}.form-check-input{position:absolute;margin-top:.3rem;margin-left:-1.25rem}.form-check-input:disabled~.form-check-label{color:#6c757d}.form-check-label{margin-bottom:0}.form-check-inline{display:-ms-inline-flexbox;display:inline-flex;-ms-flex-align:center;align-items:center;padding-left:0;margin-right:.75rem}.form-check-inline .form-check-input{position:static;margin-top:0;margin-right:.3125rem;margin-left:0}.valid-feedback{display:none;width:100%;margin-top:.25rem;font-size:80%;color:#28a745}.valid-tooltip{position:absolute;top:100%;z-index:5;display:none;max-width:100%;padding:.5rem;margin-top:.1rem;font-size:.875rem;line-height:1;color:#fff;background-color:rgba(40,167,69,.8);border-radius:.2rem}.custom-select.is-valid,.form-control.is-valid,.was-validated .custom-select:valid,.was-validated .form-control:valid{border-color:#28a745}.custom-select.is-valid:focus,.form-control.is-valid:focus,.was-validated .custom-select:valid:focus,.was-validated .form-control:valid:focus{border-color:#28a745;box-shadow:0 0 0 .2rem rgba(40,167,69,.25)}.custom-select.is-valid~.valid-feedback,.custom-select.is-valid~.valid-tooltip,.form-control.is-valid~.valid-feedback,.form-control.is-valid~.valid-tooltip,.was-validated .custom-select:valid~.valid-feedback,.was-validated .custom-select:valid~.valid-tooltip,.was-validated .form-control:valid~.valid-feedback,.was-validated .form-control:valid~.valid-tooltip{display:block}.form-control-file.is-valid~.valid-feedback,.form-control-file.is-valid~.valid-tooltip,.was-validated .form-control-file:valid~.valid-feedback,.was-validated .form-control-file:valid~.valid-tooltip{display:block}.form-check-input.is-valid~.form-check-label,.was-validated .form-check-input:valid~.form-check-label{color:#28a745}.form-check-input.is-valid~.valid-feedback,.form-check-input.is-valid~.valid-tooltip,.was-validated .form-check-input:valid~.valid-feedback,.was-validated .form-check-input:valid~.valid-tooltip{display:block}.custom-control-input.is-valid~.custom-control-label,.was-validated .custom-control-input:valid~.custom-control-label{color:#28a745}.custom-control-input.is-valid~.custom-control-label::before,.was-validated .custom-control-input:valid~.custom-control-label::before{background-color:#71dd8a}.custom-control-input.is-valid~.valid-feedback,.custom-control-input.is-valid~.valid-tooltip,.was-validated .custom-control-input:valid~.valid-feedback,.was-validated .custom-control-input:valid~.valid-tooltip{display:block}.custom-control-input.is-valid:checked~.custom-control-label::before,.was-validated .custom-control-input:valid:checked~.custom-control-label::before{background-color:#34ce57}.custom-control-input.is-valid:focus~.custom-control-label::before,.was-validated .custom-control-input:valid:focus~.custom-control-label::before{box-shadow:0 0 0 1px #fff,0 0 0 .2rem rgba(40,167,69,.25)}.custom-file-input.is-valid~.custom-file-label,.was-validated .custom-file-input:valid~.custom-file-label{border-color:#28a745}.custom-file-input.is-valid~.custom-file-label::before,.was-validated .custom-file-input:valid~.custom-file-label::before{border-color:inherit}.custom-file-input.is-valid~.valid-feedback,.custom-file-input.is-valid~.valid-tooltip,.was-validated .custom-file-input:valid~.valid-feedback,.was-validated .custom-file-input:valid~.valid-tooltip{display:block}.custom-file-input.is-valid:focus~.custom-file-label,.was-validated .custom-file-input:valid:focus~.custom-file-label{box-shadow:0 0 0 .2rem rgba(40,167,69,.25)}.invalid-feedback{display:none;width:100%;margin-top:.25rem;font-size:80%;color:#dc3545}.invalid-tooltip{position:absolute;top:100%;z-index:5;display:none;max-width:100%;padding:.5rem;margin-top:.1rem;font-size:.875rem;line-height:1;color:#fff;background-color:rgba(220,53,69,.8);border-radius:.2rem}.custom-select.is-invalid,.form-control.is-invalid,.was-validated .custom-select:invalid,.was-validated .form-control:invalid{border-color:#dc3545}.custom-select.is-invalid:focus,.form-control.is-invalid:focus,.was-validated .custom-select:invalid:focus,.was-validated .form-control:invalid:focus{border-color:#dc3545;box-shadow:0 0 0 .2rem rgba(220,53,69,.25)}.custom-select.is-invalid~.invalid-feedback,.custom-select.is-invalid~.invalid-tooltip,.form-control.is-invalid~.invalid-feedback,.form-control.is-invalid~.invalid-tooltip,.was-validated .custom-select:invalid~.invalid-feedback,.was-validated .custom-select:invalid~.invalid-tooltip,.was-validated .form-control:invalid~.invalid-feedback,.was-validated .form-control:invalid~.invalid-tooltip{display:block}.form-control-file.is-invalid~.invalid-feedback,.form-control-file.is-invalid~.invalid-tooltip,.was-validated .form-control-file:invalid~.invalid-feedback,.was-validated .form-control-file:invalid~.invalid-tooltip{display:block}.form-check-input.is-invalid~.form-check-label,.was-validated .form-check-input:invalid~.form-check-label{color:#dc3545}.form-check-input.is-invalid~.invalid-feedback,.form-check-input.is-invalid~.invalid-tooltip,.was-validated .form-check-input:invalid~.invalid-feedback,.was-validated .form-check-input:invalid~.invalid-tooltip{display:block}.custom-control-input.is-invalid~.custom-control-label,.was-validated .custom-control-input:invalid~.custom-control-label{color:#dc3545}.custom-control-input.is-invalid~.custom-control-label::before,.was-validated .custom-control-input:invalid~.custom-control-label::before{background-color:#efa2a9}.custom-control-input.is-invalid~.invalid-feedback,.custom-control-input.is-invalid~.invalid-tooltip,.was-validated .custom-control-input:invalid~.invalid-feedback,.was-validated .custom-control-input:invalid~.invalid-tooltip{display:block}.custom-control-input.is-invalid:checked~.custom-control-label::before,.was-validated .custom-control-input:invalid:checked~.custom-control-label::before{background-color:#e4606d}.custom-control-input.is-invalid:focus~.custom-control-label::before,.was-validated .custom-control-input:invalid:focus~.custom-control-label::before{box-shadow:0 0 0 1px #fff,0 0 0 .2rem rgba(220,53,69,.25)}.custom-file-input.is-invalid~.custom-file-label,.was-validated .custom-file-input:invalid~.custom-file-label{border-color:#dc3545}.custom-file-input.is-invalid~.custom-file-label::before,.was-validated .custom-file-input:invalid~.custom-file-label::before{border-color:inherit}.custom-file-input.is-invalid~.invalid-feedback,.custom-file-input.is-invalid~.invalid-tooltip,.was-validated .custom-file-input:invalid~.invalid-feedback,.was-validated .custom-file-input:invalid~.invalid-tooltip{display:block}.custom-file-input.is-invalid:focus~.custom-file-label,.was-validated .custom-file-input:invalid:focus~.custom-file-label{box-shadow:0 0 0 .2rem rgba(220,53,69,.25)}.form-inline{display:-ms-flexbox;display:flex;-ms-flex-flow:row wrap;flex-flow:row wrap;-ms-flex-align:center;align-items:center}.form-inline .form-check{width:100%}@media (min-width:576px){.form-inline label{display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;margin-bottom:0}.form-inline .form-group{display:-ms-flexbox;display:flex;-ms-flex:0 0 auto;flex:0 0 auto;-ms-flex-flow:row wrap;flex-flow:row wrap;-ms-flex-align:center;align-items:center;margin-bottom:0}.form-inline .form-control{display:inline-block;width:auto;vertical-align:middle}.form-inline .form-control-plaintext{display:inline-block}.form-inline .custom-select,.form-inline .input-group{width:auto}.form-inline .form-check{display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;width:auto;padding-left:0}.form-inline .form-check-input{position:relative;margin-top:0;margin-right:.25rem;margin-left:0}.form-inline .custom-control{-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center}.form-inline .custom-control-label{margin-bottom:0}}.btn{display:inline-block;font-weight:400;text-align:center;white-space:nowrap;vertical-align:middle;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;border:1px solid transparent;padding:.375rem .75rem;font-size:1rem;line-height:1.5;border-radius:.25rem;transition:color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out}@media screen and (prefers-reduced-motion:reduce){.btn{transition:none}}.btn:focus,.btn:hover{text-decoration:none}.btn.focus,.btn:focus{outline:0;box-shadow:0 0 0 .2rem rgba(0,123,255,.25)}.btn.disabled,.btn:disabled{opacity:.65}.btn:not(:disabled):not(.disabled){cursor:pointer}.btn:not(:disabled):not(.disabled).active,.btn:not(:disabled):not(.disabled):active{background-image:none}a.btn.disabled,fieldset:disabled a.btn{pointer-events:none}.btn-primary{color:#fff;background-color:#007bff;border-color:#007bff}.btn-primary:hover{color:#fff;background-color:#0069d9;border-color:#0062cc}.btn-primary.focus,.btn-primary:focus{box-shadow:0 0 0 .2rem rgba(0,123,255,.5)}.btn-primary.disabled,.btn-primary:disabled{color:#fff;background-color:#007bff;border-color:#007bff}.btn-primary:not(:disabled):not(.disabled).active,.btn-primary:not(:disabled):not(.disabled):active,.show>.btn-primary.dropdown-toggle{color:#fff;background-color:#0062cc;border-color:#005cbf}.btn-primary:not(:disabled):not(.disabled).active:focus,.btn-primary:not(:disabled):not(.disabled):active:focus,.show>.btn-primary.dropdown-toggle:focus{box-shadow:0 0 0 .2rem rgba(0,123,255,.5)}.btn-secondary{color:#fff;background-color:#6c757d;border-color:#6c757d}.btn-secondary:hover{color:#fff;background-color:#5a6268;border-color:#545b62}.btn-secondary.focus,.btn-secondary:focus{box-shadow:0 0 0 .2rem rgba(108,117,125,.5)}.btn-secondary.disabled,.btn-secondary:disabled{color:#fff;background-color:#6c757d;border-color:#6c757d}.btn-secondary:not(:disabled):not(.disabled).active,.btn-secondary:not(:disabled):not(.disabled):active,.show>.btn-secondary.dropdown-toggle{color:#fff;background-color:#545b62;border-color:#4e555b}.btn-secondary:not(:disabled):not(.disabled).active:focus,.btn-secondary:not(:disabled):not(.disabled):active:focus,.show>.btn-secondary.dropdown-toggle:focus{box-shadow:0 0 0 .2rem rgba(108,117,125,.5)}.btn-success{color:#fff;background-color:#28a745;border-color:#28a745}.btn-success:hover{color:#fff;background-color:#218838;border-color:#1e7e34}.btn-success.focus,.btn-success:focus{box-shadow:0 0 0 .2rem rgba(40,167,69,.5)}.btn-success.disabled,.btn-success:disabled{color:#fff;background-color:#28a745;border-color:#28a745}.btn-success:not(:disabled):not(.disabled).active,.btn-success:not(:disabled):not(.disabled):active,.show>.btn-success.dropdown-toggle{color:#fff;background-color:#1e7e34;border-color:#1c7430}.btn-success:not(:disabled):not(.disabled).active:focus,.btn-success:not(:disabled):not(.disabled):active:focus,.show>.btn-success.dropdown-toggle:focus{box-shadow:0 0 0 .2rem rgba(40,167,69,.5)}.btn-info{color:#fff;background-color:#17a2b8;border-color:#17a2b8}.btn-info:hover{color:#fff;background-color:#138496;border-color:#117a8b}.btn-info.focus,.btn-info:focus{box-shadow:0 0 0 .2rem rgba(23,162,184,.5)}.btn-info.disabled,.btn-info:disabled{color:#fff;background-color:#17a2b8;border-color:#17a2b8}.btn-info:not(:disabled):not(.disabled).active,.btn-info:not(:disabled):not(.disabled):active,.show>.btn-info.dropdown-toggle{color:#fff;background-color:#117a8b;border-color:#10707f}.btn-info:not(:disabled):not(.disabled).active:focus,.btn-info:not(:disabled):not(.disabled):active:focus,.show>.btn-info.dropdown-toggle:focus{box-shadow:0 0 0 .2rem rgba(23,162,184,.5)}.btn-warning{color:#212529;background-color:#ffc107;border-color:#ffc107}.btn-warning:hover{color:#212529;background-color:#e0a800;border-color:#d39e00}.btn-warning.focus,.btn-warning:focus{box-shadow:0 0 0 .2rem rgba(255,193,7,.5)}.btn-warning.disabled,.btn-warning:disabled{color:#212529;background-color:#ffc107;border-color:#ffc107}.btn-warning:not(:disabled):not(.disabled).active,.btn-warning:not(:disabled):not(.disabled):active,.show>.btn-warning.dropdown-toggle{color:#212529;background-color:#d39e00;border-color:#c69500}.btn-warning:not(:disabled):not(.disabled).active:focus,.btn-warning:not(:disabled):not(.disabled):active:focus,.show>.btn-warning.dropdown-toggle:focus{box-shadow:0 0 0 .2rem rgba(255,193,7,.5)}.btn-danger{color:#fff;background-color:#dc3545;border-color:#dc3545}.btn-danger:hover{color:#fff;background-color:#c82333;border-color:#bd2130}.btn-danger.focus,.btn-danger:focus{box-shadow:0 0 0 .2rem rgba(220,53,69,.5)}.btn-danger.disabled,.btn-danger:disabled{color:#fff;background-color:#dc3545;border-color:#dc3545}.btn-danger:not(:disabled):not(.disabled).active,.btn-danger:not(:disabled):not(.disabled):active,.show>.btn-danger.dropdown-toggle{color:#fff;background-color:#bd2130;border-color:#b21f2d}.btn-danger:not(:disabled):not(.disabled).active:focus,.btn-danger:not(:disabled):not(.disabled):active:focus,.show>.btn-danger.dropdown-toggle:focus{box-shadow:0 0 0 .2rem rgba(220,53,69,.5)}.btn-light{color:#212529;background-color:#f8f9fa;border-color:#f8f9fa}.btn-light:hover{color:#212529;background-color:#e2e6ea;border-color:#dae0e5}.btn-light.focus,.btn-light:focus{box-shadow:0 0 0 .2rem rgba(248,249,250,.5)}.btn-light.disabled,.btn-light:disabled{color:#212529;background-color:#f8f9fa;border-color:#f8f9fa}.btn-light:not(:disabled):not(.disabled).active,.btn-light:not(:disabled):not(.disabled):active,.show>.btn-light.dropdown-toggle{color:#212529;background-color:#dae0e5;border-color:#d3d9df}.btn-light:not(:disabled):not(.disabled).active:focus,.btn-light:not(:disabled):not(.disabled):active:focus,.show>.btn-light.dropdown-toggle:focus{box-shadow:0 0 0 .2rem rgba(248,249,250,.5)}.btn-dark{color:#fff;background-color:#343a40;border-color:#343a40}.btn-dark:hover{color:#fff;background-color:#23272b;border-color:#1d2124}.btn-dark.focus,.btn-dark:focus{box-shadow:0 0 0 .2rem rgba(52,58,64,.5)}.btn-dark.disabled,.btn-dark:disabled{color:#fff;background-color:#343a40;border-color:#343a40}.btn-dark:not(:disabled):not(.disabled).active,.btn-dark:not(:disabled):not(.disabled):active,.show>.btn-dark.dropdown-toggle{color:#fff;background-color:#1d2124;border-color:#171a1d}.btn-dark:not(:disabled):not(.disabled).active:focus,.btn-dark:not(:disabled):not(.disabled):active:focus,.show>.btn-dark.dropdown-toggle:focus{box-shadow:0 0 0 .2rem rgba(52,58,64,.5)}.btn-outline-primary{color:#007bff;background-color:transparent;background-image:none;border-color:#007bff}.btn-outline-primary:hover{color:#fff;background-color:#007bff;border-color:#007bff}.btn-outline-primary.focus,.btn-outline-primary:focus{box-shadow:0 0 0 .2rem rgba(0,123,255,.5)}.btn-outline-primary.disabled,.btn-outline-primary:disabled{color:#007bff;background-color:transparent}.btn-outline-primary:not(:disabled):not(.disabled).active,.btn-outline-primary:not(:disabled):not(.disabled):active,.show>.btn-outline-primary.dropdown-toggle{color:#fff;background-color:#007bff;border-color:#007bff}.btn-outline-primary:not(:disabled):not(.disabled).active:focus,.btn-outline-primary:not(:disabled):not(.disabled):active:focus,.show>.btn-outline-primary.dropdown-toggle:focus{box-shadow:0 0 0 .2rem rgba(0,123,255,.5)}.btn-outline-secondary{color:#6c757d;background-color:transparent;background-image:none;border-color:#6c757d}.btn-outline-secondary:hover{color:#fff;background-color:#6c757d;border-color:#6c757d}.btn-outline-secondary.focus,.btn-outline-secondary:focus{box-shadow:0 0 0 .2rem rgba(108,117,125,.5)}.btn-outline-secondary.disabled,.btn-outline-secondary:disabled{color:#6c757d;background-color:transparent}.btn-outline-secondary:not(:disabled):not(.disabled).active,.btn-outline-secondary:not(:disabled):not(.disabled):active,.show>.btn-outline-secondary.dropdown-toggle{color:#fff;background-color:#6c757d;border-color:#6c757d}.btn-outline-secondary:not(:disabled):not(.disabled).active:focus,.btn-outline-secondary:not(:disabled):not(.disabled):active:focus,.show>.btn-outline-secondary.dropdown-toggle:focus{box-shadow:0 0 0 .2rem rgba(108,117,125,.5)}.btn-outline-success{color:#28a745;background-color:transparent;background-image:none;border-color:#28a745}.btn-outline-success:hover{color:#fff;background-color:#28a745;border-color:#28a745}.btn-outline-success.focus,.btn-outline-success:focus{box-shadow:0 0 0 .2rem rgba(40,167,69,.5)}.btn-outline-success.disabled,.btn-outline-success:disabled{color:#28a745;background-color:transparent}.btn-outline-success:not(:disabled):not(.disabled).active,.btn-outline-success:not(:disabled):not(.disabled):active,.show>.btn-outline-success.dropdown-toggle{color:#fff;background-color:#28a745;border-color:#28a745}.btn-outline-success:not(:disabled):not(.disabled).active:focus,.btn-outline-success:not(:disabled):not(.disabled):active:focus,.show>.btn-outline-success.dropdown-toggle:focus{box-shadow:0 0 0 .2rem rgba(40,167,69,.5)}.btn-outline-info{color:#17a2b8;background-color:transparent;background-image:none;border-color:#17a2b8}.btn-outline-info:hover{color:#fff;background-color:#17a2b8;border-color:#17a2b8}.btn-outline-info.focus,.btn-outline-info:focus{box-shadow:0 0 0 .2rem rgba(23,162,184,.5)}.btn-outline-info.disabled,.btn-outline-info:disabled{color:#17a2b8;background-color:transparent}.btn-outline-info:not(:disabled):not(.disabled).active,.btn-outline-info:not(:disabled):not(.disabled):active,.show>.btn-outline-info.dropdown-toggle{color:#fff;background-color:#17a2b8;border-color:#17a2b8}.btn-outline-info:not(:disabled):not(.disabled).active:focus,.btn-outline-info:not(:disabled):not(.disabled):active:focus,.show>.btn-outline-info.dropdown-toggle:focus{box-shadow:0 0 0 .2rem rgba(23,162,184,.5)}.btn-outline-warning{color:#ffc107;background-color:transparent;background-image:none;border-color:#ffc107}.btn-outline-warning:hover{color:#212529;background-color:#ffc107;border-color:#ffc107}.btn-outline-warning.focus,.btn-outline-warning:focus{box-shadow:0 0 0 .2rem rgba(255,193,7,.5)}.btn-outline-warning.disabled,.btn-outline-warning:disabled{color:#ffc107;background-color:transparent}.btn-outline-warning:not(:disabled):not(.disabled).active,.btn-outline-warning:not(:disabled):not(.disabled):active,.show>.btn-outline-warning.dropdown-toggle{color:#212529;background-color:#ffc107;border-color:#ffc107}.btn-outline-warning:not(:disabled):not(.disabled).active:focus,.btn-outline-warning:not(:disabled):not(.disabled):active:focus,.show>.btn-outline-warning.dropdown-toggle:focus{box-shadow:0 0 0 .2rem rgba(255,193,7,.5)}.btn-outline-danger{color:#dc3545;background-color:transparent;background-image:none;border-color:#dc3545}.btn-outline-danger:hover{color:#fff;background-color:#dc3545;border-color:#dc3545}.btn-outline-danger.focus,.btn-outline-danger:focus{box-shadow:0 0 0 .2rem rgba(220,53,69,.5)}.btn-outline-danger.disabled,.btn-outline-danger:disabled{color:#dc3545;background-color:transparent}.btn-outline-danger:not(:disabled):not(.disabled).active,.btn-outline-danger:not(:disabled):not(.disabled):active,.show>.btn-outline-danger.dropdown-toggle{color:#fff;background-color:#dc3545;border-color:#dc3545}.btn-outline-danger:not(:disabled):not(.disabled).active:focus,.btn-outline-danger:not(:disabled):not(.disabled):active:focus,.show>.btn-outline-danger.dropdown-toggle:focus{box-shadow:0 0 0 .2rem rgba(220,53,69,.5)}.btn-outline-light{color:#f8f9fa;background-color:transparent;background-image:none;border-color:#f8f9fa}.btn-outline-light:hover{color:#212529;background-color:#f8f9fa;border-color:#f8f9fa}.btn-outline-light.focus,.btn-outline-light:focus{box-shadow:0 0 0 .2rem rgba(248,249,250,.5)}.btn-outline-light.disabled,.btn-outline-light:disabled{color:#f8f9fa;background-color:transparent}.btn-outline-light:not(:disabled):not(.disabled).active,.btn-outline-light:not(:disabled):not(.disabled):active,.show>.btn-outline-light.dropdown-toggle{color:#212529;background-color:#f8f9fa;border-color:#f8f9fa}.btn-outline-light:not(:disabled):not(.disabled).active:focus,.btn-outline-light:not(:disabled):not(.disabled):active:focus,.show>.btn-outline-light.dropdown-toggle:focus{box-shadow:0 0 0 .2rem rgba(248,249,250,.5)}.btn-outline-dark{color:#343a40;background-color:transparent;background-image:none;border-color:#343a40}.btn-outline-dark:hover{color:#fff;background-color:#343a40;border-color:#343a40}.btn-outline-dark.focus,.btn-outline-dark:focus{box-shadow:0 0 0 .2rem rgba(52,58,64,.5)}.btn-outline-dark.disabled,.btn-outline-dark:disabled{color:#343a40;background-color:transparent}.btn-outline-dark:not(:disabled):not(.disabled).active,.btn-outline-dark:not(:disabled):not(.disabled):active,.show>.btn-outline-dark.dropdown-toggle{color:#fff;background-color:#343a40;border-color:#343a40}.btn-outline-dark:not(:disabled):not(.disabled).active:focus,.btn-outline-dark:not(:disabled):not(.disabled):active:focus,.show>.btn-outline-dark.dropdown-toggle:focus{box-shadow:0 0 0 .2rem rgba(52,58,64,.5)}.btn-link{font-weight:400;color:#007bff;background-color:transparent}.btn-link:hover{color:#0056b3;text-decoration:underline;background-color:transparent;border-color:transparent}.btn-link.focus,.btn-link:focus{text-decoration:underline;border-color:transparent;box-shadow:none}.btn-link.disabled,.btn-link:disabled{color:#6c757d;pointer-events:none}.btn-group-lg>.btn,.btn-lg{padding:.5rem 1rem;font-size:1.25rem;line-height:1.5;border-radius:.3rem}.btn-group-sm>.btn,.btn-sm{padding:.25rem .5rem;font-size:.875rem;line-height:1.5;border-radius:.2rem}.btn-block{display:block;width:100%}.btn-block+.btn-block{margin-top:.5rem}input[type=button].btn-block,input[type=reset].btn-block,input[type=submit].btn-block{width:100%}.fade{transition:opacity .15s linear}@media screen and (prefers-reduced-motion:reduce){.fade{transition:none}}.fade:not(.show){opacity:0}.collapse:not(.show){display:none}.collapsing{position:relative;height:0;overflow:hidden;transition:height .35s ease}@media screen and (prefers-reduced-motion:reduce){.collapsing{transition:none}}.dropdown,.dropleft,.dropright,.dropup{position:relative}.dropdown-toggle::after{display:inline-block;width:0;height:0;margin-left:.255em;vertical-align:.255em;content:\"\";border-top:.3em solid;border-right:.3em solid transparent;border-bottom:0;border-left:.3em solid transparent}.dropdown-toggle:empty::after{margin-left:0}.dropdown-menu{position:absolute;top:100%;left:0;z-index:1000;display:none;float:left;min-width:10rem;padding:.5rem 0;margin:.125rem 0 0;font-size:1rem;color:#212529;text-align:left;list-style:none;background-color:#fff;background-clip:padding-box;border:1px solid rgba(0,0,0,.15);border-radius:.25rem}.dropdown-menu-right{right:0;left:auto}.dropup .dropdown-menu{top:auto;bottom:100%;margin-top:0;margin-bottom:.125rem}.dropup .dropdown-toggle::after{display:inline-block;width:0;height:0;margin-left:.255em;vertical-align:.255em;content:\"\";border-top:0;border-right:.3em solid transparent;border-bottom:.3em solid;border-left:.3em solid transparent}.dropup .dropdown-toggle:empty::after{margin-left:0}.dropright .dropdown-menu{top:0;right:auto;left:100%;margin-top:0;margin-left:.125rem}.dropright .dropdown-toggle::after{display:inline-block;width:0;height:0;margin-left:.255em;vertical-align:.255em;content:\"\";border-top:.3em solid transparent;border-right:0;border-bottom:.3em solid transparent;border-left:.3em solid}.dropright .dropdown-toggle:empty::after{margin-left:0}.dropright .dropdown-toggle::after{vertical-align:0}.dropleft .dropdown-menu{top:0;right:100%;left:auto;margin-top:0;margin-right:.125rem}.dropleft .dropdown-toggle::after{display:inline-block;width:0;height:0;margin-left:.255em;vertical-align:.255em;content:\"\"}.dropleft .dropdown-toggle::after{display:none}.dropleft .dropdown-toggle::before{display:inline-block;width:0;height:0;margin-right:.255em;vertical-align:.255em;content:\"\";border-top:.3em solid transparent;border-right:.3em solid;border-bottom:.3em solid transparent}.dropleft .dropdown-toggle:empty::after{margin-left:0}.dropleft .dropdown-toggle::before{vertical-align:0}.dropdown-menu[x-placement^=bottom],.dropdown-menu[x-placement^=left],.dropdown-menu[x-placement^=right],.dropdown-menu[x-placement^=top]{right:auto;bottom:auto}.dropdown-divider{height:0;margin:.5rem 0;overflow:hidden;border-top:1px solid #e9ecef}.dropdown-item{display:block;width:100%;padding:.25rem 1.5rem;clear:both;font-weight:400;color:#212529;text-align:inherit;white-space:nowrap;background-color:transparent;border:0}.dropdown-item:focus,.dropdown-item:hover{color:#16181b;text-decoration:none;background-color:#f8f9fa}.dropdown-item.active,.dropdown-item:active{color:#fff;text-decoration:none;background-color:#007bff}.dropdown-item.disabled,.dropdown-item:disabled{color:#6c757d;background-color:transparent}.dropdown-menu.show{display:block}.dropdown-header{display:block;padding:.5rem 1.5rem;margin-bottom:0;font-size:.875rem;color:#6c757d;white-space:nowrap}.dropdown-item-text{display:block;padding:.25rem 1.5rem;color:#212529}.btn-group,.btn-group-vertical{position:relative;display:-ms-inline-flexbox;display:inline-flex;vertical-align:middle}.btn-group-vertical>.btn,.btn-group>.btn{position:relative;-ms-flex:0 1 auto;flex:0 1 auto}.btn-group-vertical>.btn:hover,.btn-group>.btn:hover{z-index:1}.btn-group-vertical>.btn.active,.btn-group-vertical>.btn:active,.btn-group-vertical>.btn:focus,.btn-group>.btn.active,.btn-group>.btn:active,.btn-group>.btn:focus{z-index:1}.btn-group .btn+.btn,.btn-group .btn+.btn-group,.btn-group .btn-group+.btn,.btn-group .btn-group+.btn-group,.btn-group-vertical .btn+.btn,.btn-group-vertical .btn+.btn-group,.btn-group-vertical .btn-group+.btn,.btn-group-vertical .btn-group+.btn-group{margin-left:-1px}.btn-toolbar{display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;-ms-flex-pack:start;justify-content:flex-start}.btn-toolbar .input-group{width:auto}.btn-group>.btn:first-child{margin-left:0}.btn-group>.btn-group:not(:last-child)>.btn,.btn-group>.btn:not(:last-child):not(.dropdown-toggle){border-top-right-radius:0;border-bottom-right-radius:0}.btn-group>.btn-group:not(:first-child)>.btn,.btn-group>.btn:not(:first-child){border-top-left-radius:0;border-bottom-left-radius:0}.dropdown-toggle-split{padding-right:.5625rem;padding-left:.5625rem}.dropdown-toggle-split::after,.dropright .dropdown-toggle-split::after,.dropup .dropdown-toggle-split::after{margin-left:0}.dropleft .dropdown-toggle-split::before{margin-right:0}.btn-group-sm>.btn+.dropdown-toggle-split,.btn-sm+.dropdown-toggle-split{padding-right:.375rem;padding-left:.375rem}.btn-group-lg>.btn+.dropdown-toggle-split,.btn-lg+.dropdown-toggle-split{padding-right:.75rem;padding-left:.75rem}.btn-group-vertical{-ms-flex-direction:column;flex-direction:column;-ms-flex-align:start;align-items:flex-start;-ms-flex-pack:center;justify-content:center}.btn-group-vertical .btn,.btn-group-vertical .btn-group{width:100%}.btn-group-vertical>.btn+.btn,.btn-group-vertical>.btn+.btn-group,.btn-group-vertical>.btn-group+.btn,.btn-group-vertical>.btn-group+.btn-group{margin-top:-1px;margin-left:0}.btn-group-vertical>.btn-group:not(:last-child)>.btn,.btn-group-vertical>.btn:not(:last-child):not(.dropdown-toggle){border-bottom-right-radius:0;border-bottom-left-radius:0}.btn-group-vertical>.btn-group:not(:first-child)>.btn,.btn-group-vertical>.btn:not(:first-child){border-top-left-radius:0;border-top-right-radius:0}.btn-group-toggle>.btn,.btn-group-toggle>.btn-group>.btn{margin-bottom:0}.btn-group-toggle>.btn input[type=checkbox],.btn-group-toggle>.btn input[type=radio],.btn-group-toggle>.btn-group>.btn input[type=checkbox],.btn-group-toggle>.btn-group>.btn input[type=radio]{position:absolute;clip:rect(0,0,0,0);pointer-events:none}.input-group{position:relative;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;-ms-flex-align:stretch;align-items:stretch;width:100%}.input-group>.custom-file,.input-group>.custom-select,.input-group>.form-control{position:relative;-ms-flex:1 1 auto;flex:1 1 auto;width:1%;margin-bottom:0}.input-group>.custom-file:focus,.input-group>.custom-select:focus,.input-group>.form-control:focus{z-index:3}.input-group>.custom-file+.custom-file,.input-group>.custom-file+.custom-select,.input-group>.custom-file+.form-control,.input-group>.custom-select+.custom-file,.input-group>.custom-select+.custom-select,.input-group>.custom-select+.form-control,.input-group>.form-control+.custom-file,.input-group>.form-control+.custom-select,.input-group>.form-control+.form-control{margin-left:-1px}.input-group>.custom-select:not(:last-child),.input-group>.form-control:not(:last-child){border-top-right-radius:0;border-bottom-right-radius:0}.input-group>.custom-select:not(:first-child),.input-group>.form-control:not(:first-child){border-top-left-radius:0;border-bottom-left-radius:0}.input-group>.custom-file{display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center}.input-group>.custom-file:not(:last-child) .custom-file-label,.input-group>.custom-file:not(:last-child) .custom-file-label::after{border-top-right-radius:0;border-bottom-right-radius:0}.input-group>.custom-file:not(:first-child) .custom-file-label{border-top-left-radius:0;border-bottom-left-radius:0}.input-group-append,.input-group-prepend{display:-ms-flexbox;display:flex}.input-group-append .btn,.input-group-prepend .btn{position:relative;z-index:2}.input-group-append .btn+.btn,.input-group-append .btn+.input-group-text,.input-group-append .input-group-text+.btn,.input-group-append .input-group-text+.input-group-text,.input-group-prepend .btn+.btn,.input-group-prepend .btn+.input-group-text,.input-group-prepend .input-group-text+.btn,.input-group-prepend .input-group-text+.input-group-text{margin-left:-1px}.input-group-prepend{margin-right:-1px}.input-group-append{margin-left:-1px}.input-group-text{display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;padding:.375rem .75rem;margin-bottom:0;font-size:1rem;font-weight:400;line-height:1.5;color:#495057;text-align:center;white-space:nowrap;background-color:#e9ecef;border:1px solid #ced4da;border-radius:.25rem}.input-group-text input[type=checkbox],.input-group-text input[type=radio]{margin-top:0}.input-group>.input-group-append:last-child>.btn:not(:last-child):not(.dropdown-toggle),.input-group>.input-group-append:last-child>.input-group-text:not(:last-child),.input-group>.input-group-append:not(:last-child)>.btn,.input-group>.input-group-append:not(:last-child)>.input-group-text,.input-group>.input-group-prepend>.btn,.input-group>.input-group-prepend>.input-group-text{border-top-right-radius:0;border-bottom-right-radius:0}.input-group>.input-group-append>.btn,.input-group>.input-group-append>.input-group-text,.input-group>.input-group-prepend:first-child>.btn:not(:first-child),.input-group>.input-group-prepend:first-child>.input-group-text:not(:first-child),.input-group>.input-group-prepend:not(:first-child)>.btn,.input-group>.input-group-prepend:not(:first-child)>.input-group-text{border-top-left-radius:0;border-bottom-left-radius:0}.custom-control{position:relative;display:block;min-height:1.5rem;padding-left:1.5rem}.custom-control-inline{display:-ms-inline-flexbox;display:inline-flex;margin-right:1rem}.custom-control-input{position:absolute;z-index:-1;opacity:0}.custom-control-input:checked~.custom-control-label::before{color:#fff;background-color:#007bff}.custom-control-input:focus~.custom-control-label::before{box-shadow:0 0 0 1px #fff,0 0 0 .2rem rgba(0,123,255,.25)}.custom-control-input:active~.custom-control-label::before{color:#fff;background-color:#b3d7ff}.custom-control-input:disabled~.custom-control-label{color:#6c757d}.custom-control-input:disabled~.custom-control-label::before{background-color:#e9ecef}.custom-control-label{position:relative;margin-bottom:0}.custom-control-label::before{position:absolute;top:.25rem;left:-1.5rem;display:block;width:1rem;height:1rem;pointer-events:none;content:\"\";-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;background-color:#dee2e6}.custom-control-label::after{position:absolute;top:.25rem;left:-1.5rem;display:block;width:1rem;height:1rem;content:\"\";background-repeat:no-repeat;background-position:center center;background-size:50% 50%}.custom-checkbox .custom-control-label::before{border-radius:.25rem}.custom-checkbox .custom-control-input:checked~.custom-control-label::before{background-color:#007bff}.custom-checkbox .custom-control-input:checked~.custom-control-label::after{background-image:url(\"data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E\")}.custom-checkbox .custom-control-input:indeterminate~.custom-control-label::before{background-color:#007bff}.custom-checkbox .custom-control-input:indeterminate~.custom-control-label::after{background-image:url(\"data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 4'%3E%3Cpath stroke='%23fff' d='M0 2h4'/%3E%3C/svg%3E\")}.custom-checkbox .custom-control-input:disabled:checked~.custom-control-label::before{background-color:rgba(0,123,255,.5)}.custom-checkbox .custom-control-input:disabled:indeterminate~.custom-control-label::before{background-color:rgba(0,123,255,.5)}.custom-radio .custom-control-label::before{border-radius:50%}.custom-radio .custom-control-input:checked~.custom-control-label::before{background-color:#007bff}.custom-radio .custom-control-input:checked~.custom-control-label::after{background-image:url(\"data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='3' fill='%23fff'/%3E%3C/svg%3E\")}.custom-radio .custom-control-input:disabled:checked~.custom-control-label::before{background-color:rgba(0,123,255,.5)}.custom-select{display:inline-block;width:100%;height:calc(2.25rem + 2px);padding:.375rem 1.75rem .375rem .75rem;line-height:1.5;color:#495057;vertical-align:middle;background:#fff url(\"data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E\") no-repeat right .75rem center;background-size:8px 10px;border:1px solid #ced4da;border-radius:.25rem;-webkit-appearance:none;-moz-appearance:none;appearance:none}.custom-select:focus{border-color:#80bdff;outline:0;box-shadow:inset 0 1px 2px rgba(0,0,0,.075),0 0 5px rgba(128,189,255,.5)}.custom-select:focus::-ms-value{color:#495057;background-color:#fff}.custom-select[multiple],.custom-select[size]:not([size=\"1\"]){height:auto;padding-right:.75rem;background-image:none}.custom-select:disabled{color:#6c757d;background-color:#e9ecef}.custom-select::-ms-expand{opacity:0}.custom-select-sm{height:calc(1.8125rem + 2px);padding-top:.375rem;padding-bottom:.375rem;font-size:75%}.custom-select-lg{height:calc(2.875rem + 2px);padding-top:.375rem;padding-bottom:.375rem;font-size:125%}.custom-file{position:relative;display:inline-block;width:100%;height:calc(2.25rem + 2px);margin-bottom:0}.custom-file-input{position:relative;z-index:2;width:100%;height:calc(2.25rem + 2px);margin:0;opacity:0}.custom-file-input:focus~.custom-file-label{border-color:#80bdff;box-shadow:0 0 0 .2rem rgba(0,123,255,.25)}.custom-file-input:focus~.custom-file-label::after{border-color:#80bdff}.custom-file-input:lang(en)~.custom-file-label::after{content:\"Browse\"}.custom-file-label{position:absolute;top:0;right:0;left:0;z-index:1;height:calc(2.25rem + 2px);padding:.375rem .75rem;line-height:1.5;color:#495057;background-color:#fff;border:1px solid #ced4da;border-radius:.25rem}.custom-file-label::after{position:absolute;top:0;right:0;bottom:0;z-index:3;display:block;height:2.25rem;padding:.375rem .75rem;line-height:1.5;color:#495057;content:\"Browse\";background-color:#e9ecef;border-left:1px solid #ced4da;border-radius:0 .25rem .25rem 0}.custom-range{width:100%;padding-left:0;background-color:transparent;-webkit-appearance:none;-moz-appearance:none;appearance:none}.custom-range:focus{outline:0}.custom-range::-moz-focus-outer{border:0}.custom-range::-webkit-slider-thumb{width:1rem;height:1rem;margin-top:-.25rem;background-color:#007bff;border:0;border-radius:1rem;-webkit-appearance:none;appearance:none}.custom-range::-webkit-slider-thumb:focus{outline:0;box-shadow:0 0 0 1px #fff,0 0 0 .2rem rgba(0,123,255,.25)}.custom-range::-webkit-slider-thumb:active{background-color:#b3d7ff}.custom-range::-webkit-slider-runnable-track{width:100%;height:.5rem;color:transparent;cursor:pointer;background-color:#dee2e6;border-color:transparent;border-radius:1rem}.custom-range::-moz-range-thumb{width:1rem;height:1rem;background-color:#007bff;border:0;border-radius:1rem;-moz-appearance:none;appearance:none}.custom-range::-moz-range-thumb:focus{outline:0;box-shadow:0 0 0 1px #fff,0 0 0 .2rem rgba(0,123,255,.25)}.custom-range::-moz-range-thumb:active{background-color:#b3d7ff}.custom-range::-moz-range-track{width:100%;height:.5rem;color:transparent;cursor:pointer;background-color:#dee2e6;border-color:transparent;border-radius:1rem}.custom-range::-ms-thumb{width:1rem;height:1rem;background-color:#007bff;border:0;border-radius:1rem;appearance:none}.custom-range::-ms-thumb:focus{outline:0;box-shadow:0 0 0 1px #fff,0 0 0 .2rem rgba(0,123,255,.25)}.custom-range::-ms-thumb:active{background-color:#b3d7ff}.custom-range::-ms-track{width:100%;height:.5rem;color:transparent;cursor:pointer;background-color:transparent;border-color:transparent;border-width:.5rem}.custom-range::-ms-fill-lower{background-color:#dee2e6;border-radius:1rem}.custom-range::-ms-fill-upper{margin-right:15px;background-color:#dee2e6;border-radius:1rem}.nav{display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;padding-left:0;margin-bottom:0;list-style:none}.nav-link{display:block;padding:.5rem 1rem}.nav-link:focus,.nav-link:hover{text-decoration:none}.nav-link.disabled{color:#6c757d}.nav-tabs{border-bottom:1px solid #dee2e6}.nav-tabs .nav-item{margin-bottom:-1px}.nav-tabs .nav-link{border:1px solid transparent;border-top-left-radius:.25rem;border-top-right-radius:.25rem}.nav-tabs .nav-link:focus,.nav-tabs .nav-link:hover{border-color:#e9ecef #e9ecef #dee2e6}.nav-tabs .nav-link.disabled{color:#6c757d;background-color:transparent;border-color:transparent}.nav-tabs .nav-item.show .nav-link,.nav-tabs .nav-link.active{color:#495057;background-color:#fff;border-color:#dee2e6 #dee2e6 #fff}.nav-tabs .dropdown-menu{margin-top:-1px;border-top-left-radius:0;border-top-right-radius:0}.nav-pills .nav-link{border-radius:.25rem}.nav-pills .nav-link.active,.nav-pills .show>.nav-link{color:#fff;background-color:#007bff}.nav-fill .nav-item{-ms-flex:1 1 auto;flex:1 1 auto;text-align:center}.nav-justified .nav-item{-ms-flex-preferred-size:0;flex-basis:0;-ms-flex-positive:1;flex-grow:1;text-align:center}.tab-content>.tab-pane{display:none}.tab-content>.active{display:block}.navbar{position:relative;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;-ms-flex-align:center;align-items:center;-ms-flex-pack:justify;justify-content:space-between;padding:.5rem 1rem}.navbar>.container,.navbar>.container-fluid{display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;-ms-flex-align:center;align-items:center;-ms-flex-pack:justify;justify-content:space-between}.navbar-brand{display:inline-block;padding-top:.3125rem;padding-bottom:.3125rem;margin-right:1rem;font-size:1.25rem;line-height:inherit;white-space:nowrap}.navbar-brand:focus,.navbar-brand:hover{text-decoration:none}.navbar-nav{display:-ms-flexbox;display:flex;-ms-flex-direction:column;flex-direction:column;padding-left:0;margin-bottom:0;list-style:none}.navbar-nav .nav-link{padding-right:0;padding-left:0}.navbar-nav .dropdown-menu{position:static;float:none}.navbar-text{display:inline-block;padding-top:.5rem;padding-bottom:.5rem}.navbar-collapse{-ms-flex-preferred-size:100%;flex-basis:100%;-ms-flex-positive:1;flex-grow:1;-ms-flex-align:center;align-items:center}.navbar-toggler{padding:.25rem .75rem;font-size:1.25rem;line-height:1;background-color:transparent;border:1px solid transparent;border-radius:.25rem}.navbar-toggler:focus,.navbar-toggler:hover{text-decoration:none}.navbar-toggler:not(:disabled):not(.disabled){cursor:pointer}.navbar-toggler-icon{display:inline-block;width:1.5em;height:1.5em;vertical-align:middle;content:\"\";background:no-repeat center center;background-size:100% 100%}@media (max-width:575.98px){.navbar-expand-sm>.container,.navbar-expand-sm>.container-fluid{padding-right:0;padding-left:0}}@media (min-width:576px){.navbar-expand-sm{-ms-flex-flow:row nowrap;flex-flow:row nowrap;-ms-flex-pack:start;justify-content:flex-start}.navbar-expand-sm .navbar-nav{-ms-flex-direction:row;flex-direction:row}.navbar-expand-sm .navbar-nav .dropdown-menu{position:absolute}.navbar-expand-sm .navbar-nav .nav-link{padding-right:.5rem;padding-left:.5rem}.navbar-expand-sm>.container,.navbar-expand-sm>.container-fluid{-ms-flex-wrap:nowrap;flex-wrap:nowrap}.navbar-expand-sm .navbar-collapse{display:-ms-flexbox!important;display:flex!important;-ms-flex-preferred-size:auto;flex-basis:auto}.navbar-expand-sm .navbar-toggler{display:none}}@media (max-width:767.98px){.navbar-expand-md>.container,.navbar-expand-md>.container-fluid{padding-right:0;padding-left:0}}@media (min-width:768px){.navbar-expand-md{-ms-flex-flow:row nowrap;flex-flow:row nowrap;-ms-flex-pack:start;justify-content:flex-start}.navbar-expand-md .navbar-nav{-ms-flex-direction:row;flex-direction:row}.navbar-expand-md .navbar-nav .dropdown-menu{position:absolute}.navbar-expand-md .navbar-nav .nav-link{padding-right:.5rem;padding-left:.5rem}.navbar-expand-md>.container,.navbar-expand-md>.container-fluid{-ms-flex-wrap:nowrap;flex-wrap:nowrap}.navbar-expand-md .navbar-collapse{display:-ms-flexbox!important;display:flex!important;-ms-flex-preferred-size:auto;flex-basis:auto}.navbar-expand-md .navbar-toggler{display:none}}@media (max-width:991.98px){.navbar-expand-lg>.container,.navbar-expand-lg>.container-fluid{padding-right:0;padding-left:0}}@media (min-width:992px){.navbar-expand-lg{-ms-flex-flow:row nowrap;flex-flow:row nowrap;-ms-flex-pack:start;justify-content:flex-start}.navbar-expand-lg .navbar-nav{-ms-flex-direction:row;flex-direction:row}.navbar-expand-lg .navbar-nav .dropdown-menu{position:absolute}.navbar-expand-lg .navbar-nav .nav-link{padding-right:.5rem;padding-left:.5rem}.navbar-expand-lg>.container,.navbar-expand-lg>.container-fluid{-ms-flex-wrap:nowrap;flex-wrap:nowrap}.navbar-expand-lg .navbar-collapse{display:-ms-flexbox!important;display:flex!important;-ms-flex-preferred-size:auto;flex-basis:auto}.navbar-expand-lg .navbar-toggler{display:none}}@media (max-width:1199.98px){.navbar-expand-xl>.container,.navbar-expand-xl>.container-fluid{padding-right:0;padding-left:0}}@media (min-width:1200px){.navbar-expand-xl{-ms-flex-flow:row nowrap;flex-flow:row nowrap;-ms-flex-pack:start;justify-content:flex-start}.navbar-expand-xl .navbar-nav{-ms-flex-direction:row;flex-direction:row}.navbar-expand-xl .navbar-nav .dropdown-menu{position:absolute}.navbar-expand-xl .navbar-nav .nav-link{padding-right:.5rem;padding-left:.5rem}.navbar-expand-xl>.container,.navbar-expand-xl>.container-fluid{-ms-flex-wrap:nowrap;flex-wrap:nowrap}.navbar-expand-xl .navbar-collapse{display:-ms-flexbox!important;display:flex!important;-ms-flex-preferred-size:auto;flex-basis:auto}.navbar-expand-xl .navbar-toggler{display:none}}.navbar-expand{-ms-flex-flow:row nowrap;flex-flow:row nowrap;-ms-flex-pack:start;justify-content:flex-start}.navbar-expand>.container,.navbar-expand>.container-fluid{padding-right:0;padding-left:0}.navbar-expand .navbar-nav{-ms-flex-direction:row;flex-direction:row}.navbar-expand .navbar-nav .dropdown-menu{position:absolute}.navbar-expand .navbar-nav .nav-link{padding-right:.5rem;padding-left:.5rem}.navbar-expand>.container,.navbar-expand>.container-fluid{-ms-flex-wrap:nowrap;flex-wrap:nowrap}.navbar-expand .navbar-collapse{display:-ms-flexbox!important;display:flex!important;-ms-flex-preferred-size:auto;flex-basis:auto}.navbar-expand .navbar-toggler{display:none}.navbar-light .navbar-brand{color:rgba(0,0,0,.9)}.navbar-light .navbar-brand:focus,.navbar-light .navbar-brand:hover{color:rgba(0,0,0,.9)}.navbar-light .navbar-nav .nav-link{color:rgba(0,0,0,.5)}.navbar-light .navbar-nav .nav-link:focus,.navbar-light .navbar-nav .nav-link:hover{color:rgba(0,0,0,.7)}.navbar-light .navbar-nav .nav-link.disabled{color:rgba(0,0,0,.3)}.navbar-light .navbar-nav .active>.nav-link,.navbar-light .navbar-nav .nav-link.active,.navbar-light .navbar-nav .nav-link.show,.navbar-light .navbar-nav .show>.nav-link{color:rgba(0,0,0,.9)}.navbar-light .navbar-toggler{color:rgba(0,0,0,.5);border-color:rgba(0,0,0,.1)}.navbar-light .navbar-toggler-icon{background-image:url(\"data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E\")}.navbar-light .navbar-text{color:rgba(0,0,0,.5)}.navbar-light .navbar-text a{color:rgba(0,0,0,.9)}.navbar-light .navbar-text a:focus,.navbar-light .navbar-text a:hover{color:rgba(0,0,0,.9)}.navbar-dark .navbar-brand{color:#fff}.navbar-dark .navbar-brand:focus,.navbar-dark .navbar-brand:hover{color:#fff}.navbar-dark .navbar-nav .nav-link{color:rgba(255,255,255,.5)}.navbar-dark .navbar-nav .nav-link:focus,.navbar-dark .navbar-nav .nav-link:hover{color:rgba(255,255,255,.75)}.navbar-dark .navbar-nav .nav-link.disabled{color:rgba(255,255,255,.25)}.navbar-dark .navbar-nav .active>.nav-link,.navbar-dark .navbar-nav .nav-link.active,.navbar-dark .navbar-nav .nav-link.show,.navbar-dark .navbar-nav .show>.nav-link{color:#fff}.navbar-dark .navbar-toggler{color:rgba(255,255,255,.5);border-color:rgba(255,255,255,.1)}.navbar-dark .navbar-toggler-icon{background-image:url(\"data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E\")}.navbar-dark .navbar-text{color:rgba(255,255,255,.5)}.navbar-dark .navbar-text a{color:#fff}.navbar-dark .navbar-text a:focus,.navbar-dark .navbar-text a:hover{color:#fff}.card{position:relative;display:-ms-flexbox;display:flex;-ms-flex-direction:column;flex-direction:column;min-width:0;word-wrap:break-word;background-color:#fff;background-clip:border-box;border:1px solid rgba(0,0,0,.125);border-radius:.25rem}.card>hr{margin-right:0;margin-left:0}.card>.list-group:first-child .list-group-item:first-child{border-top-left-radius:.25rem;border-top-right-radius:.25rem}.card>.list-group:last-child .list-group-item:last-child{border-bottom-right-radius:.25rem;border-bottom-left-radius:.25rem}.card-body{-ms-flex:1 1 auto;flex:1 1 auto;padding:1.25rem}.card-title{margin-bottom:.75rem}.card-subtitle{margin-top:-.375rem;margin-bottom:0}.card-text:last-child{margin-bottom:0}.card-link:hover{text-decoration:none}.card-link+.card-link{margin-left:1.25rem}.card-header{padding:.75rem 1.25rem;margin-bottom:0;background-color:rgba(0,0,0,.03);border-bottom:1px solid rgba(0,0,0,.125)}.card-header:first-child{border-radius:calc(.25rem - 1px) calc(.25rem - 1px) 0 0}.card-header+.list-group .list-group-item:first-child{border-top:0}.card-footer{padding:.75rem 1.25rem;background-color:rgba(0,0,0,.03);border-top:1px solid rgba(0,0,0,.125)}.card-footer:last-child{border-radius:0 0 calc(.25rem - 1px) calc(.25rem - 1px)}.card-header-tabs{margin-right:-.625rem;margin-bottom:-.75rem;margin-left:-.625rem;border-bottom:0}.card-header-pills{margin-right:-.625rem;margin-left:-.625rem}.card-img-overlay{position:absolute;top:0;right:0;bottom:0;left:0;padding:1.25rem}.card-img{width:100%;border-radius:calc(.25rem - 1px)}.card-img-top{width:100%;border-top-left-radius:calc(.25rem - 1px);border-top-right-radius:calc(.25rem - 1px)}.card-img-bottom{width:100%;border-bottom-right-radius:calc(.25rem - 1px);border-bottom-left-radius:calc(.25rem - 1px)}.card-deck{display:-ms-flexbox;display:flex;-ms-flex-direction:column;flex-direction:column}.card-deck .card{margin-bottom:15px}@media (min-width:576px){.card-deck{-ms-flex-flow:row wrap;flex-flow:row wrap;margin-right:-15px;margin-left:-15px}.card-deck .card{display:-ms-flexbox;display:flex;-ms-flex:1 0 0%;flex:1 0 0%;-ms-flex-direction:column;flex-direction:column;margin-right:15px;margin-bottom:0;margin-left:15px}}.card-group{display:-ms-flexbox;display:flex;-ms-flex-direction:column;flex-direction:column}.card-group>.card{margin-bottom:15px}@media (min-width:576px){.card-group{-ms-flex-flow:row wrap;flex-flow:row wrap}.card-group>.card{-ms-flex:1 0 0%;flex:1 0 0%;margin-bottom:0}.card-group>.card+.card{margin-left:0;border-left:0}.card-group>.card:first-child{border-top-right-radius:0;border-bottom-right-radius:0}.card-group>.card:first-child .card-header,.card-group>.card:first-child .card-img-top{border-top-right-radius:0}.card-group>.card:first-child .card-footer,.card-group>.card:first-child .card-img-bottom{border-bottom-right-radius:0}.card-group>.card:last-child{border-top-left-radius:0;border-bottom-left-radius:0}.card-group>.card:last-child .card-header,.card-group>.card:last-child .card-img-top{border-top-left-radius:0}.card-group>.card:last-child .card-footer,.card-group>.card:last-child .card-img-bottom{border-bottom-left-radius:0}.card-group>.card:only-child{border-radius:.25rem}.card-group>.card:only-child .card-header,.card-group>.card:only-child .card-img-top{border-top-left-radius:.25rem;border-top-right-radius:.25rem}.card-group>.card:only-child .card-footer,.card-group>.card:only-child .card-img-bottom{border-bottom-right-radius:.25rem;border-bottom-left-radius:.25rem}.card-group>.card:not(:first-child):not(:last-child):not(:only-child){border-radius:0}.card-group>.card:not(:first-child):not(:last-child):not(:only-child) .card-footer,.card-group>.card:not(:first-child):not(:last-child):not(:only-child) .card-header,.card-group>.card:not(:first-child):not(:last-child):not(:only-child) .card-img-bottom,.card-group>.card:not(:first-child):not(:last-child):not(:only-child) .card-img-top{border-radius:0}}.card-columns .card{margin-bottom:.75rem}@media (min-width:576px){.card-columns{-webkit-column-count:3;-moz-column-count:3;column-count:3;-webkit-column-gap:1.25rem;-moz-column-gap:1.25rem;column-gap:1.25rem;orphans:1;widows:1}.card-columns .card{display:inline-block;width:100%}}.accordion .card:not(:first-of-type):not(:last-of-type){border-bottom:0;border-radius:0}.accordion .card:not(:first-of-type) .card-header:first-child{border-radius:0}.accordion .card:first-of-type{border-bottom:0;border-bottom-right-radius:0;border-bottom-left-radius:0}.accordion .card:last-of-type{border-top-left-radius:0;border-top-right-radius:0}.breadcrumb{display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;padding:.75rem 1rem;margin-bottom:1rem;list-style:none;background-color:#e9ecef;border-radius:.25rem}.breadcrumb-item+.breadcrumb-item{padding-left:.5rem}.breadcrumb-item+.breadcrumb-item::before{display:inline-block;padding-right:.5rem;color:#6c757d;content:\"/\"}.breadcrumb-item+.breadcrumb-item:hover::before{text-decoration:underline}.breadcrumb-item+.breadcrumb-item:hover::before{text-decoration:none}.breadcrumb-item.active{color:#6c757d}.pagination{display:-ms-flexbox;display:flex;padding-left:0;list-style:none;border-radius:.25rem}.page-link{position:relative;display:block;padding:.5rem .75rem;margin-left:-1px;line-height:1.25;color:#007bff;background-color:#fff;border:1px solid #dee2e6}.page-link:hover{z-index:2;color:#0056b3;text-decoration:none;background-color:#e9ecef;border-color:#dee2e6}.page-link:focus{z-index:2;outline:0;box-shadow:0 0 0 .2rem rgba(0,123,255,.25)}.page-link:not(:disabled):not(.disabled){cursor:pointer}.page-item:first-child .page-link{margin-left:0;border-top-left-radius:.25rem;border-bottom-left-radius:.25rem}.page-item:last-child .page-link{border-top-right-radius:.25rem;border-bottom-right-radius:.25rem}.page-item.active .page-link{z-index:1;color:#fff;background-color:#007bff;border-color:#007bff}.page-item.disabled .page-link{color:#6c757d;pointer-events:none;cursor:auto;background-color:#fff;border-color:#dee2e6}.pagination-lg .page-link{padding:.75rem 1.5rem;font-size:1.25rem;line-height:1.5}.pagination-lg .page-item:first-child .page-link{border-top-left-radius:.3rem;border-bottom-left-radius:.3rem}.pagination-lg .page-item:last-child .page-link{border-top-right-radius:.3rem;border-bottom-right-radius:.3rem}.pagination-sm .page-link{padding:.25rem .5rem;font-size:.875rem;line-height:1.5}.pagination-sm .page-item:first-child .page-link{border-top-left-radius:.2rem;border-bottom-left-radius:.2rem}.pagination-sm .page-item:last-child .page-link{border-top-right-radius:.2rem;border-bottom-right-radius:.2rem}.badge{display:inline-block;padding:.25em .4em;font-size:75%;font-weight:700;line-height:1;text-align:center;white-space:nowrap;vertical-align:baseline;border-radius:.25rem}.badge:empty{display:none}.btn .badge{position:relative;top:-1px}.badge-pill{padding-right:.6em;padding-left:.6em;border-radius:10rem}.badge-primary{color:#fff;background-color:#007bff}.badge-primary[href]:focus,.badge-primary[href]:hover{color:#fff;text-decoration:none;background-color:#0062cc}.badge-secondary{color:#fff;background-color:#6c757d}.badge-secondary[href]:focus,.badge-secondary[href]:hover{color:#fff;text-decoration:none;background-color:#545b62}.badge-success{color:#fff;background-color:#28a745}.badge-success[href]:focus,.badge-success[href]:hover{color:#fff;text-decoration:none;background-color:#1e7e34}.badge-info{color:#fff;background-color:#17a2b8}.badge-info[href]:focus,.badge-info[href]:hover{color:#fff;text-decoration:none;background-color:#117a8b}.badge-warning{color:#212529;background-color:#ffc107}.badge-warning[href]:focus,.badge-warning[href]:hover{color:#212529;text-decoration:none;background-color:#d39e00}.badge-danger{color:#fff;background-color:#dc3545}.badge-danger[href]:focus,.badge-danger[href]:hover{color:#fff;text-decoration:none;background-color:#bd2130}.badge-light{color:#212529;background-color:#f8f9fa}.badge-light[href]:focus,.badge-light[href]:hover{color:#212529;text-decoration:none;background-color:#dae0e5}.badge-dark{color:#fff;background-color:#343a40}.badge-dark[href]:focus,.badge-dark[href]:hover{color:#fff;text-decoration:none;background-color:#1d2124}.jumbotron{padding:2rem 1rem;margin-bottom:2rem;background-color:#e9ecef;border-radius:.3rem}@media (min-width:576px){.jumbotron{padding:4rem 2rem}}.jumbotron-fluid{padding-right:0;padding-left:0;border-radius:0}.alert{position:relative;padding:.75rem 1.25rem;margin-bottom:1rem;border:1px solid transparent;border-radius:.25rem}.alert-heading{color:inherit}.alert-link{font-weight:700}.alert-dismissible{padding-right:4rem}.alert-dismissible .close{position:absolute;top:0;right:0;padding:.75rem 1.25rem;color:inherit}.alert-primary{color:#004085;background-color:#cce5ff;border-color:#b8daff}.alert-primary hr{border-top-color:#9fcdff}.alert-primary .alert-link{color:#002752}.alert-secondary{color:#383d41;background-color:#e2e3e5;border-color:#d6d8db}.alert-secondary hr{border-top-color:#c8cbcf}.alert-secondary .alert-link{color:#202326}.alert-success{color:#155724;background-color:#d4edda;border-color:#c3e6cb}.alert-success hr{border-top-color:#b1dfbb}.alert-success .alert-link{color:#0b2e13}.alert-info{color:#0c5460;background-color:#d1ecf1;border-color:#bee5eb}.alert-info hr{border-top-color:#abdde5}.alert-info .alert-link{color:#062c33}.alert-warning{color:#856404;background-color:#fff3cd;border-color:#ffeeba}.alert-warning hr{border-top-color:#ffe8a1}.alert-warning .alert-link{color:#533f03}.alert-danger{color:#721c24;background-color:#f8d7da;border-color:#f5c6cb}.alert-danger hr{border-top-color:#f1b0b7}.alert-danger .alert-link{color:#491217}.alert-light{color:#818182;background-color:#fefefe;border-color:#fdfdfe}.alert-light hr{border-top-color:#ececf6}.alert-light .alert-link{color:#686868}.alert-dark{color:#1b1e21;background-color:#d6d8d9;border-color:#c6c8ca}.alert-dark hr{border-top-color:#b9bbbe}.alert-dark .alert-link{color:#040505}@-webkit-keyframes progress-bar-stripes{from{background-position:1rem 0}to{background-position:0 0}}@keyframes progress-bar-stripes{from{background-position:1rem 0}to{background-position:0 0}}.progress{display:-ms-flexbox;display:flex;height:1rem;overflow:hidden;font-size:.75rem;background-color:#e9ecef;border-radius:.25rem}.progress-bar{display:-ms-flexbox;display:flex;-ms-flex-direction:column;flex-direction:column;-ms-flex-pack:center;justify-content:center;color:#fff;text-align:center;white-space:nowrap;background-color:#007bff;transition:width .6s ease}@media screen and (prefers-reduced-motion:reduce){.progress-bar{transition:none}}.progress-bar-striped{background-image:linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);background-size:1rem 1rem}.progress-bar-animated{-webkit-animation:progress-bar-stripes 1s linear infinite;animation:progress-bar-stripes 1s linear infinite}.media{display:-ms-flexbox;display:flex;-ms-flex-align:start;align-items:flex-start}.media-body{-ms-flex:1;flex:1}.list-group{display:-ms-flexbox;display:flex;-ms-flex-direction:column;flex-direction:column;padding-left:0;margin-bottom:0}.list-group-item-action{width:100%;color:#495057;text-align:inherit}.list-group-item-action:focus,.list-group-item-action:hover{color:#495057;text-decoration:none;background-color:#f8f9fa}.list-group-item-action:active{color:#212529;background-color:#e9ecef}.list-group-item{position:relative;display:block;padding:.75rem 1.25rem;margin-bottom:-1px;background-color:#fff;border:1px solid rgba(0,0,0,.125)}.list-group-item:first-child{border-top-left-radius:.25rem;border-top-right-radius:.25rem}.list-group-item:last-child{margin-bottom:0;border-bottom-right-radius:.25rem;border-bottom-left-radius:.25rem}.list-group-item:focus,.list-group-item:hover{z-index:1;text-decoration:none}.list-group-item.disabled,.list-group-item:disabled{color:#6c757d;background-color:#fff}.list-group-item.active{z-index:2;color:#fff;background-color:#007bff;border-color:#007bff}.list-group-flush .list-group-item{border-right:0;border-left:0;border-radius:0}.list-group-flush:first-child .list-group-item:first-child{border-top:0}.list-group-flush:last-child .list-group-item:last-child{border-bottom:0}.list-group-item-primary{color:#004085;background-color:#b8daff}.list-group-item-primary.list-group-item-action:focus,.list-group-item-primary.list-group-item-action:hover{color:#004085;background-color:#9fcdff}.list-group-item-primary.list-group-item-action.active{color:#fff;background-color:#004085;border-color:#004085}.list-group-item-secondary{color:#383d41;background-color:#d6d8db}.list-group-item-secondary.list-group-item-action:focus,.list-group-item-secondary.list-group-item-action:hover{color:#383d41;background-color:#c8cbcf}.list-group-item-secondary.list-group-item-action.active{color:#fff;background-color:#383d41;border-color:#383d41}.list-group-item-success{color:#155724;background-color:#c3e6cb}.list-group-item-success.list-group-item-action:focus,.list-group-item-success.list-group-item-action:hover{color:#155724;background-color:#b1dfbb}.list-group-item-success.list-group-item-action.active{color:#fff;background-color:#155724;border-color:#155724}.list-group-item-info{color:#0c5460;background-color:#bee5eb}.list-group-item-info.list-group-item-action:focus,.list-group-item-info.list-group-item-action:hover{color:#0c5460;background-color:#abdde5}.list-group-item-info.list-group-item-action.active{color:#fff;background-color:#0c5460;border-color:#0c5460}.list-group-item-warning{color:#856404;background-color:#ffeeba}.list-group-item-warning.list-group-item-action:focus,.list-group-item-warning.list-group-item-action:hover{color:#856404;background-color:#ffe8a1}.list-group-item-warning.list-group-item-action.active{color:#fff;background-color:#856404;border-color:#856404}.list-group-item-danger{color:#721c24;background-color:#f5c6cb}.list-group-item-danger.list-group-item-action:focus,.list-group-item-danger.list-group-item-action:hover{color:#721c24;background-color:#f1b0b7}.list-group-item-danger.list-group-item-action.active{color:#fff;background-color:#721c24;border-color:#721c24}.list-group-item-light{color:#818182;background-color:#fdfdfe}.list-group-item-light.list-group-item-action:focus,.list-group-item-light.list-group-item-action:hover{color:#818182;background-color:#ececf6}.list-group-item-light.list-group-item-action.active{color:#fff;background-color:#818182;border-color:#818182}.list-group-item-dark{color:#1b1e21;background-color:#c6c8ca}.list-group-item-dark.list-group-item-action:focus,.list-group-item-dark.list-group-item-action:hover{color:#1b1e21;background-color:#b9bbbe}.list-group-item-dark.list-group-item-action.active{color:#fff;background-color:#1b1e21;border-color:#1b1e21}.close{float:right;font-size:1.5rem;font-weight:700;line-height:1;color:#000;text-shadow:0 1px 0 #fff;opacity:.5}.close:focus,.close:hover{color:#000;text-decoration:none;opacity:.75}.close:not(:disabled):not(.disabled){cursor:pointer}button.close{padding:0;background-color:transparent;border:0;-webkit-appearance:none}.modal-open{overflow:hidden}.modal{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;display:none;overflow:hidden;outline:0}.modal-open .modal{overflow-x:hidden;overflow-y:auto}.modal-dialog{position:relative;width:auto;margin:.5rem;pointer-events:none}.modal.fade .modal-dialog{transition:-webkit-transform .3s ease-out;transition:transform .3s ease-out;transition:transform .3s ease-out,-webkit-transform .3s ease-out;-webkit-transform:translate(0,-25%);transform:translate(0,-25%)}@media screen and (prefers-reduced-motion:reduce){.modal.fade .modal-dialog{transition:none}}.modal.show .modal-dialog{-webkit-transform:translate(0,0);transform:translate(0,0)}.modal-dialog-centered{display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;min-height:calc(100% - (.5rem * 2))}.modal-content{position:relative;display:-ms-flexbox;display:flex;-ms-flex-direction:column;flex-direction:column;width:100%;pointer-events:auto;background-color:#fff;background-clip:padding-box;border:1px solid rgba(0,0,0,.2);border-radius:.3rem;outline:0}.modal-backdrop{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1040;background-color:#000}.modal-backdrop.fade{opacity:0}.modal-backdrop.show{opacity:.5}.modal-header{display:-ms-flexbox;display:flex;-ms-flex-align:start;align-items:flex-start;-ms-flex-pack:justify;justify-content:space-between;padding:1rem;border-bottom:1px solid #e9ecef;border-top-left-radius:.3rem;border-top-right-radius:.3rem}.modal-header .close{padding:1rem;margin:-1rem -1rem -1rem auto}.modal-title{margin-bottom:0;line-height:1.5}.modal-body{position:relative;-ms-flex:1 1 auto;flex:1 1 auto;padding:1rem}.modal-footer{display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;-ms-flex-pack:end;justify-content:flex-end;padding:1rem;border-top:1px solid #e9ecef}.modal-footer>:not(:first-child){margin-left:.25rem}.modal-footer>:not(:last-child){margin-right:.25rem}.modal-scrollbar-measure{position:absolute;top:-9999px;width:50px;height:50px;overflow:scroll}@media (min-width:576px){.modal-dialog{max-width:500px;margin:1.75rem auto}.modal-dialog-centered{min-height:calc(100% - (1.75rem * 2))}.modal-sm{max-width:300px}}@media (min-width:992px){.modal-lg{max-width:800px}}.tooltip{position:absolute;z-index:1070;display:block;margin:0;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\";font-style:normal;font-weight:400;line-height:1.5;text-align:left;text-align:start;text-decoration:none;text-shadow:none;text-transform:none;letter-spacing:normal;word-break:normal;word-spacing:normal;white-space:normal;line-break:auto;font-size:.875rem;word-wrap:break-word;opacity:0}.tooltip.show{opacity:.9}.tooltip .arrow{position:absolute;display:block;width:.8rem;height:.4rem}.tooltip .arrow::before{position:absolute;content:\"\";border-color:transparent;border-style:solid}.bs-tooltip-auto[x-placement^=top],.bs-tooltip-top{padding:.4rem 0}.bs-tooltip-auto[x-placement^=top] .arrow,.bs-tooltip-top .arrow{bottom:0}.bs-tooltip-auto[x-placement^=top] .arrow::before,.bs-tooltip-top .arrow::before{top:0;border-width:.4rem .4rem 0;border-top-color:#000}.bs-tooltip-auto[x-placement^=right],.bs-tooltip-right{padding:0 .4rem}.bs-tooltip-auto[x-placement^=right] .arrow,.bs-tooltip-right .arrow{left:0;width:.4rem;height:.8rem}.bs-tooltip-auto[x-placement^=right] .arrow::before,.bs-tooltip-right .arrow::before{right:0;border-width:.4rem .4rem .4rem 0;border-right-color:#000}.bs-tooltip-auto[x-placement^=bottom],.bs-tooltip-bottom{padding:.4rem 0}.bs-tooltip-auto[x-placement^=bottom] .arrow,.bs-tooltip-bottom .arrow{top:0}.bs-tooltip-auto[x-placement^=bottom] .arrow::before,.bs-tooltip-bottom .arrow::before{bottom:0;border-width:0 .4rem .4rem;border-bottom-color:#000}.bs-tooltip-auto[x-placement^=left],.bs-tooltip-left{padding:0 .4rem}.bs-tooltip-auto[x-placement^=left] .arrow,.bs-tooltip-left .arrow{right:0;width:.4rem;height:.8rem}.bs-tooltip-auto[x-placement^=left] .arrow::before,.bs-tooltip-left .arrow::before{left:0;border-width:.4rem 0 .4rem .4rem;border-left-color:#000}.tooltip-inner{max-width:200px;padding:.25rem .5rem;color:#fff;text-align:center;background-color:#000;border-radius:.25rem}.popover{position:absolute;top:0;left:0;z-index:1060;display:block;max-width:276px;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\";font-style:normal;font-weight:400;line-height:1.5;text-align:left;text-align:start;text-decoration:none;text-shadow:none;text-transform:none;letter-spacing:normal;word-break:normal;word-spacing:normal;white-space:normal;line-break:auto;font-size:.875rem;word-wrap:break-word;background-color:#fff;background-clip:padding-box;border:1px solid rgba(0,0,0,.2);border-radius:.3rem}.popover .arrow{position:absolute;display:block;width:1rem;height:.5rem;margin:0 .3rem}.popover .arrow::after,.popover .arrow::before{position:absolute;display:block;content:\"\";border-color:transparent;border-style:solid}.bs-popover-auto[x-placement^=top],.bs-popover-top{margin-bottom:.5rem}.bs-popover-auto[x-placement^=top] .arrow,.bs-popover-top .arrow{bottom:calc((.5rem + 1px) * -1)}.bs-popover-auto[x-placement^=top] .arrow::after,.bs-popover-auto[x-placement^=top] .arrow::before,.bs-popover-top .arrow::after,.bs-popover-top .arrow::before{border-width:.5rem .5rem 0}.bs-popover-auto[x-placement^=top] .arrow::before,.bs-popover-top .arrow::before{bottom:0;border-top-color:rgba(0,0,0,.25)}.bs-popover-auto[x-placement^=top] .arrow::after,.bs-popover-top .arrow::after{bottom:1px;border-top-color:#fff}.bs-popover-auto[x-placement^=right],.bs-popover-right{margin-left:.5rem}.bs-popover-auto[x-placement^=right] .arrow,.bs-popover-right .arrow{left:calc((.5rem + 1px) * -1);width:.5rem;height:1rem;margin:.3rem 0}.bs-popover-auto[x-placement^=right] .arrow::after,.bs-popover-auto[x-placement^=right] .arrow::before,.bs-popover-right .arrow::after,.bs-popover-right .arrow::before{border-width:.5rem .5rem .5rem 0}.bs-popover-auto[x-placement^=right] .arrow::before,.bs-popover-right .arrow::before{left:0;border-right-color:rgba(0,0,0,.25)}.bs-popover-auto[x-placement^=right] .arrow::after,.bs-popover-right .arrow::after{left:1px;border-right-color:#fff}.bs-popover-auto[x-placement^=bottom],.bs-popover-bottom{margin-top:.5rem}.bs-popover-auto[x-placement^=bottom] .arrow,.bs-popover-bottom .arrow{top:calc((.5rem + 1px) * -1)}.bs-popover-auto[x-placement^=bottom] .arrow::after,.bs-popover-auto[x-placement^=bottom] .arrow::before,.bs-popover-bottom .arrow::after,.bs-popover-bottom .arrow::before{border-width:0 .5rem .5rem .5rem}.bs-popover-auto[x-placement^=bottom] .arrow::before,.bs-popover-bottom .arrow::before{top:0;border-bottom-color:rgba(0,0,0,.25)}.bs-popover-auto[x-placement^=bottom] .arrow::after,.bs-popover-bottom .arrow::after{top:1px;border-bottom-color:#fff}.bs-popover-auto[x-placement^=bottom] .popover-header::before,.bs-popover-bottom .popover-header::before{position:absolute;top:0;left:50%;display:block;width:1rem;margin-left:-.5rem;content:\"\";border-bottom:1px solid #f7f7f7}.bs-popover-auto[x-placement^=left],.bs-popover-left{margin-right:.5rem}.bs-popover-auto[x-placement^=left] .arrow,.bs-popover-left .arrow{right:calc((.5rem + 1px) * -1);width:.5rem;height:1rem;margin:.3rem 0}.bs-popover-auto[x-placement^=left] .arrow::after,.bs-popover-auto[x-placement^=left] .arrow::before,.bs-popover-left .arrow::after,.bs-popover-left .arrow::before{border-width:.5rem 0 .5rem .5rem}.bs-popover-auto[x-placement^=left] .arrow::before,.bs-popover-left .arrow::before{right:0;border-left-color:rgba(0,0,0,.25)}.bs-popover-auto[x-placement^=left] .arrow::after,.bs-popover-left .arrow::after{right:1px;border-left-color:#fff}.popover-header{padding:.5rem .75rem;margin-bottom:0;font-size:1rem;color:inherit;background-color:#f7f7f7;border-bottom:1px solid #ebebeb;border-top-left-radius:calc(.3rem - 1px);border-top-right-radius:calc(.3rem - 1px)}.popover-header:empty{display:none}.popover-body{padding:.5rem .75rem;color:#212529}.carousel{position:relative}.carousel-inner{position:relative;width:100%;overflow:hidden}.carousel-item{position:relative;display:none;-ms-flex-align:center;align-items:center;width:100%;transition:-webkit-transform .6s ease;transition:transform .6s ease;transition:transform .6s ease,-webkit-transform .6s ease;-webkit-backface-visibility:hidden;backface-visibility:hidden;-webkit-perspective:1000px;perspective:1000px}@media screen and (prefers-reduced-motion:reduce){.carousel-item{transition:none}}.carousel-item-next,.carousel-item-prev,.carousel-item.active{display:block}.carousel-item-next,.carousel-item-prev{position:absolute;top:0}.carousel-item-next.carousel-item-left,.carousel-item-prev.carousel-item-right{-webkit-transform:translateX(0);transform:translateX(0)}@supports ((-webkit-transform-style:preserve-3d) or (transform-style:preserve-3d)){.carousel-item-next.carousel-item-left,.carousel-item-prev.carousel-item-right{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}}.active.carousel-item-right,.carousel-item-next{-webkit-transform:translateX(100%);transform:translateX(100%)}@supports ((-webkit-transform-style:preserve-3d) or (transform-style:preserve-3d)){.active.carousel-item-right,.carousel-item-next{-webkit-transform:translate3d(100%,0,0);transform:translate3d(100%,0,0)}}.active.carousel-item-left,.carousel-item-prev{-webkit-transform:translateX(-100%);transform:translateX(-100%)}@supports ((-webkit-transform-style:preserve-3d) or (transform-style:preserve-3d)){.active.carousel-item-left,.carousel-item-prev{-webkit-transform:translate3d(-100%,0,0);transform:translate3d(-100%,0,0)}}.carousel-fade .carousel-item{opacity:0;transition-duration:.6s;transition-property:opacity}.carousel-fade .carousel-item-next.carousel-item-left,.carousel-fade .carousel-item-prev.carousel-item-right,.carousel-fade .carousel-item.active{opacity:1}.carousel-fade .active.carousel-item-left,.carousel-fade .active.carousel-item-right{opacity:0}.carousel-fade .active.carousel-item-left,.carousel-fade .active.carousel-item-prev,.carousel-fade .carousel-item-next,.carousel-fade .carousel-item-prev,.carousel-fade .carousel-item.active{-webkit-transform:translateX(0);transform:translateX(0)}@supports ((-webkit-transform-style:preserve-3d) or (transform-style:preserve-3d)){.carousel-fade .active.carousel-item-left,.carousel-fade .active.carousel-item-prev,.carousel-fade .carousel-item-next,.carousel-fade .carousel-item-prev,.carousel-fade .carousel-item.active{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}}.carousel-control-next,.carousel-control-prev{position:absolute;top:0;bottom:0;display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;width:15%;color:#fff;text-align:center;opacity:.5}.carousel-control-next:focus,.carousel-control-next:hover,.carousel-control-prev:focus,.carousel-control-prev:hover{color:#fff;text-decoration:none;outline:0;opacity:.9}.carousel-control-prev{left:0}.carousel-control-next{right:0}.carousel-control-next-icon,.carousel-control-prev-icon{display:inline-block;width:20px;height:20px;background:transparent no-repeat center center;background-size:100% 100%}.carousel-control-prev-icon{background-image:url(\"data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E\")}.carousel-control-next-icon{background-image:url(\"data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E\")}.carousel-indicators{position:absolute;right:0;bottom:10px;left:0;z-index:15;display:-ms-flexbox;display:flex;-ms-flex-pack:center;justify-content:center;padding-left:0;margin-right:15%;margin-left:15%;list-style:none}.carousel-indicators li{position:relative;-ms-flex:0 1 auto;flex:0 1 auto;width:30px;height:3px;margin-right:3px;margin-left:3px;text-indent:-999px;cursor:pointer;background-color:rgba(255,255,255,.5)}.carousel-indicators li::before{position:absolute;top:-10px;left:0;display:inline-block;width:100%;height:10px;content:\"\"}.carousel-indicators li::after{position:absolute;bottom:-10px;left:0;display:inline-block;width:100%;height:10px;content:\"\"}.carousel-indicators .active{background-color:#fff}.carousel-caption{position:absolute;right:15%;bottom:20px;left:15%;z-index:10;padding-top:20px;padding-bottom:20px;color:#fff;text-align:center}.align-baseline{vertical-align:baseline!important}.align-top{vertical-align:top!important}.align-middle{vertical-align:middle!important}.align-bottom{vertical-align:bottom!important}.align-text-bottom{vertical-align:text-bottom!important}.align-text-top{vertical-align:text-top!important}.bg-primary{background-color:#007bff!important}a.bg-primary:focus,a.bg-primary:hover,button.bg-primary:focus,button.bg-primary:hover{background-color:#0062cc!important}.bg-secondary{background-color:#6c757d!important}a.bg-secondary:focus,a.bg-secondary:hover,button.bg-secondary:focus,button.bg-secondary:hover{background-color:#545b62!important}.bg-success{background-color:#28a745!important}a.bg-success:focus,a.bg-success:hover,button.bg-success:focus,button.bg-success:hover{background-color:#1e7e34!important}.bg-info{background-color:#17a2b8!important}a.bg-info:focus,a.bg-info:hover,button.bg-info:focus,button.bg-info:hover{background-color:#117a8b!important}.bg-warning{background-color:#ffc107!important}a.bg-warning:focus,a.bg-warning:hover,button.bg-warning:focus,button.bg-warning:hover{background-color:#d39e00!important}.bg-danger{background-color:#dc3545!important}a.bg-danger:focus,a.bg-danger:hover,button.bg-danger:focus,button.bg-danger:hover{background-color:#bd2130!important}.bg-light{background-color:#f8f9fa!important}a.bg-light:focus,a.bg-light:hover,button.bg-light:focus,button.bg-light:hover{background-color:#dae0e5!important}.bg-dark{background-color:#343a40!important}a.bg-dark:focus,a.bg-dark:hover,button.bg-dark:focus,button.bg-dark:hover{background-color:#1d2124!important}.bg-white{background-color:#fff!important}.bg-transparent{background-color:transparent!important}.border{border:1px solid #dee2e6!important}.border-top{border-top:1px solid #dee2e6!important}.border-right{border-right:1px solid #dee2e6!important}.border-bottom{border-bottom:1px solid #dee2e6!important}.border-left{border-left:1px solid #dee2e6!important}.border-0{border:0!important}.border-top-0{border-top:0!important}.border-right-0{border-right:0!important}.border-bottom-0{border-bottom:0!important}.border-left-0{border-left:0!important}.border-primary{border-color:#007bff!important}.border-secondary{border-color:#6c757d!important}.border-success{border-color:#28a745!important}.border-info{border-color:#17a2b8!important}.border-warning{border-color:#ffc107!important}.border-danger{border-color:#dc3545!important}.border-light{border-color:#f8f9fa!important}.border-dark{border-color:#343a40!important}.border-white{border-color:#fff!important}.rounded{border-radius:.25rem!important}.rounded-top{border-top-left-radius:.25rem!important;border-top-right-radius:.25rem!important}.rounded-right{border-top-right-radius:.25rem!important;border-bottom-right-radius:.25rem!important}.rounded-bottom{border-bottom-right-radius:.25rem!important;border-bottom-left-radius:.25rem!important}.rounded-left{border-top-left-radius:.25rem!important;border-bottom-left-radius:.25rem!important}.rounded-circle{border-radius:50%!important}.rounded-0{border-radius:0!important}.clearfix::after{display:block;clear:both;content:\"\"}.d-none{display:none!important}.d-inline{display:inline!important}.d-inline-block{display:inline-block!important}.d-block{display:block!important}.d-table{display:table!important}.d-table-row{display:table-row!important}.d-table-cell{display:table-cell!important}.d-flex{display:-ms-flexbox!important;display:flex!important}.d-inline-flex{display:-ms-inline-flexbox!important;display:inline-flex!important}@media (min-width:576px){.d-sm-none{display:none!important}.d-sm-inline{display:inline!important}.d-sm-inline-block{display:inline-block!important}.d-sm-block{display:block!important}.d-sm-table{display:table!important}.d-sm-table-row{display:table-row!important}.d-sm-table-cell{display:table-cell!important}.d-sm-flex{display:-ms-flexbox!important;display:flex!important}.d-sm-inline-flex{display:-ms-inline-flexbox!important;display:inline-flex!important}}@media (min-width:768px){.d-md-none{display:none!important}.d-md-inline{display:inline!important}.d-md-inline-block{display:inline-block!important}.d-md-block{display:block!important}.d-md-table{display:table!important}.d-md-table-row{display:table-row!important}.d-md-table-cell{display:table-cell!important}.d-md-flex{display:-ms-flexbox!important;display:flex!important}.d-md-inline-flex{display:-ms-inline-flexbox!important;display:inline-flex!important}}@media (min-width:992px){.d-lg-none{display:none!important}.d-lg-inline{display:inline!important}.d-lg-inline-block{display:inline-block!important}.d-lg-block{display:block!important}.d-lg-table{display:table!important}.d-lg-table-row{display:table-row!important}.d-lg-table-cell{display:table-cell!important}.d-lg-flex{display:-ms-flexbox!important;display:flex!important}.d-lg-inline-flex{display:-ms-inline-flexbox!important;display:inline-flex!important}}@media (min-width:1200px){.d-xl-none{display:none!important}.d-xl-inline{display:inline!important}.d-xl-inline-block{display:inline-block!important}.d-xl-block{display:block!important}.d-xl-table{display:table!important}.d-xl-table-row{display:table-row!important}.d-xl-table-cell{display:table-cell!important}.d-xl-flex{display:-ms-flexbox!important;display:flex!important}.d-xl-inline-flex{display:-ms-inline-flexbox!important;display:inline-flex!important}}@media print{.d-print-none{display:none!important}.d-print-inline{display:inline!important}.d-print-inline-block{display:inline-block!important}.d-print-block{display:block!important}.d-print-table{display:table!important}.d-print-table-row{display:table-row!important}.d-print-table-cell{display:table-cell!important}.d-print-flex{display:-ms-flexbox!important;display:flex!important}.d-print-inline-flex{display:-ms-inline-flexbox!important;display:inline-flex!important}}.embed-responsive{position:relative;display:block;width:100%;padding:0;overflow:hidden}.embed-responsive::before{display:block;content:\"\"}.embed-responsive .embed-responsive-item,.embed-responsive embed,.embed-responsive iframe,.embed-responsive object,.embed-responsive video{position:absolute;top:0;bottom:0;left:0;width:100%;height:100%;border:0}.embed-responsive-21by9::before{padding-top:42.857143%}.embed-responsive-16by9::before{padding-top:56.25%}.embed-responsive-4by3::before{padding-top:75%}.embed-responsive-1by1::before{padding-top:100%}.flex-row{-ms-flex-direction:row!important;flex-direction:row!important}.flex-column{-ms-flex-direction:column!important;flex-direction:column!important}.flex-row-reverse{-ms-flex-direction:row-reverse!important;flex-direction:row-reverse!important}.flex-column-reverse{-ms-flex-direction:column-reverse!important;flex-direction:column-reverse!important}.flex-wrap{-ms-flex-wrap:wrap!important;flex-wrap:wrap!important}.flex-nowrap{-ms-flex-wrap:nowrap!important;flex-wrap:nowrap!important}.flex-wrap-reverse{-ms-flex-wrap:wrap-reverse!important;flex-wrap:wrap-reverse!important}.flex-fill{-ms-flex:1 1 auto!important;flex:1 1 auto!important}.flex-grow-0{-ms-flex-positive:0!important;flex-grow:0!important}.flex-grow-1{-ms-flex-positive:1!important;flex-grow:1!important}.flex-shrink-0{-ms-flex-negative:0!important;flex-shrink:0!important}.flex-shrink-1{-ms-flex-negative:1!important;flex-shrink:1!important}.justify-content-start{-ms-flex-pack:start!important;justify-content:flex-start!important}.justify-content-end{-ms-flex-pack:end!important;justify-content:flex-end!important}.justify-content-center{-ms-flex-pack:center!important;justify-content:center!important}.justify-content-between{-ms-flex-pack:justify!important;justify-content:space-between!important}.justify-content-around{-ms-flex-pack:distribute!important;justify-content:space-around!important}.align-items-start{-ms-flex-align:start!important;align-items:flex-start!important}.align-items-end{-ms-flex-align:end!important;align-items:flex-end!important}.align-items-center{-ms-flex-align:center!important;align-items:center!important}.align-items-baseline{-ms-flex-align:baseline!important;align-items:baseline!important}.align-items-stretch{-ms-flex-align:stretch!important;align-items:stretch!important}.align-content-start{-ms-flex-line-pack:start!important;align-content:flex-start!important}.align-content-end{-ms-flex-line-pack:end!important;align-content:flex-end!important}.align-content-center{-ms-flex-line-pack:center!important;align-content:center!important}.align-content-between{-ms-flex-line-pack:justify!important;align-content:space-between!important}.align-content-around{-ms-flex-line-pack:distribute!important;align-content:space-around!important}.align-content-stretch{-ms-flex-line-pack:stretch!important;align-content:stretch!important}.align-self-auto{-ms-flex-item-align:auto!important;align-self:auto!important}.align-self-start{-ms-flex-item-align:start!important;align-self:flex-start!important}.align-self-end{-ms-flex-item-align:end!important;align-self:flex-end!important}.align-self-center{-ms-flex-item-align:center!important;align-self:center!important}.align-self-baseline{-ms-flex-item-align:baseline!important;align-self:baseline!important}.align-self-stretch{-ms-flex-item-align:stretch!important;align-self:stretch!important}@media (min-width:576px){.flex-sm-row{-ms-flex-direction:row!important;flex-direction:row!important}.flex-sm-column{-ms-flex-direction:column!important;flex-direction:column!important}.flex-sm-row-reverse{-ms-flex-direction:row-reverse!important;flex-direction:row-reverse!important}.flex-sm-column-reverse{-ms-flex-direction:column-reverse!important;flex-direction:column-reverse!important}.flex-sm-wrap{-ms-flex-wrap:wrap!important;flex-wrap:wrap!important}.flex-sm-nowrap{-ms-flex-wrap:nowrap!important;flex-wrap:nowrap!important}.flex-sm-wrap-reverse{-ms-flex-wrap:wrap-reverse!important;flex-wrap:wrap-reverse!important}.flex-sm-fill{-ms-flex:1 1 auto!important;flex:1 1 auto!important}.flex-sm-grow-0{-ms-flex-positive:0!important;flex-grow:0!important}.flex-sm-grow-1{-ms-flex-positive:1!important;flex-grow:1!important}.flex-sm-shrink-0{-ms-flex-negative:0!important;flex-shrink:0!important}.flex-sm-shrink-1{-ms-flex-negative:1!important;flex-shrink:1!important}.justify-content-sm-start{-ms-flex-pack:start!important;justify-content:flex-start!important}.justify-content-sm-end{-ms-flex-pack:end!important;justify-content:flex-end!important}.justify-content-sm-center{-ms-flex-pack:center!important;justify-content:center!important}.justify-content-sm-between{-ms-flex-pack:justify!important;justify-content:space-between!important}.justify-content-sm-around{-ms-flex-pack:distribute!important;justify-content:space-around!important}.align-items-sm-start{-ms-flex-align:start!important;align-items:flex-start!important}.align-items-sm-end{-ms-flex-align:end!important;align-items:flex-end!important}.align-items-sm-center{-ms-flex-align:center!important;align-items:center!important}.align-items-sm-baseline{-ms-flex-align:baseline!important;align-items:baseline!important}.align-items-sm-stretch{-ms-flex-align:stretch!important;align-items:stretch!important}.align-content-sm-start{-ms-flex-line-pack:start!important;align-content:flex-start!important}.align-content-sm-end{-ms-flex-line-pack:end!important;align-content:flex-end!important}.align-content-sm-center{-ms-flex-line-pack:center!important;align-content:center!important}.align-content-sm-between{-ms-flex-line-pack:justify!important;align-content:space-between!important}.align-content-sm-around{-ms-flex-line-pack:distribute!important;align-content:space-around!important}.align-content-sm-stretch{-ms-flex-line-pack:stretch!important;align-content:stretch!important}.align-self-sm-auto{-ms-flex-item-align:auto!important;align-self:auto!important}.align-self-sm-start{-ms-flex-item-align:start!important;align-self:flex-start!important}.align-self-sm-end{-ms-flex-item-align:end!important;align-self:flex-end!important}.align-self-sm-center{-ms-flex-item-align:center!important;align-self:center!important}.align-self-sm-baseline{-ms-flex-item-align:baseline!important;align-self:baseline!important}.align-self-sm-stretch{-ms-flex-item-align:stretch!important;align-self:stretch!important}}@media (min-width:768px){.flex-md-row{-ms-flex-direction:row!important;flex-direction:row!important}.flex-md-column{-ms-flex-direction:column!important;flex-direction:column!important}.flex-md-row-reverse{-ms-flex-direction:row-reverse!important;flex-direction:row-reverse!important}.flex-md-column-reverse{-ms-flex-direction:column-reverse!important;flex-direction:column-reverse!important}.flex-md-wrap{-ms-flex-wrap:wrap!important;flex-wrap:wrap!important}.flex-md-nowrap{-ms-flex-wrap:nowrap!important;flex-wrap:nowrap!important}.flex-md-wrap-reverse{-ms-flex-wrap:wrap-reverse!important;flex-wrap:wrap-reverse!important}.flex-md-fill{-ms-flex:1 1 auto!important;flex:1 1 auto!important}.flex-md-grow-0{-ms-flex-positive:0!important;flex-grow:0!important}.flex-md-grow-1{-ms-flex-positive:1!important;flex-grow:1!important}.flex-md-shrink-0{-ms-flex-negative:0!important;flex-shrink:0!important}.flex-md-shrink-1{-ms-flex-negative:1!important;flex-shrink:1!important}.justify-content-md-start{-ms-flex-pack:start!important;justify-content:flex-start!important}.justify-content-md-end{-ms-flex-pack:end!important;justify-content:flex-end!important}.justify-content-md-center{-ms-flex-pack:center!important;justify-content:center!important}.justify-content-md-between{-ms-flex-pack:justify!important;justify-content:space-between!important}.justify-content-md-around{-ms-flex-pack:distribute!important;justify-content:space-around!important}.align-items-md-start{-ms-flex-align:start!important;align-items:flex-start!important}.align-items-md-end{-ms-flex-align:end!important;align-items:flex-end!important}.align-items-md-center{-ms-flex-align:center!important;align-items:center!important}.align-items-md-baseline{-ms-flex-align:baseline!important;align-items:baseline!important}.align-items-md-stretch{-ms-flex-align:stretch!important;align-items:stretch!important}.align-content-md-start{-ms-flex-line-pack:start!important;align-content:flex-start!important}.align-content-md-end{-ms-flex-line-pack:end!important;align-content:flex-end!important}.align-content-md-center{-ms-flex-line-pack:center!important;align-content:center!important}.align-content-md-between{-ms-flex-line-pack:justify!important;align-content:space-between!important}.align-content-md-around{-ms-flex-line-pack:distribute!important;align-content:space-around!important}.align-content-md-stretch{-ms-flex-line-pack:stretch!important;align-content:stretch!important}.align-self-md-auto{-ms-flex-item-align:auto!important;align-self:auto!important}.align-self-md-start{-ms-flex-item-align:start!important;align-self:flex-start!important}.align-self-md-end{-ms-flex-item-align:end!important;align-self:flex-end!important}.align-self-md-center{-ms-flex-item-align:center!important;align-self:center!important}.align-self-md-baseline{-ms-flex-item-align:baseline!important;align-self:baseline!important}.align-self-md-stretch{-ms-flex-item-align:stretch!important;align-self:stretch!important}}@media (min-width:992px){.flex-lg-row{-ms-flex-direction:row!important;flex-direction:row!important}.flex-lg-column{-ms-flex-direction:column!important;flex-direction:column!important}.flex-lg-row-reverse{-ms-flex-direction:row-reverse!important;flex-direction:row-reverse!important}.flex-lg-column-reverse{-ms-flex-direction:column-reverse!important;flex-direction:column-reverse!important}.flex-lg-wrap{-ms-flex-wrap:wrap!important;flex-wrap:wrap!important}.flex-lg-nowrap{-ms-flex-wrap:nowrap!important;flex-wrap:nowrap!important}.flex-lg-wrap-reverse{-ms-flex-wrap:wrap-reverse!important;flex-wrap:wrap-reverse!important}.flex-lg-fill{-ms-flex:1 1 auto!important;flex:1 1 auto!important}.flex-lg-grow-0{-ms-flex-positive:0!important;flex-grow:0!important}.flex-lg-grow-1{-ms-flex-positive:1!important;flex-grow:1!important}.flex-lg-shrink-0{-ms-flex-negative:0!important;flex-shrink:0!important}.flex-lg-shrink-1{-ms-flex-negative:1!important;flex-shrink:1!important}.justify-content-lg-start{-ms-flex-pack:start!important;justify-content:flex-start!important}.justify-content-lg-end{-ms-flex-pack:end!important;justify-content:flex-end!important}.justify-content-lg-center{-ms-flex-pack:center!important;justify-content:center!important}.justify-content-lg-between{-ms-flex-pack:justify!important;justify-content:space-between!important}.justify-content-lg-around{-ms-flex-pack:distribute!important;justify-content:space-around!important}.align-items-lg-start{-ms-flex-align:start!important;align-items:flex-start!important}.align-items-lg-end{-ms-flex-align:end!important;align-items:flex-end!important}.align-items-lg-center{-ms-flex-align:center!important;align-items:center!important}.align-items-lg-baseline{-ms-flex-align:baseline!important;align-items:baseline!important}.align-items-lg-stretch{-ms-flex-align:stretch!important;align-items:stretch!important}.align-content-lg-start{-ms-flex-line-pack:start!important;align-content:flex-start!important}.align-content-lg-end{-ms-flex-line-pack:end!important;align-content:flex-end!important}.align-content-lg-center{-ms-flex-line-pack:center!important;align-content:center!important}.align-content-lg-between{-ms-flex-line-pack:justify!important;align-content:space-between!important}.align-content-lg-around{-ms-flex-line-pack:distribute!important;align-content:space-around!important}.align-content-lg-stretch{-ms-flex-line-pack:stretch!important;align-content:stretch!important}.align-self-lg-auto{-ms-flex-item-align:auto!important;align-self:auto!important}.align-self-lg-start{-ms-flex-item-align:start!important;align-self:flex-start!important}.align-self-lg-end{-ms-flex-item-align:end!important;align-self:flex-end!important}.align-self-lg-center{-ms-flex-item-align:center!important;align-self:center!important}.align-self-lg-baseline{-ms-flex-item-align:baseline!important;align-self:baseline!important}.align-self-lg-stretch{-ms-flex-item-align:stretch!important;align-self:stretch!important}}@media (min-width:1200px){.flex-xl-row{-ms-flex-direction:row!important;flex-direction:row!important}.flex-xl-column{-ms-flex-direction:column!important;flex-direction:column!important}.flex-xl-row-reverse{-ms-flex-direction:row-reverse!important;flex-direction:row-reverse!important}.flex-xl-column-reverse{-ms-flex-direction:column-reverse!important;flex-direction:column-reverse!important}.flex-xl-wrap{-ms-flex-wrap:wrap!important;flex-wrap:wrap!important}.flex-xl-nowrap{-ms-flex-wrap:nowrap!important;flex-wrap:nowrap!important}.flex-xl-wrap-reverse{-ms-flex-wrap:wrap-reverse!important;flex-wrap:wrap-reverse!important}.flex-xl-fill{-ms-flex:1 1 auto!important;flex:1 1 auto!important}.flex-xl-grow-0{-ms-flex-positive:0!important;flex-grow:0!important}.flex-xl-grow-1{-ms-flex-positive:1!important;flex-grow:1!important}.flex-xl-shrink-0{-ms-flex-negative:0!important;flex-shrink:0!important}.flex-xl-shrink-1{-ms-flex-negative:1!important;flex-shrink:1!important}.justify-content-xl-start{-ms-flex-pack:start!important;justify-content:flex-start!important}.justify-content-xl-end{-ms-flex-pack:end!important;justify-content:flex-end!important}.justify-content-xl-center{-ms-flex-pack:center!important;justify-content:center!important}.justify-content-xl-between{-ms-flex-pack:justify!important;justify-content:space-between!important}.justify-content-xl-around{-ms-flex-pack:distribute!important;justify-content:space-around!important}.align-items-xl-start{-ms-flex-align:start!important;align-items:flex-start!important}.align-items-xl-end{-ms-flex-align:end!important;align-items:flex-end!important}.align-items-xl-center{-ms-flex-align:center!important;align-items:center!important}.align-items-xl-baseline{-ms-flex-align:baseline!important;align-items:baseline!important}.align-items-xl-stretch{-ms-flex-align:stretch!important;align-items:stretch!important}.align-content-xl-start{-ms-flex-line-pack:start!important;align-content:flex-start!important}.align-content-xl-end{-ms-flex-line-pack:end!important;align-content:flex-end!important}.align-content-xl-center{-ms-flex-line-pack:center!important;align-content:center!important}.align-content-xl-between{-ms-flex-line-pack:justify!important;align-content:space-between!important}.align-content-xl-around{-ms-flex-line-pack:distribute!important;align-content:space-around!important}.align-content-xl-stretch{-ms-flex-line-pack:stretch!important;align-content:stretch!important}.align-self-xl-auto{-ms-flex-item-align:auto!important;align-self:auto!important}.align-self-xl-start{-ms-flex-item-align:start!important;align-self:flex-start!important}.align-self-xl-end{-ms-flex-item-align:end!important;align-self:flex-end!important}.align-self-xl-center{-ms-flex-item-align:center!important;align-self:center!important}.align-self-xl-baseline{-ms-flex-item-align:baseline!important;align-self:baseline!important}.align-self-xl-stretch{-ms-flex-item-align:stretch!important;align-self:stretch!important}}.float-left{float:left!important}.float-right{float:right!important}.float-none{float:none!important}@media (min-width:576px){.float-sm-left{float:left!important}.float-sm-right{float:right!important}.float-sm-none{float:none!important}}@media (min-width:768px){.float-md-left{float:left!important}.float-md-right{float:right!important}.float-md-none{float:none!important}}@media (min-width:992px){.float-lg-left{float:left!important}.float-lg-right{float:right!important}.float-lg-none{float:none!important}}@media (min-width:1200px){.float-xl-left{float:left!important}.float-xl-right{float:right!important}.float-xl-none{float:none!important}}.position-static{position:static!important}.position-relative{position:relative!important}.position-absolute{position:absolute!important}.position-fixed{position:fixed!important}.position-sticky{position:-webkit-sticky!important;position:sticky!important}.fixed-top{position:fixed;top:0;right:0;left:0;z-index:1030}.fixed-bottom{position:fixed;right:0;bottom:0;left:0;z-index:1030}@supports ((position:-webkit-sticky) or (position:sticky)){.sticky-top{position:-webkit-sticky;position:sticky;top:0;z-index:1020}}.sr-only{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.sr-only-focusable:active,.sr-only-focusable:focus{position:static;width:auto;height:auto;overflow:visible;clip:auto;white-space:normal}.shadow-sm{box-shadow:0 .125rem .25rem rgba(0,0,0,.075)!important}.shadow{box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important}.shadow-lg{box-shadow:0 1rem 3rem rgba(0,0,0,.175)!important}.shadow-none{box-shadow:none!important}.w-25{width:25%!important}.w-50{width:50%!important}.w-75{width:75%!important}.w-100{width:100%!important}.w-auto{width:auto!important}.h-25{height:25%!important}.h-50{height:50%!important}.h-75{height:75%!important}.h-100{height:100%!important}.h-auto{height:auto!important}.mw-100{max-width:100%!important}.mh-100{max-height:100%!important}.m-0{margin:0!important}.mt-0,.my-0{margin-top:0!important}.mr-0,.mx-0{margin-right:0!important}.mb-0,.my-0{margin-bottom:0!important}.ml-0,.mx-0{margin-left:0!important}.m-1{margin:.25rem!important}.mt-1,.my-1{margin-top:.25rem!important}.mr-1,.mx-1{margin-right:.25rem!important}.mb-1,.my-1{margin-bottom:.25rem!important}.ml-1,.mx-1{margin-left:.25rem!important}.m-2{margin:.5rem!important}.mt-2,.my-2{margin-top:.5rem!important}.mr-2,.mx-2{margin-right:.5rem!important}.mb-2,.my-2{margin-bottom:.5rem!important}.ml-2,.mx-2{margin-left:.5rem!important}.m-3{margin:1rem!important}.mt-3,.my-3{margin-top:1rem!important}.mr-3,.mx-3{margin-right:1rem!important}.mb-3,.my-3{margin-bottom:1rem!important}.ml-3,.mx-3{margin-left:1rem!important}.m-4{margin:1.5rem!important}.mt-4,.my-4{margin-top:1.5rem!important}.mr-4,.mx-4{margin-right:1.5rem!important}.mb-4,.my-4{margin-bottom:1.5rem!important}.ml-4,.mx-4{margin-left:1.5rem!important}.m-5{margin:3rem!important}.mt-5,.my-5{margin-top:3rem!important}.mr-5,.mx-5{margin-right:3rem!important}.mb-5,.my-5{margin-bottom:3rem!important}.ml-5,.mx-5{margin-left:3rem!important}.p-0{padding:0!important}.pt-0,.py-0{padding-top:0!important}.pr-0,.px-0{padding-right:0!important}.pb-0,.py-0{padding-bottom:0!important}.pl-0,.px-0{padding-left:0!important}.p-1{padding:.25rem!important}.pt-1,.py-1{padding-top:.25rem!important}.pr-1,.px-1{padding-right:.25rem!important}.pb-1,.py-1{padding-bottom:.25rem!important}.pl-1,.px-1{padding-left:.25rem!important}.p-2{padding:.5rem!important}.pt-2,.py-2{padding-top:.5rem!important}.pr-2,.px-2{padding-right:.5rem!important}.pb-2,.py-2{padding-bottom:.5rem!important}.pl-2,.px-2{padding-left:.5rem!important}.p-3{padding:1rem!important}.pt-3,.py-3{padding-top:1rem!important}.pr-3,.px-3{padding-right:1rem!important}.pb-3,.py-3{padding-bottom:1rem!important}.pl-3,.px-3{padding-left:1rem!important}.p-4{padding:1.5rem!important}.pt-4,.py-4{padding-top:1.5rem!important}.pr-4,.px-4{padding-right:1.5rem!important}.pb-4,.py-4{padding-bottom:1.5rem!important}.pl-4,.px-4{padding-left:1.5rem!important}.p-5{padding:3rem!important}.pt-5,.py-5{padding-top:3rem!important}.pr-5,.px-5{padding-right:3rem!important}.pb-5,.py-5{padding-bottom:3rem!important}.pl-5,.px-5{padding-left:3rem!important}.m-auto{margin:auto!important}.mt-auto,.my-auto{margin-top:auto!important}.mr-auto,.mx-auto{margin-right:auto!important}.mb-auto,.my-auto{margin-bottom:auto!important}.ml-auto,.mx-auto{margin-left:auto!important}@media (min-width:576px){.m-sm-0{margin:0!important}.mt-sm-0,.my-sm-0{margin-top:0!important}.mr-sm-0,.mx-sm-0{margin-right:0!important}.mb-sm-0,.my-sm-0{margin-bottom:0!important}.ml-sm-0,.mx-sm-0{margin-left:0!important}.m-sm-1{margin:.25rem!important}.mt-sm-1,.my-sm-1{margin-top:.25rem!important}.mr-sm-1,.mx-sm-1{margin-right:.25rem!important}.mb-sm-1,.my-sm-1{margin-bottom:.25rem!important}.ml-sm-1,.mx-sm-1{margin-left:.25rem!important}.m-sm-2{margin:.5rem!important}.mt-sm-2,.my-sm-2{margin-top:.5rem!important}.mr-sm-2,.mx-sm-2{margin-right:.5rem!important}.mb-sm-2,.my-sm-2{margin-bottom:.5rem!important}.ml-sm-2,.mx-sm-2{margin-left:.5rem!important}.m-sm-3{margin:1rem!important}.mt-sm-3,.my-sm-3{margin-top:1rem!important}.mr-sm-3,.mx-sm-3{margin-right:1rem!important}.mb-sm-3,.my-sm-3{margin-bottom:1rem!important}.ml-sm-3,.mx-sm-3{margin-left:1rem!important}.m-sm-4{margin:1.5rem!important}.mt-sm-4,.my-sm-4{margin-top:1.5rem!important}.mr-sm-4,.mx-sm-4{margin-right:1.5rem!important}.mb-sm-4,.my-sm-4{margin-bottom:1.5rem!important}.ml-sm-4,.mx-sm-4{margin-left:1.5rem!important}.m-sm-5{margin:3rem!important}.mt-sm-5,.my-sm-5{margin-top:3rem!important}.mr-sm-5,.mx-sm-5{margin-right:3rem!important}.mb-sm-5,.my-sm-5{margin-bottom:3rem!important}.ml-sm-5,.mx-sm-5{margin-left:3rem!important}.p-sm-0{padding:0!important}.pt-sm-0,.py-sm-0{padding-top:0!important}.pr-sm-0,.px-sm-0{padding-right:0!important}.pb-sm-0,.py-sm-0{padding-bottom:0!important}.pl-sm-0,.px-sm-0{padding-left:0!important}.p-sm-1{padding:.25rem!important}.pt-sm-1,.py-sm-1{padding-top:.25rem!important}.pr-sm-1,.px-sm-1{padding-right:.25rem!important}.pb-sm-1,.py-sm-1{padding-bottom:.25rem!important}.pl-sm-1,.px-sm-1{padding-left:.25rem!important}.p-sm-2{padding:.5rem!important}.pt-sm-2,.py-sm-2{padding-top:.5rem!important}.pr-sm-2,.px-sm-2{padding-right:.5rem!important}.pb-sm-2,.py-sm-2{padding-bottom:.5rem!important}.pl-sm-2,.px-sm-2{padding-left:.5rem!important}.p-sm-3{padding:1rem!important}.pt-sm-3,.py-sm-3{padding-top:1rem!important}.pr-sm-3,.px-sm-3{padding-right:1rem!important}.pb-sm-3,.py-sm-3{padding-bottom:1rem!important}.pl-sm-3,.px-sm-3{padding-left:1rem!important}.p-sm-4{padding:1.5rem!important}.pt-sm-4,.py-sm-4{padding-top:1.5rem!important}.pr-sm-4,.px-sm-4{padding-right:1.5rem!important}.pb-sm-4,.py-sm-4{padding-bottom:1.5rem!important}.pl-sm-4,.px-sm-4{padding-left:1.5rem!important}.p-sm-5{padding:3rem!important}.pt-sm-5,.py-sm-5{padding-top:3rem!important}.pr-sm-5,.px-sm-5{padding-right:3rem!important}.pb-sm-5,.py-sm-5{padding-bottom:3rem!important}.pl-sm-5,.px-sm-5{padding-left:3rem!important}.m-sm-auto{margin:auto!important}.mt-sm-auto,.my-sm-auto{margin-top:auto!important}.mr-sm-auto,.mx-sm-auto{margin-right:auto!important}.mb-sm-auto,.my-sm-auto{margin-bottom:auto!important}.ml-sm-auto,.mx-sm-auto{margin-left:auto!important}}@media (min-width:768px){.m-md-0{margin:0!important}.mt-md-0,.my-md-0{margin-top:0!important}.mr-md-0,.mx-md-0{margin-right:0!important}.mb-md-0,.my-md-0{margin-bottom:0!important}.ml-md-0,.mx-md-0{margin-left:0!important}.m-md-1{margin:.25rem!important}.mt-md-1,.my-md-1{margin-top:.25rem!important}.mr-md-1,.mx-md-1{margin-right:.25rem!important}.mb-md-1,.my-md-1{margin-bottom:.25rem!important}.ml-md-1,.mx-md-1{margin-left:.25rem!important}.m-md-2{margin:.5rem!important}.mt-md-2,.my-md-2{margin-top:.5rem!important}.mr-md-2,.mx-md-2{margin-right:.5rem!important}.mb-md-2,.my-md-2{margin-bottom:.5rem!important}.ml-md-2,.mx-md-2{margin-left:.5rem!important}.m-md-3{margin:1rem!important}.mt-md-3,.my-md-3{margin-top:1rem!important}.mr-md-3,.mx-md-3{margin-right:1rem!important}.mb-md-3,.my-md-3{margin-bottom:1rem!important}.ml-md-3,.mx-md-3{margin-left:1rem!important}.m-md-4{margin:1.5rem!important}.mt-md-4,.my-md-4{margin-top:1.5rem!important}.mr-md-4,.mx-md-4{margin-right:1.5rem!important}.mb-md-4,.my-md-4{margin-bottom:1.5rem!important}.ml-md-4,.mx-md-4{margin-left:1.5rem!important}.m-md-5{margin:3rem!important}.mt-md-5,.my-md-5{margin-top:3rem!important}.mr-md-5,.mx-md-5{margin-right:3rem!important}.mb-md-5,.my-md-5{margin-bottom:3rem!important}.ml-md-5,.mx-md-5{margin-left:3rem!important}.p-md-0{padding:0!important}.pt-md-0,.py-md-0{padding-top:0!important}.pr-md-0,.px-md-0{padding-right:0!important}.pb-md-0,.py-md-0{padding-bottom:0!important}.pl-md-0,.px-md-0{padding-left:0!important}.p-md-1{padding:.25rem!important}.pt-md-1,.py-md-1{padding-top:.25rem!important}.pr-md-1,.px-md-1{padding-right:.25rem!important}.pb-md-1,.py-md-1{padding-bottom:.25rem!important}.pl-md-1,.px-md-1{padding-left:.25rem!important}.p-md-2{padding:.5rem!important}.pt-md-2,.py-md-2{padding-top:.5rem!important}.pr-md-2,.px-md-2{padding-right:.5rem!important}.pb-md-2,.py-md-2{padding-bottom:.5rem!important}.pl-md-2,.px-md-2{padding-left:.5rem!important}.p-md-3{padding:1rem!important}.pt-md-3,.py-md-3{padding-top:1rem!important}.pr-md-3,.px-md-3{padding-right:1rem!important}.pb-md-3,.py-md-3{padding-bottom:1rem!important}.pl-md-3,.px-md-3{padding-left:1rem!important}.p-md-4{padding:1.5rem!important}.pt-md-4,.py-md-4{padding-top:1.5rem!important}.pr-md-4,.px-md-4{padding-right:1.5rem!important}.pb-md-4,.py-md-4{padding-bottom:1.5rem!important}.pl-md-4,.px-md-4{padding-left:1.5rem!important}.p-md-5{padding:3rem!important}.pt-md-5,.py-md-5{padding-top:3rem!important}.pr-md-5,.px-md-5{padding-right:3rem!important}.pb-md-5,.py-md-5{padding-bottom:3rem!important}.pl-md-5,.px-md-5{padding-left:3rem!important}.m-md-auto{margin:auto!important}.mt-md-auto,.my-md-auto{margin-top:auto!important}.mr-md-auto,.mx-md-auto{margin-right:auto!important}.mb-md-auto,.my-md-auto{margin-bottom:auto!important}.ml-md-auto,.mx-md-auto{margin-left:auto!important}}@media (min-width:992px){.m-lg-0{margin:0!important}.mt-lg-0,.my-lg-0{margin-top:0!important}.mr-lg-0,.mx-lg-0{margin-right:0!important}.mb-lg-0,.my-lg-0{margin-bottom:0!important}.ml-lg-0,.mx-lg-0{margin-left:0!important}.m-lg-1{margin:.25rem!important}.mt-lg-1,.my-lg-1{margin-top:.25rem!important}.mr-lg-1,.mx-lg-1{margin-right:.25rem!important}.mb-lg-1,.my-lg-1{margin-bottom:.25rem!important}.ml-lg-1,.mx-lg-1{margin-left:.25rem!important}.m-lg-2{margin:.5rem!important}.mt-lg-2,.my-lg-2{margin-top:.5rem!important}.mr-lg-2,.mx-lg-2{margin-right:.5rem!important}.mb-lg-2,.my-lg-2{margin-bottom:.5rem!important}.ml-lg-2,.mx-lg-2{margin-left:.5rem!important}.m-lg-3{margin:1rem!important}.mt-lg-3,.my-lg-3{margin-top:1rem!important}.mr-lg-3,.mx-lg-3{margin-right:1rem!important}.mb-lg-3,.my-lg-3{margin-bottom:1rem!important}.ml-lg-3,.mx-lg-3{margin-left:1rem!important}.m-lg-4{margin:1.5rem!important}.mt-lg-4,.my-lg-4{margin-top:1.5rem!important}.mr-lg-4,.mx-lg-4{margin-right:1.5rem!important}.mb-lg-4,.my-lg-4{margin-bottom:1.5rem!important}.ml-lg-4,.mx-lg-4{margin-left:1.5rem!important}.m-lg-5{margin:3rem!important}.mt-lg-5,.my-lg-5{margin-top:3rem!important}.mr-lg-5,.mx-lg-5{margin-right:3rem!important}.mb-lg-5,.my-lg-5{margin-bottom:3rem!important}.ml-lg-5,.mx-lg-5{margin-left:3rem!important}.p-lg-0{padding:0!important}.pt-lg-0,.py-lg-0{padding-top:0!important}.pr-lg-0,.px-lg-0{padding-right:0!important}.pb-lg-0,.py-lg-0{padding-bottom:0!important}.pl-lg-0,.px-lg-0{padding-left:0!important}.p-lg-1{padding:.25rem!important}.pt-lg-1,.py-lg-1{padding-top:.25rem!important}.pr-lg-1,.px-lg-1{padding-right:.25rem!important}.pb-lg-1,.py-lg-1{padding-bottom:.25rem!important}.pl-lg-1,.px-lg-1{padding-left:.25rem!important}.p-lg-2{padding:.5rem!important}.pt-lg-2,.py-lg-2{padding-top:.5rem!important}.pr-lg-2,.px-lg-2{padding-right:.5rem!important}.pb-lg-2,.py-lg-2{padding-bottom:.5rem!important}.pl-lg-2,.px-lg-2{padding-left:.5rem!important}.p-lg-3{padding:1rem!important}.pt-lg-3,.py-lg-3{padding-top:1rem!important}.pr-lg-3,.px-lg-3{padding-right:1rem!important}.pb-lg-3,.py-lg-3{padding-bottom:1rem!important}.pl-lg-3,.px-lg-3{padding-left:1rem!important}.p-lg-4{padding:1.5rem!important}.pt-lg-4,.py-lg-4{padding-top:1.5rem!important}.pr-lg-4,.px-lg-4{padding-right:1.5rem!important}.pb-lg-4,.py-lg-4{padding-bottom:1.5rem!important}.pl-lg-4,.px-lg-4{padding-left:1.5rem!important}.p-lg-5{padding:3rem!important}.pt-lg-5,.py-lg-5{padding-top:3rem!important}.pr-lg-5,.px-lg-5{padding-right:3rem!important}.pb-lg-5,.py-lg-5{padding-bottom:3rem!important}.pl-lg-5,.px-lg-5{padding-left:3rem!important}.m-lg-auto{margin:auto!important}.mt-lg-auto,.my-lg-auto{margin-top:auto!important}.mr-lg-auto,.mx-lg-auto{margin-right:auto!important}.mb-lg-auto,.my-lg-auto{margin-bottom:auto!important}.ml-lg-auto,.mx-lg-auto{margin-left:auto!important}}@media (min-width:1200px){.m-xl-0{margin:0!important}.mt-xl-0,.my-xl-0{margin-top:0!important}.mr-xl-0,.mx-xl-0{margin-right:0!important}.mb-xl-0,.my-xl-0{margin-bottom:0!important}.ml-xl-0,.mx-xl-0{margin-left:0!important}.m-xl-1{margin:.25rem!important}.mt-xl-1,.my-xl-1{margin-top:.25rem!important}.mr-xl-1,.mx-xl-1{margin-right:.25rem!important}.mb-xl-1,.my-xl-1{margin-bottom:.25rem!important}.ml-xl-1,.mx-xl-1{margin-left:.25rem!important}.m-xl-2{margin:.5rem!important}.mt-xl-2,.my-xl-2{margin-top:.5rem!important}.mr-xl-2,.mx-xl-2{margin-right:.5rem!important}.mb-xl-2,.my-xl-2{margin-bottom:.5rem!important}.ml-xl-2,.mx-xl-2{margin-left:.5rem!important}.m-xl-3{margin:1rem!important}.mt-xl-3,.my-xl-3{margin-top:1rem!important}.mr-xl-3,.mx-xl-3{margin-right:1rem!important}.mb-xl-3,.my-xl-3{margin-bottom:1rem!important}.ml-xl-3,.mx-xl-3{margin-left:1rem!important}.m-xl-4{margin:1.5rem!important}.mt-xl-4,.my-xl-4{margin-top:1.5rem!important}.mr-xl-4,.mx-xl-4{margin-right:1.5rem!important}.mb-xl-4,.my-xl-4{margin-bottom:1.5rem!important}.ml-xl-4,.mx-xl-4{margin-left:1.5rem!important}.m-xl-5{margin:3rem!important}.mt-xl-5,.my-xl-5{margin-top:3rem!important}.mr-xl-5,.mx-xl-5{margin-right:3rem!important}.mb-xl-5,.my-xl-5{margin-bottom:3rem!important}.ml-xl-5,.mx-xl-5{margin-left:3rem!important}.p-xl-0{padding:0!important}.pt-xl-0,.py-xl-0{padding-top:0!important}.pr-xl-0,.px-xl-0{padding-right:0!important}.pb-xl-0,.py-xl-0{padding-bottom:0!important}.pl-xl-0,.px-xl-0{padding-left:0!important}.p-xl-1{padding:.25rem!important}.pt-xl-1,.py-xl-1{padding-top:.25rem!important}.pr-xl-1,.px-xl-1{padding-right:.25rem!important}.pb-xl-1,.py-xl-1{padding-bottom:.25rem!important}.pl-xl-1,.px-xl-1{padding-left:.25rem!important}.p-xl-2{padding:.5rem!important}.pt-xl-2,.py-xl-2{padding-top:.5rem!important}.pr-xl-2,.px-xl-2{padding-right:.5rem!important}.pb-xl-2,.py-xl-2{padding-bottom:.5rem!important}.pl-xl-2,.px-xl-2{padding-left:.5rem!important}.p-xl-3{padding:1rem!important}.pt-xl-3,.py-xl-3{padding-top:1rem!important}.pr-xl-3,.px-xl-3{padding-right:1rem!important}.pb-xl-3,.py-xl-3{padding-bottom:1rem!important}.pl-xl-3,.px-xl-3{padding-left:1rem!important}.p-xl-4{padding:1.5rem!important}.pt-xl-4,.py-xl-4{padding-top:1.5rem!important}.pr-xl-4,.px-xl-4{padding-right:1.5rem!important}.pb-xl-4,.py-xl-4{padding-bottom:1.5rem!important}.pl-xl-4,.px-xl-4{padding-left:1.5rem!important}.p-xl-5{padding:3rem!important}.pt-xl-5,.py-xl-5{padding-top:3rem!important}.pr-xl-5,.px-xl-5{padding-right:3rem!important}.pb-xl-5,.py-xl-5{padding-bottom:3rem!important}.pl-xl-5,.px-xl-5{padding-left:3rem!important}.m-xl-auto{margin:auto!important}.mt-xl-auto,.my-xl-auto{margin-top:auto!important}.mr-xl-auto,.mx-xl-auto{margin-right:auto!important}.mb-xl-auto,.my-xl-auto{margin-bottom:auto!important}.ml-xl-auto,.mx-xl-auto{margin-left:auto!important}}.text-monospace{font-family:SFMono-Regular,Menlo,Monaco,Consolas,\"Liberation Mono\",\"Courier New\",monospace}.text-justify{text-align:justify!important}.text-nowrap{white-space:nowrap!important}.text-truncate{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.text-left{text-align:left!important}.text-right{text-align:right!important}.text-center{text-align:center!important}@media (min-width:576px){.text-sm-left{text-align:left!important}.text-sm-right{text-align:right!important}.text-sm-center{text-align:center!important}}@media (min-width:768px){.text-md-left{text-align:left!important}.text-md-right{text-align:right!important}.text-md-center{text-align:center!important}}@media (min-width:992px){.text-lg-left{text-align:left!important}.text-lg-right{text-align:right!important}.text-lg-center{text-align:center!important}}@media (min-width:1200px){.text-xl-left{text-align:left!important}.text-xl-right{text-align:right!important}.text-xl-center{text-align:center!important}}.text-lowercase{text-transform:lowercase!important}.text-uppercase{text-transform:uppercase!important}.text-capitalize{text-transform:capitalize!important}.font-weight-light{font-weight:300!important}.font-weight-normal{font-weight:400!important}.font-weight-bold{font-weight:700!important}.font-italic{font-style:italic!important}.text-white{color:#fff!important}.text-primary{color:#007bff!important}a.text-primary:focus,a.text-primary:hover{color:#0062cc!important}.text-secondary{color:#6c757d!important}a.text-secondary:focus,a.text-secondary:hover{color:#545b62!important}.text-success{color:#28a745!important}a.text-success:focus,a.text-success:hover{color:#1e7e34!important}.text-info{color:#17a2b8!important}a.text-info:focus,a.text-info:hover{color:#117a8b!important}.text-warning{color:#ffc107!important}a.text-warning:focus,a.text-warning:hover{color:#d39e00!important}.text-danger{color:#dc3545!important}a.text-danger:focus,a.text-danger:hover{color:#bd2130!important}.text-light{color:#f8f9fa!important}a.text-light:focus,a.text-light:hover{color:#dae0e5!important}.text-dark{color:#343a40!important}a.text-dark:focus,a.text-dark:hover{color:#1d2124!important}.text-body{color:#212529!important}.text-muted{color:#6c757d!important}.text-black-50{color:rgba(0,0,0,.5)!important}.text-white-50{color:rgba(255,255,255,.5)!important}.text-hide{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0}.visible{visibility:visible!important}.invisible{visibility:hidden!important}@media print{*,::after,::before{text-shadow:none!important;box-shadow:none!important}a:not(.btn){text-decoration:underline}abbr[title]::after{content:\" (\" attr(title) \")\"}pre{white-space:pre-wrap!important}blockquote,pre{border:1px solid #adb5bd;page-break-inside:avoid}thead{display:table-header-group}img,tr{page-break-inside:avoid}h2,h3,p{orphans:3;widows:3}h2,h3{page-break-after:avoid}@page{size:a3}body{min-width:992px!important}.container{min-width:992px!important}.navbar{display:none}.badge{border:1px solid #000}.table{border-collapse:collapse!important}.table td,.table th{background-color:#fff!important}.table-bordered td,.table-bordered th{border:1px solid #dee2e6!important}.table-dark{color:inherit}.table-dark tbody+tbody,.table-dark td,.table-dark th,.table-dark thead th{border-color:#dee2e6}.table .thead-dark th{color:inherit;border-color:#dee2e6}}"; (require("browserify-css").createStyle(css, {}, { "insertAt": "top" })); module.exports = css;
 },{"browserify-css":4}],3:[function(require,module,exports){
 /*!
@@ -4234,7 +4249,7 @@ var css = "/*!\n * Bootstrap v4.1.1 (https://getbootstrap.com/)\n * Copyright 20
 })));
 
 
-},{"jquery":48,"popper.js":50}],4:[function(require,module,exports){
+},{"jquery":37,"popper.js":39}],4:[function(require,module,exports){
 'use strict';
 // For more information about browser field, check out the browser field at https://github.com/substack/browserify-handbook#browser-field.
 
@@ -14360,7 +14375,7 @@ exports['default'] = CodeGen;
 module.exports = exports['default'];
 
 
-},{"../utils":35,"source-map":37}],13:[function(require,module,exports){
+},{"../utils":35,"source-map":41}],13:[function(require,module,exports){
 /* eslint-disable new-cap */
 
 'use strict';
@@ -18569,2945 +18584,6 @@ if (typeof require !== 'undefined' && require.extensions) {
 }
 
 },{"../dist/cjs/handlebars":7,"../dist/cjs/handlebars/compiler/printer":17,"fs":5}],37:[function(require,module,exports){
-/*
- * Copyright 2009-2011 Mozilla Foundation and contributors
- * Licensed under the New BSD license. See LICENSE.txt or:
- * http://opensource.org/licenses/BSD-3-Clause
- */
-exports.SourceMapGenerator = require('./source-map/source-map-generator').SourceMapGenerator;
-exports.SourceMapConsumer = require('./source-map/source-map-consumer').SourceMapConsumer;
-exports.SourceNode = require('./source-map/source-node').SourceNode;
-
-},{"./source-map/source-map-consumer":44,"./source-map/source-map-generator":45,"./source-map/source-node":46}],38:[function(require,module,exports){
-/* -*- Mode: js; js-indent-level: 2; -*- */
-/*
- * Copyright 2011 Mozilla Foundation and contributors
- * Licensed under the New BSD license. See LICENSE or:
- * http://opensource.org/licenses/BSD-3-Clause
- */
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module, require);
-}
-define(function (require, exports, module) {
-
-  var util = require('./util');
-
-  /**
-   * A data structure which is a combination of an array and a set. Adding a new
-   * member is O(1), testing for membership is O(1), and finding the index of an
-   * element is O(1). Removing elements from the set is not supported. Only
-   * strings are supported for membership.
-   */
-  function ArraySet() {
-    this._array = [];
-    this._set = {};
-  }
-
-  /**
-   * Static method for creating ArraySet instances from an existing array.
-   */
-  ArraySet.fromArray = function ArraySet_fromArray(aArray, aAllowDuplicates) {
-    var set = new ArraySet();
-    for (var i = 0, len = aArray.length; i < len; i++) {
-      set.add(aArray[i], aAllowDuplicates);
-    }
-    return set;
-  };
-
-  /**
-   * Return how many unique items are in this ArraySet. If duplicates have been
-   * added, than those do not count towards the size.
-   *
-   * @returns Number
-   */
-  ArraySet.prototype.size = function ArraySet_size() {
-    return Object.getOwnPropertyNames(this._set).length;
-  };
-
-  /**
-   * Add the given string to this set.
-   *
-   * @param String aStr
-   */
-  ArraySet.prototype.add = function ArraySet_add(aStr, aAllowDuplicates) {
-    var isDuplicate = this.has(aStr);
-    var idx = this._array.length;
-    if (!isDuplicate || aAllowDuplicates) {
-      this._array.push(aStr);
-    }
-    if (!isDuplicate) {
-      this._set[util.toSetString(aStr)] = idx;
-    }
-  };
-
-  /**
-   * Is the given string a member of this set?
-   *
-   * @param String aStr
-   */
-  ArraySet.prototype.has = function ArraySet_has(aStr) {
-    return Object.prototype.hasOwnProperty.call(this._set,
-                                                util.toSetString(aStr));
-  };
-
-  /**
-   * What is the index of the given string in the array?
-   *
-   * @param String aStr
-   */
-  ArraySet.prototype.indexOf = function ArraySet_indexOf(aStr) {
-    if (this.has(aStr)) {
-      return this._set[util.toSetString(aStr)];
-    }
-    throw new Error('"' + aStr + '" is not in the set.');
-  };
-
-  /**
-   * What is the element at the given index?
-   *
-   * @param Number aIdx
-   */
-  ArraySet.prototype.at = function ArraySet_at(aIdx) {
-    if (aIdx >= 0 && aIdx < this._array.length) {
-      return this._array[aIdx];
-    }
-    throw new Error('No element indexed by ' + aIdx);
-  };
-
-  /**
-   * Returns the array representation of this set (which has the proper indices
-   * indicated by indexOf). Note that this is a copy of the internal array used
-   * for storing the members so that no one can mess with internal state.
-   */
-  ArraySet.prototype.toArray = function ArraySet_toArray() {
-    return this._array.slice();
-  };
-
-  exports.ArraySet = ArraySet;
-
-});
-
-},{"./util":47,"amdefine":1}],39:[function(require,module,exports){
-/* -*- Mode: js; js-indent-level: 2; -*- */
-/*
- * Copyright 2011 Mozilla Foundation and contributors
- * Licensed under the New BSD license. See LICENSE or:
- * http://opensource.org/licenses/BSD-3-Clause
- *
- * Based on the Base 64 VLQ implementation in Closure Compiler:
- * https://code.google.com/p/closure-compiler/source/browse/trunk/src/com/google/debugging/sourcemap/Base64VLQ.java
- *
- * Copyright 2011 The Closure Compiler Authors. All rights reserved.
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are
- * met:
- *
- *  * Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  * Redistributions in binary form must reproduce the above
- *    copyright notice, this list of conditions and the following
- *    disclaimer in the documentation and/or other materials provided
- *    with the distribution.
- *  * Neither the name of Google Inc. nor the names of its
- *    contributors may be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module, require);
-}
-define(function (require, exports, module) {
-
-  var base64 = require('./base64');
-
-  // A single base 64 digit can contain 6 bits of data. For the base 64 variable
-  // length quantities we use in the source map spec, the first bit is the sign,
-  // the next four bits are the actual value, and the 6th bit is the
-  // continuation bit. The continuation bit tells us whether there are more
-  // digits in this value following this digit.
-  //
-  //   Continuation
-  //   |    Sign
-  //   |    |
-  //   V    V
-  //   101011
-
-  var VLQ_BASE_SHIFT = 5;
-
-  // binary: 100000
-  var VLQ_BASE = 1 << VLQ_BASE_SHIFT;
-
-  // binary: 011111
-  var VLQ_BASE_MASK = VLQ_BASE - 1;
-
-  // binary: 100000
-  var VLQ_CONTINUATION_BIT = VLQ_BASE;
-
-  /**
-   * Converts from a two-complement value to a value where the sign bit is
-   * placed in the least significant bit.  For example, as decimals:
-   *   1 becomes 2 (10 binary), -1 becomes 3 (11 binary)
-   *   2 becomes 4 (100 binary), -2 becomes 5 (101 binary)
-   */
-  function toVLQSigned(aValue) {
-    return aValue < 0
-      ? ((-aValue) << 1) + 1
-      : (aValue << 1) + 0;
-  }
-
-  /**
-   * Converts to a two-complement value from a value where the sign bit is
-   * placed in the least significant bit.  For example, as decimals:
-   *   2 (10 binary) becomes 1, 3 (11 binary) becomes -1
-   *   4 (100 binary) becomes 2, 5 (101 binary) becomes -2
-   */
-  function fromVLQSigned(aValue) {
-    var isNegative = (aValue & 1) === 1;
-    var shifted = aValue >> 1;
-    return isNegative
-      ? -shifted
-      : shifted;
-  }
-
-  /**
-   * Returns the base 64 VLQ encoded value.
-   */
-  exports.encode = function base64VLQ_encode(aValue) {
-    var encoded = "";
-    var digit;
-
-    var vlq = toVLQSigned(aValue);
-
-    do {
-      digit = vlq & VLQ_BASE_MASK;
-      vlq >>>= VLQ_BASE_SHIFT;
-      if (vlq > 0) {
-        // There are still more digits in this value, so we must make sure the
-        // continuation bit is marked.
-        digit |= VLQ_CONTINUATION_BIT;
-      }
-      encoded += base64.encode(digit);
-    } while (vlq > 0);
-
-    return encoded;
-  };
-
-  /**
-   * Decodes the next base 64 VLQ value from the given string and returns the
-   * value and the rest of the string via the out parameter.
-   */
-  exports.decode = function base64VLQ_decode(aStr, aIndex, aOutParam) {
-    var strLen = aStr.length;
-    var result = 0;
-    var shift = 0;
-    var continuation, digit;
-
-    do {
-      if (aIndex >= strLen) {
-        throw new Error("Expected more digits in base 64 VLQ value.");
-      }
-
-      digit = base64.decode(aStr.charCodeAt(aIndex++));
-      if (digit === -1) {
-        throw new Error("Invalid base64 digit: " + aStr.charAt(aIndex - 1));
-      }
-
-      continuation = !!(digit & VLQ_CONTINUATION_BIT);
-      digit &= VLQ_BASE_MASK;
-      result = result + (digit << shift);
-      shift += VLQ_BASE_SHIFT;
-    } while (continuation);
-
-    aOutParam.value = fromVLQSigned(result);
-    aOutParam.rest = aIndex;
-  };
-
-});
-
-},{"./base64":40,"amdefine":1}],40:[function(require,module,exports){
-/* -*- Mode: js; js-indent-level: 2; -*- */
-/*
- * Copyright 2011 Mozilla Foundation and contributors
- * Licensed under the New BSD license. See LICENSE or:
- * http://opensource.org/licenses/BSD-3-Clause
- */
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module, require);
-}
-define(function (require, exports, module) {
-
-  var intToCharMap = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'.split('');
-
-  /**
-   * Encode an integer in the range of 0 to 63 to a single base 64 digit.
-   */
-  exports.encode = function (number) {
-    if (0 <= number && number < intToCharMap.length) {
-      return intToCharMap[number];
-    }
-    throw new TypeError("Must be between 0 and 63: " + aNumber);
-  };
-
-  /**
-   * Decode a single base 64 character code digit to an integer. Returns -1 on
-   * failure.
-   */
-  exports.decode = function (charCode) {
-    var bigA = 65;     // 'A'
-    var bigZ = 90;     // 'Z'
-
-    var littleA = 97;  // 'a'
-    var littleZ = 122; // 'z'
-
-    var zero = 48;     // '0'
-    var nine = 57;     // '9'
-
-    var plus = 43;     // '+'
-    var slash = 47;    // '/'
-
-    var littleOffset = 26;
-    var numberOffset = 52;
-
-    // 0 - 25: ABCDEFGHIJKLMNOPQRSTUVWXYZ
-    if (bigA <= charCode && charCode <= bigZ) {
-      return (charCode - bigA);
-    }
-
-    // 26 - 51: abcdefghijklmnopqrstuvwxyz
-    if (littleA <= charCode && charCode <= littleZ) {
-      return (charCode - littleA + littleOffset);
-    }
-
-    // 52 - 61: 0123456789
-    if (zero <= charCode && charCode <= nine) {
-      return (charCode - zero + numberOffset);
-    }
-
-    // 62: +
-    if (charCode == plus) {
-      return 62;
-    }
-
-    // 63: /
-    if (charCode == slash) {
-      return 63;
-    }
-
-    // Invalid base64 digit.
-    return -1;
-  };
-
-});
-
-},{"amdefine":1}],41:[function(require,module,exports){
-/* -*- Mode: js; js-indent-level: 2; -*- */
-/*
- * Copyright 2011 Mozilla Foundation and contributors
- * Licensed under the New BSD license. See LICENSE or:
- * http://opensource.org/licenses/BSD-3-Clause
- */
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module, require);
-}
-define(function (require, exports, module) {
-
-  exports.GREATEST_LOWER_BOUND = 1;
-  exports.LEAST_UPPER_BOUND = 2;
-
-  /**
-   * Recursive implementation of binary search.
-   *
-   * @param aLow Indices here and lower do not contain the needle.
-   * @param aHigh Indices here and higher do not contain the needle.
-   * @param aNeedle The element being searched for.
-   * @param aHaystack The non-empty array being searched.
-   * @param aCompare Function which takes two elements and returns -1, 0, or 1.
-   * @param aBias Either 'binarySearch.GREATEST_LOWER_BOUND' or
-   *     'binarySearch.LEAST_UPPER_BOUND'. Specifies whether to return the
-   *     closest element that is smaller than or greater than the one we are
-   *     searching for, respectively, if the exact element cannot be found.
-   */
-  function recursiveSearch(aLow, aHigh, aNeedle, aHaystack, aCompare, aBias) {
-    // This function terminates when one of the following is true:
-    //
-    //   1. We find the exact element we are looking for.
-    //
-    //   2. We did not find the exact element, but we can return the index of
-    //      the next-closest element.
-    //
-    //   3. We did not find the exact element, and there is no next-closest
-    //      element than the one we are searching for, so we return -1.
-    var mid = Math.floor((aHigh - aLow) / 2) + aLow;
-    var cmp = aCompare(aNeedle, aHaystack[mid], true);
-    if (cmp === 0) {
-      // Found the element we are looking for.
-      return mid;
-    }
-    else if (cmp > 0) {
-      // Our needle is greater than aHaystack[mid].
-      if (aHigh - mid > 1) {
-        // The element is in the upper half.
-        return recursiveSearch(mid, aHigh, aNeedle, aHaystack, aCompare, aBias);
-      }
-
-      // The exact needle element was not found in this haystack. Determine if
-      // we are in termination case (3) or (2) and return the appropriate thing.
-      if (aBias == exports.LEAST_UPPER_BOUND) {
-        return aHigh < aHaystack.length ? aHigh : -1;
-      } else {
-        return mid;
-      }
-    }
-    else {
-      // Our needle is less than aHaystack[mid].
-      if (mid - aLow > 1) {
-        // The element is in the lower half.
-        return recursiveSearch(aLow, mid, aNeedle, aHaystack, aCompare, aBias);
-      }
-
-      // we are in termination case (3) or (2) and return the appropriate thing.
-      if (aBias == exports.LEAST_UPPER_BOUND) {
-        return mid;
-      } else {
-        return aLow < 0 ? -1 : aLow;
-      }
-    }
-  }
-
-  /**
-   * This is an implementation of binary search which will always try and return
-   * the index of the closest element if there is no exact hit. This is because
-   * mappings between original and generated line/col pairs are single points,
-   * and there is an implicit region between each of them, so a miss just means
-   * that you aren't on the very start of a region.
-   *
-   * @param aNeedle The element you are looking for.
-   * @param aHaystack The array that is being searched.
-   * @param aCompare A function which takes the needle and an element in the
-   *     array and returns -1, 0, or 1 depending on whether the needle is less
-   *     than, equal to, or greater than the element, respectively.
-   * @param aBias Either 'binarySearch.GREATEST_LOWER_BOUND' or
-   *     'binarySearch.LEAST_UPPER_BOUND'. Specifies whether to return the
-   *     closest element that is smaller than or greater than the one we are
-   *     searching for, respectively, if the exact element cannot be found.
-   *     Defaults to 'binarySearch.GREATEST_LOWER_BOUND'.
-   */
-  exports.search = function search(aNeedle, aHaystack, aCompare, aBias) {
-    if (aHaystack.length === 0) {
-      return -1;
-    }
-
-    var index = recursiveSearch(-1, aHaystack.length, aNeedle, aHaystack,
-                                aCompare, aBias || exports.GREATEST_LOWER_BOUND);
-    if (index < 0) {
-      return -1;
-    }
-
-    // We have found either the exact element, or the next-closest element than
-    // the one we are searching for. However, there may be more than one such
-    // element. Make sure we always return the smallest of these.
-    while (index - 1 >= 0) {
-      if (aCompare(aHaystack[index], aHaystack[index - 1], true) !== 0) {
-        break;
-      }
-      --index;
-    }
-
-    return index;
-  };
-
-});
-
-},{"amdefine":1}],42:[function(require,module,exports){
-/* -*- Mode: js; js-indent-level: 2; -*- */
-/*
- * Copyright 2014 Mozilla Foundation and contributors
- * Licensed under the New BSD license. See LICENSE or:
- * http://opensource.org/licenses/BSD-3-Clause
- */
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module, require);
-}
-define(function (require, exports, module) {
-
-  var util = require('./util');
-
-  /**
-   * Determine whether mappingB is after mappingA with respect to generated
-   * position.
-   */
-  function generatedPositionAfter(mappingA, mappingB) {
-    // Optimized for most common case
-    var lineA = mappingA.generatedLine;
-    var lineB = mappingB.generatedLine;
-    var columnA = mappingA.generatedColumn;
-    var columnB = mappingB.generatedColumn;
-    return lineB > lineA || lineB == lineA && columnB >= columnA ||
-           util.compareByGeneratedPositionsInflated(mappingA, mappingB) <= 0;
-  }
-
-  /**
-   * A data structure to provide a sorted view of accumulated mappings in a
-   * performance conscious manner. It trades a neglibable overhead in general
-   * case for a large speedup in case of mappings being added in order.
-   */
-  function MappingList() {
-    this._array = [];
-    this._sorted = true;
-    // Serves as infimum
-    this._last = {generatedLine: -1, generatedColumn: 0};
-  }
-
-  /**
-   * Iterate through internal items. This method takes the same arguments that
-   * `Array.prototype.forEach` takes.
-   *
-   * NOTE: The order of the mappings is NOT guaranteed.
-   */
-  MappingList.prototype.unsortedForEach =
-    function MappingList_forEach(aCallback, aThisArg) {
-      this._array.forEach(aCallback, aThisArg);
-    };
-
-  /**
-   * Add the given source mapping.
-   *
-   * @param Object aMapping
-   */
-  MappingList.prototype.add = function MappingList_add(aMapping) {
-    var mapping;
-    if (generatedPositionAfter(this._last, aMapping)) {
-      this._last = aMapping;
-      this._array.push(aMapping);
-    } else {
-      this._sorted = false;
-      this._array.push(aMapping);
-    }
-  };
-
-  /**
-   * Returns the flat, sorted array of mappings. The mappings are sorted by
-   * generated position.
-   *
-   * WARNING: This method returns internal data without copying, for
-   * performance. The return value must NOT be mutated, and should be treated as
-   * an immutable borrow. If you want to take ownership, you must make your own
-   * copy.
-   */
-  MappingList.prototype.toArray = function MappingList_toArray() {
-    if (!this._sorted) {
-      this._array.sort(util.compareByGeneratedPositionsInflated);
-      this._sorted = true;
-    }
-    return this._array;
-  };
-
-  exports.MappingList = MappingList;
-
-});
-
-},{"./util":47,"amdefine":1}],43:[function(require,module,exports){
-/* -*- Mode: js; js-indent-level: 2; -*- */
-/*
- * Copyright 2011 Mozilla Foundation and contributors
- * Licensed under the New BSD license. See LICENSE or:
- * http://opensource.org/licenses/BSD-3-Clause
- */
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module, require);
-}
-define(function (require, exports, module) {
-
-  // It turns out that some (most?) JavaScript engines don't self-host
-  // `Array.prototype.sort`. This makes sense because C++ will likely remain
-  // faster than JS when doing raw CPU-intensive sorting. However, when using a
-  // custom comparator function, calling back and forth between the VM's C++ and
-  // JIT'd JS is rather slow *and* loses JIT type information, resulting in
-  // worse generated code for the comparator function than would be optimal. In
-  // fact, when sorting with a comparator, these costs outweigh the benefits of
-  // sorting in C++. By using our own JS-implemented Quick Sort (below), we get
-  // a ~3500ms mean speed-up in `bench/bench.html`.
-
-  /**
-   * Swap the elements indexed by `x` and `y` in the array `ary`.
-   *
-   * @param {Array} ary
-   *        The array.
-   * @param {Number} x
-   *        The index of the first item.
-   * @param {Number} y
-   *        The index of the second item.
-   */
-  function swap(ary, x, y) {
-    var temp = ary[x];
-    ary[x] = ary[y];
-    ary[y] = temp;
-  }
-
-  /**
-   * Returns a random integer within the range `low .. high` inclusive.
-   *
-   * @param {Number} low
-   *        The lower bound on the range.
-   * @param {Number} high
-   *        The upper bound on the range.
-   */
-  function randomIntInRange(low, high) {
-    return Math.round(low + (Math.random() * (high - low)));
-  }
-
-  /**
-   * The Quick Sort algorithm.
-   *
-   * @param {Array} ary
-   *        An array to sort.
-   * @param {function} comparator
-   *        Function to use to compare two items.
-   * @param {Number} p
-   *        Start index of the array
-   * @param {Number} r
-   *        End index of the array
-   */
-  function doQuickSort(ary, comparator, p, r) {
-    // If our lower bound is less than our upper bound, we (1) partition the
-    // array into two pieces and (2) recurse on each half. If it is not, this is
-    // the empty array and our base case.
-
-    if (p < r) {
-      // (1) Partitioning.
-      //
-      // The partitioning chooses a pivot between `p` and `r` and moves all
-      // elements that are less than or equal to the pivot to the before it, and
-      // all the elements that are greater than it after it. The effect is that
-      // once partition is done, the pivot is in the exact place it will be when
-      // the array is put in sorted order, and it will not need to be moved
-      // again. This runs in O(n) time.
-
-      // Always choose a random pivot so that an input array which is reverse
-      // sorted does not cause O(n^2) running time.
-      var pivotIndex = randomIntInRange(p, r);
-      var i = p - 1;
-
-      swap(ary, pivotIndex, r);
-      var pivot = ary[r];
-
-      // Immediately after `j` is incremented in this loop, the following hold
-      // true:
-      //
-      //   * Every element in `ary[p .. i]` is less than or equal to the pivot.
-      //
-      //   * Every element in `ary[i+1 .. j-1]` is greater than the pivot.
-      for (var j = p; j < r; j++) {
-        if (comparator(ary[j], pivot) <= 0) {
-          i += 1;
-          swap(ary, i, j);
-        }
-      }
-
-      swap(ary, i + 1, j);
-      var q = i + 1;
-
-      // (2) Recurse on each half.
-
-      doQuickSort(ary, comparator, p, q - 1);
-      doQuickSort(ary, comparator, q + 1, r);
-    }
-  }
-
-  /**
-   * Sort the given array in-place with the given comparator function.
-   *
-   * @param {Array} ary
-   *        An array to sort.
-   * @param {function} comparator
-   *        Function to use to compare two items.
-   */
-  exports.quickSort = function (ary, comparator) {
-    doQuickSort(ary, comparator, 0, ary.length - 1);
-  };
-
-});
-
-},{"amdefine":1}],44:[function(require,module,exports){
-/* -*- Mode: js; js-indent-level: 2; -*- */
-/*
- * Copyright 2011 Mozilla Foundation and contributors
- * Licensed under the New BSD license. See LICENSE or:
- * http://opensource.org/licenses/BSD-3-Clause
- */
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module, require);
-}
-define(function (require, exports, module) {
-
-  var util = require('./util');
-  var binarySearch = require('./binary-search');
-  var ArraySet = require('./array-set').ArraySet;
-  var base64VLQ = require('./base64-vlq');
-  var quickSort = require('./quick-sort').quickSort;
-
-  function SourceMapConsumer(aSourceMap) {
-    var sourceMap = aSourceMap;
-    if (typeof aSourceMap === 'string') {
-      sourceMap = JSON.parse(aSourceMap.replace(/^\)\]\}'/, ''));
-    }
-
-    return sourceMap.sections != null
-      ? new IndexedSourceMapConsumer(sourceMap)
-      : new BasicSourceMapConsumer(sourceMap);
-  }
-
-  SourceMapConsumer.fromSourceMap = function(aSourceMap) {
-    return BasicSourceMapConsumer.fromSourceMap(aSourceMap);
-  }
-
-  /**
-   * The version of the source mapping spec that we are consuming.
-   */
-  SourceMapConsumer.prototype._version = 3;
-
-  // `__generatedMappings` and `__originalMappings` are arrays that hold the
-  // parsed mapping coordinates from the source map's "mappings" attribute. They
-  // are lazily instantiated, accessed via the `_generatedMappings` and
-  // `_originalMappings` getters respectively, and we only parse the mappings
-  // and create these arrays once queried for a source location. We jump through
-  // these hoops because there can be many thousands of mappings, and parsing
-  // them is expensive, so we only want to do it if we must.
-  //
-  // Each object in the arrays is of the form:
-  //
-  //     {
-  //       generatedLine: The line number in the generated code,
-  //       generatedColumn: The column number in the generated code,
-  //       source: The path to the original source file that generated this
-  //               chunk of code,
-  //       originalLine: The line number in the original source that
-  //                     corresponds to this chunk of generated code,
-  //       originalColumn: The column number in the original source that
-  //                       corresponds to this chunk of generated code,
-  //       name: The name of the original symbol which generated this chunk of
-  //             code.
-  //     }
-  //
-  // All properties except for `generatedLine` and `generatedColumn` can be
-  // `null`.
-  //
-  // `_generatedMappings` is ordered by the generated positions.
-  //
-  // `_originalMappings` is ordered by the original positions.
-
-  SourceMapConsumer.prototype.__generatedMappings = null;
-  Object.defineProperty(SourceMapConsumer.prototype, '_generatedMappings', {
-    get: function () {
-      if (!this.__generatedMappings) {
-        this._parseMappings(this._mappings, this.sourceRoot);
-      }
-
-      return this.__generatedMappings;
-    }
-  });
-
-  SourceMapConsumer.prototype.__originalMappings = null;
-  Object.defineProperty(SourceMapConsumer.prototype, '_originalMappings', {
-    get: function () {
-      if (!this.__originalMappings) {
-        this._parseMappings(this._mappings, this.sourceRoot);
-      }
-
-      return this.__originalMappings;
-    }
-  });
-
-  SourceMapConsumer.prototype._charIsMappingSeparator =
-    function SourceMapConsumer_charIsMappingSeparator(aStr, index) {
-      var c = aStr.charAt(index);
-      return c === ";" || c === ",";
-    };
-
-  /**
-   * Parse the mappings in a string in to a data structure which we can easily
-   * query (the ordered arrays in the `this.__generatedMappings` and
-   * `this.__originalMappings` properties).
-   */
-  SourceMapConsumer.prototype._parseMappings =
-    function SourceMapConsumer_parseMappings(aStr, aSourceRoot) {
-      throw new Error("Subclasses must implement _parseMappings");
-    };
-
-  SourceMapConsumer.GENERATED_ORDER = 1;
-  SourceMapConsumer.ORIGINAL_ORDER = 2;
-
-  SourceMapConsumer.GREATEST_LOWER_BOUND = 1;
-  SourceMapConsumer.LEAST_UPPER_BOUND = 2;
-
-  /**
-   * Iterate over each mapping between an original source/line/column and a
-   * generated line/column in this source map.
-   *
-   * @param Function aCallback
-   *        The function that is called with each mapping.
-   * @param Object aContext
-   *        Optional. If specified, this object will be the value of `this` every
-   *        time that `aCallback` is called.
-   * @param aOrder
-   *        Either `SourceMapConsumer.GENERATED_ORDER` or
-   *        `SourceMapConsumer.ORIGINAL_ORDER`. Specifies whether you want to
-   *        iterate over the mappings sorted by the generated file's line/column
-   *        order or the original's source/line/column order, respectively. Defaults to
-   *        `SourceMapConsumer.GENERATED_ORDER`.
-   */
-  SourceMapConsumer.prototype.eachMapping =
-    function SourceMapConsumer_eachMapping(aCallback, aContext, aOrder) {
-      var context = aContext || null;
-      var order = aOrder || SourceMapConsumer.GENERATED_ORDER;
-
-      var mappings;
-      switch (order) {
-      case SourceMapConsumer.GENERATED_ORDER:
-        mappings = this._generatedMappings;
-        break;
-      case SourceMapConsumer.ORIGINAL_ORDER:
-        mappings = this._originalMappings;
-        break;
-      default:
-        throw new Error("Unknown order of iteration.");
-      }
-
-      var sourceRoot = this.sourceRoot;
-      mappings.map(function (mapping) {
-        var source = mapping.source === null ? null : this._sources.at(mapping.source);
-        if (source != null && sourceRoot != null) {
-          source = util.join(sourceRoot, source);
-        }
-        return {
-          source: source,
-          generatedLine: mapping.generatedLine,
-          generatedColumn: mapping.generatedColumn,
-          originalLine: mapping.originalLine,
-          originalColumn: mapping.originalColumn,
-          name: mapping.name === null ? null : this._names.at(mapping.name)
-        };
-      }, this).forEach(aCallback, context);
-    };
-
-  /**
-   * Returns all generated line and column information for the original source,
-   * line, and column provided. If no column is provided, returns all mappings
-   * corresponding to a either the line we are searching for or the next
-   * closest line that has any mappings. Otherwise, returns all mappings
-   * corresponding to the given line and either the column we are searching for
-   * or the next closest column that has any offsets.
-   *
-   * The only argument is an object with the following properties:
-   *
-   *   - source: The filename of the original source.
-   *   - line: The line number in the original source.
-   *   - column: Optional. the column number in the original source.
-   *
-   * and an array of objects is returned, each with the following properties:
-   *
-   *   - line: The line number in the generated source, or null.
-   *   - column: The column number in the generated source, or null.
-   */
-  SourceMapConsumer.prototype.allGeneratedPositionsFor =
-    function SourceMapConsumer_allGeneratedPositionsFor(aArgs) {
-      var line = util.getArg(aArgs, 'line');
-
-      // When there is no exact match, BasicSourceMapConsumer.prototype._findMapping
-      // returns the index of the closest mapping less than the needle. By
-      // setting needle.originalColumn to 0, we thus find the last mapping for
-      // the given line, provided such a mapping exists.
-      var needle = {
-        source: util.getArg(aArgs, 'source'),
-        originalLine: line,
-        originalColumn: util.getArg(aArgs, 'column', 0)
-      };
-
-      if (this.sourceRoot != null) {
-        needle.source = util.relative(this.sourceRoot, needle.source);
-      }
-      if (!this._sources.has(needle.source)) {
-        return [];
-      }
-      needle.source = this._sources.indexOf(needle.source);
-
-      var mappings = [];
-
-      var index = this._findMapping(needle,
-                                    this._originalMappings,
-                                    "originalLine",
-                                    "originalColumn",
-                                    util.compareByOriginalPositions,
-                                    binarySearch.LEAST_UPPER_BOUND);
-      if (index >= 0) {
-        var mapping = this._originalMappings[index];
-
-        if (aArgs.column === undefined) {
-          var originalLine = mapping.originalLine;
-
-          // Iterate until either we run out of mappings, or we run into
-          // a mapping for a different line than the one we found. Since
-          // mappings are sorted, this is guaranteed to find all mappings for
-          // the line we found.
-          while (mapping && mapping.originalLine === originalLine) {
-            mappings.push({
-              line: util.getArg(mapping, 'generatedLine', null),
-              column: util.getArg(mapping, 'generatedColumn', null),
-              lastColumn: util.getArg(mapping, 'lastGeneratedColumn', null)
-            });
-
-            mapping = this._originalMappings[++index];
-          }
-        } else {
-          var originalColumn = mapping.originalColumn;
-
-          // Iterate until either we run out of mappings, or we run into
-          // a mapping for a different line than the one we were searching for.
-          // Since mappings are sorted, this is guaranteed to find all mappings for
-          // the line we are searching for.
-          while (mapping &&
-                 mapping.originalLine === line &&
-                 mapping.originalColumn == originalColumn) {
-            mappings.push({
-              line: util.getArg(mapping, 'generatedLine', null),
-              column: util.getArg(mapping, 'generatedColumn', null),
-              lastColumn: util.getArg(mapping, 'lastGeneratedColumn', null)
-            });
-
-            mapping = this._originalMappings[++index];
-          }
-        }
-      }
-
-      return mappings;
-    };
-
-  exports.SourceMapConsumer = SourceMapConsumer;
-
-  /**
-   * A BasicSourceMapConsumer instance represents a parsed source map which we can
-   * query for information about the original file positions by giving it a file
-   * position in the generated source.
-   *
-   * The only parameter is the raw source map (either as a JSON string, or
-   * already parsed to an object). According to the spec, source maps have the
-   * following attributes:
-   *
-   *   - version: Which version of the source map spec this map is following.
-   *   - sources: An array of URLs to the original source files.
-   *   - names: An array of identifiers which can be referrenced by individual mappings.
-   *   - sourceRoot: Optional. The URL root from which all sources are relative.
-   *   - sourcesContent: Optional. An array of contents of the original source files.
-   *   - mappings: A string of base64 VLQs which contain the actual mappings.
-   *   - file: Optional. The generated file this source map is associated with.
-   *
-   * Here is an example source map, taken from the source map spec[0]:
-   *
-   *     {
-   *       version : 3,
-   *       file: "out.js",
-   *       sourceRoot : "",
-   *       sources: ["foo.js", "bar.js"],
-   *       names: ["src", "maps", "are", "fun"],
-   *       mappings: "AA,AB;;ABCDE;"
-   *     }
-   *
-   * [0]: https://docs.google.com/document/d/1U1RGAehQwRypUTovF1KRlpiOFze0b-_2gc6fAH0KY0k/edit?pli=1#
-   */
-  function BasicSourceMapConsumer(aSourceMap) {
-    var sourceMap = aSourceMap;
-    if (typeof aSourceMap === 'string') {
-      sourceMap = JSON.parse(aSourceMap.replace(/^\)\]\}'/, ''));
-    }
-
-    var version = util.getArg(sourceMap, 'version');
-    var sources = util.getArg(sourceMap, 'sources');
-    // Sass 3.3 leaves out the 'names' array, so we deviate from the spec (which
-    // requires the array) to play nice here.
-    var names = util.getArg(sourceMap, 'names', []);
-    var sourceRoot = util.getArg(sourceMap, 'sourceRoot', null);
-    var sourcesContent = util.getArg(sourceMap, 'sourcesContent', null);
-    var mappings = util.getArg(sourceMap, 'mappings');
-    var file = util.getArg(sourceMap, 'file', null);
-
-    // Once again, Sass deviates from the spec and supplies the version as a
-    // string rather than a number, so we use loose equality checking here.
-    if (version != this._version) {
-      throw new Error('Unsupported version: ' + version);
-    }
-
-    // Some source maps produce relative source paths like "./foo.js" instead of
-    // "foo.js".  Normalize these first so that future comparisons will succeed.
-    // See bugzil.la/1090768.
-    sources = sources.map(util.normalize);
-
-    // Pass `true` below to allow duplicate names and sources. While source maps
-    // are intended to be compressed and deduplicated, the TypeScript compiler
-    // sometimes generates source maps with duplicates in them. See Github issue
-    // #72 and bugzil.la/889492.
-    this._names = ArraySet.fromArray(names, true);
-    this._sources = ArraySet.fromArray(sources, true);
-
-    this.sourceRoot = sourceRoot;
-    this.sourcesContent = sourcesContent;
-    this._mappings = mappings;
-    this.file = file;
-  }
-
-  BasicSourceMapConsumer.prototype = Object.create(SourceMapConsumer.prototype);
-  BasicSourceMapConsumer.prototype.consumer = SourceMapConsumer;
-
-  /**
-   * Create a BasicSourceMapConsumer from a SourceMapGenerator.
-   *
-   * @param SourceMapGenerator aSourceMap
-   *        The source map that will be consumed.
-   * @returns BasicSourceMapConsumer
-   */
-  BasicSourceMapConsumer.fromSourceMap =
-    function SourceMapConsumer_fromSourceMap(aSourceMap) {
-      var smc = Object.create(BasicSourceMapConsumer.prototype);
-
-      var names = smc._names = ArraySet.fromArray(aSourceMap._names.toArray(), true);
-      var sources = smc._sources = ArraySet.fromArray(aSourceMap._sources.toArray(), true);
-      smc.sourceRoot = aSourceMap._sourceRoot;
-      smc.sourcesContent = aSourceMap._generateSourcesContent(smc._sources.toArray(),
-                                                              smc.sourceRoot);
-      smc.file = aSourceMap._file;
-
-      // Because we are modifying the entries (by converting string sources and
-      // names to indices into the sources and names ArraySets), we have to make
-      // a copy of the entry or else bad things happen. Shared mutable state
-      // strikes again! See github issue #191.
-
-      var generatedMappings = aSourceMap._mappings.toArray().slice();
-      var destGeneratedMappings = smc.__generatedMappings = [];
-      var destOriginalMappings = smc.__originalMappings = [];
-
-      for (var i = 0, length = generatedMappings.length; i < length; i++) {
-        var srcMapping = generatedMappings[i];
-        var destMapping = new Mapping;
-        destMapping.generatedLine = srcMapping.generatedLine;
-        destMapping.generatedColumn = srcMapping.generatedColumn;
-
-        if (srcMapping.source) {
-          destMapping.source = sources.indexOf(srcMapping.source);
-          destMapping.originalLine = srcMapping.originalLine;
-          destMapping.originalColumn = srcMapping.originalColumn;
-
-          if (srcMapping.name) {
-            destMapping.name = names.indexOf(srcMapping.name);
-          }
-
-          destOriginalMappings.push(destMapping);
-        }
-
-        destGeneratedMappings.push(destMapping);
-      }
-
-      quickSort(smc.__originalMappings, util.compareByOriginalPositions);
-
-      return smc;
-    };
-
-  /**
-   * The version of the source mapping spec that we are consuming.
-   */
-  BasicSourceMapConsumer.prototype._version = 3;
-
-  /**
-   * The list of original sources.
-   */
-  Object.defineProperty(BasicSourceMapConsumer.prototype, 'sources', {
-    get: function () {
-      return this._sources.toArray().map(function (s) {
-        return this.sourceRoot != null ? util.join(this.sourceRoot, s) : s;
-      }, this);
-    }
-  });
-
-  /**
-   * Provide the JIT with a nice shape / hidden class.
-   */
-  function Mapping() {
-    this.generatedLine = 0;
-    this.generatedColumn = 0;
-    this.source = null;
-    this.originalLine = null;
-    this.originalColumn = null;
-    this.name = null;
-  }
-
-  /**
-   * Parse the mappings in a string in to a data structure which we can easily
-   * query (the ordered arrays in the `this.__generatedMappings` and
-   * `this.__originalMappings` properties).
-   */
-  BasicSourceMapConsumer.prototype._parseMappings =
-    function SourceMapConsumer_parseMappings(aStr, aSourceRoot) {
-      var generatedLine = 1;
-      var previousGeneratedColumn = 0;
-      var previousOriginalLine = 0;
-      var previousOriginalColumn = 0;
-      var previousSource = 0;
-      var previousName = 0;
-      var length = aStr.length;
-      var index = 0;
-      var cachedSegments = {};
-      var temp = {};
-      var originalMappings = [];
-      var generatedMappings = [];
-      var mapping, str, segment, end, value;
-
-      while (index < length) {
-        if (aStr.charAt(index) === ';') {
-          generatedLine++;
-          index++;
-          previousGeneratedColumn = 0;
-        }
-        else if (aStr.charAt(index) === ',') {
-          index++;
-        }
-        else {
-          mapping = new Mapping();
-          mapping.generatedLine = generatedLine;
-
-          // Because each offset is encoded relative to the previous one,
-          // many segments often have the same encoding. We can exploit this
-          // fact by caching the parsed variable length fields of each segment,
-          // allowing us to avoid a second parse if we encounter the same
-          // segment again.
-          for (end = index; end < length; end++) {
-            if (this._charIsMappingSeparator(aStr, end)) {
-              break;
-            }
-          }
-          str = aStr.slice(index, end);
-
-          segment = cachedSegments[str];
-          if (segment) {
-            index += str.length;
-          } else {
-            segment = [];
-            while (index < end) {
-              base64VLQ.decode(aStr, index, temp);
-              value = temp.value;
-              index = temp.rest;
-              segment.push(value);
-            }
-
-            if (segment.length === 2) {
-              throw new Error('Found a source, but no line and column');
-            }
-
-            if (segment.length === 3) {
-              throw new Error('Found a source and line, but no column');
-            }
-
-            cachedSegments[str] = segment;
-          }
-
-          // Generated column.
-          mapping.generatedColumn = previousGeneratedColumn + segment[0];
-          previousGeneratedColumn = mapping.generatedColumn;
-
-          if (segment.length > 1) {
-            // Original source.
-            mapping.source = previousSource + segment[1];
-            previousSource += segment[1];
-
-            // Original line.
-            mapping.originalLine = previousOriginalLine + segment[2];
-            previousOriginalLine = mapping.originalLine;
-            // Lines are stored 0-based
-            mapping.originalLine += 1;
-
-            // Original column.
-            mapping.originalColumn = previousOriginalColumn + segment[3];
-            previousOriginalColumn = mapping.originalColumn;
-
-            if (segment.length > 4) {
-              // Original name.
-              mapping.name = previousName + segment[4];
-              previousName += segment[4];
-            }
-          }
-
-          generatedMappings.push(mapping);
-          if (typeof mapping.originalLine === 'number') {
-            originalMappings.push(mapping);
-          }
-        }
-      }
-
-      quickSort(generatedMappings, util.compareByGeneratedPositionsDeflated);
-      this.__generatedMappings = generatedMappings;
-
-      quickSort(originalMappings, util.compareByOriginalPositions);
-      this.__originalMappings = originalMappings;
-    };
-
-  /**
-   * Find the mapping that best matches the hypothetical "needle" mapping that
-   * we are searching for in the given "haystack" of mappings.
-   */
-  BasicSourceMapConsumer.prototype._findMapping =
-    function SourceMapConsumer_findMapping(aNeedle, aMappings, aLineName,
-                                           aColumnName, aComparator, aBias) {
-      // To return the position we are searching for, we must first find the
-      // mapping for the given position and then return the opposite position it
-      // points to. Because the mappings are sorted, we can use binary search to
-      // find the best mapping.
-
-      if (aNeedle[aLineName] <= 0) {
-        throw new TypeError('Line must be greater than or equal to 1, got '
-                            + aNeedle[aLineName]);
-      }
-      if (aNeedle[aColumnName] < 0) {
-        throw new TypeError('Column must be greater than or equal to 0, got '
-                            + aNeedle[aColumnName]);
-      }
-
-      return binarySearch.search(aNeedle, aMappings, aComparator, aBias);
-    };
-
-  /**
-   * Compute the last column for each generated mapping. The last column is
-   * inclusive.
-   */
-  BasicSourceMapConsumer.prototype.computeColumnSpans =
-    function SourceMapConsumer_computeColumnSpans() {
-      for (var index = 0; index < this._generatedMappings.length; ++index) {
-        var mapping = this._generatedMappings[index];
-
-        // Mappings do not contain a field for the last generated columnt. We
-        // can come up with an optimistic estimate, however, by assuming that
-        // mappings are contiguous (i.e. given two consecutive mappings, the
-        // first mapping ends where the second one starts).
-        if (index + 1 < this._generatedMappings.length) {
-          var nextMapping = this._generatedMappings[index + 1];
-
-          if (mapping.generatedLine === nextMapping.generatedLine) {
-            mapping.lastGeneratedColumn = nextMapping.generatedColumn - 1;
-            continue;
-          }
-        }
-
-        // The last mapping for each line spans the entire line.
-        mapping.lastGeneratedColumn = Infinity;
-      }
-    };
-
-  /**
-   * Returns the original source, line, and column information for the generated
-   * source's line and column positions provided. The only argument is an object
-   * with the following properties:
-   *
-   *   - line: The line number in the generated source.
-   *   - column: The column number in the generated source.
-   *   - bias: Either 'SourceMapConsumer.GREATEST_LOWER_BOUND' or
-   *     'SourceMapConsumer.LEAST_UPPER_BOUND'. Specifies whether to return the
-   *     closest element that is smaller than or greater than the one we are
-   *     searching for, respectively, if the exact element cannot be found.
-   *     Defaults to 'SourceMapConsumer.GREATEST_LOWER_BOUND'.
-   *
-   * and an object is returned with the following properties:
-   *
-   *   - source: The original source file, or null.
-   *   - line: The line number in the original source, or null.
-   *   - column: The column number in the original source, or null.
-   *   - name: The original identifier, or null.
-   */
-  BasicSourceMapConsumer.prototype.originalPositionFor =
-    function SourceMapConsumer_originalPositionFor(aArgs) {
-      var needle = {
-        generatedLine: util.getArg(aArgs, 'line'),
-        generatedColumn: util.getArg(aArgs, 'column')
-      };
-
-      var index = this._findMapping(
-        needle,
-        this._generatedMappings,
-        "generatedLine",
-        "generatedColumn",
-        util.compareByGeneratedPositionsDeflated,
-        util.getArg(aArgs, 'bias', SourceMapConsumer.GREATEST_LOWER_BOUND)
-      );
-
-      if (index >= 0) {
-        var mapping = this._generatedMappings[index];
-
-        if (mapping.generatedLine === needle.generatedLine) {
-          var source = util.getArg(mapping, 'source', null);
-          if (source !== null) {
-            source = this._sources.at(source);
-            if (this.sourceRoot != null) {
-              source = util.join(this.sourceRoot, source);
-            }
-          }
-          var name = util.getArg(mapping, 'name', null);
-          if (name !== null) {
-            name = this._names.at(name);
-          }
-          return {
-            source: source,
-            line: util.getArg(mapping, 'originalLine', null),
-            column: util.getArg(mapping, 'originalColumn', null),
-            name: name
-          };
-        }
-      }
-
-      return {
-        source: null,
-        line: null,
-        column: null,
-        name: null
-      };
-    };
-
-  /**
-   * Return true if we have the source content for every source in the source
-   * map, false otherwise.
-   */
-  BasicSourceMapConsumer.prototype.hasContentsOfAllSources =
-    function BasicSourceMapConsumer_hasContentsOfAllSources() {
-      if (!this.sourcesContent) {
-        return false;
-      }
-      return this.sourcesContent.length >= this._sources.size() &&
-        !this.sourcesContent.some(function (sc) { return sc == null; });
-    };
-
-  /**
-   * Returns the original source content. The only argument is the url of the
-   * original source file. Returns null if no original source content is
-   * availible.
-   */
-  BasicSourceMapConsumer.prototype.sourceContentFor =
-    function SourceMapConsumer_sourceContentFor(aSource, nullOnMissing) {
-      if (!this.sourcesContent) {
-        return null;
-      }
-
-      if (this.sourceRoot != null) {
-        aSource = util.relative(this.sourceRoot, aSource);
-      }
-
-      if (this._sources.has(aSource)) {
-        return this.sourcesContent[this._sources.indexOf(aSource)];
-      }
-
-      var url;
-      if (this.sourceRoot != null
-          && (url = util.urlParse(this.sourceRoot))) {
-        // XXX: file:// URIs and absolute paths lead to unexpected behavior for
-        // many users. We can help them out when they expect file:// URIs to
-        // behave like it would if they were running a local HTTP server. See
-        // https://bugzilla.mozilla.org/show_bug.cgi?id=885597.
-        var fileUriAbsPath = aSource.replace(/^file:\/\//, "");
-        if (url.scheme == "file"
-            && this._sources.has(fileUriAbsPath)) {
-          return this.sourcesContent[this._sources.indexOf(fileUriAbsPath)]
-        }
-
-        if ((!url.path || url.path == "/")
-            && this._sources.has("/" + aSource)) {
-          return this.sourcesContent[this._sources.indexOf("/" + aSource)];
-        }
-      }
-
-      // This function is used recursively from
-      // IndexedSourceMapConsumer.prototype.sourceContentFor. In that case, we
-      // don't want to throw if we can't find the source - we just want to
-      // return null, so we provide a flag to exit gracefully.
-      if (nullOnMissing) {
-        return null;
-      }
-      else {
-        throw new Error('"' + aSource + '" is not in the SourceMap.');
-      }
-    };
-
-  /**
-   * Returns the generated line and column information for the original source,
-   * line, and column positions provided. The only argument is an object with
-   * the following properties:
-   *
-   *   - source: The filename of the original source.
-   *   - line: The line number in the original source.
-   *   - column: The column number in the original source.
-   *   - bias: Either 'SourceMapConsumer.GREATEST_LOWER_BOUND' or
-   *     'SourceMapConsumer.LEAST_UPPER_BOUND'. Specifies whether to return the
-   *     closest element that is smaller than or greater than the one we are
-   *     searching for, respectively, if the exact element cannot be found.
-   *     Defaults to 'SourceMapConsumer.GREATEST_LOWER_BOUND'.
-   *
-   * and an object is returned with the following properties:
-   *
-   *   - line: The line number in the generated source, or null.
-   *   - column: The column number in the generated source, or null.
-   */
-  BasicSourceMapConsumer.prototype.generatedPositionFor =
-    function SourceMapConsumer_generatedPositionFor(aArgs) {
-      var source = util.getArg(aArgs, 'source');
-      if (this.sourceRoot != null) {
-        source = util.relative(this.sourceRoot, source);
-      }
-      if (!this._sources.has(source)) {
-        return {
-          line: null,
-          column: null,
-          lastColumn: null
-        };
-      }
-      source = this._sources.indexOf(source);
-
-      var needle = {
-        source: source,
-        originalLine: util.getArg(aArgs, 'line'),
-        originalColumn: util.getArg(aArgs, 'column')
-      };
-
-      var index = this._findMapping(
-        needle,
-        this._originalMappings,
-        "originalLine",
-        "originalColumn",
-        util.compareByOriginalPositions,
-        util.getArg(aArgs, 'bias', SourceMapConsumer.GREATEST_LOWER_BOUND)
-      );
-
-      if (index >= 0) {
-        var mapping = this._originalMappings[index];
-
-        if (mapping.source === needle.source) {
-          return {
-            line: util.getArg(mapping, 'generatedLine', null),
-            column: util.getArg(mapping, 'generatedColumn', null),
-            lastColumn: util.getArg(mapping, 'lastGeneratedColumn', null)
-          };
-        }
-      }
-
-      return {
-        line: null,
-        column: null,
-        lastColumn: null
-      };
-    };
-
-  exports.BasicSourceMapConsumer = BasicSourceMapConsumer;
-
-  /**
-   * An IndexedSourceMapConsumer instance represents a parsed source map which
-   * we can query for information. It differs from BasicSourceMapConsumer in
-   * that it takes "indexed" source maps (i.e. ones with a "sections" field) as
-   * input.
-   *
-   * The only parameter is a raw source map (either as a JSON string, or already
-   * parsed to an object). According to the spec for indexed source maps, they
-   * have the following attributes:
-   *
-   *   - version: Which version of the source map spec this map is following.
-   *   - file: Optional. The generated file this source map is associated with.
-   *   - sections: A list of section definitions.
-   *
-   * Each value under the "sections" field has two fields:
-   *   - offset: The offset into the original specified at which this section
-   *       begins to apply, defined as an object with a "line" and "column"
-   *       field.
-   *   - map: A source map definition. This source map could also be indexed,
-   *       but doesn't have to be.
-   *
-   * Instead of the "map" field, it's also possible to have a "url" field
-   * specifying a URL to retrieve a source map from, but that's currently
-   * unsupported.
-   *
-   * Here's an example source map, taken from the source map spec[0], but
-   * modified to omit a section which uses the "url" field.
-   *
-   *  {
-   *    version : 3,
-   *    file: "app.js",
-   *    sections: [{
-   *      offset: {line:100, column:10},
-   *      map: {
-   *        version : 3,
-   *        file: "section.js",
-   *        sources: ["foo.js", "bar.js"],
-   *        names: ["src", "maps", "are", "fun"],
-   *        mappings: "AAAA,E;;ABCDE;"
-   *      }
-   *    }],
-   *  }
-   *
-   * [0]: https://docs.google.com/document/d/1U1RGAehQwRypUTovF1KRlpiOFze0b-_2gc6fAH0KY0k/edit#heading=h.535es3xeprgt
-   */
-  function IndexedSourceMapConsumer(aSourceMap) {
-    var sourceMap = aSourceMap;
-    if (typeof aSourceMap === 'string') {
-      sourceMap = JSON.parse(aSourceMap.replace(/^\)\]\}'/, ''));
-    }
-
-    var version = util.getArg(sourceMap, 'version');
-    var sections = util.getArg(sourceMap, 'sections');
-
-    if (version != this._version) {
-      throw new Error('Unsupported version: ' + version);
-    }
-
-    this._sources = new ArraySet();
-    this._names = new ArraySet();
-
-    var lastOffset = {
-      line: -1,
-      column: 0
-    };
-    this._sections = sections.map(function (s) {
-      if (s.url) {
-        // The url field will require support for asynchronicity.
-        // See https://github.com/mozilla/source-map/issues/16
-        throw new Error('Support for url field in sections not implemented.');
-      }
-      var offset = util.getArg(s, 'offset');
-      var offsetLine = util.getArg(offset, 'line');
-      var offsetColumn = util.getArg(offset, 'column');
-
-      if (offsetLine < lastOffset.line ||
-          (offsetLine === lastOffset.line && offsetColumn < lastOffset.column)) {
-        throw new Error('Section offsets must be ordered and non-overlapping.');
-      }
-      lastOffset = offset;
-
-      return {
-        generatedOffset: {
-          // The offset fields are 0-based, but we use 1-based indices when
-          // encoding/decoding from VLQ.
-          generatedLine: offsetLine + 1,
-          generatedColumn: offsetColumn + 1
-        },
-        consumer: new SourceMapConsumer(util.getArg(s, 'map'))
-      }
-    });
-  }
-
-  IndexedSourceMapConsumer.prototype = Object.create(SourceMapConsumer.prototype);
-  IndexedSourceMapConsumer.prototype.constructor = SourceMapConsumer;
-
-  /**
-   * The version of the source mapping spec that we are consuming.
-   */
-  IndexedSourceMapConsumer.prototype._version = 3;
-
-  /**
-   * The list of original sources.
-   */
-  Object.defineProperty(IndexedSourceMapConsumer.prototype, 'sources', {
-    get: function () {
-      var sources = [];
-      for (var i = 0; i < this._sections.length; i++) {
-        for (var j = 0; j < this._sections[i].consumer.sources.length; j++) {
-          sources.push(this._sections[i].consumer.sources[j]);
-        }
-      };
-      return sources;
-    }
-  });
-
-  /**
-   * Returns the original source, line, and column information for the generated
-   * source's line and column positions provided. The only argument is an object
-   * with the following properties:
-   *
-   *   - line: The line number in the generated source.
-   *   - column: The column number in the generated source.
-   *
-   * and an object is returned with the following properties:
-   *
-   *   - source: The original source file, or null.
-   *   - line: The line number in the original source, or null.
-   *   - column: The column number in the original source, or null.
-   *   - name: The original identifier, or null.
-   */
-  IndexedSourceMapConsumer.prototype.originalPositionFor =
-    function IndexedSourceMapConsumer_originalPositionFor(aArgs) {
-      var needle = {
-        generatedLine: util.getArg(aArgs, 'line'),
-        generatedColumn: util.getArg(aArgs, 'column')
-      };
-
-      // Find the section containing the generated position we're trying to map
-      // to an original position.
-      var sectionIndex = binarySearch.search(needle, this._sections,
-        function(needle, section) {
-          var cmp = needle.generatedLine - section.generatedOffset.generatedLine;
-          if (cmp) {
-            return cmp;
-          }
-
-          return (needle.generatedColumn -
-                  section.generatedOffset.generatedColumn);
-        });
-      var section = this._sections[sectionIndex];
-
-      if (!section) {
-        return {
-          source: null,
-          line: null,
-          column: null,
-          name: null
-        };
-      }
-
-      return section.consumer.originalPositionFor({
-        line: needle.generatedLine -
-          (section.generatedOffset.generatedLine - 1),
-        column: needle.generatedColumn -
-          (section.generatedOffset.generatedLine === needle.generatedLine
-           ? section.generatedOffset.generatedColumn - 1
-           : 0),
-        bias: aArgs.bias
-      });
-    };
-
-  /**
-   * Return true if we have the source content for every source in the source
-   * map, false otherwise.
-   */
-  IndexedSourceMapConsumer.prototype.hasContentsOfAllSources =
-    function IndexedSourceMapConsumer_hasContentsOfAllSources() {
-      return this._sections.every(function (s) {
-        return s.consumer.hasContentsOfAllSources();
-      });
-    };
-
-  /**
-   * Returns the original source content. The only argument is the url of the
-   * original source file. Returns null if no original source content is
-   * available.
-   */
-  IndexedSourceMapConsumer.prototype.sourceContentFor =
-    function IndexedSourceMapConsumer_sourceContentFor(aSource, nullOnMissing) {
-      for (var i = 0; i < this._sections.length; i++) {
-        var section = this._sections[i];
-
-        var content = section.consumer.sourceContentFor(aSource, true);
-        if (content) {
-          return content;
-        }
-      }
-      if (nullOnMissing) {
-        return null;
-      }
-      else {
-        throw new Error('"' + aSource + '" is not in the SourceMap.');
-      }
-    };
-
-  /**
-   * Returns the generated line and column information for the original source,
-   * line, and column positions provided. The only argument is an object with
-   * the following properties:
-   *
-   *   - source: The filename of the original source.
-   *   - line: The line number in the original source.
-   *   - column: The column number in the original source.
-   *
-   * and an object is returned with the following properties:
-   *
-   *   - line: The line number in the generated source, or null.
-   *   - column: The column number in the generated source, or null.
-   */
-  IndexedSourceMapConsumer.prototype.generatedPositionFor =
-    function IndexedSourceMapConsumer_generatedPositionFor(aArgs) {
-      for (var i = 0; i < this._sections.length; i++) {
-        var section = this._sections[i];
-
-        // Only consider this section if the requested source is in the list of
-        // sources of the consumer.
-        if (section.consumer.sources.indexOf(util.getArg(aArgs, 'source')) === -1) {
-          continue;
-        }
-        var generatedPosition = section.consumer.generatedPositionFor(aArgs);
-        if (generatedPosition) {
-          var ret = {
-            line: generatedPosition.line +
-              (section.generatedOffset.generatedLine - 1),
-            column: generatedPosition.column +
-              (section.generatedOffset.generatedLine === generatedPosition.line
-               ? section.generatedOffset.generatedColumn - 1
-               : 0)
-          };
-          return ret;
-        }
-      }
-
-      return {
-        line: null,
-        column: null
-      };
-    };
-
-  /**
-   * Parse the mappings in a string in to a data structure which we can easily
-   * query (the ordered arrays in the `this.__generatedMappings` and
-   * `this.__originalMappings` properties).
-   */
-  IndexedSourceMapConsumer.prototype._parseMappings =
-    function IndexedSourceMapConsumer_parseMappings(aStr, aSourceRoot) {
-      this.__generatedMappings = [];
-      this.__originalMappings = [];
-      for (var i = 0; i < this._sections.length; i++) {
-        var section = this._sections[i];
-        var sectionMappings = section.consumer._generatedMappings;
-        for (var j = 0; j < sectionMappings.length; j++) {
-          var mapping = sectionMappings[i];
-
-          var source = section.consumer._sources.at(mapping.source);
-          if (section.consumer.sourceRoot !== null) {
-            source = util.join(section.consumer.sourceRoot, source);
-          }
-          this._sources.add(source);
-          source = this._sources.indexOf(source);
-
-          var name = section.consumer._names.at(mapping.name);
-          this._names.add(name);
-          name = this._names.indexOf(name);
-
-          // The mappings coming from the consumer for the section have
-          // generated positions relative to the start of the section, so we
-          // need to offset them to be relative to the start of the concatenated
-          // generated file.
-          var adjustedMapping = {
-            source: source,
-            generatedLine: mapping.generatedLine +
-              (section.generatedOffset.generatedLine - 1),
-            generatedColumn: mapping.column +
-              (section.generatedOffset.generatedLine === mapping.generatedLine)
-              ? section.generatedOffset.generatedColumn - 1
-              : 0,
-            originalLine: mapping.originalLine,
-            originalColumn: mapping.originalColumn,
-            name: name
-          };
-
-          this.__generatedMappings.push(adjustedMapping);
-          if (typeof adjustedMapping.originalLine === 'number') {
-            this.__originalMappings.push(adjustedMapping);
-          }
-        };
-      };
-
-      quickSort(this.__generatedMappings, util.compareByGeneratedPositionsDeflated);
-      quickSort(this.__originalMappings, util.compareByOriginalPositions);
-    };
-
-  exports.IndexedSourceMapConsumer = IndexedSourceMapConsumer;
-
-});
-
-},{"./array-set":38,"./base64-vlq":39,"./binary-search":41,"./quick-sort":43,"./util":47,"amdefine":1}],45:[function(require,module,exports){
-/* -*- Mode: js; js-indent-level: 2; -*- */
-/*
- * Copyright 2011 Mozilla Foundation and contributors
- * Licensed under the New BSD license. See LICENSE or:
- * http://opensource.org/licenses/BSD-3-Clause
- */
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module, require);
-}
-define(function (require, exports, module) {
-
-  var base64VLQ = require('./base64-vlq');
-  var util = require('./util');
-  var ArraySet = require('./array-set').ArraySet;
-  var MappingList = require('./mapping-list').MappingList;
-
-  /**
-   * An instance of the SourceMapGenerator represents a source map which is
-   * being built incrementally. You may pass an object with the following
-   * properties:
-   *
-   *   - file: The filename of the generated source.
-   *   - sourceRoot: A root for all relative URLs in this source map.
-   */
-  function SourceMapGenerator(aArgs) {
-    if (!aArgs) {
-      aArgs = {};
-    }
-    this._file = util.getArg(aArgs, 'file', null);
-    this._sourceRoot = util.getArg(aArgs, 'sourceRoot', null);
-    this._skipValidation = util.getArg(aArgs, 'skipValidation', false);
-    this._sources = new ArraySet();
-    this._names = new ArraySet();
-    this._mappings = new MappingList();
-    this._sourcesContents = null;
-  }
-
-  SourceMapGenerator.prototype._version = 3;
-
-  /**
-   * Creates a new SourceMapGenerator based on a SourceMapConsumer
-   *
-   * @param aSourceMapConsumer The SourceMap.
-   */
-  SourceMapGenerator.fromSourceMap =
-    function SourceMapGenerator_fromSourceMap(aSourceMapConsumer) {
-      var sourceRoot = aSourceMapConsumer.sourceRoot;
-      var generator = new SourceMapGenerator({
-        file: aSourceMapConsumer.file,
-        sourceRoot: sourceRoot
-      });
-      aSourceMapConsumer.eachMapping(function (mapping) {
-        var newMapping = {
-          generated: {
-            line: mapping.generatedLine,
-            column: mapping.generatedColumn
-          }
-        };
-
-        if (mapping.source != null) {
-          newMapping.source = mapping.source;
-          if (sourceRoot != null) {
-            newMapping.source = util.relative(sourceRoot, newMapping.source);
-          }
-
-          newMapping.original = {
-            line: mapping.originalLine,
-            column: mapping.originalColumn
-          };
-
-          if (mapping.name != null) {
-            newMapping.name = mapping.name;
-          }
-        }
-
-        generator.addMapping(newMapping);
-      });
-      aSourceMapConsumer.sources.forEach(function (sourceFile) {
-        var content = aSourceMapConsumer.sourceContentFor(sourceFile);
-        if (content != null) {
-          generator.setSourceContent(sourceFile, content);
-        }
-      });
-      return generator;
-    };
-
-  /**
-   * Add a single mapping from original source line and column to the generated
-   * source's line and column for this source map being created. The mapping
-   * object should have the following properties:
-   *
-   *   - generated: An object with the generated line and column positions.
-   *   - original: An object with the original line and column positions.
-   *   - source: The original source file (relative to the sourceRoot).
-   *   - name: An optional original token name for this mapping.
-   */
-  SourceMapGenerator.prototype.addMapping =
-    function SourceMapGenerator_addMapping(aArgs) {
-      var generated = util.getArg(aArgs, 'generated');
-      var original = util.getArg(aArgs, 'original', null);
-      var source = util.getArg(aArgs, 'source', null);
-      var name = util.getArg(aArgs, 'name', null);
-
-      if (!this._skipValidation) {
-        this._validateMapping(generated, original, source, name);
-      }
-
-      if (source != null && !this._sources.has(source)) {
-        this._sources.add(source);
-      }
-
-      if (name != null && !this._names.has(name)) {
-        this._names.add(name);
-      }
-
-      this._mappings.add({
-        generatedLine: generated.line,
-        generatedColumn: generated.column,
-        originalLine: original != null && original.line,
-        originalColumn: original != null && original.column,
-        source: source,
-        name: name
-      });
-    };
-
-  /**
-   * Set the source content for a source file.
-   */
-  SourceMapGenerator.prototype.setSourceContent =
-    function SourceMapGenerator_setSourceContent(aSourceFile, aSourceContent) {
-      var source = aSourceFile;
-      if (this._sourceRoot != null) {
-        source = util.relative(this._sourceRoot, source);
-      }
-
-      if (aSourceContent != null) {
-        // Add the source content to the _sourcesContents map.
-        // Create a new _sourcesContents map if the property is null.
-        if (!this._sourcesContents) {
-          this._sourcesContents = {};
-        }
-        this._sourcesContents[util.toSetString(source)] = aSourceContent;
-      } else if (this._sourcesContents) {
-        // Remove the source file from the _sourcesContents map.
-        // If the _sourcesContents map is empty, set the property to null.
-        delete this._sourcesContents[util.toSetString(source)];
-        if (Object.keys(this._sourcesContents).length === 0) {
-          this._sourcesContents = null;
-        }
-      }
-    };
-
-  /**
-   * Applies the mappings of a sub-source-map for a specific source file to the
-   * source map being generated. Each mapping to the supplied source file is
-   * rewritten using the supplied source map. Note: The resolution for the
-   * resulting mappings is the minimium of this map and the supplied map.
-   *
-   * @param aSourceMapConsumer The source map to be applied.
-   * @param aSourceFile Optional. The filename of the source file.
-   *        If omitted, SourceMapConsumer's file property will be used.
-   * @param aSourceMapPath Optional. The dirname of the path to the source map
-   *        to be applied. If relative, it is relative to the SourceMapConsumer.
-   *        This parameter is needed when the two source maps aren't in the same
-   *        directory, and the source map to be applied contains relative source
-   *        paths. If so, those relative source paths need to be rewritten
-   *        relative to the SourceMapGenerator.
-   */
-  SourceMapGenerator.prototype.applySourceMap =
-    function SourceMapGenerator_applySourceMap(aSourceMapConsumer, aSourceFile, aSourceMapPath) {
-      var sourceFile = aSourceFile;
-      // If aSourceFile is omitted, we will use the file property of the SourceMap
-      if (aSourceFile == null) {
-        if (aSourceMapConsumer.file == null) {
-          throw new Error(
-            'SourceMapGenerator.prototype.applySourceMap requires either an explicit source file, ' +
-            'or the source map\'s "file" property. Both were omitted.'
-          );
-        }
-        sourceFile = aSourceMapConsumer.file;
-      }
-      var sourceRoot = this._sourceRoot;
-      // Make "sourceFile" relative if an absolute Url is passed.
-      if (sourceRoot != null) {
-        sourceFile = util.relative(sourceRoot, sourceFile);
-      }
-      // Applying the SourceMap can add and remove items from the sources and
-      // the names array.
-      var newSources = new ArraySet();
-      var newNames = new ArraySet();
-
-      // Find mappings for the "sourceFile"
-      this._mappings.unsortedForEach(function (mapping) {
-        if (mapping.source === sourceFile && mapping.originalLine != null) {
-          // Check if it can be mapped by the source map, then update the mapping.
-          var original = aSourceMapConsumer.originalPositionFor({
-            line: mapping.originalLine,
-            column: mapping.originalColumn
-          });
-          if (original.source != null) {
-            // Copy mapping
-            mapping.source = original.source;
-            if (aSourceMapPath != null) {
-              mapping.source = util.join(aSourceMapPath, mapping.source)
-            }
-            if (sourceRoot != null) {
-              mapping.source = util.relative(sourceRoot, mapping.source);
-            }
-            mapping.originalLine = original.line;
-            mapping.originalColumn = original.column;
-            if (original.name != null) {
-              mapping.name = original.name;
-            }
-          }
-        }
-
-        var source = mapping.source;
-        if (source != null && !newSources.has(source)) {
-          newSources.add(source);
-        }
-
-        var name = mapping.name;
-        if (name != null && !newNames.has(name)) {
-          newNames.add(name);
-        }
-
-      }, this);
-      this._sources = newSources;
-      this._names = newNames;
-
-      // Copy sourcesContents of applied map.
-      aSourceMapConsumer.sources.forEach(function (sourceFile) {
-        var content = aSourceMapConsumer.sourceContentFor(sourceFile);
-        if (content != null) {
-          if (aSourceMapPath != null) {
-            sourceFile = util.join(aSourceMapPath, sourceFile);
-          }
-          if (sourceRoot != null) {
-            sourceFile = util.relative(sourceRoot, sourceFile);
-          }
-          this.setSourceContent(sourceFile, content);
-        }
-      }, this);
-    };
-
-  /**
-   * A mapping can have one of the three levels of data:
-   *
-   *   1. Just the generated position.
-   *   2. The Generated position, original position, and original source.
-   *   3. Generated and original position, original source, as well as a name
-   *      token.
-   *
-   * To maintain consistency, we validate that any new mapping being added falls
-   * in to one of these categories.
-   */
-  SourceMapGenerator.prototype._validateMapping =
-    function SourceMapGenerator_validateMapping(aGenerated, aOriginal, aSource,
-                                                aName) {
-      if (aGenerated && 'line' in aGenerated && 'column' in aGenerated
-          && aGenerated.line > 0 && aGenerated.column >= 0
-          && !aOriginal && !aSource && !aName) {
-        // Case 1.
-        return;
-      }
-      else if (aGenerated && 'line' in aGenerated && 'column' in aGenerated
-               && aOriginal && 'line' in aOriginal && 'column' in aOriginal
-               && aGenerated.line > 0 && aGenerated.column >= 0
-               && aOriginal.line > 0 && aOriginal.column >= 0
-               && aSource) {
-        // Cases 2 and 3.
-        return;
-      }
-      else {
-        throw new Error('Invalid mapping: ' + JSON.stringify({
-          generated: aGenerated,
-          source: aSource,
-          original: aOriginal,
-          name: aName
-        }));
-      }
-    };
-
-  /**
-   * Serialize the accumulated mappings in to the stream of base 64 VLQs
-   * specified by the source map format.
-   */
-  SourceMapGenerator.prototype._serializeMappings =
-    function SourceMapGenerator_serializeMappings() {
-      var previousGeneratedColumn = 0;
-      var previousGeneratedLine = 1;
-      var previousOriginalColumn = 0;
-      var previousOriginalLine = 0;
-      var previousName = 0;
-      var previousSource = 0;
-      var result = '';
-      var mapping;
-
-      var mappings = this._mappings.toArray();
-      for (var i = 0, len = mappings.length; i < len; i++) {
-        mapping = mappings[i];
-
-        if (mapping.generatedLine !== previousGeneratedLine) {
-          previousGeneratedColumn = 0;
-          while (mapping.generatedLine !== previousGeneratedLine) {
-            result += ';';
-            previousGeneratedLine++;
-          }
-        }
-        else {
-          if (i > 0) {
-            if (!util.compareByGeneratedPositionsInflated(mapping, mappings[i - 1])) {
-              continue;
-            }
-            result += ',';
-          }
-        }
-
-        result += base64VLQ.encode(mapping.generatedColumn
-                                   - previousGeneratedColumn);
-        previousGeneratedColumn = mapping.generatedColumn;
-
-        if (mapping.source != null) {
-          result += base64VLQ.encode(this._sources.indexOf(mapping.source)
-                                     - previousSource);
-          previousSource = this._sources.indexOf(mapping.source);
-
-          // lines are stored 0-based in SourceMap spec version 3
-          result += base64VLQ.encode(mapping.originalLine - 1
-                                     - previousOriginalLine);
-          previousOriginalLine = mapping.originalLine - 1;
-
-          result += base64VLQ.encode(mapping.originalColumn
-                                     - previousOriginalColumn);
-          previousOriginalColumn = mapping.originalColumn;
-
-          if (mapping.name != null) {
-            result += base64VLQ.encode(this._names.indexOf(mapping.name)
-                                       - previousName);
-            previousName = this._names.indexOf(mapping.name);
-          }
-        }
-      }
-
-      return result;
-    };
-
-  SourceMapGenerator.prototype._generateSourcesContent =
-    function SourceMapGenerator_generateSourcesContent(aSources, aSourceRoot) {
-      return aSources.map(function (source) {
-        if (!this._sourcesContents) {
-          return null;
-        }
-        if (aSourceRoot != null) {
-          source = util.relative(aSourceRoot, source);
-        }
-        var key = util.toSetString(source);
-        return Object.prototype.hasOwnProperty.call(this._sourcesContents,
-                                                    key)
-          ? this._sourcesContents[key]
-          : null;
-      }, this);
-    };
-
-  /**
-   * Externalize the source map.
-   */
-  SourceMapGenerator.prototype.toJSON =
-    function SourceMapGenerator_toJSON() {
-      var map = {
-        version: this._version,
-        sources: this._sources.toArray(),
-        names: this._names.toArray(),
-        mappings: this._serializeMappings()
-      };
-      if (this._file != null) {
-        map.file = this._file;
-      }
-      if (this._sourceRoot != null) {
-        map.sourceRoot = this._sourceRoot;
-      }
-      if (this._sourcesContents) {
-        map.sourcesContent = this._generateSourcesContent(map.sources, map.sourceRoot);
-      }
-
-      return map;
-    };
-
-  /**
-   * Render the source map being generated to a string.
-   */
-  SourceMapGenerator.prototype.toString =
-    function SourceMapGenerator_toString() {
-      return JSON.stringify(this.toJSON());
-    };
-
-  exports.SourceMapGenerator = SourceMapGenerator;
-
-});
-
-},{"./array-set":38,"./base64-vlq":39,"./mapping-list":42,"./util":47,"amdefine":1}],46:[function(require,module,exports){
-/* -*- Mode: js; js-indent-level: 2; -*- */
-/*
- * Copyright 2011 Mozilla Foundation and contributors
- * Licensed under the New BSD license. See LICENSE or:
- * http://opensource.org/licenses/BSD-3-Clause
- */
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module, require);
-}
-define(function (require, exports, module) {
-
-  var SourceMapGenerator = require('./source-map-generator').SourceMapGenerator;
-  var util = require('./util');
-
-  // Matches a Windows-style `\r\n` newline or a `\n` newline used by all other
-  // operating systems these days (capturing the result).
-  var REGEX_NEWLINE = /(\r?\n)/;
-
-  // Newline character code for charCodeAt() comparisons
-  var NEWLINE_CODE = 10;
-
-  // Private symbol for identifying `SourceNode`s when multiple versions of
-  // the source-map library are loaded. This MUST NOT CHANGE across
-  // versions!
-  var isSourceNode = "$$$isSourceNode$$$";
-
-  /**
-   * SourceNodes provide a way to abstract over interpolating/concatenating
-   * snippets of generated JavaScript source code while maintaining the line and
-   * column information associated with the original source code.
-   *
-   * @param aLine The original line number.
-   * @param aColumn The original column number.
-   * @param aSource The original source's filename.
-   * @param aChunks Optional. An array of strings which are snippets of
-   *        generated JS, or other SourceNodes.
-   * @param aName The original identifier.
-   */
-  function SourceNode(aLine, aColumn, aSource, aChunks, aName) {
-    this.children = [];
-    this.sourceContents = {};
-    this.line = aLine == null ? null : aLine;
-    this.column = aColumn == null ? null : aColumn;
-    this.source = aSource == null ? null : aSource;
-    this.name = aName == null ? null : aName;
-    this[isSourceNode] = true;
-    if (aChunks != null) this.add(aChunks);
-  }
-
-  /**
-   * Creates a SourceNode from generated code and a SourceMapConsumer.
-   *
-   * @param aGeneratedCode The generated code
-   * @param aSourceMapConsumer The SourceMap for the generated code
-   * @param aRelativePath Optional. The path that relative sources in the
-   *        SourceMapConsumer should be relative to.
-   */
-  SourceNode.fromStringWithSourceMap =
-    function SourceNode_fromStringWithSourceMap(aGeneratedCode, aSourceMapConsumer, aRelativePath) {
-      // The SourceNode we want to fill with the generated code
-      // and the SourceMap
-      var node = new SourceNode();
-
-      // All even indices of this array are one line of the generated code,
-      // while all odd indices are the newlines between two adjacent lines
-      // (since `REGEX_NEWLINE` captures its match).
-      // Processed fragments are removed from this array, by calling `shiftNextLine`.
-      var remainingLines = aGeneratedCode.split(REGEX_NEWLINE);
-      var shiftNextLine = function() {
-        var lineContents = remainingLines.shift();
-        // The last line of a file might not have a newline.
-        var newLine = remainingLines.shift() || "";
-        return lineContents + newLine;
-      };
-
-      // We need to remember the position of "remainingLines"
-      var lastGeneratedLine = 1, lastGeneratedColumn = 0;
-
-      // The generate SourceNodes we need a code range.
-      // To extract it current and last mapping is used.
-      // Here we store the last mapping.
-      var lastMapping = null;
-
-      aSourceMapConsumer.eachMapping(function (mapping) {
-        if (lastMapping !== null) {
-          // We add the code from "lastMapping" to "mapping":
-          // First check if there is a new line in between.
-          if (lastGeneratedLine < mapping.generatedLine) {
-            var code = "";
-            // Associate first line with "lastMapping"
-            addMappingWithCode(lastMapping, shiftNextLine());
-            lastGeneratedLine++;
-            lastGeneratedColumn = 0;
-            // The remaining code is added without mapping
-          } else {
-            // There is no new line in between.
-            // Associate the code between "lastGeneratedColumn" and
-            // "mapping.generatedColumn" with "lastMapping"
-            var nextLine = remainingLines[0];
-            var code = nextLine.substr(0, mapping.generatedColumn -
-                                          lastGeneratedColumn);
-            remainingLines[0] = nextLine.substr(mapping.generatedColumn -
-                                                lastGeneratedColumn);
-            lastGeneratedColumn = mapping.generatedColumn;
-            addMappingWithCode(lastMapping, code);
-            // No more remaining code, continue
-            lastMapping = mapping;
-            return;
-          }
-        }
-        // We add the generated code until the first mapping
-        // to the SourceNode without any mapping.
-        // Each line is added as separate string.
-        while (lastGeneratedLine < mapping.generatedLine) {
-          node.add(shiftNextLine());
-          lastGeneratedLine++;
-        }
-        if (lastGeneratedColumn < mapping.generatedColumn) {
-          var nextLine = remainingLines[0];
-          node.add(nextLine.substr(0, mapping.generatedColumn));
-          remainingLines[0] = nextLine.substr(mapping.generatedColumn);
-          lastGeneratedColumn = mapping.generatedColumn;
-        }
-        lastMapping = mapping;
-      }, this);
-      // We have processed all mappings.
-      if (remainingLines.length > 0) {
-        if (lastMapping) {
-          // Associate the remaining code in the current line with "lastMapping"
-          addMappingWithCode(lastMapping, shiftNextLine());
-        }
-        // and add the remaining lines without any mapping
-        node.add(remainingLines.join(""));
-      }
-
-      // Copy sourcesContent into SourceNode
-      aSourceMapConsumer.sources.forEach(function (sourceFile) {
-        var content = aSourceMapConsumer.sourceContentFor(sourceFile);
-        if (content != null) {
-          if (aRelativePath != null) {
-            sourceFile = util.join(aRelativePath, sourceFile);
-          }
-          node.setSourceContent(sourceFile, content);
-        }
-      });
-
-      return node;
-
-      function addMappingWithCode(mapping, code) {
-        if (mapping === null || mapping.source === undefined) {
-          node.add(code);
-        } else {
-          var source = aRelativePath
-            ? util.join(aRelativePath, mapping.source)
-            : mapping.source;
-          node.add(new SourceNode(mapping.originalLine,
-                                  mapping.originalColumn,
-                                  source,
-                                  code,
-                                  mapping.name));
-        }
-      }
-    };
-
-  /**
-   * Add a chunk of generated JS to this source node.
-   *
-   * @param aChunk A string snippet of generated JS code, another instance of
-   *        SourceNode, or an array where each member is one of those things.
-   */
-  SourceNode.prototype.add = function SourceNode_add(aChunk) {
-    if (Array.isArray(aChunk)) {
-      aChunk.forEach(function (chunk) {
-        this.add(chunk);
-      }, this);
-    }
-    else if (aChunk[isSourceNode] || typeof aChunk === "string") {
-      if (aChunk) {
-        this.children.push(aChunk);
-      }
-    }
-    else {
-      throw new TypeError(
-        "Expected a SourceNode, string, or an array of SourceNodes and strings. Got " + aChunk
-      );
-    }
-    return this;
-  };
-
-  /**
-   * Add a chunk of generated JS to the beginning of this source node.
-   *
-   * @param aChunk A string snippet of generated JS code, another instance of
-   *        SourceNode, or an array where each member is one of those things.
-   */
-  SourceNode.prototype.prepend = function SourceNode_prepend(aChunk) {
-    if (Array.isArray(aChunk)) {
-      for (var i = aChunk.length-1; i >= 0; i--) {
-        this.prepend(aChunk[i]);
-      }
-    }
-    else if (aChunk[isSourceNode] || typeof aChunk === "string") {
-      this.children.unshift(aChunk);
-    }
-    else {
-      throw new TypeError(
-        "Expected a SourceNode, string, or an array of SourceNodes and strings. Got " + aChunk
-      );
-    }
-    return this;
-  };
-
-  /**
-   * Walk over the tree of JS snippets in this node and its children. The
-   * walking function is called once for each snippet of JS and is passed that
-   * snippet and the its original associated source's line/column location.
-   *
-   * @param aFn The traversal function.
-   */
-  SourceNode.prototype.walk = function SourceNode_walk(aFn) {
-    var chunk;
-    for (var i = 0, len = this.children.length; i < len; i++) {
-      chunk = this.children[i];
-      if (chunk[isSourceNode]) {
-        chunk.walk(aFn);
-      }
-      else {
-        if (chunk !== '') {
-          aFn(chunk, { source: this.source,
-                       line: this.line,
-                       column: this.column,
-                       name: this.name });
-        }
-      }
-    }
-  };
-
-  /**
-   * Like `String.prototype.join` except for SourceNodes. Inserts `aStr` between
-   * each of `this.children`.
-   *
-   * @param aSep The separator.
-   */
-  SourceNode.prototype.join = function SourceNode_join(aSep) {
-    var newChildren;
-    var i;
-    var len = this.children.length;
-    if (len > 0) {
-      newChildren = [];
-      for (i = 0; i < len-1; i++) {
-        newChildren.push(this.children[i]);
-        newChildren.push(aSep);
-      }
-      newChildren.push(this.children[i]);
-      this.children = newChildren;
-    }
-    return this;
-  };
-
-  /**
-   * Call String.prototype.replace on the very right-most source snippet. Useful
-   * for trimming whitespace from the end of a source node, etc.
-   *
-   * @param aPattern The pattern to replace.
-   * @param aReplacement The thing to replace the pattern with.
-   */
-  SourceNode.prototype.replaceRight = function SourceNode_replaceRight(aPattern, aReplacement) {
-    var lastChild = this.children[this.children.length - 1];
-    if (lastChild[isSourceNode]) {
-      lastChild.replaceRight(aPattern, aReplacement);
-    }
-    else if (typeof lastChild === 'string') {
-      this.children[this.children.length - 1] = lastChild.replace(aPattern, aReplacement);
-    }
-    else {
-      this.children.push(''.replace(aPattern, aReplacement));
-    }
-    return this;
-  };
-
-  /**
-   * Set the source content for a source file. This will be added to the SourceMapGenerator
-   * in the sourcesContent field.
-   *
-   * @param aSourceFile The filename of the source file
-   * @param aSourceContent The content of the source file
-   */
-  SourceNode.prototype.setSourceContent =
-    function SourceNode_setSourceContent(aSourceFile, aSourceContent) {
-      this.sourceContents[util.toSetString(aSourceFile)] = aSourceContent;
-    };
-
-  /**
-   * Walk over the tree of SourceNodes. The walking function is called for each
-   * source file content and is passed the filename and source content.
-   *
-   * @param aFn The traversal function.
-   */
-  SourceNode.prototype.walkSourceContents =
-    function SourceNode_walkSourceContents(aFn) {
-      for (var i = 0, len = this.children.length; i < len; i++) {
-        if (this.children[i][isSourceNode]) {
-          this.children[i].walkSourceContents(aFn);
-        }
-      }
-
-      var sources = Object.keys(this.sourceContents);
-      for (var i = 0, len = sources.length; i < len; i++) {
-        aFn(util.fromSetString(sources[i]), this.sourceContents[sources[i]]);
-      }
-    };
-
-  /**
-   * Return the string representation of this source node. Walks over the tree
-   * and concatenates all the various snippets together to one string.
-   */
-  SourceNode.prototype.toString = function SourceNode_toString() {
-    var str = "";
-    this.walk(function (chunk) {
-      str += chunk;
-    });
-    return str;
-  };
-
-  /**
-   * Returns the string representation of this source node along with a source
-   * map.
-   */
-  SourceNode.prototype.toStringWithSourceMap = function SourceNode_toStringWithSourceMap(aArgs) {
-    var generated = {
-      code: "",
-      line: 1,
-      column: 0
-    };
-    var map = new SourceMapGenerator(aArgs);
-    var sourceMappingActive = false;
-    var lastOriginalSource = null;
-    var lastOriginalLine = null;
-    var lastOriginalColumn = null;
-    var lastOriginalName = null;
-    this.walk(function (chunk, original) {
-      generated.code += chunk;
-      if (original.source !== null
-          && original.line !== null
-          && original.column !== null) {
-        if(lastOriginalSource !== original.source
-           || lastOriginalLine !== original.line
-           || lastOriginalColumn !== original.column
-           || lastOriginalName !== original.name) {
-          map.addMapping({
-            source: original.source,
-            original: {
-              line: original.line,
-              column: original.column
-            },
-            generated: {
-              line: generated.line,
-              column: generated.column
-            },
-            name: original.name
-          });
-        }
-        lastOriginalSource = original.source;
-        lastOriginalLine = original.line;
-        lastOriginalColumn = original.column;
-        lastOriginalName = original.name;
-        sourceMappingActive = true;
-      } else if (sourceMappingActive) {
-        map.addMapping({
-          generated: {
-            line: generated.line,
-            column: generated.column
-          }
-        });
-        lastOriginalSource = null;
-        sourceMappingActive = false;
-      }
-      for (var idx = 0, length = chunk.length; idx < length; idx++) {
-        if (chunk.charCodeAt(idx) === NEWLINE_CODE) {
-          generated.line++;
-          generated.column = 0;
-          // Mappings end at eol
-          if (idx + 1 === length) {
-            lastOriginalSource = null;
-            sourceMappingActive = false;
-          } else if (sourceMappingActive) {
-            map.addMapping({
-              source: original.source,
-              original: {
-                line: original.line,
-                column: original.column
-              },
-              generated: {
-                line: generated.line,
-                column: generated.column
-              },
-              name: original.name
-            });
-          }
-        } else {
-          generated.column++;
-        }
-      }
-    });
-    this.walkSourceContents(function (sourceFile, sourceContent) {
-      map.setSourceContent(sourceFile, sourceContent);
-    });
-
-    return { code: generated.code, map: map };
-  };
-
-  exports.SourceNode = SourceNode;
-
-});
-
-},{"./source-map-generator":45,"./util":47,"amdefine":1}],47:[function(require,module,exports){
-/* -*- Mode: js; js-indent-level: 2; -*- */
-/*
- * Copyright 2011 Mozilla Foundation and contributors
- * Licensed under the New BSD license. See LICENSE or:
- * http://opensource.org/licenses/BSD-3-Clause
- */
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module, require);
-}
-define(function (require, exports, module) {
-
-  /**
-   * This is a helper function for getting values from parameter/options
-   * objects.
-   *
-   * @param args The object we are extracting values from
-   * @param name The name of the property we are getting.
-   * @param defaultValue An optional value to return if the property is missing
-   * from the object. If this is not specified and the property is missing, an
-   * error will be thrown.
-   */
-  function getArg(aArgs, aName, aDefaultValue) {
-    if (aName in aArgs) {
-      return aArgs[aName];
-    } else if (arguments.length === 3) {
-      return aDefaultValue;
-    } else {
-      throw new Error('"' + aName + '" is a required argument.');
-    }
-  }
-  exports.getArg = getArg;
-
-  var urlRegexp = /^(?:([\w+\-.]+):)?\/\/(?:(\w+:\w+)@)?([\w.]*)(?::(\d+))?(\S*)$/;
-  var dataUrlRegexp = /^data:.+\,.+$/;
-
-  function urlParse(aUrl) {
-    var match = aUrl.match(urlRegexp);
-    if (!match) {
-      return null;
-    }
-    return {
-      scheme: match[1],
-      auth: match[2],
-      host: match[3],
-      port: match[4],
-      path: match[5]
-    };
-  }
-  exports.urlParse = urlParse;
-
-  function urlGenerate(aParsedUrl) {
-    var url = '';
-    if (aParsedUrl.scheme) {
-      url += aParsedUrl.scheme + ':';
-    }
-    url += '//';
-    if (aParsedUrl.auth) {
-      url += aParsedUrl.auth + '@';
-    }
-    if (aParsedUrl.host) {
-      url += aParsedUrl.host;
-    }
-    if (aParsedUrl.port) {
-      url += ":" + aParsedUrl.port
-    }
-    if (aParsedUrl.path) {
-      url += aParsedUrl.path;
-    }
-    return url;
-  }
-  exports.urlGenerate = urlGenerate;
-
-  /**
-   * Normalizes a path, or the path portion of a URL:
-   *
-   * - Replaces consequtive slashes with one slash.
-   * - Removes unnecessary '.' parts.
-   * - Removes unnecessary '<dir>/..' parts.
-   *
-   * Based on code in the Node.js 'path' core module.
-   *
-   * @param aPath The path or url to normalize.
-   */
-  function normalize(aPath) {
-    var path = aPath;
-    var url = urlParse(aPath);
-    if (url) {
-      if (!url.path) {
-        return aPath;
-      }
-      path = url.path;
-    }
-    var isAbsolute = (path.charAt(0) === '/');
-
-    var parts = path.split(/\/+/);
-    for (var part, up = 0, i = parts.length - 1; i >= 0; i--) {
-      part = parts[i];
-      if (part === '.') {
-        parts.splice(i, 1);
-      } else if (part === '..') {
-        up++;
-      } else if (up > 0) {
-        if (part === '') {
-          // The first part is blank if the path is absolute. Trying to go
-          // above the root is a no-op. Therefore we can remove all '..' parts
-          // directly after the root.
-          parts.splice(i + 1, up);
-          up = 0;
-        } else {
-          parts.splice(i, 2);
-          up--;
-        }
-      }
-    }
-    path = parts.join('/');
-
-    if (path === '') {
-      path = isAbsolute ? '/' : '.';
-    }
-
-    if (url) {
-      url.path = path;
-      return urlGenerate(url);
-    }
-    return path;
-  }
-  exports.normalize = normalize;
-
-  /**
-   * Joins two paths/URLs.
-   *
-   * @param aRoot The root path or URL.
-   * @param aPath The path or URL to be joined with the root.
-   *
-   * - If aPath is a URL or a data URI, aPath is returned, unless aPath is a
-   *   scheme-relative URL: Then the scheme of aRoot, if any, is prepended
-   *   first.
-   * - Otherwise aPath is a path. If aRoot is a URL, then its path portion
-   *   is updated with the result and aRoot is returned. Otherwise the result
-   *   is returned.
-   *   - If aPath is absolute, the result is aPath.
-   *   - Otherwise the two paths are joined with a slash.
-   * - Joining for example 'http://' and 'www.example.com' is also supported.
-   */
-  function join(aRoot, aPath) {
-    if (aRoot === "") {
-      aRoot = ".";
-    }
-    if (aPath === "") {
-      aPath = ".";
-    }
-    var aPathUrl = urlParse(aPath);
-    var aRootUrl = urlParse(aRoot);
-    if (aRootUrl) {
-      aRoot = aRootUrl.path || '/';
-    }
-
-    // `join(foo, '//www.example.org')`
-    if (aPathUrl && !aPathUrl.scheme) {
-      if (aRootUrl) {
-        aPathUrl.scheme = aRootUrl.scheme;
-      }
-      return urlGenerate(aPathUrl);
-    }
-
-    if (aPathUrl || aPath.match(dataUrlRegexp)) {
-      return aPath;
-    }
-
-    // `join('http://', 'www.example.com')`
-    if (aRootUrl && !aRootUrl.host && !aRootUrl.path) {
-      aRootUrl.host = aPath;
-      return urlGenerate(aRootUrl);
-    }
-
-    var joined = aPath.charAt(0) === '/'
-      ? aPath
-      : normalize(aRoot.replace(/\/+$/, '') + '/' + aPath);
-
-    if (aRootUrl) {
-      aRootUrl.path = joined;
-      return urlGenerate(aRootUrl);
-    }
-    return joined;
-  }
-  exports.join = join;
-
-  /**
-   * Make a path relative to a URL or another path.
-   *
-   * @param aRoot The root path or URL.
-   * @param aPath The path or URL to be made relative to aRoot.
-   */
-  function relative(aRoot, aPath) {
-    if (aRoot === "") {
-      aRoot = ".";
-    }
-
-    aRoot = aRoot.replace(/\/$/, '');
-
-    // It is possible for the path to be above the root. In this case, simply
-    // checking whether the root is a prefix of the path won't work. Instead, we
-    // need to remove components from the root one by one, until either we find
-    // a prefix that fits, or we run out of components to remove.
-    var level = 0;
-    while (aPath.indexOf(aRoot + '/') !== 0) {
-      var index = aRoot.lastIndexOf("/");
-      if (index < 0) {
-        return aPath;
-      }
-
-      // If the only part of the root that is left is the scheme (i.e. http://,
-      // file:///, etc.), one or more slashes (/), or simply nothing at all, we
-      // have exhausted all components, so the path is not relative to the root.
-      aRoot = aRoot.slice(0, index);
-      if (aRoot.match(/^([^\/]+:\/)?\/*$/)) {
-        return aPath;
-      }
-
-      ++level;
-    }
-
-    // Make sure we add a "../" for each component we removed from the root.
-    return Array(level + 1).join("../") + aPath.substr(aRoot.length + 1);
-  }
-  exports.relative = relative;
-
-  /**
-   * Because behavior goes wacky when you set `__proto__` on objects, we
-   * have to prefix all the strings in our set with an arbitrary character.
-   *
-   * See https://github.com/mozilla/source-map/pull/31 and
-   * https://github.com/mozilla/source-map/issues/30
-   *
-   * @param String aStr
-   */
-  function toSetString(aStr) {
-    return '$' + aStr;
-  }
-  exports.toSetString = toSetString;
-
-  function fromSetString(aStr) {
-    return aStr.substr(1);
-  }
-  exports.fromSetString = fromSetString;
-
-  /**
-   * Comparator between two mappings where the original positions are compared.
-   *
-   * Optionally pass in `true` as `onlyCompareGenerated` to consider two
-   * mappings with the same original source/line/column, but different generated
-   * line and column the same. Useful when searching for a mapping with a
-   * stubbed out mapping.
-   */
-  function compareByOriginalPositions(mappingA, mappingB, onlyCompareOriginal) {
-    var cmp = mappingA.source - mappingB.source;
-    if (cmp !== 0) {
-      return cmp;
-    }
-
-    cmp = mappingA.originalLine - mappingB.originalLine;
-    if (cmp !== 0) {
-      return cmp;
-    }
-
-    cmp = mappingA.originalColumn - mappingB.originalColumn;
-    if (cmp !== 0 || onlyCompareOriginal) {
-      return cmp;
-    }
-
-    cmp = mappingA.generatedColumn - mappingB.generatedColumn;
-    if (cmp !== 0) {
-      return cmp;
-    }
-
-    cmp = mappingA.generatedLine - mappingB.generatedLine;
-    if (cmp !== 0) {
-      return cmp;
-    }
-
-    return mappingA.name - mappingB.name;
-  };
-  exports.compareByOriginalPositions = compareByOriginalPositions;
-
-  /**
-   * Comparator between two mappings with deflated source and name indices where
-   * the generated positions are compared.
-   *
-   * Optionally pass in `true` as `onlyCompareGenerated` to consider two
-   * mappings with the same generated line and column, but different
-   * source/name/original line and column the same. Useful when searching for a
-   * mapping with a stubbed out mapping.
-   */
-  function compareByGeneratedPositionsDeflated(mappingA, mappingB, onlyCompareGenerated) {
-    var cmp = mappingA.generatedLine - mappingB.generatedLine;
-    if (cmp !== 0) {
-      return cmp;
-    }
-
-    cmp = mappingA.generatedColumn - mappingB.generatedColumn;
-    if (cmp !== 0 || onlyCompareGenerated) {
-      return cmp;
-    }
-
-    cmp = mappingA.source - mappingB.source;
-    if (cmp !== 0) {
-      return cmp;
-    }
-
-    cmp = mappingA.originalLine - mappingB.originalLine;
-    if (cmp !== 0) {
-      return cmp;
-    }
-
-    cmp = mappingA.originalColumn - mappingB.originalColumn;
-    if (cmp !== 0) {
-      return cmp;
-    }
-
-    return mappingA.name - mappingB.name;
-  };
-  exports.compareByGeneratedPositionsDeflated = compareByGeneratedPositionsDeflated;
-
-  function strcmp(aStr1, aStr2) {
-    if (aStr1 === aStr2) {
-      return 0;
-    }
-
-    if (aStr1 > aStr2) {
-      return 1;
-    }
-
-    return -1;
-  }
-
-  /**
-   * Comparator between two mappings with inflated source and name strings where
-   * the generated positions are compared.
-   */
-  function compareByGeneratedPositionsInflated(mappingA, mappingB) {
-    var cmp = mappingA.generatedLine - mappingB.generatedLine;
-    if (cmp !== 0) {
-      return cmp;
-    }
-
-    cmp = mappingA.generatedColumn - mappingB.generatedColumn;
-    if (cmp !== 0) {
-      return cmp;
-    }
-
-    cmp = strcmp(mappingA.source, mappingB.source);
-    if (cmp !== 0) {
-      return cmp;
-    }
-
-    cmp = mappingA.originalLine - mappingB.originalLine;
-    if (cmp !== 0) {
-      return cmp;
-    }
-
-    cmp = mappingA.originalColumn - mappingB.originalColumn;
-    if (cmp !== 0) {
-      return cmp;
-    }
-
-    return strcmp(mappingA.name, mappingB.name);
-  };
-  exports.compareByGeneratedPositionsInflated = compareByGeneratedPositionsInflated;
-
-});
-
-},{"amdefine":1}],48:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v3.3.1
  * https://jquery.com/
@@ -31873,7 +28949,7 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
-},{}],49:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -32101,7 +29177,7 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require('_process'))
-},{"_process":51}],50:[function(require,module,exports){
+},{"_process":40}],39:[function(require,module,exports){
 (function (global){
 /**!
  * @fileOverview Kickass library to create and place poppers near their reference elements.
@@ -34633,7 +31709,7 @@ return Popper;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],51:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -34819,7 +31895,2946 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],52:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
+/*
+ * Copyright 2009-2011 Mozilla Foundation and contributors
+ * Licensed under the New BSD license. See LICENSE.txt or:
+ * http://opensource.org/licenses/BSD-3-Clause
+ */
+exports.SourceMapGenerator = require('./source-map/source-map-generator').SourceMapGenerator;
+exports.SourceMapConsumer = require('./source-map/source-map-consumer').SourceMapConsumer;
+exports.SourceNode = require('./source-map/source-node').SourceNode;
+
+},{"./source-map/source-map-consumer":48,"./source-map/source-map-generator":49,"./source-map/source-node":50}],42:[function(require,module,exports){
+/* -*- Mode: js; js-indent-level: 2; -*- */
+/*
+ * Copyright 2011 Mozilla Foundation and contributors
+ * Licensed under the New BSD license. See LICENSE or:
+ * http://opensource.org/licenses/BSD-3-Clause
+ */
+if (typeof define !== 'function') {
+    var define = require('amdefine')(module, require);
+}
+define(function (require, exports, module) {
+
+  var util = require('./util');
+
+  /**
+   * A data structure which is a combination of an array and a set. Adding a new
+   * member is O(1), testing for membership is O(1), and finding the index of an
+   * element is O(1). Removing elements from the set is not supported. Only
+   * strings are supported for membership.
+   */
+  function ArraySet() {
+    this._array = [];
+    this._set = {};
+  }
+
+  /**
+   * Static method for creating ArraySet instances from an existing array.
+   */
+  ArraySet.fromArray = function ArraySet_fromArray(aArray, aAllowDuplicates) {
+    var set = new ArraySet();
+    for (var i = 0, len = aArray.length; i < len; i++) {
+      set.add(aArray[i], aAllowDuplicates);
+    }
+    return set;
+  };
+
+  /**
+   * Return how many unique items are in this ArraySet. If duplicates have been
+   * added, than those do not count towards the size.
+   *
+   * @returns Number
+   */
+  ArraySet.prototype.size = function ArraySet_size() {
+    return Object.getOwnPropertyNames(this._set).length;
+  };
+
+  /**
+   * Add the given string to this set.
+   *
+   * @param String aStr
+   */
+  ArraySet.prototype.add = function ArraySet_add(aStr, aAllowDuplicates) {
+    var isDuplicate = this.has(aStr);
+    var idx = this._array.length;
+    if (!isDuplicate || aAllowDuplicates) {
+      this._array.push(aStr);
+    }
+    if (!isDuplicate) {
+      this._set[util.toSetString(aStr)] = idx;
+    }
+  };
+
+  /**
+   * Is the given string a member of this set?
+   *
+   * @param String aStr
+   */
+  ArraySet.prototype.has = function ArraySet_has(aStr) {
+    return Object.prototype.hasOwnProperty.call(this._set,
+                                                util.toSetString(aStr));
+  };
+
+  /**
+   * What is the index of the given string in the array?
+   *
+   * @param String aStr
+   */
+  ArraySet.prototype.indexOf = function ArraySet_indexOf(aStr) {
+    if (this.has(aStr)) {
+      return this._set[util.toSetString(aStr)];
+    }
+    throw new Error('"' + aStr + '" is not in the set.');
+  };
+
+  /**
+   * What is the element at the given index?
+   *
+   * @param Number aIdx
+   */
+  ArraySet.prototype.at = function ArraySet_at(aIdx) {
+    if (aIdx >= 0 && aIdx < this._array.length) {
+      return this._array[aIdx];
+    }
+    throw new Error('No element indexed by ' + aIdx);
+  };
+
+  /**
+   * Returns the array representation of this set (which has the proper indices
+   * indicated by indexOf). Note that this is a copy of the internal array used
+   * for storing the members so that no one can mess with internal state.
+   */
+  ArraySet.prototype.toArray = function ArraySet_toArray() {
+    return this._array.slice();
+  };
+
+  exports.ArraySet = ArraySet;
+
+});
+
+},{"./util":51,"amdefine":1}],43:[function(require,module,exports){
+/* -*- Mode: js; js-indent-level: 2; -*- */
+/*
+ * Copyright 2011 Mozilla Foundation and contributors
+ * Licensed under the New BSD license. See LICENSE or:
+ * http://opensource.org/licenses/BSD-3-Clause
+ *
+ * Based on the Base 64 VLQ implementation in Closure Compiler:
+ * https://code.google.com/p/closure-compiler/source/browse/trunk/src/com/google/debugging/sourcemap/Base64VLQ.java
+ *
+ * Copyright 2011 The Closure Compiler Authors. All rights reserved.
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are
+ * met:
+ *
+ *  * Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  * Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials provided
+ *    with the distribution.
+ *  * Neither the name of Google Inc. nor the names of its
+ *    contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+if (typeof define !== 'function') {
+    var define = require('amdefine')(module, require);
+}
+define(function (require, exports, module) {
+
+  var base64 = require('./base64');
+
+  // A single base 64 digit can contain 6 bits of data. For the base 64 variable
+  // length quantities we use in the source map spec, the first bit is the sign,
+  // the next four bits are the actual value, and the 6th bit is the
+  // continuation bit. The continuation bit tells us whether there are more
+  // digits in this value following this digit.
+  //
+  //   Continuation
+  //   |    Sign
+  //   |    |
+  //   V    V
+  //   101011
+
+  var VLQ_BASE_SHIFT = 5;
+
+  // binary: 100000
+  var VLQ_BASE = 1 << VLQ_BASE_SHIFT;
+
+  // binary: 011111
+  var VLQ_BASE_MASK = VLQ_BASE - 1;
+
+  // binary: 100000
+  var VLQ_CONTINUATION_BIT = VLQ_BASE;
+
+  /**
+   * Converts from a two-complement value to a value where the sign bit is
+   * placed in the least significant bit.  For example, as decimals:
+   *   1 becomes 2 (10 binary), -1 becomes 3 (11 binary)
+   *   2 becomes 4 (100 binary), -2 becomes 5 (101 binary)
+   */
+  function toVLQSigned(aValue) {
+    return aValue < 0
+      ? ((-aValue) << 1) + 1
+      : (aValue << 1) + 0;
+  }
+
+  /**
+   * Converts to a two-complement value from a value where the sign bit is
+   * placed in the least significant bit.  For example, as decimals:
+   *   2 (10 binary) becomes 1, 3 (11 binary) becomes -1
+   *   4 (100 binary) becomes 2, 5 (101 binary) becomes -2
+   */
+  function fromVLQSigned(aValue) {
+    var isNegative = (aValue & 1) === 1;
+    var shifted = aValue >> 1;
+    return isNegative
+      ? -shifted
+      : shifted;
+  }
+
+  /**
+   * Returns the base 64 VLQ encoded value.
+   */
+  exports.encode = function base64VLQ_encode(aValue) {
+    var encoded = "";
+    var digit;
+
+    var vlq = toVLQSigned(aValue);
+
+    do {
+      digit = vlq & VLQ_BASE_MASK;
+      vlq >>>= VLQ_BASE_SHIFT;
+      if (vlq > 0) {
+        // There are still more digits in this value, so we must make sure the
+        // continuation bit is marked.
+        digit |= VLQ_CONTINUATION_BIT;
+      }
+      encoded += base64.encode(digit);
+    } while (vlq > 0);
+
+    return encoded;
+  };
+
+  /**
+   * Decodes the next base 64 VLQ value from the given string and returns the
+   * value and the rest of the string via the out parameter.
+   */
+  exports.decode = function base64VLQ_decode(aStr, aIndex, aOutParam) {
+    var strLen = aStr.length;
+    var result = 0;
+    var shift = 0;
+    var continuation, digit;
+
+    do {
+      if (aIndex >= strLen) {
+        throw new Error("Expected more digits in base 64 VLQ value.");
+      }
+
+      digit = base64.decode(aStr.charCodeAt(aIndex++));
+      if (digit === -1) {
+        throw new Error("Invalid base64 digit: " + aStr.charAt(aIndex - 1));
+      }
+
+      continuation = !!(digit & VLQ_CONTINUATION_BIT);
+      digit &= VLQ_BASE_MASK;
+      result = result + (digit << shift);
+      shift += VLQ_BASE_SHIFT;
+    } while (continuation);
+
+    aOutParam.value = fromVLQSigned(result);
+    aOutParam.rest = aIndex;
+  };
+
+});
+
+},{"./base64":44,"amdefine":1}],44:[function(require,module,exports){
+/* -*- Mode: js; js-indent-level: 2; -*- */
+/*
+ * Copyright 2011 Mozilla Foundation and contributors
+ * Licensed under the New BSD license. See LICENSE or:
+ * http://opensource.org/licenses/BSD-3-Clause
+ */
+if (typeof define !== 'function') {
+    var define = require('amdefine')(module, require);
+}
+define(function (require, exports, module) {
+
+  var intToCharMap = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'.split('');
+
+  /**
+   * Encode an integer in the range of 0 to 63 to a single base 64 digit.
+   */
+  exports.encode = function (number) {
+    if (0 <= number && number < intToCharMap.length) {
+      return intToCharMap[number];
+    }
+    throw new TypeError("Must be between 0 and 63: " + aNumber);
+  };
+
+  /**
+   * Decode a single base 64 character code digit to an integer. Returns -1 on
+   * failure.
+   */
+  exports.decode = function (charCode) {
+    var bigA = 65;     // 'A'
+    var bigZ = 90;     // 'Z'
+
+    var littleA = 97;  // 'a'
+    var littleZ = 122; // 'z'
+
+    var zero = 48;     // '0'
+    var nine = 57;     // '9'
+
+    var plus = 43;     // '+'
+    var slash = 47;    // '/'
+
+    var littleOffset = 26;
+    var numberOffset = 52;
+
+    // 0 - 25: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+    if (bigA <= charCode && charCode <= bigZ) {
+      return (charCode - bigA);
+    }
+
+    // 26 - 51: abcdefghijklmnopqrstuvwxyz
+    if (littleA <= charCode && charCode <= littleZ) {
+      return (charCode - littleA + littleOffset);
+    }
+
+    // 52 - 61: 0123456789
+    if (zero <= charCode && charCode <= nine) {
+      return (charCode - zero + numberOffset);
+    }
+
+    // 62: +
+    if (charCode == plus) {
+      return 62;
+    }
+
+    // 63: /
+    if (charCode == slash) {
+      return 63;
+    }
+
+    // Invalid base64 digit.
+    return -1;
+  };
+
+});
+
+},{"amdefine":1}],45:[function(require,module,exports){
+/* -*- Mode: js; js-indent-level: 2; -*- */
+/*
+ * Copyright 2011 Mozilla Foundation and contributors
+ * Licensed under the New BSD license. See LICENSE or:
+ * http://opensource.org/licenses/BSD-3-Clause
+ */
+if (typeof define !== 'function') {
+    var define = require('amdefine')(module, require);
+}
+define(function (require, exports, module) {
+
+  exports.GREATEST_LOWER_BOUND = 1;
+  exports.LEAST_UPPER_BOUND = 2;
+
+  /**
+   * Recursive implementation of binary search.
+   *
+   * @param aLow Indices here and lower do not contain the needle.
+   * @param aHigh Indices here and higher do not contain the needle.
+   * @param aNeedle The element being searched for.
+   * @param aHaystack The non-empty array being searched.
+   * @param aCompare Function which takes two elements and returns -1, 0, or 1.
+   * @param aBias Either 'binarySearch.GREATEST_LOWER_BOUND' or
+   *     'binarySearch.LEAST_UPPER_BOUND'. Specifies whether to return the
+   *     closest element that is smaller than or greater than the one we are
+   *     searching for, respectively, if the exact element cannot be found.
+   */
+  function recursiveSearch(aLow, aHigh, aNeedle, aHaystack, aCompare, aBias) {
+    // This function terminates when one of the following is true:
+    //
+    //   1. We find the exact element we are looking for.
+    //
+    //   2. We did not find the exact element, but we can return the index of
+    //      the next-closest element.
+    //
+    //   3. We did not find the exact element, and there is no next-closest
+    //      element than the one we are searching for, so we return -1.
+    var mid = Math.floor((aHigh - aLow) / 2) + aLow;
+    var cmp = aCompare(aNeedle, aHaystack[mid], true);
+    if (cmp === 0) {
+      // Found the element we are looking for.
+      return mid;
+    }
+    else if (cmp > 0) {
+      // Our needle is greater than aHaystack[mid].
+      if (aHigh - mid > 1) {
+        // The element is in the upper half.
+        return recursiveSearch(mid, aHigh, aNeedle, aHaystack, aCompare, aBias);
+      }
+
+      // The exact needle element was not found in this haystack. Determine if
+      // we are in termination case (3) or (2) and return the appropriate thing.
+      if (aBias == exports.LEAST_UPPER_BOUND) {
+        return aHigh < aHaystack.length ? aHigh : -1;
+      } else {
+        return mid;
+      }
+    }
+    else {
+      // Our needle is less than aHaystack[mid].
+      if (mid - aLow > 1) {
+        // The element is in the lower half.
+        return recursiveSearch(aLow, mid, aNeedle, aHaystack, aCompare, aBias);
+      }
+
+      // we are in termination case (3) or (2) and return the appropriate thing.
+      if (aBias == exports.LEAST_UPPER_BOUND) {
+        return mid;
+      } else {
+        return aLow < 0 ? -1 : aLow;
+      }
+    }
+  }
+
+  /**
+   * This is an implementation of binary search which will always try and return
+   * the index of the closest element if there is no exact hit. This is because
+   * mappings between original and generated line/col pairs are single points,
+   * and there is an implicit region between each of them, so a miss just means
+   * that you aren't on the very start of a region.
+   *
+   * @param aNeedle The element you are looking for.
+   * @param aHaystack The array that is being searched.
+   * @param aCompare A function which takes the needle and an element in the
+   *     array and returns -1, 0, or 1 depending on whether the needle is less
+   *     than, equal to, or greater than the element, respectively.
+   * @param aBias Either 'binarySearch.GREATEST_LOWER_BOUND' or
+   *     'binarySearch.LEAST_UPPER_BOUND'. Specifies whether to return the
+   *     closest element that is smaller than or greater than the one we are
+   *     searching for, respectively, if the exact element cannot be found.
+   *     Defaults to 'binarySearch.GREATEST_LOWER_BOUND'.
+   */
+  exports.search = function search(aNeedle, aHaystack, aCompare, aBias) {
+    if (aHaystack.length === 0) {
+      return -1;
+    }
+
+    var index = recursiveSearch(-1, aHaystack.length, aNeedle, aHaystack,
+                                aCompare, aBias || exports.GREATEST_LOWER_BOUND);
+    if (index < 0) {
+      return -1;
+    }
+
+    // We have found either the exact element, or the next-closest element than
+    // the one we are searching for. However, there may be more than one such
+    // element. Make sure we always return the smallest of these.
+    while (index - 1 >= 0) {
+      if (aCompare(aHaystack[index], aHaystack[index - 1], true) !== 0) {
+        break;
+      }
+      --index;
+    }
+
+    return index;
+  };
+
+});
+
+},{"amdefine":1}],46:[function(require,module,exports){
+/* -*- Mode: js; js-indent-level: 2; -*- */
+/*
+ * Copyright 2014 Mozilla Foundation and contributors
+ * Licensed under the New BSD license. See LICENSE or:
+ * http://opensource.org/licenses/BSD-3-Clause
+ */
+if (typeof define !== 'function') {
+    var define = require('amdefine')(module, require);
+}
+define(function (require, exports, module) {
+
+  var util = require('./util');
+
+  /**
+   * Determine whether mappingB is after mappingA with respect to generated
+   * position.
+   */
+  function generatedPositionAfter(mappingA, mappingB) {
+    // Optimized for most common case
+    var lineA = mappingA.generatedLine;
+    var lineB = mappingB.generatedLine;
+    var columnA = mappingA.generatedColumn;
+    var columnB = mappingB.generatedColumn;
+    return lineB > lineA || lineB == lineA && columnB >= columnA ||
+           util.compareByGeneratedPositionsInflated(mappingA, mappingB) <= 0;
+  }
+
+  /**
+   * A data structure to provide a sorted view of accumulated mappings in a
+   * performance conscious manner. It trades a neglibable overhead in general
+   * case for a large speedup in case of mappings being added in order.
+   */
+  function MappingList() {
+    this._array = [];
+    this._sorted = true;
+    // Serves as infimum
+    this._last = {generatedLine: -1, generatedColumn: 0};
+  }
+
+  /**
+   * Iterate through internal items. This method takes the same arguments that
+   * `Array.prototype.forEach` takes.
+   *
+   * NOTE: The order of the mappings is NOT guaranteed.
+   */
+  MappingList.prototype.unsortedForEach =
+    function MappingList_forEach(aCallback, aThisArg) {
+      this._array.forEach(aCallback, aThisArg);
+    };
+
+  /**
+   * Add the given source mapping.
+   *
+   * @param Object aMapping
+   */
+  MappingList.prototype.add = function MappingList_add(aMapping) {
+    var mapping;
+    if (generatedPositionAfter(this._last, aMapping)) {
+      this._last = aMapping;
+      this._array.push(aMapping);
+    } else {
+      this._sorted = false;
+      this._array.push(aMapping);
+    }
+  };
+
+  /**
+   * Returns the flat, sorted array of mappings. The mappings are sorted by
+   * generated position.
+   *
+   * WARNING: This method returns internal data without copying, for
+   * performance. The return value must NOT be mutated, and should be treated as
+   * an immutable borrow. If you want to take ownership, you must make your own
+   * copy.
+   */
+  MappingList.prototype.toArray = function MappingList_toArray() {
+    if (!this._sorted) {
+      this._array.sort(util.compareByGeneratedPositionsInflated);
+      this._sorted = true;
+    }
+    return this._array;
+  };
+
+  exports.MappingList = MappingList;
+
+});
+
+},{"./util":51,"amdefine":1}],47:[function(require,module,exports){
+/* -*- Mode: js; js-indent-level: 2; -*- */
+/*
+ * Copyright 2011 Mozilla Foundation and contributors
+ * Licensed under the New BSD license. See LICENSE or:
+ * http://opensource.org/licenses/BSD-3-Clause
+ */
+if (typeof define !== 'function') {
+    var define = require('amdefine')(module, require);
+}
+define(function (require, exports, module) {
+
+  // It turns out that some (most?) JavaScript engines don't self-host
+  // `Array.prototype.sort`. This makes sense because C++ will likely remain
+  // faster than JS when doing raw CPU-intensive sorting. However, when using a
+  // custom comparator function, calling back and forth between the VM's C++ and
+  // JIT'd JS is rather slow *and* loses JIT type information, resulting in
+  // worse generated code for the comparator function than would be optimal. In
+  // fact, when sorting with a comparator, these costs outweigh the benefits of
+  // sorting in C++. By using our own JS-implemented Quick Sort (below), we get
+  // a ~3500ms mean speed-up in `bench/bench.html`.
+
+  /**
+   * Swap the elements indexed by `x` and `y` in the array `ary`.
+   *
+   * @param {Array} ary
+   *        The array.
+   * @param {Number} x
+   *        The index of the first item.
+   * @param {Number} y
+   *        The index of the second item.
+   */
+  function swap(ary, x, y) {
+    var temp = ary[x];
+    ary[x] = ary[y];
+    ary[y] = temp;
+  }
+
+  /**
+   * Returns a random integer within the range `low .. high` inclusive.
+   *
+   * @param {Number} low
+   *        The lower bound on the range.
+   * @param {Number} high
+   *        The upper bound on the range.
+   */
+  function randomIntInRange(low, high) {
+    return Math.round(low + (Math.random() * (high - low)));
+  }
+
+  /**
+   * The Quick Sort algorithm.
+   *
+   * @param {Array} ary
+   *        An array to sort.
+   * @param {function} comparator
+   *        Function to use to compare two items.
+   * @param {Number} p
+   *        Start index of the array
+   * @param {Number} r
+   *        End index of the array
+   */
+  function doQuickSort(ary, comparator, p, r) {
+    // If our lower bound is less than our upper bound, we (1) partition the
+    // array into two pieces and (2) recurse on each half. If it is not, this is
+    // the empty array and our base case.
+
+    if (p < r) {
+      // (1) Partitioning.
+      //
+      // The partitioning chooses a pivot between `p` and `r` and moves all
+      // elements that are less than or equal to the pivot to the before it, and
+      // all the elements that are greater than it after it. The effect is that
+      // once partition is done, the pivot is in the exact place it will be when
+      // the array is put in sorted order, and it will not need to be moved
+      // again. This runs in O(n) time.
+
+      // Always choose a random pivot so that an input array which is reverse
+      // sorted does not cause O(n^2) running time.
+      var pivotIndex = randomIntInRange(p, r);
+      var i = p - 1;
+
+      swap(ary, pivotIndex, r);
+      var pivot = ary[r];
+
+      // Immediately after `j` is incremented in this loop, the following hold
+      // true:
+      //
+      //   * Every element in `ary[p .. i]` is less than or equal to the pivot.
+      //
+      //   * Every element in `ary[i+1 .. j-1]` is greater than the pivot.
+      for (var j = p; j < r; j++) {
+        if (comparator(ary[j], pivot) <= 0) {
+          i += 1;
+          swap(ary, i, j);
+        }
+      }
+
+      swap(ary, i + 1, j);
+      var q = i + 1;
+
+      // (2) Recurse on each half.
+
+      doQuickSort(ary, comparator, p, q - 1);
+      doQuickSort(ary, comparator, q + 1, r);
+    }
+  }
+
+  /**
+   * Sort the given array in-place with the given comparator function.
+   *
+   * @param {Array} ary
+   *        An array to sort.
+   * @param {function} comparator
+   *        Function to use to compare two items.
+   */
+  exports.quickSort = function (ary, comparator) {
+    doQuickSort(ary, comparator, 0, ary.length - 1);
+  };
+
+});
+
+},{"amdefine":1}],48:[function(require,module,exports){
+/* -*- Mode: js; js-indent-level: 2; -*- */
+/*
+ * Copyright 2011 Mozilla Foundation and contributors
+ * Licensed under the New BSD license. See LICENSE or:
+ * http://opensource.org/licenses/BSD-3-Clause
+ */
+if (typeof define !== 'function') {
+    var define = require('amdefine')(module, require);
+}
+define(function (require, exports, module) {
+
+  var util = require('./util');
+  var binarySearch = require('./binary-search');
+  var ArraySet = require('./array-set').ArraySet;
+  var base64VLQ = require('./base64-vlq');
+  var quickSort = require('./quick-sort').quickSort;
+
+  function SourceMapConsumer(aSourceMap) {
+    var sourceMap = aSourceMap;
+    if (typeof aSourceMap === 'string') {
+      sourceMap = JSON.parse(aSourceMap.replace(/^\)\]\}'/, ''));
+    }
+
+    return sourceMap.sections != null
+      ? new IndexedSourceMapConsumer(sourceMap)
+      : new BasicSourceMapConsumer(sourceMap);
+  }
+
+  SourceMapConsumer.fromSourceMap = function(aSourceMap) {
+    return BasicSourceMapConsumer.fromSourceMap(aSourceMap);
+  }
+
+  /**
+   * The version of the source mapping spec that we are consuming.
+   */
+  SourceMapConsumer.prototype._version = 3;
+
+  // `__generatedMappings` and `__originalMappings` are arrays that hold the
+  // parsed mapping coordinates from the source map's "mappings" attribute. They
+  // are lazily instantiated, accessed via the `_generatedMappings` and
+  // `_originalMappings` getters respectively, and we only parse the mappings
+  // and create these arrays once queried for a source location. We jump through
+  // these hoops because there can be many thousands of mappings, and parsing
+  // them is expensive, so we only want to do it if we must.
+  //
+  // Each object in the arrays is of the form:
+  //
+  //     {
+  //       generatedLine: The line number in the generated code,
+  //       generatedColumn: The column number in the generated code,
+  //       source: The path to the original source file that generated this
+  //               chunk of code,
+  //       originalLine: The line number in the original source that
+  //                     corresponds to this chunk of generated code,
+  //       originalColumn: The column number in the original source that
+  //                       corresponds to this chunk of generated code,
+  //       name: The name of the original symbol which generated this chunk of
+  //             code.
+  //     }
+  //
+  // All properties except for `generatedLine` and `generatedColumn` can be
+  // `null`.
+  //
+  // `_generatedMappings` is ordered by the generated positions.
+  //
+  // `_originalMappings` is ordered by the original positions.
+
+  SourceMapConsumer.prototype.__generatedMappings = null;
+  Object.defineProperty(SourceMapConsumer.prototype, '_generatedMappings', {
+    get: function () {
+      if (!this.__generatedMappings) {
+        this._parseMappings(this._mappings, this.sourceRoot);
+      }
+
+      return this.__generatedMappings;
+    }
+  });
+
+  SourceMapConsumer.prototype.__originalMappings = null;
+  Object.defineProperty(SourceMapConsumer.prototype, '_originalMappings', {
+    get: function () {
+      if (!this.__originalMappings) {
+        this._parseMappings(this._mappings, this.sourceRoot);
+      }
+
+      return this.__originalMappings;
+    }
+  });
+
+  SourceMapConsumer.prototype._charIsMappingSeparator =
+    function SourceMapConsumer_charIsMappingSeparator(aStr, index) {
+      var c = aStr.charAt(index);
+      return c === ";" || c === ",";
+    };
+
+  /**
+   * Parse the mappings in a string in to a data structure which we can easily
+   * query (the ordered arrays in the `this.__generatedMappings` and
+   * `this.__originalMappings` properties).
+   */
+  SourceMapConsumer.prototype._parseMappings =
+    function SourceMapConsumer_parseMappings(aStr, aSourceRoot) {
+      throw new Error("Subclasses must implement _parseMappings");
+    };
+
+  SourceMapConsumer.GENERATED_ORDER = 1;
+  SourceMapConsumer.ORIGINAL_ORDER = 2;
+
+  SourceMapConsumer.GREATEST_LOWER_BOUND = 1;
+  SourceMapConsumer.LEAST_UPPER_BOUND = 2;
+
+  /**
+   * Iterate over each mapping between an original source/line/column and a
+   * generated line/column in this source map.
+   *
+   * @param Function aCallback
+   *        The function that is called with each mapping.
+   * @param Object aContext
+   *        Optional. If specified, this object will be the value of `this` every
+   *        time that `aCallback` is called.
+   * @param aOrder
+   *        Either `SourceMapConsumer.GENERATED_ORDER` or
+   *        `SourceMapConsumer.ORIGINAL_ORDER`. Specifies whether you want to
+   *        iterate over the mappings sorted by the generated file's line/column
+   *        order or the original's source/line/column order, respectively. Defaults to
+   *        `SourceMapConsumer.GENERATED_ORDER`.
+   */
+  SourceMapConsumer.prototype.eachMapping =
+    function SourceMapConsumer_eachMapping(aCallback, aContext, aOrder) {
+      var context = aContext || null;
+      var order = aOrder || SourceMapConsumer.GENERATED_ORDER;
+
+      var mappings;
+      switch (order) {
+      case SourceMapConsumer.GENERATED_ORDER:
+        mappings = this._generatedMappings;
+        break;
+      case SourceMapConsumer.ORIGINAL_ORDER:
+        mappings = this._originalMappings;
+        break;
+      default:
+        throw new Error("Unknown order of iteration.");
+      }
+
+      var sourceRoot = this.sourceRoot;
+      mappings.map(function (mapping) {
+        var source = mapping.source === null ? null : this._sources.at(mapping.source);
+        if (source != null && sourceRoot != null) {
+          source = util.join(sourceRoot, source);
+        }
+        return {
+          source: source,
+          generatedLine: mapping.generatedLine,
+          generatedColumn: mapping.generatedColumn,
+          originalLine: mapping.originalLine,
+          originalColumn: mapping.originalColumn,
+          name: mapping.name === null ? null : this._names.at(mapping.name)
+        };
+      }, this).forEach(aCallback, context);
+    };
+
+  /**
+   * Returns all generated line and column information for the original source,
+   * line, and column provided. If no column is provided, returns all mappings
+   * corresponding to a either the line we are searching for or the next
+   * closest line that has any mappings. Otherwise, returns all mappings
+   * corresponding to the given line and either the column we are searching for
+   * or the next closest column that has any offsets.
+   *
+   * The only argument is an object with the following properties:
+   *
+   *   - source: The filename of the original source.
+   *   - line: The line number in the original source.
+   *   - column: Optional. the column number in the original source.
+   *
+   * and an array of objects is returned, each with the following properties:
+   *
+   *   - line: The line number in the generated source, or null.
+   *   - column: The column number in the generated source, or null.
+   */
+  SourceMapConsumer.prototype.allGeneratedPositionsFor =
+    function SourceMapConsumer_allGeneratedPositionsFor(aArgs) {
+      var line = util.getArg(aArgs, 'line');
+
+      // When there is no exact match, BasicSourceMapConsumer.prototype._findMapping
+      // returns the index of the closest mapping less than the needle. By
+      // setting needle.originalColumn to 0, we thus find the last mapping for
+      // the given line, provided such a mapping exists.
+      var needle = {
+        source: util.getArg(aArgs, 'source'),
+        originalLine: line,
+        originalColumn: util.getArg(aArgs, 'column', 0)
+      };
+
+      if (this.sourceRoot != null) {
+        needle.source = util.relative(this.sourceRoot, needle.source);
+      }
+      if (!this._sources.has(needle.source)) {
+        return [];
+      }
+      needle.source = this._sources.indexOf(needle.source);
+
+      var mappings = [];
+
+      var index = this._findMapping(needle,
+                                    this._originalMappings,
+                                    "originalLine",
+                                    "originalColumn",
+                                    util.compareByOriginalPositions,
+                                    binarySearch.LEAST_UPPER_BOUND);
+      if (index >= 0) {
+        var mapping = this._originalMappings[index];
+
+        if (aArgs.column === undefined) {
+          var originalLine = mapping.originalLine;
+
+          // Iterate until either we run out of mappings, or we run into
+          // a mapping for a different line than the one we found. Since
+          // mappings are sorted, this is guaranteed to find all mappings for
+          // the line we found.
+          while (mapping && mapping.originalLine === originalLine) {
+            mappings.push({
+              line: util.getArg(mapping, 'generatedLine', null),
+              column: util.getArg(mapping, 'generatedColumn', null),
+              lastColumn: util.getArg(mapping, 'lastGeneratedColumn', null)
+            });
+
+            mapping = this._originalMappings[++index];
+          }
+        } else {
+          var originalColumn = mapping.originalColumn;
+
+          // Iterate until either we run out of mappings, or we run into
+          // a mapping for a different line than the one we were searching for.
+          // Since mappings are sorted, this is guaranteed to find all mappings for
+          // the line we are searching for.
+          while (mapping &&
+                 mapping.originalLine === line &&
+                 mapping.originalColumn == originalColumn) {
+            mappings.push({
+              line: util.getArg(mapping, 'generatedLine', null),
+              column: util.getArg(mapping, 'generatedColumn', null),
+              lastColumn: util.getArg(mapping, 'lastGeneratedColumn', null)
+            });
+
+            mapping = this._originalMappings[++index];
+          }
+        }
+      }
+
+      return mappings;
+    };
+
+  exports.SourceMapConsumer = SourceMapConsumer;
+
+  /**
+   * A BasicSourceMapConsumer instance represents a parsed source map which we can
+   * query for information about the original file positions by giving it a file
+   * position in the generated source.
+   *
+   * The only parameter is the raw source map (either as a JSON string, or
+   * already parsed to an object). According to the spec, source maps have the
+   * following attributes:
+   *
+   *   - version: Which version of the source map spec this map is following.
+   *   - sources: An array of URLs to the original source files.
+   *   - names: An array of identifiers which can be referrenced by individual mappings.
+   *   - sourceRoot: Optional. The URL root from which all sources are relative.
+   *   - sourcesContent: Optional. An array of contents of the original source files.
+   *   - mappings: A string of base64 VLQs which contain the actual mappings.
+   *   - file: Optional. The generated file this source map is associated with.
+   *
+   * Here is an example source map, taken from the source map spec[0]:
+   *
+   *     {
+   *       version : 3,
+   *       file: "out.js",
+   *       sourceRoot : "",
+   *       sources: ["foo.js", "bar.js"],
+   *       names: ["src", "maps", "are", "fun"],
+   *       mappings: "AA,AB;;ABCDE;"
+   *     }
+   *
+   * [0]: https://docs.google.com/document/d/1U1RGAehQwRypUTovF1KRlpiOFze0b-_2gc6fAH0KY0k/edit?pli=1#
+   */
+  function BasicSourceMapConsumer(aSourceMap) {
+    var sourceMap = aSourceMap;
+    if (typeof aSourceMap === 'string') {
+      sourceMap = JSON.parse(aSourceMap.replace(/^\)\]\}'/, ''));
+    }
+
+    var version = util.getArg(sourceMap, 'version');
+    var sources = util.getArg(sourceMap, 'sources');
+    // Sass 3.3 leaves out the 'names' array, so we deviate from the spec (which
+    // requires the array) to play nice here.
+    var names = util.getArg(sourceMap, 'names', []);
+    var sourceRoot = util.getArg(sourceMap, 'sourceRoot', null);
+    var sourcesContent = util.getArg(sourceMap, 'sourcesContent', null);
+    var mappings = util.getArg(sourceMap, 'mappings');
+    var file = util.getArg(sourceMap, 'file', null);
+
+    // Once again, Sass deviates from the spec and supplies the version as a
+    // string rather than a number, so we use loose equality checking here.
+    if (version != this._version) {
+      throw new Error('Unsupported version: ' + version);
+    }
+
+    // Some source maps produce relative source paths like "./foo.js" instead of
+    // "foo.js".  Normalize these first so that future comparisons will succeed.
+    // See bugzil.la/1090768.
+    sources = sources.map(util.normalize);
+
+    // Pass `true` below to allow duplicate names and sources. While source maps
+    // are intended to be compressed and deduplicated, the TypeScript compiler
+    // sometimes generates source maps with duplicates in them. See Github issue
+    // #72 and bugzil.la/889492.
+    this._names = ArraySet.fromArray(names, true);
+    this._sources = ArraySet.fromArray(sources, true);
+
+    this.sourceRoot = sourceRoot;
+    this.sourcesContent = sourcesContent;
+    this._mappings = mappings;
+    this.file = file;
+  }
+
+  BasicSourceMapConsumer.prototype = Object.create(SourceMapConsumer.prototype);
+  BasicSourceMapConsumer.prototype.consumer = SourceMapConsumer;
+
+  /**
+   * Create a BasicSourceMapConsumer from a SourceMapGenerator.
+   *
+   * @param SourceMapGenerator aSourceMap
+   *        The source map that will be consumed.
+   * @returns BasicSourceMapConsumer
+   */
+  BasicSourceMapConsumer.fromSourceMap =
+    function SourceMapConsumer_fromSourceMap(aSourceMap) {
+      var smc = Object.create(BasicSourceMapConsumer.prototype);
+
+      var names = smc._names = ArraySet.fromArray(aSourceMap._names.toArray(), true);
+      var sources = smc._sources = ArraySet.fromArray(aSourceMap._sources.toArray(), true);
+      smc.sourceRoot = aSourceMap._sourceRoot;
+      smc.sourcesContent = aSourceMap._generateSourcesContent(smc._sources.toArray(),
+                                                              smc.sourceRoot);
+      smc.file = aSourceMap._file;
+
+      // Because we are modifying the entries (by converting string sources and
+      // names to indices into the sources and names ArraySets), we have to make
+      // a copy of the entry or else bad things happen. Shared mutable state
+      // strikes again! See github issue #191.
+
+      var generatedMappings = aSourceMap._mappings.toArray().slice();
+      var destGeneratedMappings = smc.__generatedMappings = [];
+      var destOriginalMappings = smc.__originalMappings = [];
+
+      for (var i = 0, length = generatedMappings.length; i < length; i++) {
+        var srcMapping = generatedMappings[i];
+        var destMapping = new Mapping;
+        destMapping.generatedLine = srcMapping.generatedLine;
+        destMapping.generatedColumn = srcMapping.generatedColumn;
+
+        if (srcMapping.source) {
+          destMapping.source = sources.indexOf(srcMapping.source);
+          destMapping.originalLine = srcMapping.originalLine;
+          destMapping.originalColumn = srcMapping.originalColumn;
+
+          if (srcMapping.name) {
+            destMapping.name = names.indexOf(srcMapping.name);
+          }
+
+          destOriginalMappings.push(destMapping);
+        }
+
+        destGeneratedMappings.push(destMapping);
+      }
+
+      quickSort(smc.__originalMappings, util.compareByOriginalPositions);
+
+      return smc;
+    };
+
+  /**
+   * The version of the source mapping spec that we are consuming.
+   */
+  BasicSourceMapConsumer.prototype._version = 3;
+
+  /**
+   * The list of original sources.
+   */
+  Object.defineProperty(BasicSourceMapConsumer.prototype, 'sources', {
+    get: function () {
+      return this._sources.toArray().map(function (s) {
+        return this.sourceRoot != null ? util.join(this.sourceRoot, s) : s;
+      }, this);
+    }
+  });
+
+  /**
+   * Provide the JIT with a nice shape / hidden class.
+   */
+  function Mapping() {
+    this.generatedLine = 0;
+    this.generatedColumn = 0;
+    this.source = null;
+    this.originalLine = null;
+    this.originalColumn = null;
+    this.name = null;
+  }
+
+  /**
+   * Parse the mappings in a string in to a data structure which we can easily
+   * query (the ordered arrays in the `this.__generatedMappings` and
+   * `this.__originalMappings` properties).
+   */
+  BasicSourceMapConsumer.prototype._parseMappings =
+    function SourceMapConsumer_parseMappings(aStr, aSourceRoot) {
+      var generatedLine = 1;
+      var previousGeneratedColumn = 0;
+      var previousOriginalLine = 0;
+      var previousOriginalColumn = 0;
+      var previousSource = 0;
+      var previousName = 0;
+      var length = aStr.length;
+      var index = 0;
+      var cachedSegments = {};
+      var temp = {};
+      var originalMappings = [];
+      var generatedMappings = [];
+      var mapping, str, segment, end, value;
+
+      while (index < length) {
+        if (aStr.charAt(index) === ';') {
+          generatedLine++;
+          index++;
+          previousGeneratedColumn = 0;
+        }
+        else if (aStr.charAt(index) === ',') {
+          index++;
+        }
+        else {
+          mapping = new Mapping();
+          mapping.generatedLine = generatedLine;
+
+          // Because each offset is encoded relative to the previous one,
+          // many segments often have the same encoding. We can exploit this
+          // fact by caching the parsed variable length fields of each segment,
+          // allowing us to avoid a second parse if we encounter the same
+          // segment again.
+          for (end = index; end < length; end++) {
+            if (this._charIsMappingSeparator(aStr, end)) {
+              break;
+            }
+          }
+          str = aStr.slice(index, end);
+
+          segment = cachedSegments[str];
+          if (segment) {
+            index += str.length;
+          } else {
+            segment = [];
+            while (index < end) {
+              base64VLQ.decode(aStr, index, temp);
+              value = temp.value;
+              index = temp.rest;
+              segment.push(value);
+            }
+
+            if (segment.length === 2) {
+              throw new Error('Found a source, but no line and column');
+            }
+
+            if (segment.length === 3) {
+              throw new Error('Found a source and line, but no column');
+            }
+
+            cachedSegments[str] = segment;
+          }
+
+          // Generated column.
+          mapping.generatedColumn = previousGeneratedColumn + segment[0];
+          previousGeneratedColumn = mapping.generatedColumn;
+
+          if (segment.length > 1) {
+            // Original source.
+            mapping.source = previousSource + segment[1];
+            previousSource += segment[1];
+
+            // Original line.
+            mapping.originalLine = previousOriginalLine + segment[2];
+            previousOriginalLine = mapping.originalLine;
+            // Lines are stored 0-based
+            mapping.originalLine += 1;
+
+            // Original column.
+            mapping.originalColumn = previousOriginalColumn + segment[3];
+            previousOriginalColumn = mapping.originalColumn;
+
+            if (segment.length > 4) {
+              // Original name.
+              mapping.name = previousName + segment[4];
+              previousName += segment[4];
+            }
+          }
+
+          generatedMappings.push(mapping);
+          if (typeof mapping.originalLine === 'number') {
+            originalMappings.push(mapping);
+          }
+        }
+      }
+
+      quickSort(generatedMappings, util.compareByGeneratedPositionsDeflated);
+      this.__generatedMappings = generatedMappings;
+
+      quickSort(originalMappings, util.compareByOriginalPositions);
+      this.__originalMappings = originalMappings;
+    };
+
+  /**
+   * Find the mapping that best matches the hypothetical "needle" mapping that
+   * we are searching for in the given "haystack" of mappings.
+   */
+  BasicSourceMapConsumer.prototype._findMapping =
+    function SourceMapConsumer_findMapping(aNeedle, aMappings, aLineName,
+                                           aColumnName, aComparator, aBias) {
+      // To return the position we are searching for, we must first find the
+      // mapping for the given position and then return the opposite position it
+      // points to. Because the mappings are sorted, we can use binary search to
+      // find the best mapping.
+
+      if (aNeedle[aLineName] <= 0) {
+        throw new TypeError('Line must be greater than or equal to 1, got '
+                            + aNeedle[aLineName]);
+      }
+      if (aNeedle[aColumnName] < 0) {
+        throw new TypeError('Column must be greater than or equal to 0, got '
+                            + aNeedle[aColumnName]);
+      }
+
+      return binarySearch.search(aNeedle, aMappings, aComparator, aBias);
+    };
+
+  /**
+   * Compute the last column for each generated mapping. The last column is
+   * inclusive.
+   */
+  BasicSourceMapConsumer.prototype.computeColumnSpans =
+    function SourceMapConsumer_computeColumnSpans() {
+      for (var index = 0; index < this._generatedMappings.length; ++index) {
+        var mapping = this._generatedMappings[index];
+
+        // Mappings do not contain a field for the last generated columnt. We
+        // can come up with an optimistic estimate, however, by assuming that
+        // mappings are contiguous (i.e. given two consecutive mappings, the
+        // first mapping ends where the second one starts).
+        if (index + 1 < this._generatedMappings.length) {
+          var nextMapping = this._generatedMappings[index + 1];
+
+          if (mapping.generatedLine === nextMapping.generatedLine) {
+            mapping.lastGeneratedColumn = nextMapping.generatedColumn - 1;
+            continue;
+          }
+        }
+
+        // The last mapping for each line spans the entire line.
+        mapping.lastGeneratedColumn = Infinity;
+      }
+    };
+
+  /**
+   * Returns the original source, line, and column information for the generated
+   * source's line and column positions provided. The only argument is an object
+   * with the following properties:
+   *
+   *   - line: The line number in the generated source.
+   *   - column: The column number in the generated source.
+   *   - bias: Either 'SourceMapConsumer.GREATEST_LOWER_BOUND' or
+   *     'SourceMapConsumer.LEAST_UPPER_BOUND'. Specifies whether to return the
+   *     closest element that is smaller than or greater than the one we are
+   *     searching for, respectively, if the exact element cannot be found.
+   *     Defaults to 'SourceMapConsumer.GREATEST_LOWER_BOUND'.
+   *
+   * and an object is returned with the following properties:
+   *
+   *   - source: The original source file, or null.
+   *   - line: The line number in the original source, or null.
+   *   - column: The column number in the original source, or null.
+   *   - name: The original identifier, or null.
+   */
+  BasicSourceMapConsumer.prototype.originalPositionFor =
+    function SourceMapConsumer_originalPositionFor(aArgs) {
+      var needle = {
+        generatedLine: util.getArg(aArgs, 'line'),
+        generatedColumn: util.getArg(aArgs, 'column')
+      };
+
+      var index = this._findMapping(
+        needle,
+        this._generatedMappings,
+        "generatedLine",
+        "generatedColumn",
+        util.compareByGeneratedPositionsDeflated,
+        util.getArg(aArgs, 'bias', SourceMapConsumer.GREATEST_LOWER_BOUND)
+      );
+
+      if (index >= 0) {
+        var mapping = this._generatedMappings[index];
+
+        if (mapping.generatedLine === needle.generatedLine) {
+          var source = util.getArg(mapping, 'source', null);
+          if (source !== null) {
+            source = this._sources.at(source);
+            if (this.sourceRoot != null) {
+              source = util.join(this.sourceRoot, source);
+            }
+          }
+          var name = util.getArg(mapping, 'name', null);
+          if (name !== null) {
+            name = this._names.at(name);
+          }
+          return {
+            source: source,
+            line: util.getArg(mapping, 'originalLine', null),
+            column: util.getArg(mapping, 'originalColumn', null),
+            name: name
+          };
+        }
+      }
+
+      return {
+        source: null,
+        line: null,
+        column: null,
+        name: null
+      };
+    };
+
+  /**
+   * Return true if we have the source content for every source in the source
+   * map, false otherwise.
+   */
+  BasicSourceMapConsumer.prototype.hasContentsOfAllSources =
+    function BasicSourceMapConsumer_hasContentsOfAllSources() {
+      if (!this.sourcesContent) {
+        return false;
+      }
+      return this.sourcesContent.length >= this._sources.size() &&
+        !this.sourcesContent.some(function (sc) { return sc == null; });
+    };
+
+  /**
+   * Returns the original source content. The only argument is the url of the
+   * original source file. Returns null if no original source content is
+   * availible.
+   */
+  BasicSourceMapConsumer.prototype.sourceContentFor =
+    function SourceMapConsumer_sourceContentFor(aSource, nullOnMissing) {
+      if (!this.sourcesContent) {
+        return null;
+      }
+
+      if (this.sourceRoot != null) {
+        aSource = util.relative(this.sourceRoot, aSource);
+      }
+
+      if (this._sources.has(aSource)) {
+        return this.sourcesContent[this._sources.indexOf(aSource)];
+      }
+
+      var url;
+      if (this.sourceRoot != null
+          && (url = util.urlParse(this.sourceRoot))) {
+        // XXX: file:// URIs and absolute paths lead to unexpected behavior for
+        // many users. We can help them out when they expect file:// URIs to
+        // behave like it would if they were running a local HTTP server. See
+        // https://bugzilla.mozilla.org/show_bug.cgi?id=885597.
+        var fileUriAbsPath = aSource.replace(/^file:\/\//, "");
+        if (url.scheme == "file"
+            && this._sources.has(fileUriAbsPath)) {
+          return this.sourcesContent[this._sources.indexOf(fileUriAbsPath)]
+        }
+
+        if ((!url.path || url.path == "/")
+            && this._sources.has("/" + aSource)) {
+          return this.sourcesContent[this._sources.indexOf("/" + aSource)];
+        }
+      }
+
+      // This function is used recursively from
+      // IndexedSourceMapConsumer.prototype.sourceContentFor. In that case, we
+      // don't want to throw if we can't find the source - we just want to
+      // return null, so we provide a flag to exit gracefully.
+      if (nullOnMissing) {
+        return null;
+      }
+      else {
+        throw new Error('"' + aSource + '" is not in the SourceMap.');
+      }
+    };
+
+  /**
+   * Returns the generated line and column information for the original source,
+   * line, and column positions provided. The only argument is an object with
+   * the following properties:
+   *
+   *   - source: The filename of the original source.
+   *   - line: The line number in the original source.
+   *   - column: The column number in the original source.
+   *   - bias: Either 'SourceMapConsumer.GREATEST_LOWER_BOUND' or
+   *     'SourceMapConsumer.LEAST_UPPER_BOUND'. Specifies whether to return the
+   *     closest element that is smaller than or greater than the one we are
+   *     searching for, respectively, if the exact element cannot be found.
+   *     Defaults to 'SourceMapConsumer.GREATEST_LOWER_BOUND'.
+   *
+   * and an object is returned with the following properties:
+   *
+   *   - line: The line number in the generated source, or null.
+   *   - column: The column number in the generated source, or null.
+   */
+  BasicSourceMapConsumer.prototype.generatedPositionFor =
+    function SourceMapConsumer_generatedPositionFor(aArgs) {
+      var source = util.getArg(aArgs, 'source');
+      if (this.sourceRoot != null) {
+        source = util.relative(this.sourceRoot, source);
+      }
+      if (!this._sources.has(source)) {
+        return {
+          line: null,
+          column: null,
+          lastColumn: null
+        };
+      }
+      source = this._sources.indexOf(source);
+
+      var needle = {
+        source: source,
+        originalLine: util.getArg(aArgs, 'line'),
+        originalColumn: util.getArg(aArgs, 'column')
+      };
+
+      var index = this._findMapping(
+        needle,
+        this._originalMappings,
+        "originalLine",
+        "originalColumn",
+        util.compareByOriginalPositions,
+        util.getArg(aArgs, 'bias', SourceMapConsumer.GREATEST_LOWER_BOUND)
+      );
+
+      if (index >= 0) {
+        var mapping = this._originalMappings[index];
+
+        if (mapping.source === needle.source) {
+          return {
+            line: util.getArg(mapping, 'generatedLine', null),
+            column: util.getArg(mapping, 'generatedColumn', null),
+            lastColumn: util.getArg(mapping, 'lastGeneratedColumn', null)
+          };
+        }
+      }
+
+      return {
+        line: null,
+        column: null,
+        lastColumn: null
+      };
+    };
+
+  exports.BasicSourceMapConsumer = BasicSourceMapConsumer;
+
+  /**
+   * An IndexedSourceMapConsumer instance represents a parsed source map which
+   * we can query for information. It differs from BasicSourceMapConsumer in
+   * that it takes "indexed" source maps (i.e. ones with a "sections" field) as
+   * input.
+   *
+   * The only parameter is a raw source map (either as a JSON string, or already
+   * parsed to an object). According to the spec for indexed source maps, they
+   * have the following attributes:
+   *
+   *   - version: Which version of the source map spec this map is following.
+   *   - file: Optional. The generated file this source map is associated with.
+   *   - sections: A list of section definitions.
+   *
+   * Each value under the "sections" field has two fields:
+   *   - offset: The offset into the original specified at which this section
+   *       begins to apply, defined as an object with a "line" and "column"
+   *       field.
+   *   - map: A source map definition. This source map could also be indexed,
+   *       but doesn't have to be.
+   *
+   * Instead of the "map" field, it's also possible to have a "url" field
+   * specifying a URL to retrieve a source map from, but that's currently
+   * unsupported.
+   *
+   * Here's an example source map, taken from the source map spec[0], but
+   * modified to omit a section which uses the "url" field.
+   *
+   *  {
+   *    version : 3,
+   *    file: "app.js",
+   *    sections: [{
+   *      offset: {line:100, column:10},
+   *      map: {
+   *        version : 3,
+   *        file: "section.js",
+   *        sources: ["foo.js", "bar.js"],
+   *        names: ["src", "maps", "are", "fun"],
+   *        mappings: "AAAA,E;;ABCDE;"
+   *      }
+   *    }],
+   *  }
+   *
+   * [0]: https://docs.google.com/document/d/1U1RGAehQwRypUTovF1KRlpiOFze0b-_2gc6fAH0KY0k/edit#heading=h.535es3xeprgt
+   */
+  function IndexedSourceMapConsumer(aSourceMap) {
+    var sourceMap = aSourceMap;
+    if (typeof aSourceMap === 'string') {
+      sourceMap = JSON.parse(aSourceMap.replace(/^\)\]\}'/, ''));
+    }
+
+    var version = util.getArg(sourceMap, 'version');
+    var sections = util.getArg(sourceMap, 'sections');
+
+    if (version != this._version) {
+      throw new Error('Unsupported version: ' + version);
+    }
+
+    this._sources = new ArraySet();
+    this._names = new ArraySet();
+
+    var lastOffset = {
+      line: -1,
+      column: 0
+    };
+    this._sections = sections.map(function (s) {
+      if (s.url) {
+        // The url field will require support for asynchronicity.
+        // See https://github.com/mozilla/source-map/issues/16
+        throw new Error('Support for url field in sections not implemented.');
+      }
+      var offset = util.getArg(s, 'offset');
+      var offsetLine = util.getArg(offset, 'line');
+      var offsetColumn = util.getArg(offset, 'column');
+
+      if (offsetLine < lastOffset.line ||
+          (offsetLine === lastOffset.line && offsetColumn < lastOffset.column)) {
+        throw new Error('Section offsets must be ordered and non-overlapping.');
+      }
+      lastOffset = offset;
+
+      return {
+        generatedOffset: {
+          // The offset fields are 0-based, but we use 1-based indices when
+          // encoding/decoding from VLQ.
+          generatedLine: offsetLine + 1,
+          generatedColumn: offsetColumn + 1
+        },
+        consumer: new SourceMapConsumer(util.getArg(s, 'map'))
+      }
+    });
+  }
+
+  IndexedSourceMapConsumer.prototype = Object.create(SourceMapConsumer.prototype);
+  IndexedSourceMapConsumer.prototype.constructor = SourceMapConsumer;
+
+  /**
+   * The version of the source mapping spec that we are consuming.
+   */
+  IndexedSourceMapConsumer.prototype._version = 3;
+
+  /**
+   * The list of original sources.
+   */
+  Object.defineProperty(IndexedSourceMapConsumer.prototype, 'sources', {
+    get: function () {
+      var sources = [];
+      for (var i = 0; i < this._sections.length; i++) {
+        for (var j = 0; j < this._sections[i].consumer.sources.length; j++) {
+          sources.push(this._sections[i].consumer.sources[j]);
+        }
+      };
+      return sources;
+    }
+  });
+
+  /**
+   * Returns the original source, line, and column information for the generated
+   * source's line and column positions provided. The only argument is an object
+   * with the following properties:
+   *
+   *   - line: The line number in the generated source.
+   *   - column: The column number in the generated source.
+   *
+   * and an object is returned with the following properties:
+   *
+   *   - source: The original source file, or null.
+   *   - line: The line number in the original source, or null.
+   *   - column: The column number in the original source, or null.
+   *   - name: The original identifier, or null.
+   */
+  IndexedSourceMapConsumer.prototype.originalPositionFor =
+    function IndexedSourceMapConsumer_originalPositionFor(aArgs) {
+      var needle = {
+        generatedLine: util.getArg(aArgs, 'line'),
+        generatedColumn: util.getArg(aArgs, 'column')
+      };
+
+      // Find the section containing the generated position we're trying to map
+      // to an original position.
+      var sectionIndex = binarySearch.search(needle, this._sections,
+        function(needle, section) {
+          var cmp = needle.generatedLine - section.generatedOffset.generatedLine;
+          if (cmp) {
+            return cmp;
+          }
+
+          return (needle.generatedColumn -
+                  section.generatedOffset.generatedColumn);
+        });
+      var section = this._sections[sectionIndex];
+
+      if (!section) {
+        return {
+          source: null,
+          line: null,
+          column: null,
+          name: null
+        };
+      }
+
+      return section.consumer.originalPositionFor({
+        line: needle.generatedLine -
+          (section.generatedOffset.generatedLine - 1),
+        column: needle.generatedColumn -
+          (section.generatedOffset.generatedLine === needle.generatedLine
+           ? section.generatedOffset.generatedColumn - 1
+           : 0),
+        bias: aArgs.bias
+      });
+    };
+
+  /**
+   * Return true if we have the source content for every source in the source
+   * map, false otherwise.
+   */
+  IndexedSourceMapConsumer.prototype.hasContentsOfAllSources =
+    function IndexedSourceMapConsumer_hasContentsOfAllSources() {
+      return this._sections.every(function (s) {
+        return s.consumer.hasContentsOfAllSources();
+      });
+    };
+
+  /**
+   * Returns the original source content. The only argument is the url of the
+   * original source file. Returns null if no original source content is
+   * available.
+   */
+  IndexedSourceMapConsumer.prototype.sourceContentFor =
+    function IndexedSourceMapConsumer_sourceContentFor(aSource, nullOnMissing) {
+      for (var i = 0; i < this._sections.length; i++) {
+        var section = this._sections[i];
+
+        var content = section.consumer.sourceContentFor(aSource, true);
+        if (content) {
+          return content;
+        }
+      }
+      if (nullOnMissing) {
+        return null;
+      }
+      else {
+        throw new Error('"' + aSource + '" is not in the SourceMap.');
+      }
+    };
+
+  /**
+   * Returns the generated line and column information for the original source,
+   * line, and column positions provided. The only argument is an object with
+   * the following properties:
+   *
+   *   - source: The filename of the original source.
+   *   - line: The line number in the original source.
+   *   - column: The column number in the original source.
+   *
+   * and an object is returned with the following properties:
+   *
+   *   - line: The line number in the generated source, or null.
+   *   - column: The column number in the generated source, or null.
+   */
+  IndexedSourceMapConsumer.prototype.generatedPositionFor =
+    function IndexedSourceMapConsumer_generatedPositionFor(aArgs) {
+      for (var i = 0; i < this._sections.length; i++) {
+        var section = this._sections[i];
+
+        // Only consider this section if the requested source is in the list of
+        // sources of the consumer.
+        if (section.consumer.sources.indexOf(util.getArg(aArgs, 'source')) === -1) {
+          continue;
+        }
+        var generatedPosition = section.consumer.generatedPositionFor(aArgs);
+        if (generatedPosition) {
+          var ret = {
+            line: generatedPosition.line +
+              (section.generatedOffset.generatedLine - 1),
+            column: generatedPosition.column +
+              (section.generatedOffset.generatedLine === generatedPosition.line
+               ? section.generatedOffset.generatedColumn - 1
+               : 0)
+          };
+          return ret;
+        }
+      }
+
+      return {
+        line: null,
+        column: null
+      };
+    };
+
+  /**
+   * Parse the mappings in a string in to a data structure which we can easily
+   * query (the ordered arrays in the `this.__generatedMappings` and
+   * `this.__originalMappings` properties).
+   */
+  IndexedSourceMapConsumer.prototype._parseMappings =
+    function IndexedSourceMapConsumer_parseMappings(aStr, aSourceRoot) {
+      this.__generatedMappings = [];
+      this.__originalMappings = [];
+      for (var i = 0; i < this._sections.length; i++) {
+        var section = this._sections[i];
+        var sectionMappings = section.consumer._generatedMappings;
+        for (var j = 0; j < sectionMappings.length; j++) {
+          var mapping = sectionMappings[i];
+
+          var source = section.consumer._sources.at(mapping.source);
+          if (section.consumer.sourceRoot !== null) {
+            source = util.join(section.consumer.sourceRoot, source);
+          }
+          this._sources.add(source);
+          source = this._sources.indexOf(source);
+
+          var name = section.consumer._names.at(mapping.name);
+          this._names.add(name);
+          name = this._names.indexOf(name);
+
+          // The mappings coming from the consumer for the section have
+          // generated positions relative to the start of the section, so we
+          // need to offset them to be relative to the start of the concatenated
+          // generated file.
+          var adjustedMapping = {
+            source: source,
+            generatedLine: mapping.generatedLine +
+              (section.generatedOffset.generatedLine - 1),
+            generatedColumn: mapping.column +
+              (section.generatedOffset.generatedLine === mapping.generatedLine)
+              ? section.generatedOffset.generatedColumn - 1
+              : 0,
+            originalLine: mapping.originalLine,
+            originalColumn: mapping.originalColumn,
+            name: name
+          };
+
+          this.__generatedMappings.push(adjustedMapping);
+          if (typeof adjustedMapping.originalLine === 'number') {
+            this.__originalMappings.push(adjustedMapping);
+          }
+        };
+      };
+
+      quickSort(this.__generatedMappings, util.compareByGeneratedPositionsDeflated);
+      quickSort(this.__originalMappings, util.compareByOriginalPositions);
+    };
+
+  exports.IndexedSourceMapConsumer = IndexedSourceMapConsumer;
+
+});
+
+},{"./array-set":42,"./base64-vlq":43,"./binary-search":45,"./quick-sort":47,"./util":51,"amdefine":1}],49:[function(require,module,exports){
+/* -*- Mode: js; js-indent-level: 2; -*- */
+/*
+ * Copyright 2011 Mozilla Foundation and contributors
+ * Licensed under the New BSD license. See LICENSE or:
+ * http://opensource.org/licenses/BSD-3-Clause
+ */
+if (typeof define !== 'function') {
+    var define = require('amdefine')(module, require);
+}
+define(function (require, exports, module) {
+
+  var base64VLQ = require('./base64-vlq');
+  var util = require('./util');
+  var ArraySet = require('./array-set').ArraySet;
+  var MappingList = require('./mapping-list').MappingList;
+
+  /**
+   * An instance of the SourceMapGenerator represents a source map which is
+   * being built incrementally. You may pass an object with the following
+   * properties:
+   *
+   *   - file: The filename of the generated source.
+   *   - sourceRoot: A root for all relative URLs in this source map.
+   */
+  function SourceMapGenerator(aArgs) {
+    if (!aArgs) {
+      aArgs = {};
+    }
+    this._file = util.getArg(aArgs, 'file', null);
+    this._sourceRoot = util.getArg(aArgs, 'sourceRoot', null);
+    this._skipValidation = util.getArg(aArgs, 'skipValidation', false);
+    this._sources = new ArraySet();
+    this._names = new ArraySet();
+    this._mappings = new MappingList();
+    this._sourcesContents = null;
+  }
+
+  SourceMapGenerator.prototype._version = 3;
+
+  /**
+   * Creates a new SourceMapGenerator based on a SourceMapConsumer
+   *
+   * @param aSourceMapConsumer The SourceMap.
+   */
+  SourceMapGenerator.fromSourceMap =
+    function SourceMapGenerator_fromSourceMap(aSourceMapConsumer) {
+      var sourceRoot = aSourceMapConsumer.sourceRoot;
+      var generator = new SourceMapGenerator({
+        file: aSourceMapConsumer.file,
+        sourceRoot: sourceRoot
+      });
+      aSourceMapConsumer.eachMapping(function (mapping) {
+        var newMapping = {
+          generated: {
+            line: mapping.generatedLine,
+            column: mapping.generatedColumn
+          }
+        };
+
+        if (mapping.source != null) {
+          newMapping.source = mapping.source;
+          if (sourceRoot != null) {
+            newMapping.source = util.relative(sourceRoot, newMapping.source);
+          }
+
+          newMapping.original = {
+            line: mapping.originalLine,
+            column: mapping.originalColumn
+          };
+
+          if (mapping.name != null) {
+            newMapping.name = mapping.name;
+          }
+        }
+
+        generator.addMapping(newMapping);
+      });
+      aSourceMapConsumer.sources.forEach(function (sourceFile) {
+        var content = aSourceMapConsumer.sourceContentFor(sourceFile);
+        if (content != null) {
+          generator.setSourceContent(sourceFile, content);
+        }
+      });
+      return generator;
+    };
+
+  /**
+   * Add a single mapping from original source line and column to the generated
+   * source's line and column for this source map being created. The mapping
+   * object should have the following properties:
+   *
+   *   - generated: An object with the generated line and column positions.
+   *   - original: An object with the original line and column positions.
+   *   - source: The original source file (relative to the sourceRoot).
+   *   - name: An optional original token name for this mapping.
+   */
+  SourceMapGenerator.prototype.addMapping =
+    function SourceMapGenerator_addMapping(aArgs) {
+      var generated = util.getArg(aArgs, 'generated');
+      var original = util.getArg(aArgs, 'original', null);
+      var source = util.getArg(aArgs, 'source', null);
+      var name = util.getArg(aArgs, 'name', null);
+
+      if (!this._skipValidation) {
+        this._validateMapping(generated, original, source, name);
+      }
+
+      if (source != null && !this._sources.has(source)) {
+        this._sources.add(source);
+      }
+
+      if (name != null && !this._names.has(name)) {
+        this._names.add(name);
+      }
+
+      this._mappings.add({
+        generatedLine: generated.line,
+        generatedColumn: generated.column,
+        originalLine: original != null && original.line,
+        originalColumn: original != null && original.column,
+        source: source,
+        name: name
+      });
+    };
+
+  /**
+   * Set the source content for a source file.
+   */
+  SourceMapGenerator.prototype.setSourceContent =
+    function SourceMapGenerator_setSourceContent(aSourceFile, aSourceContent) {
+      var source = aSourceFile;
+      if (this._sourceRoot != null) {
+        source = util.relative(this._sourceRoot, source);
+      }
+
+      if (aSourceContent != null) {
+        // Add the source content to the _sourcesContents map.
+        // Create a new _sourcesContents map if the property is null.
+        if (!this._sourcesContents) {
+          this._sourcesContents = {};
+        }
+        this._sourcesContents[util.toSetString(source)] = aSourceContent;
+      } else if (this._sourcesContents) {
+        // Remove the source file from the _sourcesContents map.
+        // If the _sourcesContents map is empty, set the property to null.
+        delete this._sourcesContents[util.toSetString(source)];
+        if (Object.keys(this._sourcesContents).length === 0) {
+          this._sourcesContents = null;
+        }
+      }
+    };
+
+  /**
+   * Applies the mappings of a sub-source-map for a specific source file to the
+   * source map being generated. Each mapping to the supplied source file is
+   * rewritten using the supplied source map. Note: The resolution for the
+   * resulting mappings is the minimium of this map and the supplied map.
+   *
+   * @param aSourceMapConsumer The source map to be applied.
+   * @param aSourceFile Optional. The filename of the source file.
+   *        If omitted, SourceMapConsumer's file property will be used.
+   * @param aSourceMapPath Optional. The dirname of the path to the source map
+   *        to be applied. If relative, it is relative to the SourceMapConsumer.
+   *        This parameter is needed when the two source maps aren't in the same
+   *        directory, and the source map to be applied contains relative source
+   *        paths. If so, those relative source paths need to be rewritten
+   *        relative to the SourceMapGenerator.
+   */
+  SourceMapGenerator.prototype.applySourceMap =
+    function SourceMapGenerator_applySourceMap(aSourceMapConsumer, aSourceFile, aSourceMapPath) {
+      var sourceFile = aSourceFile;
+      // If aSourceFile is omitted, we will use the file property of the SourceMap
+      if (aSourceFile == null) {
+        if (aSourceMapConsumer.file == null) {
+          throw new Error(
+            'SourceMapGenerator.prototype.applySourceMap requires either an explicit source file, ' +
+            'or the source map\'s "file" property. Both were omitted.'
+          );
+        }
+        sourceFile = aSourceMapConsumer.file;
+      }
+      var sourceRoot = this._sourceRoot;
+      // Make "sourceFile" relative if an absolute Url is passed.
+      if (sourceRoot != null) {
+        sourceFile = util.relative(sourceRoot, sourceFile);
+      }
+      // Applying the SourceMap can add and remove items from the sources and
+      // the names array.
+      var newSources = new ArraySet();
+      var newNames = new ArraySet();
+
+      // Find mappings for the "sourceFile"
+      this._mappings.unsortedForEach(function (mapping) {
+        if (mapping.source === sourceFile && mapping.originalLine != null) {
+          // Check if it can be mapped by the source map, then update the mapping.
+          var original = aSourceMapConsumer.originalPositionFor({
+            line: mapping.originalLine,
+            column: mapping.originalColumn
+          });
+          if (original.source != null) {
+            // Copy mapping
+            mapping.source = original.source;
+            if (aSourceMapPath != null) {
+              mapping.source = util.join(aSourceMapPath, mapping.source)
+            }
+            if (sourceRoot != null) {
+              mapping.source = util.relative(sourceRoot, mapping.source);
+            }
+            mapping.originalLine = original.line;
+            mapping.originalColumn = original.column;
+            if (original.name != null) {
+              mapping.name = original.name;
+            }
+          }
+        }
+
+        var source = mapping.source;
+        if (source != null && !newSources.has(source)) {
+          newSources.add(source);
+        }
+
+        var name = mapping.name;
+        if (name != null && !newNames.has(name)) {
+          newNames.add(name);
+        }
+
+      }, this);
+      this._sources = newSources;
+      this._names = newNames;
+
+      // Copy sourcesContents of applied map.
+      aSourceMapConsumer.sources.forEach(function (sourceFile) {
+        var content = aSourceMapConsumer.sourceContentFor(sourceFile);
+        if (content != null) {
+          if (aSourceMapPath != null) {
+            sourceFile = util.join(aSourceMapPath, sourceFile);
+          }
+          if (sourceRoot != null) {
+            sourceFile = util.relative(sourceRoot, sourceFile);
+          }
+          this.setSourceContent(sourceFile, content);
+        }
+      }, this);
+    };
+
+  /**
+   * A mapping can have one of the three levels of data:
+   *
+   *   1. Just the generated position.
+   *   2. The Generated position, original position, and original source.
+   *   3. Generated and original position, original source, as well as a name
+   *      token.
+   *
+   * To maintain consistency, we validate that any new mapping being added falls
+   * in to one of these categories.
+   */
+  SourceMapGenerator.prototype._validateMapping =
+    function SourceMapGenerator_validateMapping(aGenerated, aOriginal, aSource,
+                                                aName) {
+      if (aGenerated && 'line' in aGenerated && 'column' in aGenerated
+          && aGenerated.line > 0 && aGenerated.column >= 0
+          && !aOriginal && !aSource && !aName) {
+        // Case 1.
+        return;
+      }
+      else if (aGenerated && 'line' in aGenerated && 'column' in aGenerated
+               && aOriginal && 'line' in aOriginal && 'column' in aOriginal
+               && aGenerated.line > 0 && aGenerated.column >= 0
+               && aOriginal.line > 0 && aOriginal.column >= 0
+               && aSource) {
+        // Cases 2 and 3.
+        return;
+      }
+      else {
+        throw new Error('Invalid mapping: ' + JSON.stringify({
+          generated: aGenerated,
+          source: aSource,
+          original: aOriginal,
+          name: aName
+        }));
+      }
+    };
+
+  /**
+   * Serialize the accumulated mappings in to the stream of base 64 VLQs
+   * specified by the source map format.
+   */
+  SourceMapGenerator.prototype._serializeMappings =
+    function SourceMapGenerator_serializeMappings() {
+      var previousGeneratedColumn = 0;
+      var previousGeneratedLine = 1;
+      var previousOriginalColumn = 0;
+      var previousOriginalLine = 0;
+      var previousName = 0;
+      var previousSource = 0;
+      var result = '';
+      var mapping;
+
+      var mappings = this._mappings.toArray();
+      for (var i = 0, len = mappings.length; i < len; i++) {
+        mapping = mappings[i];
+
+        if (mapping.generatedLine !== previousGeneratedLine) {
+          previousGeneratedColumn = 0;
+          while (mapping.generatedLine !== previousGeneratedLine) {
+            result += ';';
+            previousGeneratedLine++;
+          }
+        }
+        else {
+          if (i > 0) {
+            if (!util.compareByGeneratedPositionsInflated(mapping, mappings[i - 1])) {
+              continue;
+            }
+            result += ',';
+          }
+        }
+
+        result += base64VLQ.encode(mapping.generatedColumn
+                                   - previousGeneratedColumn);
+        previousGeneratedColumn = mapping.generatedColumn;
+
+        if (mapping.source != null) {
+          result += base64VLQ.encode(this._sources.indexOf(mapping.source)
+                                     - previousSource);
+          previousSource = this._sources.indexOf(mapping.source);
+
+          // lines are stored 0-based in SourceMap spec version 3
+          result += base64VLQ.encode(mapping.originalLine - 1
+                                     - previousOriginalLine);
+          previousOriginalLine = mapping.originalLine - 1;
+
+          result += base64VLQ.encode(mapping.originalColumn
+                                     - previousOriginalColumn);
+          previousOriginalColumn = mapping.originalColumn;
+
+          if (mapping.name != null) {
+            result += base64VLQ.encode(this._names.indexOf(mapping.name)
+                                       - previousName);
+            previousName = this._names.indexOf(mapping.name);
+          }
+        }
+      }
+
+      return result;
+    };
+
+  SourceMapGenerator.prototype._generateSourcesContent =
+    function SourceMapGenerator_generateSourcesContent(aSources, aSourceRoot) {
+      return aSources.map(function (source) {
+        if (!this._sourcesContents) {
+          return null;
+        }
+        if (aSourceRoot != null) {
+          source = util.relative(aSourceRoot, source);
+        }
+        var key = util.toSetString(source);
+        return Object.prototype.hasOwnProperty.call(this._sourcesContents,
+                                                    key)
+          ? this._sourcesContents[key]
+          : null;
+      }, this);
+    };
+
+  /**
+   * Externalize the source map.
+   */
+  SourceMapGenerator.prototype.toJSON =
+    function SourceMapGenerator_toJSON() {
+      var map = {
+        version: this._version,
+        sources: this._sources.toArray(),
+        names: this._names.toArray(),
+        mappings: this._serializeMappings()
+      };
+      if (this._file != null) {
+        map.file = this._file;
+      }
+      if (this._sourceRoot != null) {
+        map.sourceRoot = this._sourceRoot;
+      }
+      if (this._sourcesContents) {
+        map.sourcesContent = this._generateSourcesContent(map.sources, map.sourceRoot);
+      }
+
+      return map;
+    };
+
+  /**
+   * Render the source map being generated to a string.
+   */
+  SourceMapGenerator.prototype.toString =
+    function SourceMapGenerator_toString() {
+      return JSON.stringify(this.toJSON());
+    };
+
+  exports.SourceMapGenerator = SourceMapGenerator;
+
+});
+
+},{"./array-set":42,"./base64-vlq":43,"./mapping-list":46,"./util":51,"amdefine":1}],50:[function(require,module,exports){
+/* -*- Mode: js; js-indent-level: 2; -*- */
+/*
+ * Copyright 2011 Mozilla Foundation and contributors
+ * Licensed under the New BSD license. See LICENSE or:
+ * http://opensource.org/licenses/BSD-3-Clause
+ */
+if (typeof define !== 'function') {
+    var define = require('amdefine')(module, require);
+}
+define(function (require, exports, module) {
+
+  var SourceMapGenerator = require('./source-map-generator').SourceMapGenerator;
+  var util = require('./util');
+
+  // Matches a Windows-style `\r\n` newline or a `\n` newline used by all other
+  // operating systems these days (capturing the result).
+  var REGEX_NEWLINE = /(\r?\n)/;
+
+  // Newline character code for charCodeAt() comparisons
+  var NEWLINE_CODE = 10;
+
+  // Private symbol for identifying `SourceNode`s when multiple versions of
+  // the source-map library are loaded. This MUST NOT CHANGE across
+  // versions!
+  var isSourceNode = "$$$isSourceNode$$$";
+
+  /**
+   * SourceNodes provide a way to abstract over interpolating/concatenating
+   * snippets of generated JavaScript source code while maintaining the line and
+   * column information associated with the original source code.
+   *
+   * @param aLine The original line number.
+   * @param aColumn The original column number.
+   * @param aSource The original source's filename.
+   * @param aChunks Optional. An array of strings which are snippets of
+   *        generated JS, or other SourceNodes.
+   * @param aName The original identifier.
+   */
+  function SourceNode(aLine, aColumn, aSource, aChunks, aName) {
+    this.children = [];
+    this.sourceContents = {};
+    this.line = aLine == null ? null : aLine;
+    this.column = aColumn == null ? null : aColumn;
+    this.source = aSource == null ? null : aSource;
+    this.name = aName == null ? null : aName;
+    this[isSourceNode] = true;
+    if (aChunks != null) this.add(aChunks);
+  }
+
+  /**
+   * Creates a SourceNode from generated code and a SourceMapConsumer.
+   *
+   * @param aGeneratedCode The generated code
+   * @param aSourceMapConsumer The SourceMap for the generated code
+   * @param aRelativePath Optional. The path that relative sources in the
+   *        SourceMapConsumer should be relative to.
+   */
+  SourceNode.fromStringWithSourceMap =
+    function SourceNode_fromStringWithSourceMap(aGeneratedCode, aSourceMapConsumer, aRelativePath) {
+      // The SourceNode we want to fill with the generated code
+      // and the SourceMap
+      var node = new SourceNode();
+
+      // All even indices of this array are one line of the generated code,
+      // while all odd indices are the newlines between two adjacent lines
+      // (since `REGEX_NEWLINE` captures its match).
+      // Processed fragments are removed from this array, by calling `shiftNextLine`.
+      var remainingLines = aGeneratedCode.split(REGEX_NEWLINE);
+      var shiftNextLine = function() {
+        var lineContents = remainingLines.shift();
+        // The last line of a file might not have a newline.
+        var newLine = remainingLines.shift() || "";
+        return lineContents + newLine;
+      };
+
+      // We need to remember the position of "remainingLines"
+      var lastGeneratedLine = 1, lastGeneratedColumn = 0;
+
+      // The generate SourceNodes we need a code range.
+      // To extract it current and last mapping is used.
+      // Here we store the last mapping.
+      var lastMapping = null;
+
+      aSourceMapConsumer.eachMapping(function (mapping) {
+        if (lastMapping !== null) {
+          // We add the code from "lastMapping" to "mapping":
+          // First check if there is a new line in between.
+          if (lastGeneratedLine < mapping.generatedLine) {
+            var code = "";
+            // Associate first line with "lastMapping"
+            addMappingWithCode(lastMapping, shiftNextLine());
+            lastGeneratedLine++;
+            lastGeneratedColumn = 0;
+            // The remaining code is added without mapping
+          } else {
+            // There is no new line in between.
+            // Associate the code between "lastGeneratedColumn" and
+            // "mapping.generatedColumn" with "lastMapping"
+            var nextLine = remainingLines[0];
+            var code = nextLine.substr(0, mapping.generatedColumn -
+                                          lastGeneratedColumn);
+            remainingLines[0] = nextLine.substr(mapping.generatedColumn -
+                                                lastGeneratedColumn);
+            lastGeneratedColumn = mapping.generatedColumn;
+            addMappingWithCode(lastMapping, code);
+            // No more remaining code, continue
+            lastMapping = mapping;
+            return;
+          }
+        }
+        // We add the generated code until the first mapping
+        // to the SourceNode without any mapping.
+        // Each line is added as separate string.
+        while (lastGeneratedLine < mapping.generatedLine) {
+          node.add(shiftNextLine());
+          lastGeneratedLine++;
+        }
+        if (lastGeneratedColumn < mapping.generatedColumn) {
+          var nextLine = remainingLines[0];
+          node.add(nextLine.substr(0, mapping.generatedColumn));
+          remainingLines[0] = nextLine.substr(mapping.generatedColumn);
+          lastGeneratedColumn = mapping.generatedColumn;
+        }
+        lastMapping = mapping;
+      }, this);
+      // We have processed all mappings.
+      if (remainingLines.length > 0) {
+        if (lastMapping) {
+          // Associate the remaining code in the current line with "lastMapping"
+          addMappingWithCode(lastMapping, shiftNextLine());
+        }
+        // and add the remaining lines without any mapping
+        node.add(remainingLines.join(""));
+      }
+
+      // Copy sourcesContent into SourceNode
+      aSourceMapConsumer.sources.forEach(function (sourceFile) {
+        var content = aSourceMapConsumer.sourceContentFor(sourceFile);
+        if (content != null) {
+          if (aRelativePath != null) {
+            sourceFile = util.join(aRelativePath, sourceFile);
+          }
+          node.setSourceContent(sourceFile, content);
+        }
+      });
+
+      return node;
+
+      function addMappingWithCode(mapping, code) {
+        if (mapping === null || mapping.source === undefined) {
+          node.add(code);
+        } else {
+          var source = aRelativePath
+            ? util.join(aRelativePath, mapping.source)
+            : mapping.source;
+          node.add(new SourceNode(mapping.originalLine,
+                                  mapping.originalColumn,
+                                  source,
+                                  code,
+                                  mapping.name));
+        }
+      }
+    };
+
+  /**
+   * Add a chunk of generated JS to this source node.
+   *
+   * @param aChunk A string snippet of generated JS code, another instance of
+   *        SourceNode, or an array where each member is one of those things.
+   */
+  SourceNode.prototype.add = function SourceNode_add(aChunk) {
+    if (Array.isArray(aChunk)) {
+      aChunk.forEach(function (chunk) {
+        this.add(chunk);
+      }, this);
+    }
+    else if (aChunk[isSourceNode] || typeof aChunk === "string") {
+      if (aChunk) {
+        this.children.push(aChunk);
+      }
+    }
+    else {
+      throw new TypeError(
+        "Expected a SourceNode, string, or an array of SourceNodes and strings. Got " + aChunk
+      );
+    }
+    return this;
+  };
+
+  /**
+   * Add a chunk of generated JS to the beginning of this source node.
+   *
+   * @param aChunk A string snippet of generated JS code, another instance of
+   *        SourceNode, or an array where each member is one of those things.
+   */
+  SourceNode.prototype.prepend = function SourceNode_prepend(aChunk) {
+    if (Array.isArray(aChunk)) {
+      for (var i = aChunk.length-1; i >= 0; i--) {
+        this.prepend(aChunk[i]);
+      }
+    }
+    else if (aChunk[isSourceNode] || typeof aChunk === "string") {
+      this.children.unshift(aChunk);
+    }
+    else {
+      throw new TypeError(
+        "Expected a SourceNode, string, or an array of SourceNodes and strings. Got " + aChunk
+      );
+    }
+    return this;
+  };
+
+  /**
+   * Walk over the tree of JS snippets in this node and its children. The
+   * walking function is called once for each snippet of JS and is passed that
+   * snippet and the its original associated source's line/column location.
+   *
+   * @param aFn The traversal function.
+   */
+  SourceNode.prototype.walk = function SourceNode_walk(aFn) {
+    var chunk;
+    for (var i = 0, len = this.children.length; i < len; i++) {
+      chunk = this.children[i];
+      if (chunk[isSourceNode]) {
+        chunk.walk(aFn);
+      }
+      else {
+        if (chunk !== '') {
+          aFn(chunk, { source: this.source,
+                       line: this.line,
+                       column: this.column,
+                       name: this.name });
+        }
+      }
+    }
+  };
+
+  /**
+   * Like `String.prototype.join` except for SourceNodes. Inserts `aStr` between
+   * each of `this.children`.
+   *
+   * @param aSep The separator.
+   */
+  SourceNode.prototype.join = function SourceNode_join(aSep) {
+    var newChildren;
+    var i;
+    var len = this.children.length;
+    if (len > 0) {
+      newChildren = [];
+      for (i = 0; i < len-1; i++) {
+        newChildren.push(this.children[i]);
+        newChildren.push(aSep);
+      }
+      newChildren.push(this.children[i]);
+      this.children = newChildren;
+    }
+    return this;
+  };
+
+  /**
+   * Call String.prototype.replace on the very right-most source snippet. Useful
+   * for trimming whitespace from the end of a source node, etc.
+   *
+   * @param aPattern The pattern to replace.
+   * @param aReplacement The thing to replace the pattern with.
+   */
+  SourceNode.prototype.replaceRight = function SourceNode_replaceRight(aPattern, aReplacement) {
+    var lastChild = this.children[this.children.length - 1];
+    if (lastChild[isSourceNode]) {
+      lastChild.replaceRight(aPattern, aReplacement);
+    }
+    else if (typeof lastChild === 'string') {
+      this.children[this.children.length - 1] = lastChild.replace(aPattern, aReplacement);
+    }
+    else {
+      this.children.push(''.replace(aPattern, aReplacement));
+    }
+    return this;
+  };
+
+  /**
+   * Set the source content for a source file. This will be added to the SourceMapGenerator
+   * in the sourcesContent field.
+   *
+   * @param aSourceFile The filename of the source file
+   * @param aSourceContent The content of the source file
+   */
+  SourceNode.prototype.setSourceContent =
+    function SourceNode_setSourceContent(aSourceFile, aSourceContent) {
+      this.sourceContents[util.toSetString(aSourceFile)] = aSourceContent;
+    };
+
+  /**
+   * Walk over the tree of SourceNodes. The walking function is called for each
+   * source file content and is passed the filename and source content.
+   *
+   * @param aFn The traversal function.
+   */
+  SourceNode.prototype.walkSourceContents =
+    function SourceNode_walkSourceContents(aFn) {
+      for (var i = 0, len = this.children.length; i < len; i++) {
+        if (this.children[i][isSourceNode]) {
+          this.children[i].walkSourceContents(aFn);
+        }
+      }
+
+      var sources = Object.keys(this.sourceContents);
+      for (var i = 0, len = sources.length; i < len; i++) {
+        aFn(util.fromSetString(sources[i]), this.sourceContents[sources[i]]);
+      }
+    };
+
+  /**
+   * Return the string representation of this source node. Walks over the tree
+   * and concatenates all the various snippets together to one string.
+   */
+  SourceNode.prototype.toString = function SourceNode_toString() {
+    var str = "";
+    this.walk(function (chunk) {
+      str += chunk;
+    });
+    return str;
+  };
+
+  /**
+   * Returns the string representation of this source node along with a source
+   * map.
+   */
+  SourceNode.prototype.toStringWithSourceMap = function SourceNode_toStringWithSourceMap(aArgs) {
+    var generated = {
+      code: "",
+      line: 1,
+      column: 0
+    };
+    var map = new SourceMapGenerator(aArgs);
+    var sourceMappingActive = false;
+    var lastOriginalSource = null;
+    var lastOriginalLine = null;
+    var lastOriginalColumn = null;
+    var lastOriginalName = null;
+    this.walk(function (chunk, original) {
+      generated.code += chunk;
+      if (original.source !== null
+          && original.line !== null
+          && original.column !== null) {
+        if(lastOriginalSource !== original.source
+           || lastOriginalLine !== original.line
+           || lastOriginalColumn !== original.column
+           || lastOriginalName !== original.name) {
+          map.addMapping({
+            source: original.source,
+            original: {
+              line: original.line,
+              column: original.column
+            },
+            generated: {
+              line: generated.line,
+              column: generated.column
+            },
+            name: original.name
+          });
+        }
+        lastOriginalSource = original.source;
+        lastOriginalLine = original.line;
+        lastOriginalColumn = original.column;
+        lastOriginalName = original.name;
+        sourceMappingActive = true;
+      } else if (sourceMappingActive) {
+        map.addMapping({
+          generated: {
+            line: generated.line,
+            column: generated.column
+          }
+        });
+        lastOriginalSource = null;
+        sourceMappingActive = false;
+      }
+      for (var idx = 0, length = chunk.length; idx < length; idx++) {
+        if (chunk.charCodeAt(idx) === NEWLINE_CODE) {
+          generated.line++;
+          generated.column = 0;
+          // Mappings end at eol
+          if (idx + 1 === length) {
+            lastOriginalSource = null;
+            sourceMappingActive = false;
+          } else if (sourceMappingActive) {
+            map.addMapping({
+              source: original.source,
+              original: {
+                line: original.line,
+                column: original.column
+              },
+              generated: {
+                line: generated.line,
+                column: generated.column
+              },
+              name: original.name
+            });
+          }
+        } else {
+          generated.column++;
+        }
+      }
+    });
+    this.walkSourceContents(function (sourceFile, sourceContent) {
+      map.setSourceContent(sourceFile, sourceContent);
+    });
+
+    return { code: generated.code, map: map };
+  };
+
+  exports.SourceNode = SourceNode;
+
+});
+
+},{"./source-map-generator":49,"./util":51,"amdefine":1}],51:[function(require,module,exports){
+/* -*- Mode: js; js-indent-level: 2; -*- */
+/*
+ * Copyright 2011 Mozilla Foundation and contributors
+ * Licensed under the New BSD license. See LICENSE or:
+ * http://opensource.org/licenses/BSD-3-Clause
+ */
+if (typeof define !== 'function') {
+    var define = require('amdefine')(module, require);
+}
+define(function (require, exports, module) {
+
+  /**
+   * This is a helper function for getting values from parameter/options
+   * objects.
+   *
+   * @param args The object we are extracting values from
+   * @param name The name of the property we are getting.
+   * @param defaultValue An optional value to return if the property is missing
+   * from the object. If this is not specified and the property is missing, an
+   * error will be thrown.
+   */
+  function getArg(aArgs, aName, aDefaultValue) {
+    if (aName in aArgs) {
+      return aArgs[aName];
+    } else if (arguments.length === 3) {
+      return aDefaultValue;
+    } else {
+      throw new Error('"' + aName + '" is a required argument.');
+    }
+  }
+  exports.getArg = getArg;
+
+  var urlRegexp = /^(?:([\w+\-.]+):)?\/\/(?:(\w+:\w+)@)?([\w.]*)(?::(\d+))?(\S*)$/;
+  var dataUrlRegexp = /^data:.+\,.+$/;
+
+  function urlParse(aUrl) {
+    var match = aUrl.match(urlRegexp);
+    if (!match) {
+      return null;
+    }
+    return {
+      scheme: match[1],
+      auth: match[2],
+      host: match[3],
+      port: match[4],
+      path: match[5]
+    };
+  }
+  exports.urlParse = urlParse;
+
+  function urlGenerate(aParsedUrl) {
+    var url = '';
+    if (aParsedUrl.scheme) {
+      url += aParsedUrl.scheme + ':';
+    }
+    url += '//';
+    if (aParsedUrl.auth) {
+      url += aParsedUrl.auth + '@';
+    }
+    if (aParsedUrl.host) {
+      url += aParsedUrl.host;
+    }
+    if (aParsedUrl.port) {
+      url += ":" + aParsedUrl.port
+    }
+    if (aParsedUrl.path) {
+      url += aParsedUrl.path;
+    }
+    return url;
+  }
+  exports.urlGenerate = urlGenerate;
+
+  /**
+   * Normalizes a path, or the path portion of a URL:
+   *
+   * - Replaces consequtive slashes with one slash.
+   * - Removes unnecessary '.' parts.
+   * - Removes unnecessary '<dir>/..' parts.
+   *
+   * Based on code in the Node.js 'path' core module.
+   *
+   * @param aPath The path or url to normalize.
+   */
+  function normalize(aPath) {
+    var path = aPath;
+    var url = urlParse(aPath);
+    if (url) {
+      if (!url.path) {
+        return aPath;
+      }
+      path = url.path;
+    }
+    var isAbsolute = (path.charAt(0) === '/');
+
+    var parts = path.split(/\/+/);
+    for (var part, up = 0, i = parts.length - 1; i >= 0; i--) {
+      part = parts[i];
+      if (part === '.') {
+        parts.splice(i, 1);
+      } else if (part === '..') {
+        up++;
+      } else if (up > 0) {
+        if (part === '') {
+          // The first part is blank if the path is absolute. Trying to go
+          // above the root is a no-op. Therefore we can remove all '..' parts
+          // directly after the root.
+          parts.splice(i + 1, up);
+          up = 0;
+        } else {
+          parts.splice(i, 2);
+          up--;
+        }
+      }
+    }
+    path = parts.join('/');
+
+    if (path === '') {
+      path = isAbsolute ? '/' : '.';
+    }
+
+    if (url) {
+      url.path = path;
+      return urlGenerate(url);
+    }
+    return path;
+  }
+  exports.normalize = normalize;
+
+  /**
+   * Joins two paths/URLs.
+   *
+   * @param aRoot The root path or URL.
+   * @param aPath The path or URL to be joined with the root.
+   *
+   * - If aPath is a URL or a data URI, aPath is returned, unless aPath is a
+   *   scheme-relative URL: Then the scheme of aRoot, if any, is prepended
+   *   first.
+   * - Otherwise aPath is a path. If aRoot is a URL, then its path portion
+   *   is updated with the result and aRoot is returned. Otherwise the result
+   *   is returned.
+   *   - If aPath is absolute, the result is aPath.
+   *   - Otherwise the two paths are joined with a slash.
+   * - Joining for example 'http://' and 'www.example.com' is also supported.
+   */
+  function join(aRoot, aPath) {
+    if (aRoot === "") {
+      aRoot = ".";
+    }
+    if (aPath === "") {
+      aPath = ".";
+    }
+    var aPathUrl = urlParse(aPath);
+    var aRootUrl = urlParse(aRoot);
+    if (aRootUrl) {
+      aRoot = aRootUrl.path || '/';
+    }
+
+    // `join(foo, '//www.example.org')`
+    if (aPathUrl && !aPathUrl.scheme) {
+      if (aRootUrl) {
+        aPathUrl.scheme = aRootUrl.scheme;
+      }
+      return urlGenerate(aPathUrl);
+    }
+
+    if (aPathUrl || aPath.match(dataUrlRegexp)) {
+      return aPath;
+    }
+
+    // `join('http://', 'www.example.com')`
+    if (aRootUrl && !aRootUrl.host && !aRootUrl.path) {
+      aRootUrl.host = aPath;
+      return urlGenerate(aRootUrl);
+    }
+
+    var joined = aPath.charAt(0) === '/'
+      ? aPath
+      : normalize(aRoot.replace(/\/+$/, '') + '/' + aPath);
+
+    if (aRootUrl) {
+      aRootUrl.path = joined;
+      return urlGenerate(aRootUrl);
+    }
+    return joined;
+  }
+  exports.join = join;
+
+  /**
+   * Make a path relative to a URL or another path.
+   *
+   * @param aRoot The root path or URL.
+   * @param aPath The path or URL to be made relative to aRoot.
+   */
+  function relative(aRoot, aPath) {
+    if (aRoot === "") {
+      aRoot = ".";
+    }
+
+    aRoot = aRoot.replace(/\/$/, '');
+
+    // It is possible for the path to be above the root. In this case, simply
+    // checking whether the root is a prefix of the path won't work. Instead, we
+    // need to remove components from the root one by one, until either we find
+    // a prefix that fits, or we run out of components to remove.
+    var level = 0;
+    while (aPath.indexOf(aRoot + '/') !== 0) {
+      var index = aRoot.lastIndexOf("/");
+      if (index < 0) {
+        return aPath;
+      }
+
+      // If the only part of the root that is left is the scheme (i.e. http://,
+      // file:///, etc.), one or more slashes (/), or simply nothing at all, we
+      // have exhausted all components, so the path is not relative to the root.
+      aRoot = aRoot.slice(0, index);
+      if (aRoot.match(/^([^\/]+:\/)?\/*$/)) {
+        return aPath;
+      }
+
+      ++level;
+    }
+
+    // Make sure we add a "../" for each component we removed from the root.
+    return Array(level + 1).join("../") + aPath.substr(aRoot.length + 1);
+  }
+  exports.relative = relative;
+
+  /**
+   * Because behavior goes wacky when you set `__proto__` on objects, we
+   * have to prefix all the strings in our set with an arbitrary character.
+   *
+   * See https://github.com/mozilla/source-map/pull/31 and
+   * https://github.com/mozilla/source-map/issues/30
+   *
+   * @param String aStr
+   */
+  function toSetString(aStr) {
+    return '$' + aStr;
+  }
+  exports.toSetString = toSetString;
+
+  function fromSetString(aStr) {
+    return aStr.substr(1);
+  }
+  exports.fromSetString = fromSetString;
+
+  /**
+   * Comparator between two mappings where the original positions are compared.
+   *
+   * Optionally pass in `true` as `onlyCompareGenerated` to consider two
+   * mappings with the same original source/line/column, but different generated
+   * line and column the same. Useful when searching for a mapping with a
+   * stubbed out mapping.
+   */
+  function compareByOriginalPositions(mappingA, mappingB, onlyCompareOriginal) {
+    var cmp = mappingA.source - mappingB.source;
+    if (cmp !== 0) {
+      return cmp;
+    }
+
+    cmp = mappingA.originalLine - mappingB.originalLine;
+    if (cmp !== 0) {
+      return cmp;
+    }
+
+    cmp = mappingA.originalColumn - mappingB.originalColumn;
+    if (cmp !== 0 || onlyCompareOriginal) {
+      return cmp;
+    }
+
+    cmp = mappingA.generatedColumn - mappingB.generatedColumn;
+    if (cmp !== 0) {
+      return cmp;
+    }
+
+    cmp = mappingA.generatedLine - mappingB.generatedLine;
+    if (cmp !== 0) {
+      return cmp;
+    }
+
+    return mappingA.name - mappingB.name;
+  };
+  exports.compareByOriginalPositions = compareByOriginalPositions;
+
+  /**
+   * Comparator between two mappings with deflated source and name indices where
+   * the generated positions are compared.
+   *
+   * Optionally pass in `true` as `onlyCompareGenerated` to consider two
+   * mappings with the same generated line and column, but different
+   * source/name/original line and column the same. Useful when searching for a
+   * mapping with a stubbed out mapping.
+   */
+  function compareByGeneratedPositionsDeflated(mappingA, mappingB, onlyCompareGenerated) {
+    var cmp = mappingA.generatedLine - mappingB.generatedLine;
+    if (cmp !== 0) {
+      return cmp;
+    }
+
+    cmp = mappingA.generatedColumn - mappingB.generatedColumn;
+    if (cmp !== 0 || onlyCompareGenerated) {
+      return cmp;
+    }
+
+    cmp = mappingA.source - mappingB.source;
+    if (cmp !== 0) {
+      return cmp;
+    }
+
+    cmp = mappingA.originalLine - mappingB.originalLine;
+    if (cmp !== 0) {
+      return cmp;
+    }
+
+    cmp = mappingA.originalColumn - mappingB.originalColumn;
+    if (cmp !== 0) {
+      return cmp;
+    }
+
+    return mappingA.name - mappingB.name;
+  };
+  exports.compareByGeneratedPositionsDeflated = compareByGeneratedPositionsDeflated;
+
+  function strcmp(aStr1, aStr2) {
+    if (aStr1 === aStr2) {
+      return 0;
+    }
+
+    if (aStr1 > aStr2) {
+      return 1;
+    }
+
+    return -1;
+  }
+
+  /**
+   * Comparator between two mappings with inflated source and name strings where
+   * the generated positions are compared.
+   */
+  function compareByGeneratedPositionsInflated(mappingA, mappingB) {
+    var cmp = mappingA.generatedLine - mappingB.generatedLine;
+    if (cmp !== 0) {
+      return cmp;
+    }
+
+    cmp = mappingA.generatedColumn - mappingB.generatedColumn;
+    if (cmp !== 0) {
+      return cmp;
+    }
+
+    cmp = strcmp(mappingA.source, mappingB.source);
+    if (cmp !== 0) {
+      return cmp;
+    }
+
+    cmp = mappingA.originalLine - mappingB.originalLine;
+    if (cmp !== 0) {
+      return cmp;
+    }
+
+    cmp = mappingA.originalColumn - mappingB.originalColumn;
+    if (cmp !== 0) {
+      return cmp;
+    }
+
+    return strcmp(mappingA.name, mappingB.name);
+  };
+  exports.compareByGeneratedPositionsInflated = compareByGeneratedPositionsInflated;
+
+});
+
+},{"amdefine":1}],52:[function(require,module,exports){
 /* global window, exports, define */
 
 !function() {
@@ -37754,181 +37769,231 @@ require('../node_modules/bootstrap/dist/css/bootstrap.min.css');
 
 var utils = require('./utils');
 
+var tree = require('./tree');
+
 $(function() {
 
-  var tmpls = {
-    node_tooltip: H.compile($('#tmpl_tooltip').html())
-  };
+  tree.init('#tree', {
+    urlData: 'data/example.json',
 
-  var urlData = "data/example.json";
+    onSelect: function(id) {
 
-  var margin = {
-        top: 20, right: 120, bottom: 20, left: 120
-      },
-      width = 960 - margin.right - margin.left,
-      height = 400 - margin.top - margin.bottom,
-      nodeRadius = 6,
-      tooltipOffsetX = -10,
-      tooltipOffsetY = 0;
-
-  var i = 0,
-      timeDuration = 500,
-      dataRoot;
-
-  var d3Tree = d3.layout.tree().size([height, width]);
-
-  var diagonal = d3.svg.diagonal()
-      .projection(function(d) { return [d.y, d.x]; });
-
-  var tooltip = d3.select("body").append("div") 
-      .attr("class", "tooltip")
-      .style("opacity", 0);
-
-  var svg = d3.select("#graph").append("svg")
-      .attr("width", width + margin.right + margin.left)
-      .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-      .style("height", height+'px');
-
-  function update(source) {
-
-    // Compute the new tree layout.
-    var nodes = d3Tree.nodes(dataRoot).reverse(),
-        links = d3Tree.links(nodes);
-
-    // Normalize for fixed-depth.
-    nodes.forEach(function(d) { d.y = d.depth * 180; });
-
-    // Update the nodes…
-    var node = svg.selectAll("g.node")
-        .data(nodes, function(d) {
-          return d.id || (d.id = ++i);
-        });
-
-    // Enter any new nodes at the parent's previous position.
-    var nodeEnter = node.enter().append("g")
-        .attr("class", "node")
-        .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
-        .on("click", function click(d) {
-
-          if (d.children) {
-            d._children = d.children;
-            d.children = null;
-          } else {
-            d.children = d._children;
-            d._children = null;
-          }
-          
-          update(d);
-
-        });
-
-    nodeEnter.append("circle")
-        .attr("r", 1e-6)
-        .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; })
-        .on("mouseover", function(d) {    
-            tooltip.transition()
-                .duration(timeDuration)
-                .style("opacity", 1);
-
-            tooltip .html(tmpls.node_tooltip(d))  
-                .style("left", (d3.event.pageX - tooltipOffsetX) + "px")   
-                .style("top", (d3.event.pageY - tooltipOffsetY) + "px");  
-            })          
-        .on("mouseout", function(d) {   
-            tooltip.transition()    
-                .duration(timeDuration)    
-                .style("opacity", 0); 
-        });
-
-    nodeEnter.append("text")
-        .attr("x", function(d) { return d.children || d._children ? -10 : 10; })
-        .attr("dy", ".35em")
-        .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
-        .text(function(d) { return d.name; })
-        .style("fill-opacity", 1e-6);
-
-    // Transition nodes to their new position.
-    var nodeUpdate = node.transition()
-        .duration(timeDuration)
-        .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
-
-    nodeUpdate.select("circle")
-        .attr("r", nodeRadius)
-        .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
-
-    nodeUpdate.select("text")
-        .style("fill-opacity", 1);
-
-    // Transition exiting nodes to the parent's new position.
-    var nodeExit = node.exit().transition()
-        .duration(timeDuration)
-        .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
-        .remove();
-
-    nodeExit.select("circle")
-        .attr("r", 1e-6);
-
-    nodeExit.select("text")
-        .style("fill-opacity", 1e-6);
-
-    // Update the links…
-    var link = svg.selectAll("path.link")
-        .data(links, function(d) { return d.target.id; });
-
-    // Enter any new links at the parent's previous position.
-    link.enter().insert("path", "g")
-        .attr("class", "link")
-        .attr("d", function(d) {
-          var o = {x: source.x0, y: source.y0};
-          return diagonal({source: o, target: o});
-        });
-
-    // Transition links to their new position.
-    link.transition()
-        .duration(timeDuration)
-        .attr("d", diagonal);
-
-    // Transition exiting nodes to the parent's new position.
-    link.exit().transition()
-        .duration(timeDuration)
-        .attr("d", function(d) {
-          var o = {x: source.x, y: source.y};
-          return diagonal({source: o, target: o});
-        })
-        .remove();
-
-    // Stash the old positions for transition.
-    nodes.forEach(function(d) {
-      d.x0 = d.x;
-      d.y0 = d.y;
-    });
-  }
-
-  utils.getData(urlData, function(json) {
-  
-    dataRoot = json;
-    dataRoot.x0 = height / 2;
-    dataRoot.y0 = 0;
-
-    function collapse(d) {
-      if (d.children) {
-        d._children = d.children;
-        d._children.forEach(collapse);
-        d.children = null;
-      }
+      tree.update();
+      
     }
-
-    dataRoot.children.forEach(collapse);
-
-    update(dataRoot);
-
-  });
-
+  })
+;
 });  
 
-},{"../node_modules/bootstrap/dist/css/bootstrap.min.css":2,"./utils":126,"bootstrap":3,"d3":6,"handlebars":36,"jquery":48,"popper.js":50,"underscore":123,"underscore.string":77}],126:[function(require,module,exports){
+},{"../node_modules/bootstrap/dist/css/bootstrap.min.css":2,"./tree":126,"./utils":127,"bootstrap":3,"d3":6,"handlebars":36,"jquery":37,"popper.js":39,"underscore":123,"underscore.string":77}],126:[function(require,module,exports){
+
+var $ = jQuery = require('jquery');
+var _ = require('underscore'); 
+var S = require('underscore.string');
+_.mixin({str: S});
+window._ = _;
+var H = require('handlebars');
+var d3 = require('d3');
+var utils = require('./utils');
+
+module.exports = {
+  	
+  	tree: null,
+
+  	onSelect: function(e){ console.log('onClickNode',e); },
+
+  	config: {
+  		width: 960,
+		height: 400,
+		margin: {
+			top: 20,
+			right: 120,
+			bottom: 20,
+			left: 120
+		},
+		nodeRadius: 6,
+		tooltipOffsetX: -10,
+		tooltipOffsetY: 0
+  	},
+
+	init: function(el, opts) {
+
+		var self = this;
+
+		self.tree = $(el);
+
+		self.tmpls = {
+			node_tooltip: H.compile($('#tmpl_tooltip').html())
+		};
+
+  		self.idCount = 0;
+		self.dataRoot;
+
+		self.opts = _.defaults(opts, self.config);
+
+		self.opts.width -= (self.opts.margin.right - self.opts.margin.left);
+		self.opts.height -= (self.opts.margin.top - self.opts.margin.bottom);
+
+		self.d3Tree = d3.layout.tree().size([self.opts.height, self.opts.width]);
+
+		self.diagonal = d3.svg.diagonal()
+			.projection(function(d) { return [d.y, d.x]; });
+
+		var tooltip = d3.select("body").append("div") 
+			.attr("class", "tooltip")
+			.style("opacity", 0);
+
+		self.svg = d3.select("#graph").append("svg")
+			.attr("width", self.opts.width + self.opts.margin.right + self.opts.margin.left)
+			.attr("height", self.opts.height + self.opts.margin.top + self.opts.margin.bottom)
+			.append("g")
+			.attr("transform", "translate(" + self.opts.margin.left + "," + self.opts.margin.top + ")")
+			.style("height", self.opts.height+'px');
+
+		utils.getData(opts.urlData, function(json) {
+
+			self.dataRoot = json;
+			self.dataRoot.x0 = self.opts.height / 2;
+			self.dataRoot.y0 = 0;
+
+			function collapse(d) {
+			  if (d.children) {
+			    d._children = d.children;
+			    d._children.forEach(collapse);
+			    d.children = null;
+			  }
+			}
+
+			self.dataRoot.children.forEach(collapse);
+
+			self.update(self.dataRoot);
+
+		});
+
+	},
+
+  	update: function(source) {
+
+  		//TODO replace source with dataRoot
+  		
+  		var self = this;
+
+  		var timeDuration = 500;
+
+	    // Compute the new tree layout.
+	    var nodes = self.d3Tree.nodes(self.dataRoot).reverse(),
+	        links = self.d3Tree.links(nodes);
+
+	    // Normalize for fixed-depth.
+	    nodes.forEach(function(d) { d.y = d.depth * 180; });
+
+	    // Update the nodes…
+	    var node = self.svg.selectAll("g.node")
+	        .data(nodes, function(d) {
+	          return d.id || (d.id = ++self.idCount);
+	        });
+
+	    // Enter any new nodes at the parent's previous position.
+	    var nodeEnter = node.enter().append("g")
+	        .attr("class", "node")
+	        .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
+	        .on("click", function click(d) {
+
+	          if (d.children) {
+	            d._children = d.children;
+	            d.children = null;
+	          } else {
+	            d.children = d._children;
+	            d._children = null;
+	          }
+	          
+	          self.update(d);
+
+	        });
+
+	    nodeEnter.append("circle")
+	        .attr("r", 1e-6)
+	        .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; })
+	        .on("mouseover", function(d) {    
+	            tooltip.transition()
+	                .duration(timeDuration)
+	                .style("opacity", 1);
+
+	            tooltip.html(self.tmpls.node_tooltip(d))  
+	                .style("left", (d3.event.pageX - tooltipOffsetX) + "px")   
+	                .style("top", (d3.event.pageY - tooltipOffsetY) + "px");  
+	            })          
+	        .on("mouseout", function(d) {   
+	            tooltip.transition()    
+	                .duration(timeDuration)    
+	                .style("opacity", 0); 
+	        });
+
+	    nodeEnter.append("text")
+	        .attr("x", function(d) { return d.children || d._children ? -10 : 10; })
+	        .attr("dy", ".35em")
+	        .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
+	        .text(function(d) { return d.name; })
+	        .style("fill-opacity", 1e-6);
+
+	    // Transition nodes to their new position.
+	    var nodeUpdate = node.transition()
+	        .duration(timeDuration)
+	        .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+
+	    nodeUpdate.select("circle")
+	        .attr("r", self.opts.nodeRadius)
+	        .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+
+	    nodeUpdate.select("text")
+	        .style("fill-opacity", 1);
+
+	    // Transition exiting nodes to the parent's new position.
+	    var nodeExit = node.exit().transition()
+	        .duration(timeDuration)
+	        .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
+	        .remove();
+
+	    nodeExit.select("circle")
+	        .attr("r", 1e-6);
+
+	    nodeExit.select("text")
+	        .style("fill-opacity", 1e-6);
+
+	    // Update the links…
+	    var link = self.svg.selectAll("path.link")
+	        .data(links, function(d) { return d.target.id; });
+
+	    // Enter any new links at the parent's previous position.
+	    link.enter().insert("path", "g")
+	        .attr("class", "link")
+	        .attr("d", function(d) {
+	          var o = {x: source.x0, y: source.y0};
+	          return diagonal({source: o, target: o});
+	        });
+
+	    // Transition links to their new position.
+	    link.transition()
+	        .duration(timeDuration)
+	        .attr("d", self.diagonal);
+
+	    // Transition exiting nodes to the parent's new position.
+	    link.exit().transition()
+	        .duration(timeDuration)
+	        .attr("d", function(d) {
+	          var o = {x: source.x, y: source.y};
+	          return diagonal({source: o, target: o});
+	        })
+	        .remove();
+
+	    // Stash the old positions for transition.
+	    nodes.forEach(function(d) {
+	      d.x0 = d.x;
+	      d.y0 = d.y;
+	    });
+	}
+};
+},{"./utils":127,"d3":6,"handlebars":36,"jquery":37,"underscore":123,"underscore.string":77}],127:[function(require,module,exports){
 
 var $ = jQuery = require('jquery');
 var _ = require('underscore'); 
@@ -37971,4 +38036,4 @@ module.exports = {
     }
 };
 
-},{"jquery":48,"underscore":123,"underscore.string":77}]},{},[125]);
+},{"jquery":37,"underscore":123,"underscore.string":77}]},{},[125]);
