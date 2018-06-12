@@ -15,9 +15,6 @@ require('../node_modules/bootstrap/dist/css/bootstrap.min.css');
 
 var utils = require('./utils');
 
-//include after other modules
-require('../main.css');
-
 $(function() {
 
   var tmpls = {
