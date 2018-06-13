@@ -79,9 +79,9 @@ module.exports = {
 
 		self.onInit.call(self, self.dataRoot);
 
-		setTimeout(function() {
+		/*setTimeout(function() {
 			console.log('after onInit dataRoot:', self.dataRoot)
-		},3000)
+		},3000)*/
 	},
 
   	update: function(source) {

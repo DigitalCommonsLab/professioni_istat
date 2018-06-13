@@ -26,6 +26,7 @@ function reformatChildren(o) {
   o.desc = o['descrizione'];
   delete o['descrizione'];
   //descrizione, id
+  o.level = (""+o.id).split('.').length;
   return o;
 }
 
@@ -47,6 +48,8 @@ $(function() {
         dataRoot.y0 = 0;
 
         function collapse(d) {
+          console.log('collapse',d)
+
           if (d.children) {
             d._children = d.children;
             d._children.forEach(collapse);

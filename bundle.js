@@ -37780,6 +37780,7 @@ function reformatChildren(o) {
   o.desc = o['descrizione'];
   delete o['descrizione'];
   //descrizione, id
+  o.level = (""+o.id).split('.').length;
   return o;
 }
 
@@ -37801,6 +37802,8 @@ $(function() {
         dataRoot.y0 = 0;
 
         function collapse(d) {
+          console.log('collapse',d)
+
           if (d.children) {
             d._children = d.children;
             d._children.forEach(collapse);
@@ -37921,9 +37924,9 @@ module.exports = {
 
 		self.onInit.call(self, self.dataRoot);
 
-		setTimeout(function() {
+		/*setTimeout(function() {
 			console.log('after onInit dataRoot:', self.dataRoot)
-		},3000)
+		},3000)*/
 	},
 
   	update: function(source) {
