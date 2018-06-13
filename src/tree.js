@@ -12,6 +12,7 @@ module.exports = {
   	
   	tree: null,
 
+	onInit: function(e){ console.log('onInit',e); },
   	onSelect: function(e){ console.log('onClickNode',e); },
 
   	config: {
