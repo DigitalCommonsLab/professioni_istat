@@ -17,25 +17,25 @@ module.exports = {
 
     getData: function(url, cb, cache) {
         
-        cache = _.isUndefined(cache) ? true : cache;
+        //cache = _.isUndefined(cache) ? true : cache;
 
-        if(cache && !localStorage[url]) {
+        //if(cache || !localStorage[url]) {
             $.getJSON(url, function(json) {
                 
-                try {
+/*                try {
                     localStorage.setItem(url, JSON.stringify(json));
                 }
                 catch (e) {
                     localStorage.clear();
                     localStorage.setItem(url, JSON.stringify(json));
-                }
+                }*/
 
                 cb(json);
             });
-        }
-        else
-        {
-            cb(JSON.parse(localStorage[url]))
-        }
+        //}
+        //else
+        //{
+        //    cb(JSON.parse(localStorage[url]))
+        //}
     }
 };

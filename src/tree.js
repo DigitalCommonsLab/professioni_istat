@@ -54,6 +54,9 @@ module.exports = {
 		self.opts.width -= (self.opts.margin.right - self.opts.margin.left);
 		self.opts.height -= (self.opts.margin.top - self.opts.margin.bottom);
 
+		self.onInit = opts && opts.onInit,
+		self.onSelect = opts && opts.onSelect,
+
 		self.d3Tree = d3.layout.tree().size([self.opts.height, self.opts.width]);
 
 		self.diagonal = d3.svg.diagonal()
@@ -70,26 +73,7 @@ module.exports = {
 			.attr("transform", "translate(" + self.opts.margin.left + "," + self.opts.margin.top + ")")
 			.style("height", self.opts.height+'px');
 
-		utils.getData(self.opts.urlData, function(json) {
-
-			self.dataRoot = json;
-			self.dataRoot.x0 = self.opts.height / 2;
-			self.dataRoot.y0 = 0;
-
-			function collapse(d) {
-			  if (d.children) {
-			    d._children = d.children;
-			    d._children.forEach(collapse);
-			    d.children = null;
-			  }
-			}
-
-			self.dataRoot.children.forEach(collapse);
-
-			self.update(self.dataRoot);
-
-		});
-
+		self.onInit.call(self, self.dataRoot);
 	},
 
   	update: function(source) {
