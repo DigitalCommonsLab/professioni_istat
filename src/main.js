@@ -1,7 +1,4 @@
-/*
-  original: https://bl.ocks.org/mbostock/4339083
 
- */
 var $ = jQuery = require('jquery');
 var _ = require('underscore'); 
 var S = require('underscore.string');
@@ -23,6 +20,15 @@ var tmpls = {
   urlData: H.compile(baseUrl+'istatLevel{{level}}/{{id}}')
 };
 
+function reformatChildren(o) {
+  o.name = o['nome'];
+  delete o['nome'];
+  o.desc = o['descrizione'];
+  delete o['descrizione'];
+  //descrizione, id
+  return o;
+}
+
 $(function() {
 
   tree.init('#tree', {
@@ -33,13 +39,12 @@ $(function() {
 
       utils.getData(baseUrl+'istatLevel1', function(json) {
 
-        if(json['Entries'] && !node.children) {
-          node.children = json['Entries']['Entry'];
-        }
+        if(!json['Entries'] || !json['Entries']['Entry'])
+          console.warn('api istatLevel1 empty');
 
-        self.dataRoot = json;
-        self.dataRoot.x0 = self.opts.height / 2;
-        self.dataRoot.y0 = 0;
+        dataRoot.children = _.map(json['Entries']['Entry'], reformatChildren);
+        dataRoot.x0 = self.opts.height / 2;
+        dataRoot.y0 = 0;
 
         function collapse(d) {
           if (d.children) {
@@ -49,7 +54,9 @@ $(function() {
           }
         }
 
-        self.dataRoot.children.forEach(collapse);
+        dataRoot.children.forEach(collapse);
+
+        self.update(dataRoot);
 
       });      
 

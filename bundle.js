@@ -37752,10 +37752,7 @@ function config (name) {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],125:[function(require,module,exports){
-/*
-  original: https://bl.ocks.org/mbostock/4339083
 
- */
 var $ = jQuery = require('jquery');
 var _ = require('underscore'); 
 var S = require('underscore.string');
@@ -37770,27 +37767,71 @@ require('../node_modules/bootstrap/dist/css/bootstrap.min.css');
 var utils = require('./utils');
 var tree = require('./tree');
 
-var baseUrl = 'http://api-test.smartcommunitylab.it/t/sco.cartella/isfol/1.0.0';
+var baseUrl = 'http://api-test.smartcommunitylab.it/t/sco.cartella/isfol/1.0.0/';
 
 
 var tmpls = {
-  urlData: H.compile(baseUrl+'/istatLevel{{level}}/{{id}}')
+  urlData: H.compile(baseUrl+'istatLevel{{level}}/{{id}}')
 };
+
+function reformatChildren(o) {
+  o.name = o['nome'];
+  delete o['nome'];
+  o.desc = o['descrizione'];
+  delete o['descrizione'];
+  //descrizione, id
+  return o;
+}
 
 $(function() {
 
   tree.init('#tree', {
-    
-    //urlData: 'data/example.json',
-    urlTmpl: baseUrl+'/istatLevel{level}/{id}',
 
-    onSelect: function(id, level) {
+    onInit: function(dataRoot) {
+
+      var self = this;
+
+      utils.getData(baseUrl+'istatLevel1', function(json) {
+
+        if(!json['Entries'] || !json['Entries']['Entry'])
+          console.warn('api istatLevel1 empty');
+
+        dataRoot.children = _.map(json['Entries']['Entry'], reformatChildren);
+        dataRoot.x0 = self.opts.height / 2;
+        dataRoot.y0 = 0;
+
+        function collapse(d) {
+          if (d.children) {
+            d._children = d.children;
+            d._children.forEach(collapse);
+            d.children = null;
+          }
+        }
+
+        dataRoot.children.forEach(collapse);
+
+        self.update(dataRoot);
+
+      });      
+
+    },
+
+    onSelect: function(node) {
 
       console.log('tree onSelect', id);
 
+      var url = tmpls.urlData({
+        level: node.id.split('.').length,
+        id: node.id
+      });
 
+      utils.getData(url, function(json) {
 
-//TODO using utils.getData(url+id, function(json) { ... });
+        if(json['Entries'] && !node.children) {
+          node.children = json['Entries']['Entry'];
+        }
+
+      });
       //tree.update(id, json);
 
     }
@@ -37799,7 +37840,10 @@ $(function() {
 });  
 
 },{"../node_modules/bootstrap/dist/css/bootstrap.min.css":2,"./tree":126,"./utils":127,"bootstrap":3,"d3":6,"handlebars":36,"jquery":37,"popper.js":39,"underscore":123,"underscore.string":77}],126:[function(require,module,exports){
+/*
+  original: https://bl.ocks.org/mbostock/4339083
 
+ */
 var $ = jQuery = require('jquery');
 var _ = require('underscore'); 
 var S = require('underscore.string');
@@ -37813,6 +37857,7 @@ module.exports = {
   	
   	tree: null,
 
+	onInit: function(e){ console.log('onInit',e); },
   	onSelect: function(e){ console.log('onClickNode',e); },
 
   	config: {
@@ -37848,12 +37893,15 @@ module.exports = {
 		};
 
   		self.idCount = 0;
-		self.dataRoot;
+		self.dataRoot = {};
 
 		self.opts = _.defaults(opts, self.config);
 
 		self.opts.width -= (self.opts.margin.right - self.opts.margin.left);
 		self.opts.height -= (self.opts.margin.top - self.opts.margin.bottom);
+
+		self.onInit = opts && opts.onInit,
+		self.onSelect = opts && opts.onSelect,
 
 		self.d3Tree = d3.layout.tree().size([self.opts.height, self.opts.width]);
 
@@ -37871,26 +37919,11 @@ module.exports = {
 			.attr("transform", "translate(" + self.opts.margin.left + "," + self.opts.margin.top + ")")
 			.style("height", self.opts.height+'px');
 
-		utils.getData(self.opts.urlData, function(json) {
+		self.onInit.call(self, self.dataRoot);
 
-			self.dataRoot = json;
-			self.dataRoot.x0 = self.opts.height / 2;
-			self.dataRoot.y0 = 0;
-
-			function collapse(d) {
-			  if (d.children) {
-			    d._children = d.children;
-			    d._children.forEach(collapse);
-			    d.children = null;
-			  }
-			}
-
-			self.dataRoot.children.forEach(collapse);
-
-			self.update(self.dataRoot);
-
-		});
-
+		setTimeout(function() {
+			console.log('after onInit dataRoot:', self.dataRoot)
+		},3000)
 	},
 
   	update: function(source) {
@@ -38034,26 +38067,26 @@ module.exports = {
 
     getData: function(url, cb, cache) {
         
-        cache = _.isUndefined(cache) ? true : cache;
+        //cache = _.isUndefined(cache) ? true : cache;
 
-        if(cache && !localStorage[url]) {
+        //if(cache || !localStorage[url]) {
             $.getJSON(url, function(json) {
                 
-                try {
+/*                try {
                     localStorage.setItem(url, JSON.stringify(json));
                 }
                 catch (e) {
                     localStorage.clear();
                     localStorage.setItem(url, JSON.stringify(json));
-                }
+                }*/
 
                 cb(json);
             });
-        }
-        else
-        {
-            cb(JSON.parse(localStorage[url]))
-        }
+        //}
+        //else
+        //{
+        //    cb(JSON.parse(localStorage[url]))
+        //}
     }
 };
 

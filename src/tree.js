@@ -1,4 +1,7 @@
+/*
+  original: https://bl.ocks.org/mbostock/4339083
 
+ */
 var $ = jQuery = require('jquery');
 var _ = require('underscore'); 
 var S = require('underscore.string');
@@ -48,7 +51,7 @@ module.exports = {
 		};
 
   		self.idCount = 0;
-		self.dataRoot;
+		self.dataRoot = {};
 
 		self.opts = _.defaults(opts, self.config);
 
@@ -75,6 +78,10 @@ module.exports = {
 			.style("height", self.opts.height+'px');
 
 		self.onInit.call(self, self.dataRoot);
+
+		setTimeout(function() {
+			console.log('after onInit dataRoot:', self.dataRoot)
+		},3000)
 	},
 
   	update: function(source) {
