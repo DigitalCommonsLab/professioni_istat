@@ -141,15 +141,6 @@ function update(source) {
       .attr("r", 1e-6)
       .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
 
-/*  nodeEnter.append("rect")
-      .attr("x", function(d) {
-        return d.children || d._children ? -10 : 10;
-      })
-      .attr("y", 0)
-      .attr("height", 16)
-      .attr("width", 100)
-      .on("click", click);*/
-
   nodeEnter.append("text")
       .attr("x", function(d) {
         return d.children || d._children ? -10 : 10;
