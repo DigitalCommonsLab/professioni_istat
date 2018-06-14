@@ -13,8 +13,20 @@
   stroke-width: 1.5px;
 }
 
+.node rect {
+  cursor: pointer;
+  fill: #ddd;
+  fill-opacity: 0.5;
+/*  stroke: #3182bd;
+  stroke-width: 1.5px;*/
+}
+
 .node text {
   font: 10px sans-serif;
+  white-space: normal;
+}
+.node text b {
+  font-weight: bold;
 }
 
 .link {
@@ -25,16 +37,22 @@
 
 </style>
 </head><body>
+<script src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script>
 <script src="https://unpkg.com/d3@3.5.17/d3.min.js"></script>
 <script>
 
+var baseUrl = "http://api-test.smartcommunitylab.it/t/sco.cartella/isfol/1.0.0/istatLevel";
+
 var margin = {top: 20, right: 120, bottom: 20, left: 120},
-    width = 960 - margin.right - margin.left,
+    width = 1024 - margin.right - margin.left,
     height = 800 - margin.top - margin.bottom;
 
 var i = 0,
     duration = 750,
-    root;
+    root = {
+      name: "root",
+      children: null
+    };
 
 var tree = d3.layout.tree()
     .size([height, width]);
@@ -48,11 +66,35 @@ var svg = d3.select("body").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-///FIRST
-  d3.json("../data/example1.json", function(error, flare) {
+
+function reformatJSON(json) {
+
+  if(!json['Entries'])
+    return null;
+
+  var ret = [],
+      ee = json['Entries']['Entry'];
+
+  for(var e in ee) {
+    var o = ee[e];
+    o.name = o['nome'];
+    delete o['nome'];
+    o.desc = o['descrizione'];
+    delete o['descrizione'];
+    //descrizione, id
+    o.level = (""+o.id).split('.').length;
+    o.isfol = ""+o.id;
+    delete o.id;
+    ret.push(o);
+  }
+  return ret;
+}
+
+///FIRST LOADING CHILDREN OF ROOT
+  d3.json(baseUrl+"1", function(error, json) {
     if (error) throw error;
 
-    root = flare;
+    root.children = reformatJSON(json);
     root.x0 = height / 2;
     root.y0 = 0;
 
@@ -65,7 +107,9 @@ var svg = d3.select("body").append("svg")
     }
 
     root.children.forEach(collapse);
+
     update(root);
+
   });
 
 d3.select(self.frameElement).style("height", "800px");
@@ -77,11 +121,15 @@ function update(source) {
       links = tree.links(nodes);
 
   // Normalize for fixed-depth.
-  nodes.forEach(function(d) { d.y = d.depth * 180; });
+  nodes.forEach(function(d) {
+    d.y = d.depth * 180;
+  });
 
   // Update the nodes…
   var node = svg.selectAll("g.node")
-      .data(nodes, function(d) { return d.id || (d.id = ++i); });
+      .data(nodes, function(d) {
+        return d.id || (d.id = ++i);
+      });
 
   // Enter any new nodes at the parent's previous position.
   var nodeEnter = node.enter().append("g")
@@ -93,11 +141,26 @@ function update(source) {
       .attr("r", 1e-6)
       .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
 
+/*  nodeEnter.append("rect")
+      .attr("x", function(d) {
+        return d.children || d._children ? -10 : 10;
+      })
+      .attr("y", 0)
+      .attr("height", 16)
+      .attr("width", 100)
+      .on("click", click);*/
+
   nodeEnter.append("text")
-      .attr("x", function(d) { return d.children || d._children ? -10 : 10; })
-      .attr("dy", ".35em")
-      .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
-      .text(function(d) { return d.name; })
+      .attr("x", function(d) {
+        return d.children || d._children ? -10 : 10;
+      })
+      .attr("y", 16)
+      .attr("text-anchor", function(d) {
+        return d.children || d._children ? "end" : "start";
+      })
+      .html(function(d) {
+        return  ('<b>'+d.isfol ? d.isfol+'</b> ' : '')+d.name;
+      })
       .style("fill-opacity", 1e-6);
 
   // Transition nodes to their new position.
@@ -158,15 +221,34 @@ function update(source) {
 }
 
 // Toggle children on click.
-function click(d) {
-  if (d.children) {
-    d._children = d.children;
-    d.children = null;
-  } else {
-    d.children = d._children;
-    d._children = null;
-  }
-  update(d);
+function click(node) {
+
+    if (node.children) {
+      node._children = node.children;
+      node.children = null;
+    } else {
+      node.children = node._children;
+      node._children = null;
+    }
+
+    if(!node.children && !node._children) {
+
+      var url = baseUrl + (node.level+1)+"/"+node.isfol;
+
+      $.ajax({
+        url: url,
+        async: false,
+        dataType: 'json',
+        success: function(json) {
+          node.children = reformatJSON(json);
+        }
+      });
+
+      console.log('loading children',url,  node)
+    }
+
+
+    update(node);
 }
 
 </script>
