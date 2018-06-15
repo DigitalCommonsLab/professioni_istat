@@ -62,7 +62,7 @@ var baseUrl = "http://api-test.smartcommunitylab.it/t/sco.cartella/isfol/1.0.0/i
 
 var margin = {top: 20, right: 120, bottom: 20, left: 120},
     width = 1280 - margin.right - margin.left,
-    height = 800 - margin.top - margin.bottom;
+    height = 500 - margin.top - margin.bottom;
 
 var idCount = 0,
     duration = 750,
@@ -109,7 +109,7 @@ function reformatJSON(json) {
   }
   return ret;
 }
-
+/*
 ///FIRST LOADING CHILDREN OF ROOT
 d3.json(baseUrl+"1", function(error, json) {
   if (error) throw error;
@@ -130,7 +130,7 @@ d3.json(baseUrl+"1", function(error, json) {
 
   update(dataRoot);
 
-});
+});*/
 
 function update(source, root) {
 
@@ -266,7 +266,7 @@ function click(node) {
 function urlLevelByIsfol(isfol) {
   var n = isfol.split('.');
   var url = baseUrl +(n.length+1)+"/"+isfol;
-  console.log(isfol, url)
+  //console.log(isfol, url)
   return url;
 }
 
@@ -294,7 +294,9 @@ $.when(
 
 var data = {
   id: 1,
-  level: 0,
+  level: 1,
+  x0: height / 2,
+  y0: 0,
   name: "root",
   children: []
 };
@@ -302,11 +304,11 @@ var data = {
   function fillTree(d) {
     
     if(levels[d.level]){
-      d.children = levels[d.level];
+      d.children = levels[ d.level-1 ];
       d.children.forEach(fillTree);
     }
 
-    console.log('fillTree',d)
+
   }
 
   fillTree(data);
