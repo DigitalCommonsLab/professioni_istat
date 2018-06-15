@@ -298,24 +298,22 @@ var data = {
   x0: height / 2,
   y0: 0,
   name: "root",
-  children: []
+  children: levels[0]
 };
 
   function fillTree(d) {
-    
+    //console.log(d)
     if(levels[d.level]){
-      d.children = levels[ d.level-1 ];
+      d.children = levels[ d.level+1 ];
       d.children.forEach(fillTree);
     }
-
-
   }
 
   fillTree(data);
 
-console.log('buildTreeByIsfol', data)
+  console.log('buildTreeByIsfol', data)
 
-  return cb(data);
+  update(data, data);
 
 });
 
@@ -324,11 +322,7 @@ console.log('buildTreeByIsfol', data)
 $('#selectId').on('change', function (e) {
   var isfol = $(this).val();
 
-  buildTreeByIsfol(isfol, function(data) {
-  
-    update(data, data);
-  
-  });
+  buildTreeByIsfol(isfol);
 
 })
 
