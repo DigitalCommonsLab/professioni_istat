@@ -54,6 +54,7 @@
 </div>
 
 <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script>
+<script src="https://unpkg.com/underscore@1.9.1/underscore.js"></script>
 <script src="https://unpkg.com/d3@3.5.17/d3.min.js"></script>
 <script>
 
@@ -269,80 +270,64 @@ function urlLevelByIsfol(isfol) {
   return url;
 }
 
-function buildTreeByIsfol(isfol) {
+function buildTreeByIsfol(isfol, cb) {
 
 var n = isfol.split('.'),
     level1 = n[0],
     level2 = [n[0],n[1]].join('.'),
     level3 = [n[0],n[1],n[2]].join('.'),
-    level4 = [n[0],n[1],n[2]].join('.'),
-    level5 = [n[0],n[1],n[2],n[3]].join('.');
+    level4 = [n[0],n[1],n[2]].join('.');
 
 $.when(
   $.getJSON(urlLevelByIsfol(level1)),
   $.getJSON(urlLevelByIsfol(level2)),
   $.getJSON(urlLevelByIsfol(level3)),
   $.getJSON(urlLevelByIsfol(level4)),
-).then(function(a) {
-/*  var level1 = arguments[0][0],
-      level2 = arguments[1][0],
-      level3 = arguments[2][0],
-      level4 = arguments[3][0],
-      level5 = arguments[4][0];*/
+).then(function(l1,l2,l3,l4) {
 
-  console.log('then',arguments);//level1,level2,level3,level4,level5)
+  var levels = [
+      reformatJSON(l1[0]),
+      reformatJSON(l2[0]),
+      reformatJSON(l3[0]),
+      reformatJSON(l4[0])
+    ]
+
+var data = {
+  id: 1,
+  level: 0,
+  name: "root",
+  children: []
+};
+
+  function fillTree(d) {
+    
+    if(levels[d.level]){
+      d.children = levels[d.level];
+      d.children.forEach(fillTree);
+    }
+
+    console.log('fillTree',d)
+  }
+
+  fillTree(data);
+
+console.log('buildTreeByIsfol', data)
+
+  return cb(data);
 
 });
 
-var level = {
-  id:"",
-  isfol:"",
-  level:"4",
-  name: "444",
-  desc: "omqosmqsmqsmiq",
-  children: [
-  ]
-};
-
-//
-var data = {
-  id:"",
-  isfol:"",
-  level:"1",
-  name: "111",
-  desc: "ededejdhjdjaae dhjada",
-  children: [
-    {
-      id:"",
-      isfol:"",
-      level:"2",
-      name: "222",
-      desc: "ahq6an6qhanq6hanqhnah",
-      children: [
-        {
-          id:"",
-          isfol:"",
-          level:"3",
-          name: "333",
-          desc: "kksnwisuosmqsioqs",
-          children: [
-            
-          ]
-        }
-      ]
-    }
-  ]
-};
-
-    return data;
 }
 
 $('#selectId').on('change', function (e) {
   var isfol = $(this).val();
 
-  var data = buildTreeByIsfol(isfol);
+  buildTreeByIsfol(isfol, function(data) {
+  
+    update(data, data);
+  
+  });
 
-  update(data, data);
 })
 
 </script>
