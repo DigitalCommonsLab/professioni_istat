@@ -50,9 +50,10 @@ var margin = {top: 20, right: 120, bottom: 20, left: 120},
     width = 1280 - margin.right - margin.left,
     height = 800 - margin.top - margin.bottom;
 
-var i = 0,
+var idCount = 0,
     duration = 750,
-    root = {
+    dataRoot = {
+      id: 1,
       name: "root",
       children: null
     };
@@ -96,33 +97,31 @@ function reformatJSON(json) {
 }
 
 ///FIRST LOADING CHILDREN OF ROOT
-  d3.json(baseUrl+"1", function(error, json) {
-    if (error) throw error;
+d3.json(baseUrl+"1", function(error, json) {
+  if (error) throw error;
 
-    root.children = reformatJSON(json);
-    root.x0 = height / 2;
-    root.y0 = 0;
+  dataRoot.children = reformatJSON(json);
+  dataRoot.x0 = height / 2;
+  dataRoot.y0 = 0;
 
-    function collapse(d) {
-      if (d.children) {
-        d._children = d.children;
-        d._children.forEach(collapse);
-        d.children = null;
-      }
+  function collapse(d) {
+    if (d.children) {
+      d._children = d.children;
+      d._children.forEach(collapse);
+      d.children = null;
     }
+  }
 
-    root.children.forEach(collapse);
+  dataRoot.children.forEach(collapse);
 
-    update(root);
+  update(dataRoot);
 
-  });
-
-d3.select(self.frameElement).style("height", "800px");
+});
 
 function update(source) {
 
   // Compute the new tree layout.
-  var nodes = tree.nodes(root).reverse(),
+  var nodes = tree.nodes(dataRoot).reverse(),
       links = tree.links(nodes);
 
   // Normalize for fixed-depth.
@@ -133,7 +132,7 @@ function update(source) {
   // Update the nodes…
   var node = svg.selectAll("g.node")
       .data(nodes, function(d) {
-        return d.id || (d.id = ++i);
+        return d.id || (d.id = ++idCount);
       });
 
   // Enter any new nodes at the parent's previous position.
@@ -185,7 +184,9 @@ function update(source) {
 
   // Update the links…
   var link = svg.selectAll("path.link")
-      .data(links, function(d) { return d.target.id; });
+      .data(links, function(d) {
+        return d.target.id;
+      });
 
   // Enter any new links at the parent's previous position.
   link.enter().insert("path", "g")
@@ -219,8 +220,6 @@ function update(source) {
 // Toggle children on click.
 function click(node) {
 
-  console.log(node);
-
   if(node.children) {
     node._children = node.children;
     node.children = null;
@@ -235,17 +234,16 @@ function click(node) {
 
     $.ajax({
       url: url,
-      //async: false,
+      async: false,
       dataType: 'json',
       success: function(json) {
         node.children = reformatJSON(json);
-        update(node);
+        //update(node);
       }
     });
 
     console.log('loading children', node.children)
   }
-
 
   update(node);
 }
