@@ -66,7 +66,7 @@ var svg = d3.select("#tree").append("svg")
  .append("g")
  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-function update(source) {
+function update(source,p) {
   
   svg.selectAll("*").remove();
 
@@ -77,13 +77,13 @@ function update(source) {
   // Normalize for fixed-depth.
   nodes.forEach(function(d) {
     d.y = d.depth * 180;
-    d.x = _.shuffle(_.range(50,height,10)).pop();
+    //d.x = _.shuffle(_.range(50,height,10)).pop();
   });
 
   // Declare the nodes
   var node = svg.selectAll("g.node")
    .data(nodes, function(d) {
-      return d.id || (d.id = ++idCount);
+      return d.id;// || (d.id = ++idCount);
   });
 
   // Enter the nodes.
@@ -145,10 +145,6 @@ function reformatJSON(json) {
     //descrizione, id
     o.level = o.id.split('.').length;
     //delete o.id;
-    
-    //o.id = (o.level>1 ? o.level+'.' : '') + o.id;
-  
-    //console.log('REFOM',o)
     o.children = null;
     ret.push(o);
   }
@@ -218,14 +214,14 @@ function buildTreeById(id, cb) {
     //droot.children = dataLevels[0];
 
     function fillTree(d, p) {
-      if(dataLevels[ d.level ] && !d.children) {
-        
-        d.parent = p;
-        
-        console.log(d.id, 'parent '+(p && p.id), getIdParent(d.id) )
+      if(dataLevels[ d.level ]) {
 
-        if(true){//p && p.id === getIdParent(d.id)) {
+        //console.log(d.id, 'parent:'+(p && p.id), getIdParent(d.id) )
+        //
+        //console.log(dataLevels[ d.level ][0].id)
 
+        if(d.id === getIdParent(dataLevels[ d.level ][0].id)) {
+          //d.parent = p;
           d.children = dataLevels[ d.level ];
           d.children.forEach(function(child) {
               fillTree(child, d);
@@ -235,40 +231,40 @@ function buildTreeById(id, cb) {
       }
     }
 
-    fillTree(data, null);
+    fillTree(data, {id:'0'});
     update(data);
 
   /*update({
+    "id":"1",
     "name": "Top Level",
-    "parent": "null",
     "children": [
       {
+        "id":"2",
         "name": "Level 2: A",
-        "parent": "Top Level",
         "children": [
           {
+            "id":"3",
             "name": "Son of A",
-            "parent": "Level 2: A",
             "children": [
               {
-                "name": "Son of B",
-                "parent": "Son of A"
+                "id":"4",
+                "name": "Son of B"
               },
               {
-                "name": "Daughter of B",
-                "parent": "Son of A"
+                "id":"5",
+                "name": "Daughter of B"
               }
             ]
           },
           {
-            "name": "Daughter of A",
-            "parent": "Level 2: A"
+            "id":"6",
+            "name": "Daughter of A"
           }
         ]
       },
       {
-        "name": "Level 2: B",
-        "parent": "Top Level"
+        "id":"7",
+        "name": "Level 2: B"
       }
     ]
   });//*/
@@ -283,7 +279,7 @@ $('#selectId').on('change', function (e) {
   buildTreeById(id);
 
 })
-.val('3.1.3.4.0').trigger('change')
+.val('3.1.3.4.0').trigger('change');
 
 </script>
 </body></html>
