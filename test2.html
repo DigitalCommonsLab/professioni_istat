@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style>
-body {
+body,html {
   margin: 0;
   padding: 0
 }
@@ -28,7 +28,7 @@ body {
   position:absolute;
   left: 0;
   right: 0;
-  top: 0;
+  top: 20px;
   bottom: 0;
   border: 1px solid blue
 }
@@ -56,8 +56,10 @@ var baseUrl = "http://api-test.smartcommunitylab.it/t/sco.cartella/isfol/1.0.0/i
 
 // ************** Generate the tree diagram  *****************
 var $tree = $('#tree'),
-   margin = {top: 0, right: 50,left: 50, bottom: 0}, 
-   width = $tree.outerWidth() - margin.right + margin.left,
+    vMargin = 40,
+    hMargin = 80,
+   margin = {top: vMargin, right: hMargin, left: hMargin, bottom: vMargin}, 
+   width = $tree.outerWidth() - margin.right - margin.left,
    height = $tree.outerHeight() - margin.top - margin.bottom,
    circleRadius = 10,
    numLevels = 5;
