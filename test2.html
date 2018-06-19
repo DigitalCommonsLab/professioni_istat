@@ -4,6 +4,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style>
+body {
+  margin: 0;
+  padding: 0
+}
 .node circle {
   fill: #fff;
   stroke: steelblue;
@@ -21,6 +25,11 @@
 }
 
 #tree {
+  position:absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
   border: 1px solid blue
 }
 </style>
@@ -46,9 +55,12 @@
 var baseUrl = "http://api-test.smartcommunitylab.it/t/sco.cartella/isfol/1.0.0/istatLevel";
 
 // ************** Generate the tree diagram  *****************
-var margin = {top: 20, right: 120, bottom: 20, left: 120},
- width = 960 - margin.right - margin.left,
- height = 500 - margin.top - margin.bottom;
+var $tree = $('#tree'),
+   margin = {top: 0, right: 50,left: 50, bottom: 0}, 
+   width = $tree.outerWidth() - margin.right + margin.left,
+   height = $tree.outerHeight() - margin.top - margin.bottom,
+   circleRadius = 10,
+   numLevels = 5;
  
 var idCount = 0;
 
@@ -76,8 +88,9 @@ function update(source,p) {
 
   // Normalize for fixed-depth.
   nodes.forEach(function(d) {
-    d.y = d.depth * 180;
+    d.y = d.depth * (width/numLevels)// - margin.right;
     //d.x = _.shuffle(_.range(50,height,10)).pop();
+    d.x += 40;
   });
 
   // Declare the nodes
@@ -94,20 +107,20 @@ function update(source,p) {
   });
 
   nodeEnter.append("circle")
-   .attr("r", 10)
+   .attr("r", circleRadius)
    .style("fill", "#fff");
 
   nodeEnter.append("text")
    .attr("x", function(d) {
-      return d.children || d._children ? -13 : 13;
+      return d.children || d._children ? -20 : 20;
     })
    .attr("dy", ".35em")
    .attr("text-anchor", function(d) { 
       return d.children || d._children ? "end" : "start";
     })
    .text(function(d) {
-      return d.id;
-      //return d.name;
+      return d.id+': '+d.name;
+      //return ;
     })
    .style("fill-opacity", 1);
 
