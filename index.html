@@ -8,14 +8,19 @@ body,html {
   margin: 0;
   padding: 0
 }
+
 .node circle {
   fill: #fff;
   stroke: steelblue;
   stroke-width: 3px;
 }
+.node.highlight circle {
+  fill: steelblue;
+}
 
 .node text {
   font: 12px sans-serif;
+  text-shadow: 0 0 2px #fff;
 }
 
 .link {
@@ -24,7 +29,7 @@ body,html {
   stroke-width: 2px;
 }
 
-.link.highlighted {
+.link.highlight {
   stroke: steelblue;
   stroke-width:10px;
 }
@@ -59,7 +64,22 @@ body,html {
 
 var baseUrl = "https://api-test.smartcommunitylab.it/t/sco.cartella/isfol/1.0.0/istatLevel";
 
-// ************** Generate the tree diagram  *****************
+
+d3.selection.prototype.moveToFront = function() {  
+      return this.each(function(){
+        this.parentNode.appendChild(this);
+      });
+    };
+    d3.selection.prototype.moveToBack = function() {  
+        return this.each(function() { 
+            var firstChild = this.parentNode.firstChild; 
+            if (firstChild) { 
+                this.parentNode.insertBefore(this, firstChild); 
+            } 
+        });
+    };
+    
+    
 var $tree = $('#tree'),
     vMargin = 0,
     hMargin = 80,
@@ -85,7 +105,7 @@ var svg = d3.select("#tree").append("svg")
  .append("g")
  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-function update(source,p) {
+function update(source, code) {
   
   svg.selectAll("*").remove();
 
@@ -106,14 +126,21 @@ function update(source,p) {
 
   // Enter the nodes.
   var nodeEnter = node.enter().append("g")
-   .attr("class", "node")
    .attr("transform", function(d) { 
-      return "translate(" + d.y + "," + d.x + ")";
-  });
+        return "translate(" + d.y + "," + d.x + ")";
+    })
+   .attr("class", function(d) {
+    
+    if( d.children || 
+       (d.level === 4 && getIdParent(code) === d.id)
+       )
+      return "node highlight";
+    else
+      return "node";   
+   });
 
   nodeEnter.append("circle")
-   .attr("r", circleRadius)
-   .style("fill", "#fff");
+   .attr("r", circleRadius);
 
   nodeEnter.append("text")
    .attr("x", function(d) {
@@ -125,8 +152,7 @@ function update(source,p) {
     })
    .text(function(d) {
       return d.id+': '+d.name;
-    })
-   .style("fill-opacity", 1);
+    });
 
   // Declare the links.
   var link = svg.selectAll("path.link")
@@ -137,14 +163,18 @@ function update(source,p) {
   // Enter the links.
   link.enter().insert("path", "g")
    .attr("class", function(d) {
-    return "link"+ (linkIsSelected(d)?' highlighted':'');
+
+    if( d.target.children || 
+       (d.target.level === 4 && getIdParent(code) === d.target.id)
+       )
+      return "link highlight";
+    else
+      return "link";
    })
    .attr("d", diagonal);
-}
 
-function linkIsSelected(link, id) {
-  console.log(link)
-  return (!!link.target.children)
+   svg.selectAll(".highlight").moveToFront();
+
 }
 
 function reformatJSON(json) {
@@ -161,7 +191,7 @@ function reformatJSON(json) {
     o.id = ""+o.id;
     delete o.parent;
     //PATCH API FORMATS
-    
+
     o.name = o['nome'];
     delete o['nome'];
     o.desc = o['descrizione'];
@@ -176,18 +206,8 @@ function reformatJSON(json) {
   return ret;
 }
 
-function urlLevelById(id) {
-  id = id || "";
-  var url = baseUrl;
-
-  /*if(id.indexOf('.')===-1)
-    url += "";
-  else  */
-  url += (id ? (id.split('.').length+1)+"/"+id : '1');
-
-  //console.log('DATALEVELS URLS',id, url);
-
-  return url;
+function urlLevelByCode(code) {
+  return baseUrl + (code ? (code.split('.').length+1)+"/"+code : '1');
 }
 
 function getIdParent(id) {
@@ -198,21 +218,21 @@ function getIdParent(id) {
   return n.join('.');
 }
 
-function buildTreeById(id, cb) {
+function buildTreeByCode(code, cb) {
 
-  console.log('buildTreeById: ', id)
+  console.log('buildTreeByCode: ', code)
 
-  var n = id.split('.'),
+  var n = code.split('.'),
       levelId1 = "",
       levelId2 =  n[0],
       levelId3 = [n[0],n[1]].join('.'),
       levelId4 = [n[0],n[1],n[2]].join('.');
 
   $.when(
-    $.getJSON(urlLevelById(levelId1)),
-    $.getJSON(urlLevelById(levelId2)),
-    $.getJSON(urlLevelById(levelId3)),
-    $.getJSON(urlLevelById(levelId4)),
+    $.getJSON(urlLevelByCode(levelId1)),
+    $.getJSON(urlLevelByCode(levelId2)),
+    $.getJSON(urlLevelByCode(levelId3)),
+    $.getJSON(urlLevelByCode(levelId4)),
   ).then(function(l1,l2,l3,l4) {
 
     var dataLevels = [
@@ -233,30 +253,22 @@ function buildTreeById(id, cb) {
       children: null
     };
 
-    //var droot = _.clone(data);    
-    //data.children = dataLevels[0];
-    //droot.children = dataLevels[0];
-
     function fillTree(d, p) {
-      if(dataLevels[ d.level ]) {
+    if(dataLevels[ d.level ] && 
+       getIdParent(dataLevels[ d.level ][0].id) === d.id) {
 
-        //console.log(d.id, 'parent:'+(p && p.id), getIdParent(d.id) )
-        //
-        //console.log(dataLevels[ d.level ][0].id)
+        d.children = dataLevels[ d.level ];
 
-        if(d.id === getIdParent(dataLevels[ d.level ][0].id)) {
-          //d.parent = p;
-          d.children = dataLevels[ d.level ];
-          d.children.forEach(function(child) {
-              fillTree(child, d);
-          });
+        d.children.forEach(function(child) {
+            fillTree(child, d);
+        });
 
-        }
       }
     }
 
     fillTree(data, {id:'0'});
-    update(data, id);
+
+    update(data, code);
 
   /*update({
     "id":"1",
@@ -298,11 +310,12 @@ function buildTreeById(id, cb) {
 }
 
 $('#selectId').on('change', function (e) {
-  var id = $(this).val();
+  var code = $(this).val();
 
-  buildTreeById(id);
+  buildTreeByCode(code);
+
 })
-.val($('#selectId > option').val()).trigger('change');
+.val($('#selectId > option:eq(1)').val()).trigger('change');
 
 </script>
 </body>
