@@ -6,6 +6,9 @@ html {
 }
 
 /* SVG */
+.node {
+	cursor: pointer;
+}
 .node circle {
   fill: #fff;
   stroke: steelblue;
@@ -48,8 +51,8 @@ html {
 div.tooltip { 
     position: absolute;     
     text-align: center;     
-    width: 300px;          
-    height: 150px;         
+    width: 500px;          
+    height: auto;         
     padding: 2px;       
     font: 12px sans-serif;    
     background: #fff;

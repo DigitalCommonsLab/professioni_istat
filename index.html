@@ -21,25 +21,34 @@
 <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script>
 <script src="https://unpkg.com/underscore@1.9.1/underscore.js"></script>
 <script src="https://unpkg.com/d3@3.5.17/d3.min.js"></script>
+<script src="https://unpkg.com/handlebars@4.0.11/dist/handlebars.min.js"></script>
 <script>
 
 var baseUrl = "https://api-test.smartcommunitylab.it/t/sco.cartella/isfol/1.0.0/istatLevel";
 
+$(function() {
 
 d3.selection.prototype.moveToFront = function() {  
-      return this.each(function(){
-        this.parentNode.appendChild(this);
-      });
+  return this.each(function(){
+    this.parentNode.appendChild(this);
+  });
+};
+d3.selection.prototype.moveToBack = function() {  
+    return this.each(function() { 
+        var firstChild = this.parentNode.firstChild; 
+        if (firstChild) { 
+            this.parentNode.insertBefore(this, firstChild); 
+        } 
+    });
+};
+  
+var tmpls = {
+      node_tooltip: Handlebars.compile($('#tmpl_tooltip').html())
     };
-    d3.selection.prototype.moveToBack = function() {  
-        return this.each(function() { 
-            var firstChild = this.parentNode.firstChild; 
-            if (firstChild) { 
-                this.parentNode.insertBefore(this, firstChild); 
-            } 
-        });
-    };
-    
+
+var tooltip = d3.select("body").append("div") 
+  .attr("class", "tooltip")
+  .style("opacity", 0);
 
 var $tree = $('#tree'),
     vMargin = 0,
@@ -48,9 +57,12 @@ var $tree = $('#tree'),
     width = $tree.outerWidth() - margin.right - margin.left,
     height = $tree.outerHeight() - margin.top - margin.bottom,
     circleRadius = 10,
+    timeDuration = 100,
     numLevels = 5;
  
-var idCounter = 0;
+var idCounter = 0,
+    tooltipOffsetX = -10,
+    tooltipOffsetY = 0;
 
 var tree = d3.layout.tree()
  .size([height, width]);
@@ -96,7 +108,21 @@ function draw(source, code) {
         else
           return "node";   
       }
-   });
+   })
+   .on("mouseover", function(d) {    
+              tooltip.transition()
+                  .duration(timeDuration)
+                  .style("opacity", 1);
+
+              tooltip.html(tmpls.node_tooltip(d))  
+                  .style("left", (d3.event.pageX - tooltipOffsetX) + "px")   
+                  .style("top", (d3.event.pageY - tooltipOffsetY) + "px");  
+              })          
+          .on("mouseout", function(d) {   
+              tooltip.transition()    
+                  .duration(timeDuration)    
+                  .style("opacity", 0); 
+          });
 
   nodeEnter.append("circle")
     .attr("r", circleRadius);
@@ -273,6 +299,14 @@ $('#selectId').on('change', function (e) {
 })
 .val($('#selectId > option:eq(1)').val()).trigger('change');
 
+});
+
 </script>
+
+<script id="tmpl_tooltip" type="text/x-handlebars-template">
+<b>{{#if name}} {{name}} {{else}} <i>unamed</i> {{/if}}</b>
+<p>{{desc}}</p>
+</script>
+
 </body>
 </html>
