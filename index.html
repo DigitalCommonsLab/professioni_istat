@@ -50,7 +50,7 @@ var $tree = $('#tree'),
     circleRadius = 10,
     numLevels = 5;
  
-var idCount = 0;
+var idCounter = 0;
 
 var tree = d3.layout.tree()
  .size([height, width]);
@@ -79,7 +79,7 @@ function draw(source, code) {
 
   var node = svg.selectAll("g.node")
    .data(nodes, function(d) {
-      return d.id;// || (d.id = ++idCount);
+      return d.id;// || (d.id = ++idCounter);
   });
 
   var nodeEnter = node.enter().append("g")
@@ -206,8 +206,6 @@ function buildTreeByCode(code, cb) {
     var data = {
       id: '0',
       level: 0,
-      x0: height / 2,
-      y0: 0,
       name: "",
       children: null
     };
@@ -218,7 +216,6 @@ function buildTreeByCode(code, cb) {
       {
 
           d.children = dataLevels[ d.level ];
-
           d.children.forEach(function(child) {
               fillTree(child, d);
           });
