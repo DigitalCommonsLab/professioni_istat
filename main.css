@@ -1,33 +1,48 @@
-  .node {
-    cursor: pointer;
-  }
 
-  .node circle {
-    fill: #fff;
-    stroke: steelblue;
-    stroke-width: 1.5px;
-  }
+body,
+html {
+  margin: 0;
+  padding: 0
+}
 
-  .found {
-    fill: #ff4136;
-    stroke: #ff4136;
-  }
-  .node text {
-    font: 10px sans-serif;
-  }
+/* SVG */
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 3px;
+}
+.node.highlight circle {
+  fill: steelblue;
+}
 
-  .link {
-    fill: none;
-    stroke: #ccc;
-    stroke-width: 1.5px;
-  }
-  /*Just to ensure the select2 box is "glued" to the top*/
-  .search {
-    width: 100%;
-  }
+.node text {
+  font: 10px sans-serif;
+  text-shadow: 0 0 2px #fff;
+  text-transform: lowercase;
+}
+
+.node.highlight text {
+  font-size: 12px;
+}
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 2px;
+}
+
+.link.highlight {
+  stroke: steelblue;
+  stroke-width: 6px;
+}
 
 #tree {
-	border: 1px solid blue
+  position:absolute;
+  left: 0;
+  right: 0;
+  top: 20px;
+  bottom: 0;
+  border: 1px solid blue
 }
 
 div.tooltip { 

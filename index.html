@@ -2,52 +2,13 @@
 <!-- saved from url=(0041)https://bl.ocks.org/mbostock/raw/4339083/ -->
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<style>
-body,html {
-  margin: 0;
-  padding: 0
-}
-
-.node circle {
-  fill: #fff;
-  stroke: steelblue;
-  stroke-width: 3px;
-}
-.node.highlight circle {
-  fill: steelblue;
-}
-
-.node text {
-  font: 12px sans-serif;
-  text-shadow: 0 0 2px #fff;
-}
-
-.link {
-  fill: none;
-  stroke: #ccc;
-  stroke-width: 2px;
-}
-
-.link.highlight {
-  stroke: steelblue;
-  stroke-width:10px;
-}
-
-#tree {
-  position:absolute;
-  left: 0;
-  right: 0;
-  top: 20px;
-  bottom: 0;
-  border: 1px solid blue
-}
-</style>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link href="main.css" rel="stylesheet">
 </head>
 <body>
 
+<label>Professione:</label>
 <select id="selectId">
-  <label>Professione:</label>
   <option value="2.2.2.2.0">2.2.2.2.0 - Cartografi e fotogrammetristi</option>
   <option value="3.1.3.4.0">3.1.3.4.0 - Tecnici elettronici</option>
   <option value="6.2.1.2.0">6.2.1.2.0 - Saldatori e tagliatori a fiamma</option>
@@ -79,7 +40,7 @@ d3.selection.prototype.moveToFront = function() {
         });
     };
     
-    
+
 var $tree = $('#tree'),
     vMargin = 0,
     hMargin = 80,
@@ -115,7 +76,7 @@ function update(source, code) {
 
   // Normalize for fixed-depth.
   nodes.forEach(function(d) {
-    d.y = d.depth * (width/numLevels)// - margin.right;
+    d.y = d.depth * (width/numLevels);
   });
 
   // Declare the nodes
@@ -143,12 +104,14 @@ function update(source, code) {
    .attr("r", circleRadius);
 
   nodeEnter.append("text")
-   .attr("x", function(d) {
-      return d.children || d._children ? -20 : 20;
-    })
-   .attr("dy", ".35em")
-   .attr("text-anchor", function(d) { 
-      return d.children || d._children ? "end" : "start";
+    .attr({
+      "dy": ".35em",
+      "x": function(d) {
+        return d.children || d._children ? -20 : 20;
+      },
+      "text-anchor": function(d) { 
+        return d.children || d._children ? "end" : "start";
+      }
     })
    .text(function(d) {
       return d.id+': '+d.name;
@@ -162,6 +125,7 @@ function update(source, code) {
 
   // Enter the links.
   link.enter().insert("path", "g")
+   .attr("d", diagonal)
    .attr("class", function(d) {
 
     if( d.target.children || 
@@ -170,11 +134,9 @@ function update(source, code) {
       return "link highlight";
     else
       return "link";
-   })
-   .attr("d", diagonal);
+   });
 
    svg.selectAll(".highlight").moveToFront();
-
 }
 
 function reformatJSON(json) {
@@ -249,7 +211,7 @@ function buildTreeByCode(code, cb) {
       level: 0,
       x0: height / 2,
       y0: 0,
-      name: "root",
+      name: "",
       children: null
     };
 
