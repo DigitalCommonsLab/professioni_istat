@@ -66,42 +66,40 @@ var svg = d3.select("#tree").append("svg")
  .append("g")
  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-function update(source, code) {
+function draw(source, code) {
   
   svg.selectAll("*").remove();
 
-  // Compute the new tree layout.
   var nodes = tree.nodes(source).reverse(),
-   links = tree.links(nodes);
+      links = tree.links(nodes);
 
-  // Normalize for fixed-depth.
   nodes.forEach(function(d) {
     d.y = d.depth * (width/numLevels);
   });
 
-  // Declare the nodes
   var node = svg.selectAll("g.node")
    .data(nodes, function(d) {
       return d.id;// || (d.id = ++idCount);
   });
 
-  // Enter the nodes.
   var nodeEnter = node.enter().append("g")
-   .attr("transform", function(d) { 
-        return "translate(" + d.y + "," + d.x + ")";
-    })
-   .attr("class", function(d) {
-    
-    if( d.children || 
-       (d.level === 4 && getIdParent(code) === d.id)
-       )
-      return "node highlight";
-    else
-      return "node";   
+   .attr({
+      "transform": function(d) { 
+          return "translate(" + d.y + "," + d.x + ")";
+      },
+      "class": function(d) {
+      
+        if( d.children || 
+           (d.level === 4 && getIdParent(code) === d.id)
+           )
+          return "node highlight";
+        else
+          return "node";   
+      }
    });
 
   nodeEnter.append("circle")
-   .attr("r", circleRadius);
+    .attr("r", circleRadius);
 
   nodeEnter.append("text")
     .attr({
@@ -113,27 +111,26 @@ function update(source, code) {
         return d.children || d._children ? "end" : "start";
       }
     })
-   .text(function(d) {
+    .text(function(d) {
       return d.id+': '+d.name;
     });
 
-  // Declare the links.
   var link = svg.selectAll("path.link")
-   .data(links, function(d) {
-      return d.target.id;
-  });
+    .data(links, function(d) {
+        return d.target.id;
+    });
 
-  // Enter the links.
   link.enter().insert("path", "g")
-   .attr("d", diagonal)
-   .attr("class", function(d) {
-
-    if( d.target.children || 
-       (d.target.level === 4 && getIdParent(code) === d.target.id)
-       )
-      return "link highlight";
-    else
-      return "link";
+   .attr({
+    "d": diagonal,
+    "class": function(d) {
+      if( d.target.children || 
+         (d.target.level === 4 && getIdParent(code) === d.target.id)
+         )
+        return "link highlight";
+      else
+        return "link";
+     }
    });
 
    svg.selectAll(".highlight").moveToFront();
@@ -216,23 +213,23 @@ function buildTreeByCode(code, cb) {
     };
 
     function fillTree(d, p) {
-    if(dataLevels[ d.level ] && 
-       getIdParent(dataLevels[ d.level ][0].id) === d.id) {
+      if(dataLevels[ d.level ] && 
+         getIdParent(dataLevels[ d.level ][0].id) === d.id)
+      {
 
-        d.children = dataLevels[ d.level ];
+          d.children = dataLevels[ d.level ];
 
-        d.children.forEach(function(child) {
-            fillTree(child, d);
-        });
-
+          d.children.forEach(function(child) {
+              fillTree(child, d);
+          });
       }
     }
 
     fillTree(data, {id:'0'});
 
-    update(data, code);
+    draw(data, code);
 
-  /*update({
+  /*draw({
     "id":"1",
     "name": "Top Level",
     "children": [
