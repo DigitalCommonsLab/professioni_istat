@@ -90,42 +90,46 @@ function draw(source, code) {
   });
 
   var node = svg.selectAll("g.node")
-   .data(nodes, function(d) {
+  .data(nodes, function(d) {
       return d.id;// || (d.id = ++idCounter);
   });
 
   var nodeEnter = node.enter().append("g")
-   .attr({
-      "transform": function(d) { 
-          return "translate(" + d.y + "," + d.x + ")";
-      },
-      "class": function(d) {
-      
-        if( d.children || 
-           (d.level === 4 && getIdParent(code) === d.id)
-           )
-          return "node highlight";
-        else
-          return "node";   
-      }
-   })
-   .on("mouseover", function(d) {    
-              tooltip.transition()
-                  .duration(timeDuration)
-                  .style("opacity", 1);
-
-              tooltip.html(tmpls.node_tooltip(d))  
-                  .style("left", (d3.event.pageX - tooltipOffsetX) + "px")   
-                  .style("top", (d3.event.pageY - tooltipOffsetY) + "px");  
-              })          
-          .on("mouseout", function(d) {   
-              tooltip.transition()    
-                  .duration(timeDuration)    
-                  .style("opacity", 0); 
-          });
+  .attr({
+    "transform": function(d) { 
+        return "translate(" + d.y + "," + d.x + ")";
+    },
+    "class": function(d) {
+    
+      if( d.children || 
+         (d.level === 4 && getIdParent(code) === d.id)
+         )
+        return "node highlight";
+      else
+        return "node";   
+    }
+  })
+  
 
   nodeEnter.append("circle")
-    .attr("r", circleRadius);
+    .attr("r", circleRadius)
+    .on("mouseover", function(d) {
+      var x = d3.event.pageX,
+          y = d3.event.pageY;
+
+      tooltip.transition()
+          .duration(timeDuration)
+          .style("opacity", 1);
+
+      tooltip.html(tmpls.node_tooltip(d))  
+          .style("left", (x - tooltipOffsetX) + "px")   
+          .style("top", (y - tooltipOffsetY) + "px");  
+    })          
+    .on("mouseout", function(d) {   
+      tooltip.transition()    
+          .duration(timeDuration)    
+          .style("opacity", 0); 
+    });
 
   nodeEnter.append("text")
     .attr({
@@ -304,8 +308,8 @@ $('#selectId').on('change', function (e) {
 </script>
 
 <script id="tmpl_tooltip" type="text/x-handlebars-template">
-<b>{{#if name}} {{name}} {{else}} <i>unamed</i> {{/if}}</b>
-<p>{{desc}}</p>
+<b class="title">{{#if name}} {{name}} {{else}} <i>unamed</i> {{/if}}</b>
+<p class="desc">{{desc}}</p>
 </script>
 
 </body>

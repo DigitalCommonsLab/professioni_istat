@@ -48,9 +48,13 @@ html {
   border: 1px solid blue
 }
 
-div.tooltip { 
+.tooltip .title {
+  text-align: left;
+}
+
+.tooltip { 
     position: absolute;     
-    text-align: center;     
+    text-align: justify;    
     width: 500px;          
     height: auto;         
     padding: 2px;       
