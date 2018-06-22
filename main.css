@@ -41,11 +41,11 @@ html {
 
 #tree {
   position:absolute;
-  left: 0;
-  right: 0;
+  left: 5px;
+  right: 5px;
   top: 20px;
-  bottom: 0;
-  border: 1px solid blue
+  bottom: 5px;
+  border: 1px solid blue;
 }
 
 .tooltip .title {
