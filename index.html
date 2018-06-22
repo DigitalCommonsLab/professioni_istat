@@ -159,8 +159,6 @@ function draw(source, code) {
     "d": diagonal,
     "class": function(d) {
 
-      console.log(d.target.name, getIdParent(code), d.target.id)
-
       if( d.target.children || 
           d.target.id === code ||
          (d.target.level === 5 && getIdParent(code) === d.target.id)
