@@ -26,6 +26,7 @@ html {
 
 .node.highlight text {
   font-size: 12px;
+  font-weight: bold;
 }
 
 .link {
