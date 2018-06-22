@@ -43,7 +43,7 @@ d3.selection.prototype.moveToBack = function() {
         } 
     });
 };
-  
+
 var tmpls = {
 		node_tooltip: Handlebars.compile($('#tmpl_tooltip').html())
 	};
@@ -98,18 +98,19 @@ function draw(source, code) {
 
   var nodeEnter = node.enter().append("g")
 	.attr({
-	"transform": function(d) { 
-	    return "translate(" + d.y + "," + d.x + ")";
-	},
-	"class": function(d) {
-
-	  if( d.children || 
-	     (d.level === 4 && getIdParent(code) === d.id)
-	     )
-	    return "node highlight";
-	  else
-	    return "node";   
-	}
+  	"transform": function(d) { 
+  	    return "translate(" + d.y + "," + d.x + ")";
+  	},
+  	"class": function(d) {
+  
+  	  if( d.children || 
+          d.id === code ||
+  	     (d.level === 5 && getIdParent(code) === d.id)
+  	     )
+  	    return "node highlight";
+  	  else
+  	    return "node";   
+  	}
 	});
   
 
@@ -156,8 +157,12 @@ function draw(source, code) {
    .attr({
     "d": diagonal,
     "class": function(d) {
+
+      console.log(d.target.name, getIdParent(code), d.target.id)
+
       if( d.target.children || 
-         (d.target.level === numLevels && getIdParent(code) === d.target.id)
+          d.target.id === code ||
+         (d.target.level === 5 && getIdParent(code) === d.target.id)
          )
         return "link highlight";
       else
