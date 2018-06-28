@@ -114,12 +114,13 @@ module.exports = {
 			.attr("class", "tooltip")
 			.style("opacity", 0);
 
-		var $tree = $('#tree'),
-			vMargin = 0,
+		self.$tree = $(el);
+
+		var	vMargin = 0,
 			hMargin = 80,
 			margin = {top: vMargin, right: hMargin, left: hMargin, bottom: vMargin}, 
-			width = $tree.outerWidth() - margin.right - margin.left,
-			height = $tree.outerHeight() - margin.top - margin.bottom,
+			width = self.$tree.outerWidth() - margin.right - margin.left,
+			height = self.$tree.outerHeight() - margin.top - margin.bottom,
 			circleRadius = 10,
 			timeDuration = 100,
 			numLevels = 5;
@@ -136,102 +137,102 @@ module.exports = {
 				return [d.y, d.x];
 			});
 
-		var svg = d3.select("#tree").append("svg")
+		var svg = d3.select(el).append("svg")
 			.attr("width", width + margin.right + margin.left)
 			.attr("height", height + margin.top + margin.bottom)
 			.append("g")
 			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+	},
 
-		function draw(source, code) {
-		  
-		  svg.selectAll("*").remove();
 
-		  var nodes = tree.nodes(source).reverse(),
-		      links = tree.links(nodes);
+	draw: function(source, code) {
 
-		  nodes.forEach(function(d) {
-		    d.y = d.depth * (width/(numLevels+1));
-		  });
+		svg.selectAll("*").remove();
 
-		  var node = svg.selectAll("g.node")
-		  .data(nodes, function(d) {
-		      return d.id;// || (d.id = ++idCounter);
-		  });
+		var nodes = tree.nodes(source).reverse(),
+		  links = tree.links(nodes);
 
-		  var nodeEnter = node.enter().append("g")
-			.attr({
-		  	"transform": function(d) { 
-		  	    return "translate(" + d.y + "," + d.x + ")";
-		  	},
-		  	"class": function(d) {
-		  
-		  	  if( d.children || 
-		          d.id === code ||
-		  	     (d.level === 5 && self.getIdParent(code) === d.id)
-		  	     )
-		  	    return "node highlight";
-		  	  else
-		  	    return "node";   
-		  	}
-			});
-		  
+		nodes.forEach(function(d) {
+		d.y = d.depth * (width/(numLevels+1));
+		});
 
-		  nodeEnter.append("circle")
-		    .attr("r", circleRadius)
-		    .on("mouseover", function(d) {
-		      var x = d3.event.pageX,
-		          y = d3.event.pageY;
+		var node = svg.selectAll("g.node")
+		.data(nodes, function(d) {
+		  return d.id;// || (d.id = ++idCounter);
+		});
 
-		      tooltip.transition()
-		          .duration(timeDuration)
-		          .style("opacity", 1);
+		var nodeEnter = node.enter().append("g")
+		.attr({
+			"transform": function(d) { 
+			    return "translate(" + d.y + "," + d.x + ")";
+			},
+			"class": function(d) {
 
-		      tooltip.html(tmpls.node_tooltip(d))  
-		          .style("left", (x - tooltipOffsetX) + "px")   
-		          .style("top", (y - tooltipOffsetY) + "px");  
-		    })          
-		    .on("mouseout", function(d) {   
-		      tooltip.transition()    
-		          .duration(timeDuration)    
-		          .style("opacity", 0); 
-		    });
+			  if( d.children || 
+		      d.id === code ||
+			     (d.level === 5 && self.getIdParent(code) === d.id)
+			     )
+			    return "node highlight";
+			  else
+			    return "node";   
+			}
+		});
 
-		  nodeEnter.append("text")
-		    .attr({
-		      "dy": ".35em",
-		      "x": function(d) {
-		        return d.children || d._children ? -20 : 20;
-		      },
-		      "text-anchor": function(d) { 
-		        return d.children || d._children ? "end" : "start";
-		      }
-		    })
-		    .text(function(d) {
-		      return d.id+': '+d.name;
-		    });
 
-		  var link = svg.selectAll("path.link")
-		    .data(links, function(d) {
-		        return d.target.id;
-		    });
+		nodeEnter.append("circle")
+		.attr("r", circleRadius)
+		.on("mouseover", function(d) {
+			var x = d3.event.pageX,
+				y = d3.event.pageY;
 
-		  link.enter().insert("path", "g")
-		   .attr({
-		    "d": diagonal,
-		    "class": function(d) {
+			tooltip.transition()
+				.duration(timeDuration)
+				.style("opacity", 1)
+				.style("left", (x - tooltipOffsetX) + "px")
+				.style("top", (y - tooltipOffsetY) + "px")
+				.html(tmpls.node_tooltip(d));
+		})          
+		.on("mouseout", function(d) {
+			tooltip.transition()
+				.duration(timeDuration)
+				.style("opacity", 0);
+		});
 
-		      if( d.target.children || 
-		          d.target.id === code ||
-		         (d.target.level === 5 && self.getIdParent(code) === d.target.id)
-		         )
-		        return "link highlight";
-		      else
-		        return "link";
-		     }
-		   });
+		nodeEnter.append("text")
+		.attr({
+			"dy": ".35em",
+			"x": function(d) {
+				return d.children || d._children ? -20 : 20;
+			},
+			"text-anchor": function(d) { 
+				return d.children || d._children ? "end" : "start";
+			}
+		})
+		.text(function(d) {
+		  return d.id+': '+d.name;
+		});
 
-		   svg.selectAll(".highlight").moveToFront();
-		}
+		var link = svg.selectAll("path.link")
+		.data(links, function(d) {
+			return d.target.id;
+		});
+
+		link.enter().insert("path", "g")
+		.attr({
+			"d": diagonal,
+			"class": function(d) {
+
+				if( d.target.children || 
+					d.target.id === code ||
+					(d.target.level === 5 && self.getIdParent(code) === d.target.id)
+					)
+					return "link highlight";
+				else
+					return "link";
+			}
+		});
+
+		svg.selectAll(".highlight").moveToFront();
 	},
 
 	buildTreeByCode: function(code) {
