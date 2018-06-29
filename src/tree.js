@@ -114,6 +114,9 @@ module.exports = {
 
 		self.config = _.defaults(opts, self.config);
 
+		self.onInit = opts && opts.onInit,
+		self.onSelect = opts && opts.onSelect,
+
 		self.tmpls = {
 			node_tooltip: H.compile($('#tmpl_tooltip').html())
 		};
@@ -196,6 +199,9 @@ module.exports = {
 		})
 		.on("mouseout", function(d) {
 			self.tooltip.style("opacity", 0);
+		})
+		.on("click", function(d) {
+			self.onSelect.call(self, d);
 		});
 
 		nodeEnter.append("text")

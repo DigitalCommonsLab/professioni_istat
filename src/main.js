@@ -32,7 +32,10 @@ $(function() {
   window.t = tree.init($tree, {
     baseUrl: baseUrl,
     width: $tree.outerWidth(),
-    height: $tree.outerHeight()
+    height: $tree.outerHeight(),
+    onSelect: function(node) {
+      console.log('onSelect node', node)
+    }
   });
 
   $('#selectId').on('change', function (e) {
