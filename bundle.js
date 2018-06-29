@@ -1,18 +1,3 @@
-(function () {
-  var socket = document.createElement('script')
-  var script = document.createElement('script')
-  socket.setAttribute('src', 'http://localhost:3001/socket.io/socket.io.js')
-  script.type = 'text/javascript'
-
-  socket.onload = function () {
-    document.head.appendChild(script)
-  }
-  script.text = ['window.socket = io("http://localhost:3001");',
-  'socket.on("bundle", function() {',
-  'console.log("livereaload triggered")',
-  'window.location.reload();});'].join('\n')
-  document.head.appendChild(socket)
-}());
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 (function (process,__filename){
 /** vim: et:ts=4:sw=4:sts=4
@@ -37757,12 +37742,14 @@ var $ = jQuery = require('jquery');
 var _ = require('underscore'); 
 var S = require('underscore.string');
 _.mixin({str: S});
-window._ = _;
 var H = require('handlebars');
 var d3 = require('d3');
 var popper = require('popper.js');
 var bt = require('bootstrap');
 require('../node_modules/bootstrap/dist/css/bootstrap.min.css');
+
+window._ = _;
+window.$ = $;
 
 var utils = require('./utils');
 var tree = require('./tree');
@@ -37803,18 +37790,17 @@ $(function() {
 },{"../node_modules/bootstrap/dist/css/bootstrap.min.css":2,"./tree":126,"./utils":127,"bootstrap":3,"d3":6,"handlebars":36,"jquery":37,"popper.js":39,"underscore":123,"underscore.string":77}],126:[function(require,module,exports){
 /*
   original: https://bl.ocks.org/mbostock/4339083
-
  */
 var $ = jQuery = require('jquery');
 var _ = require('underscore'); 
 var S = require('underscore.string');
 _.mixin({str: S});
-window._ = _;
 var H = require('handlebars');
 var d3 = require('d3');
 var utils = require('./utils');
 
 var baseUrlLevels = "https://api-test.smartcommunitylab.it/t/sco.cartella/isfol/1.0.0/istatLevel";
+//var baseUrlLevels = "http://localhost/smartcommunitylab/t/sco.cartella/isfol/1.0.0/istatLevel";
 
 d3.selection.prototype.moveToFront = function() {  
   return this.each(function(){
@@ -37832,28 +37818,32 @@ d3.selection.prototype.moveToBack = function() {
 };
 
 module.exports = {
-  	
-  	tree: null,
+	
+	tree: null,
 
 	onInit: function(e){ console.log('onInit',e); },
-  	onSelect: function(e){ console.log('onClickNode',e); },
+	onSelect: function(e){ console.log('onClickNode',e); },
 
-  	config: {
-  		
-  		urlData: '',
+	config: {
+		
+		urlData: '',
 
-  		width: 960,
+		width: 960,
 		height: 400,
+
+		vMargin: 0,
+		hMargin: 80,
 		margin: {
-			top: 20,
-			right: 120,
-			bottom: 20,
-			left: 120
+			top: 0,		bottom: 0,
+			right: 80,	left: 80
 		},
-		nodeRadius: 6,
+
+		circleRadius: 10,
+		timeDuration: 100,
+		numLevels: 5,
 		tooltipOffsetX: -10,
 		tooltipOffsetY: 0
-  	},
+	},
 
 	reformatJSON: function(json) {
 
@@ -37892,7 +37882,7 @@ module.exports = {
 
 	urlLevelByCode: function(code) {
 		var url = baseUrlLevels + (code ? (code.split('.').length+1)+"/"+code : '1');
-		//console.log(code, url);
+		console.log(code, url);
 		return url;
 	},
 
@@ -37919,49 +37909,43 @@ module.exports = {
 
 		self.$tree = $(el);
 
-		var	vMargin = 0,
-			hMargin = 80,
-			margin = {top: vMargin, right: hMargin, left: hMargin, bottom: vMargin}, 
-			width = self.$tree.outerWidth() - margin.right - margin.left,
-			height = self.$tree.outerHeight() - margin.top - margin.bottom,
-			circleRadius = 10,
-			timeDuration = 100,
-			numLevels = 5;
-		 
-		var idCounter = 0,
-			tooltipOffsetX = -10,
-			tooltipOffsetY = 0;
+		self.width = self.$tree.outerWidth() - self.config.margin.right - self.config.margin.left;
+		self.height = self.$tree.outerHeight() - self.config.margin.top - self.config.margin.bottom;
 
-		var tree = d3.layout.tree()
-			.size([height, width]);
+		idCounter: 0,
 
-		var diagonal = d3.svg.diagonal()
+		self.tree = d3.layout.tree()
+			.size([self.height, self.width]);
+
+		self.diagonal = d3.svg.diagonal()
 			.projection(function(d) {
 				return [d.y, d.x];
 			});
 
 		var svg = d3.select(el).append("svg")
-			.attr("width", width + margin.right + margin.left)
-			.attr("height", height + margin.top + margin.bottom)
+			.attr("width", self.width + self.config.margin.right + self.config.margin.left)
+			.attr("height", self.height + self.config.margin.top + self.config.margin.bottom)
 			.append("g")
-			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+			.attr("transform", "translate(" + self.config.margin.left + "," + self.config.margin.top + ")");
 	},
 
 
 	draw: function(source, code) {
 
+		var self = this;
+
 		svg.selectAll("*").remove();
 
-		var nodes = tree.nodes(source).reverse(),
-		  links = tree.links(nodes);
+		var nodes = self.tree.nodes(source).reverse(),
+		  links = self.tree.links(nodes);
 
 		nodes.forEach(function(d) {
-		d.y = d.depth * (width/(numLevels+1));
+			d.y = d.depth * (self.width/(self.config.numLevels+1));
 		});
 
 		var node = svg.selectAll("g.node")
 		.data(nodes, function(d) {
-		  return d.id;// || (d.id = ++idCounter);
+			return d.id;// || (d.id = ++self.config.idCounter);
 		});
 
 		var nodeEnter = node.enter().append("g")
@@ -37981,23 +37965,22 @@ module.exports = {
 			}
 		});
 
-
 		nodeEnter.append("circle")
-		.attr("r", circleRadius)
+		.attr("r", self.config.circleRadius)
 		.on("mouseover", function(d) {
 			var x = d3.event.pageX,
 				y = d3.event.pageY;
 
 			tooltip.transition()
-				.duration(timeDuration)
+				.duration(self.config.timeDuration)
 				.style("opacity", 1)
-				.style("left", (x - tooltipOffsetX) + "px")
-				.style("top", (y - tooltipOffsetY) + "px")
+				.style("left", (x - self.config.tooltipOffsetX) + "px")
+				.style("top", (y - self.config.tooltipOffsetY) + "px")
 				.html(tmpls.node_tooltip(d));
 		})          
 		.on("mouseout", function(d) {
 			tooltip.transition()
-				.duration(timeDuration)
+				.duration(self.config.timeDuration)
 				.style("opacity", 0);
 		});
 
@@ -38012,7 +37995,7 @@ module.exports = {
 			}
 		})
 		.text(function(d) {
-		  return d.id+': '+d.name;
+			return d.id+': '+d.name;
 		});
 
 		var link = svg.selectAll("path.link")
@@ -38022,7 +38005,7 @@ module.exports = {
 
 		link.enter().insert("path", "g")
 		.attr({
-			"d": diagonal,
+			"d": self.diagonal,
 			"class": function(d) {
 
 				if( d.target.children || 
@@ -38037,6 +38020,10 @@ module.exports = {
 
 		svg.selectAll(".highlight").moveToFront();
 	},
+
+	/*onAjaxError: function(jqXHR, textStatus, errorThrown) {
+		console.log('onError',jqXHR)
+	},*/
 
 	buildTreeByCode: function(code) {
 
@@ -38057,7 +38044,9 @@ module.exports = {
 			$.getJSON(self.urlLevelByCode(levelId3)),
 			$.getJSON(self.urlLevelByCode(levelId4)),
 			$.getJSON(self.urlLevelByCode(levelId5))
-		).then(function(l1,l2,l3,l4,l5) {
+		).then(function(l1, l2, l3, l4, l5) {
+
+			console.log('DATALEVELS', arguments);
 
 			var dataLevels = [
 				self.reformatJSON(l1[0]),
@@ -38067,7 +38056,6 @@ module.exports = {
 				self.reformatJSON(l5[0])
 			];
 
-			console.log('DATALEVELS', dataLevels);
 
 			var data = {
 			  id: '0',
@@ -38080,7 +38068,6 @@ module.exports = {
 			  if(dataLevels[ d.level ] && 
 			     self.getIdParent(dataLevels[ d.level ][0].id) === d.id)
 			  {
-
 			      d.children = dataLevels[ d.level ];
 			      d.children.forEach(function(child) {
 			          fillTree(child, d);
