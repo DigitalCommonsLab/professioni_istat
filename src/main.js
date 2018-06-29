@@ -17,13 +17,10 @@ window.DEBUG_MODE = true;
 
 var utils = require('./utils');
 var tree = require('./tree');
+var table = require('./table');
 
 var baseUrl = "http://api-test.smartcommunitylab.it/t/sco.cartella/isfol/1.0.0/";
 //var baseUrlLevels = "http://localhost/smartcommunitylab/t/sco.cartella/isfol/1.0.0/istatLevel";
-
-var tmpls = {
-  urlData: H.compile(baseUrl+'istatLevel{{level}}/{{id}}')
-};
 
 $(function() {
 
@@ -34,7 +31,12 @@ $(function() {
     width: $tree.outerWidth(),
     height: $tree.outerHeight(),
     onSelect: function(node) {
+      if(node.level!==5) return false;
       console.log('onSelect node', node)
+
+      $.getJSON(baseUrl+'jobsByLevel5/'+node.id, function(json) {
+        console.log('jobsByLevel5',json)
+      });
     }
   });
 

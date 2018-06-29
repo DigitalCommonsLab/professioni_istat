@@ -95,7 +95,7 @@ module.exports = {
 		else
 			url = this.config.baseUrl + 'istatLevel' + (code ? (code.split('.').length+1)+"/"+code : '1');
 
-		console.log(code, url);
+		//console.log(code, url);
 		return url;
 	},
 
@@ -266,7 +266,7 @@ module.exports = {
 			$.getJSON(self.urlLevelByCode(levelId5))
 		).then(function(l1, l2, l3, l4, l5) {
 
-			console.log('DATALEVELS', arguments);
+			//console.log('DATALEVELS', arguments);
 
 			var dataLevels = [
 				self.reformatJSON(l1[0]),
