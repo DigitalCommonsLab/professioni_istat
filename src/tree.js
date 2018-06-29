@@ -118,11 +118,11 @@ module.exports = {
 			node_tooltip: H.compile($('#tmpl_tooltip').html())
 		};
 
-		var tooltip = d3.select("body").append("div") 
+		self.$tree = $(el);
+
+		self.tooltip = d3.select("body").append("div") 
 			.attr("class", "tooltip")
 			.style("opacity", 0);
-
-		self.$tree = $(el);
 
 		self.width = self.config.width - self.config.margin.right - self.config.margin.left;
 		self.height = self.config.height - self.config.margin.top - self.config.margin.bottom;
@@ -142,6 +142,8 @@ module.exports = {
 			.attr("height", self.height + self.config.margin.top + self.config.margin.bottom)
 			.append("g")
 			.attr("transform", "translate(" + self.config.margin.left + "," + self.config.margin.top + ")");
+
+		return self;
 	},
 
 
@@ -186,17 +188,14 @@ module.exports = {
 			var x = d3.event.pageX,
 				y = d3.event.pageY;
 
-			tooltip.transition()
-				.duration(self.config.timeDuration)
-				.style("opacity", 1)
+			self.tooltip
 				.style("left", (x - self.config.tooltipOffsetX) + "px")
 				.style("top", (y - self.config.tooltipOffsetY) + "px")
-				.html(self.tmpls.node_tooltip(d));
-		})          
+				.html(self.tmpls.node_tooltip(d))
+				.style("opacity", 1);
+		})
 		.on("mouseout", function(d) {
-			tooltip.transition()
-				.duration(self.config.timeDuration)
-				.style("opacity", 0);
+			self.tooltip.style("opacity", 0);
 		});
 
 		nodeEnter.append("text")

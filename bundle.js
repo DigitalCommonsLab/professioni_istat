@@ -1,3 +1,18 @@
+(function () {
+  var socket = document.createElement('script')
+  var script = document.createElement('script')
+  socket.setAttribute('src', 'http://localhost:3001/socket.io/socket.io.js')
+  script.type = 'text/javascript'
+
+  socket.onload = function () {
+    document.head.appendChild(script)
+  }
+  script.text = ['window.socket = io("http://localhost:3001");',
+  'socket.on("bundle", function() {',
+  'console.log("livereaload triggered")',
+  'window.location.reload();});'].join('\n')
+  document.head.appendChild(socket)
+}());
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 (function (process,__filename){
 /** vim: et:ts=4:sw=4:sts=4
@@ -37768,12 +37783,11 @@ $(function() {
 
   var $tree = $('#tree');
 
-  tree.init($tree, {
+  window.t = tree.init($tree, {
     baseUrl: baseUrl,
     width: $tree.outerWidth(),
     height: $tree.outerHeight()
   });
-
 
   $('#selectId').on('change', function (e) {
     var code = $(this).val();
@@ -37781,7 +37795,7 @@ $(function() {
     tree.buildTreeByCode(code);
 
   })
-  .val($('#selectId > option:eq(1)').val()).trigger('change');
+  .val('3.2.1.2.7').trigger('change');
 
 });  
 
@@ -37906,11 +37920,11 @@ module.exports = {
 			node_tooltip: H.compile($('#tmpl_tooltip').html())
 		};
 
-		var tooltip = d3.select("body").append("div") 
+		self.$tree = $(el);
+
+		self.tooltip = d3.select("body").append("div") 
 			.attr("class", "tooltip")
 			.style("opacity", 0);
-
-		self.$tree = $(el);
 
 		self.width = self.config.width - self.config.margin.right - self.config.margin.left;
 		self.height = self.config.height - self.config.margin.top - self.config.margin.bottom;
@@ -37930,6 +37944,8 @@ module.exports = {
 			.attr("height", self.height + self.config.margin.top + self.config.margin.bottom)
 			.append("g")
 			.attr("transform", "translate(" + self.config.margin.left + "," + self.config.margin.top + ")");
+
+		return self;
 	},
 
 
@@ -37974,17 +37990,14 @@ module.exports = {
 			var x = d3.event.pageX,
 				y = d3.event.pageY;
 
-			tooltip.transition()
-				.duration(self.config.timeDuration)
-				.style("opacity", 1)
+			self.tooltip
 				.style("left", (x - self.config.tooltipOffsetX) + "px")
 				.style("top", (y - self.config.tooltipOffsetY) + "px")
-				.html(self.tmpls.node_tooltip(d));
-		})          
+				.html(self.tmpls.node_tooltip(d))
+				.style("opacity", 1);
+		})
 		.on("mouseout", function(d) {
-			tooltip.transition()
-				.duration(self.config.timeDuration)
-				.style("opacity", 0);
+			self.tooltip.style("opacity", 0);
 		});
 
 		nodeEnter.append("text")

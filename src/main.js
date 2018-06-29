@@ -29,12 +29,11 @@ $(function() {
 
   var $tree = $('#tree');
 
-  tree.init($tree, {
+  window.t = tree.init($tree, {
     baseUrl: baseUrl,
     width: $tree.outerWidth(),
     height: $tree.outerHeight()
   });
-
 
   $('#selectId').on('change', function (e) {
     var code = $(this).val();
@@ -42,6 +41,6 @@ $(function() {
     tree.buildTreeByCode(code);
 
   })
-  .val($('#selectId > option:eq(1)').val()).trigger('change');
+  .val('3.2.1.2.7').trigger('change');
 
 });  
