@@ -37751,29 +37751,27 @@ require('../node_modules/bootstrap/dist/css/bootstrap.min.css');
 window._ = _;
 window.$ = $;
 
+window.DEBUG_MODE = true;
+//load JSON file instead of remote API rest
+
 var utils = require('./utils');
 var tree = require('./tree');
 
-var baseUrl = 'http://api-test.smartcommunitylab.it/t/sco.cartella/isfol/1.0.0/';
+var baseUrl = "http://api-test.smartcommunitylab.it/t/sco.cartella/isfol/1.0.0/";
+//var baseUrlLevels = "http://localhost/smartcommunitylab/t/sco.cartella/isfol/1.0.0/istatLevel";
 
 var tmpls = {
   urlData: H.compile(baseUrl+'istatLevel{{level}}/{{id}}')
 };
 
-function reformatChildren(o) {
-  o.name = o['nome'];
-  delete o['nome'];
-  o.desc = o['descrizione'];
-  delete o['descrizione'];
-  //descrizione, id
-  o.level = (""+o.id).split('.').length;
-  return o;
-}
-
 $(function() {
 
-  tree.init('#tree', {
-    //TODO options width, height
+  var $tree = $('#tree');
+
+  tree.init($tree, {
+    baseUrl: baseUrl,
+    width: $tree.outerWidth(),
+    height: $tree.outerHeight()
   });
 
 
@@ -37799,9 +37797,6 @@ var H = require('handlebars');
 var d3 = require('d3');
 var utils = require('./utils');
 
-var baseUrlLevels = "https://api-test.smartcommunitylab.it/t/sco.cartella/isfol/1.0.0/istatLevel";
-//var baseUrlLevels = "http://localhost/smartcommunitylab/t/sco.cartella/isfol/1.0.0/istatLevel";
-
 d3.selection.prototype.moveToFront = function() {  
   return this.each(function(){
     this.parentNode.appendChild(this);
@@ -37826,7 +37821,7 @@ module.exports = {
 
 	config: {
 		
-		urlData: '',
+		baseUrl: '',
 
 		width: 960,
 		height: 400,
@@ -37881,7 +37876,13 @@ module.exports = {
 	},
 
 	urlLevelByCode: function(code) {
-		var url = baseUrlLevels + (code ? (code.split('.').length+1)+"/"+code : '1');
+		var url = '';
+
+		if(DEBUG_MODE)
+			url = 'data/debug/istatLevel' + (code ? (code.split('.').length+1)+"_"+code : '1')+'.json';
+		else
+			url = this.config.baseUrl + 'istatLevel' + (code ? (code.split('.').length+1)+"/"+code : '1');
+
 		console.log(code, url);
 		return url;
 	},
@@ -37899,9 +37900,11 @@ module.exports = {
 
 		var self = this;
 
+		self.config = _.defaults(opts, self.config);
+
 		self.tmpls = {
-				node_tooltip: H.compile($('#tmpl_tooltip').html())
-			};
+			node_tooltip: H.compile($('#tmpl_tooltip').html())
+		};
 
 		var tooltip = d3.select("body").append("div") 
 			.attr("class", "tooltip")
@@ -37909,10 +37912,10 @@ module.exports = {
 
 		self.$tree = $(el);
 
-		self.width = self.$tree.outerWidth() - self.config.margin.right - self.config.margin.left;
-		self.height = self.$tree.outerHeight() - self.config.margin.top - self.config.margin.bottom;
+		self.width = self.config.width - self.config.margin.right - self.config.margin.left;
+		self.height = self.config.height - self.config.margin.top - self.config.margin.bottom;
 
-		idCounter: 0,
+		self.idCounter = 0;
 
 		self.tree = d3.layout.tree()
 			.size([self.height, self.width]);
@@ -37922,7 +37925,7 @@ module.exports = {
 				return [d.y, d.x];
 			});
 
-		var svg = d3.select(el).append("svg")
+		self.svg = d3.select(self.$tree.get(0)).append("svg")
 			.attr("width", self.width + self.config.margin.right + self.config.margin.left)
 			.attr("height", self.height + self.config.margin.top + self.config.margin.bottom)
 			.append("g")
@@ -37934,18 +37937,18 @@ module.exports = {
 
 		var self = this;
 
-		svg.selectAll("*").remove();
+		self.svg.selectAll("*").remove();
 
 		var nodes = self.tree.nodes(source).reverse(),
-		  links = self.tree.links(nodes);
+			links = self.tree.links(nodes);
 
 		nodes.forEach(function(d) {
 			d.y = d.depth * (self.width/(self.config.numLevels+1));
 		});
 
-		var node = svg.selectAll("g.node")
+		var node = self.svg.selectAll("g.node")
 		.data(nodes, function(d) {
-			return d.id;// || (d.id = ++self.config.idCounter);
+			return d.id || (d.id = ++self.idCounter);
 		});
 
 		var nodeEnter = node.enter().append("g")
@@ -37976,7 +37979,7 @@ module.exports = {
 				.style("opacity", 1)
 				.style("left", (x - self.config.tooltipOffsetX) + "px")
 				.style("top", (y - self.config.tooltipOffsetY) + "px")
-				.html(tmpls.node_tooltip(d));
+				.html(self.tmpls.node_tooltip(d));
 		})          
 		.on("mouseout", function(d) {
 			tooltip.transition()
@@ -37998,7 +38001,7 @@ module.exports = {
 			return d.id+': '+d.name;
 		});
 
-		var link = svg.selectAll("path.link")
+		var link = self.svg.selectAll("path.link")
 		.data(links, function(d) {
 			return d.target.id;
 		});
@@ -38018,7 +38021,7 @@ module.exports = {
 			}
 		});
 
-		svg.selectAll(".highlight").moveToFront();
+		self.svg.selectAll(".highlight").moveToFront();
 	},
 
 	/*onAjaxError: function(jqXHR, textStatus, errorThrown) {

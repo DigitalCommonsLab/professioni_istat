@@ -12,29 +12,27 @@ require('../node_modules/bootstrap/dist/css/bootstrap.min.css');
 window._ = _;
 window.$ = $;
 
+window.DEBUG_MODE = true;
+//load JSON file instead of remote API rest
+
 var utils = require('./utils');
 var tree = require('./tree');
 
-var baseUrl = 'http://api-test.smartcommunitylab.it/t/sco.cartella/isfol/1.0.0/';
+var baseUrl = "http://api-test.smartcommunitylab.it/t/sco.cartella/isfol/1.0.0/";
+//var baseUrlLevels = "http://localhost/smartcommunitylab/t/sco.cartella/isfol/1.0.0/istatLevel";
 
 var tmpls = {
   urlData: H.compile(baseUrl+'istatLevel{{level}}/{{id}}')
 };
 
-function reformatChildren(o) {
-  o.name = o['nome'];
-  delete o['nome'];
-  o.desc = o['descrizione'];
-  delete o['descrizione'];
-  //descrizione, id
-  o.level = (""+o.id).split('.').length;
-  return o;
-}
-
 $(function() {
 
-  tree.init('#tree', {
-    //TODO options width, height
+  var $tree = $('#tree');
+
+  tree.init($tree, {
+    baseUrl: baseUrl,
+    width: $tree.outerWidth(),
+    height: $tree.outerHeight()
   });
 
 
