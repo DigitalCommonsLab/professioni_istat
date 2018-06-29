@@ -37799,7 +37799,7 @@ var H = require('handlebars');
 var d3 = require('d3');
 var utils = require('./utils');
 
-var baseUrlLevels = "http://api-test.smartcommunitylab.it/t/sco.cartella/isfol/1.0.0/istatLevel";
+var baseUrlLevels = "https://api-test.smartcommunitylab.it/t/sco.cartella/isfol/1.0.0/istatLevel";
 //var baseUrlLevels = "http://localhost/smartcommunitylab/t/sco.cartella/isfol/1.0.0/istatLevel";
 
 d3.selection.prototype.moveToFront = function() {  
