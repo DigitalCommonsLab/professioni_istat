@@ -57,7 +57,7 @@ module.exports = {
 		if(!json['Entries'])
 			return null;
 
-		var ret = [],
+		var res = [],
 		ee = json['Entries']['Entry'];
 
 		ee = _.isArray(ee) ? ee : [ee];
@@ -79,12 +79,12 @@ module.exports = {
 			o.level = o.id.split('.').length;
 			//delete o.id;
 			o.children = null;
-			ret.push(o);
+			res.push(o);
 		}
 		
-		//console.log(ret[0].level, ret);
+		//console.log(res[0].level, res);
 
-		return ret;
+		return res;
 	},
 
 	urlLevelByCode: function(code) {
@@ -215,7 +215,8 @@ module.exports = {
 			}
 		})
 		.text(function(d) {
-			return d.id+': '+d.name;
+			//return d.id+': '+d.name;
+			return d.name;
 		});
 
 		var link = self.svg.selectAll("path.link")

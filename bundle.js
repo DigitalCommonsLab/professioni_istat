@@ -1,18 +1,3 @@
-(function () {
-  var socket = document.createElement('script')
-  var script = document.createElement('script')
-  socket.setAttribute('src', 'http://localhost:3001/socket.io/socket.io.js')
-  script.type = 'text/javascript'
-
-  socket.onload = function () {
-    document.head.appendChild(script)
-  }
-  script.text = ['window.socket = io("http://localhost:3001");',
-  'socket.on("bundle", function() {',
-  'console.log("livereaload triggered")',
-  'window.location.reload();});'].join('\n')
-  document.head.appendChild(socket)
-}());
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 (function (process,__filename){
 /** vim: et:ts=4:sw=4:sts=4
@@ -41075,20 +41060,106 @@ var table = require('./table');
 var baseUrl = "http://api-test.smartcommunitylab.it/t/sco.cartella/isfol/1.0.0/";
 //var baseUrlLevels = "http://localhost/smartcommunitylab/t/sco.cartella/isfol/1.0.0/istatLevel";
 
+window.allSkillsLabels = {};
+
 $(function() {
 
   var $tree = $('#tree');
 
-  window.t = tree.init($tree, {
+  var url = DEBUG_MODE ? 'data/debug/allSkillsLabels.json' : baseUrl+'allSkillsLabels';
+  $.getJSON(url, function(json) {
+    
+    if(!json['Entries'])
+      return null;
+
+    var res = [],
+        ee = json['Entries']['Entry'],
+        res = _.isArray(ee) ? ee : [ee];
+    
+    console.log('/allSkillsLabels',res);
+
+    res = _.map(res, function(v) {
+      return {
+        code: v.cod_etichetta.toLowerCase(),
+        desc: v.desc_etichetta,
+        desc_long: v.longdesc_etichetta
+      }
+    });
+
+    allSkillsLabels = _.indexBy(res,'code');
+
+  });
+
+  table.init('#table', {
+    onSelect: function(row) {
+      //TODO select   
+      console.log('table onSelect', row.id);
+
+      var level5 = tree.getIdParent(row.id);
+
+      var url = DEBUG_MODE ? 'data/debug/skillsByJob_'+level5+'.json' : baseUrl+'skillsByJob/'+level5;
+      $.getJSON(url, function(json) {
+        
+        if(!json['Entries'])
+          return null;
+
+        var res = [],
+            ee = json['Entries']['Entry'],
+            res = _.isArray(ee) ? ee : [ee];
+        
+        console.log('/skillsByJob',res);
+
+        $chart = $('#chart');
+        
+        _.each(res[0], function(val, code) {
+          
+          code = code.toLowerCase();
+
+          if(allSkillsLabels[code]) {
+            $chart.append('<div class="skill">'+
+              '<b>'+val+'</b>'+
+              allSkillsLabels[code].desc+'<br />'+
+              '<small>'+allSkillsLabels[code].desc_long+'</small>'+
+            '</div>');
+          }
+
+        });
+
+      });
+
+    }
+  });
+
+  tree.init($tree, {
     baseUrl: baseUrl,
     width: $tree.outerWidth(),
     height: $tree.outerHeight(),
     onSelect: function(node) {
-      if(node.level!==5) return false;
+      
       console.log('onSelect node', node)
 
-      $.getJSON(baseUrl+'jobsByLevel5/'+node.id, function(json) {
-        console.log('jobsByLevel5',json)
+      if(node.level!==5) return false;
+      
+      var url = DEBUG_MODE ? 'data/debug/jobsByLevel5_'+node.id+'.json' : baseUrl+'jobsByLevel5/'+node.id;
+      $.getJSON(url, function(json) {
+        
+        if(!json['Entries'])
+          return null;
+
+        var res = [],
+            ee = json['Entries']['Entry'],
+            res = _.isArray(ee) ? ee : [ee];
+        
+        console.log('jobsByLevel5',res);
+
+        table.update(_.map(res, function(v) {
+          return {
+            id: v.id,
+            name: v.nome,
+            desc: ""
+          }
+        }));
+
       });
     }
   });
@@ -41127,7 +41198,7 @@ module.exports = {
 
 		this.table.bootstrapTable({
 			
-			onClickRow: opts && opts.onSelect,
+			onClickRow: opts && opts.onSelect || self.onSelect,
 			//radio:true,
 			pagination: false,
 			pageSize: 10,
@@ -41135,37 +41206,27 @@ module.exports = {
 			//cardView: true,
 			data: [],
 		    columns: [
+		    	{
+			        field: 'id',
+			        title: 'Id'
+			    },
 			    {
 			        field: 'name',
 			        title: 'Nome'
-			    }, {
-			        field: 'isced:level',
-			        title: 'Livello'
-			    }, {
-			        field: 'website',
-			        title: 'Sito Web'
 			    },
 			    {
-			        field: 'operator',
-			        title: 'Operatore'
+			        field: 'desc',
+			        title: 'Descrizione'
 			    }
 		    ]
 		});
+
+		return this;
 	},
 
-	update: function(geo) {
-		var json = _.map(geo.features, function(f) {
-			var p = f.properties;
-			return {
-				'id': p.osm_id || p.id,
-				'name': p.name,
-				'isced:level': p['isced:level'],
-				'operator': p.operator,
-				'website': p.website
-			};
-		});
-
+	update: function(json) {
 		this.table.bootstrapTable('load', json);
+		return this;
 	}
 }
 },{"../node_modules/bootstrap-table/dist/bootstrap-table.min.css":3,"./utils":130,"bootstrap-table":2,"jquery":39,"underscore":125}],129:[function(require,module,exports){
@@ -41228,7 +41289,7 @@ module.exports = {
 		if(!json['Entries'])
 			return null;
 
-		var ret = [],
+		var res = [],
 		ee = json['Entries']['Entry'];
 
 		ee = _.isArray(ee) ? ee : [ee];
@@ -41250,12 +41311,12 @@ module.exports = {
 			o.level = o.id.split('.').length;
 			//delete o.id;
 			o.children = null;
-			ret.push(o);
+			res.push(o);
 		}
 		
-		//console.log(ret[0].level, ret);
+		//console.log(res[0].level, res);
 
-		return ret;
+		return res;
 	},
 
 	urlLevelByCode: function(code) {
@@ -41386,7 +41447,8 @@ module.exports = {
 			}
 		})
 		.text(function(d) {
-			return d.id+': '+d.name;
+			//return d.id+': '+d.name;
+			return d.name;
 		});
 
 		var link = self.svg.selectAll("path.link")

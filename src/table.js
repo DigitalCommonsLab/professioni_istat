@@ -21,7 +21,7 @@ module.exports = {
 
 		this.table.bootstrapTable({
 			
-			onClickRow: opts && opts.onSelect,
+			onClickRow: opts && opts.onSelect || self.onSelect,
 			//radio:true,
 			pagination: false,
 			pageSize: 10,
@@ -29,36 +29,26 @@ module.exports = {
 			//cardView: true,
 			data: [],
 		    columns: [
+		    	{
+			        field: 'id',
+			        title: 'Id'
+			    },
 			    {
 			        field: 'name',
 			        title: 'Nome'
-			    }, {
-			        field: 'isced:level',
-			        title: 'Livello'
-			    }, {
-			        field: 'website',
-			        title: 'Sito Web'
 			    },
 			    {
-			        field: 'operator',
-			        title: 'Operatore'
+			        field: 'desc',
+			        title: 'Descrizione'
 			    }
 		    ]
 		});
+
+		return this;
 	},
 
-	update: function(geo) {
-		var json = _.map(geo.features, function(f) {
-			var p = f.properties;
-			return {
-				'id': p.osm_id || p.id,
-				'name': p.name,
-				'isced:level': p['isced:level'],
-				'operator': p.operator,
-				'website': p.website
-			};
-		});
-
+	update: function(json) {
 		this.table.bootstrapTable('load', json);
+		return this;
 	}
 }
