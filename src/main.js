@@ -45,14 +45,16 @@ $(function() {
         code: v.cod_etichetta.toLowerCase(),
         desc: v.desc_etichetta,
         desc_long: v.longdesc_etichetta
-      }
+      };
     });
 
     allSkillsLabels = _.indexBy(res,'code');
 
   });
 
-  table.init('#table', {
+  var table2 = new table.init('#table2');
+
+  var table1 = new table.init('#table', {
     onSelect: function(row) {
       //TODO select   
       console.log('table onSelect', row.id);
@@ -71,9 +73,23 @@ $(function() {
         
         console.log('/skillsByJob',res);
 
+        delete res[0].fk_livello5;
+
+        var rows = _.map(res[0], function(val, code) {
+          code = code.toLowerCase();
+          return {
+            id: code,
+            name: allSkillsLabels[code] ? allSkillsLabels[code].desc : '',
+            desc: allSkillsLabels[code] ? allSkillsLabels[code].desc_long : ''
+          }
+        });
+
+        console.log('table2',rows)
+
+        table2.update(rows);
+/* 
         $chart = $('#chart');
-        
-        _.each(res[0], function(val, code) {
+       _.each(res[0], function(val, code) {
           
           code = code.toLowerCase();
 
@@ -85,7 +101,7 @@ $(function() {
             '</div>');
           }
 
-        });
+        });*/
 
       });
 
@@ -114,7 +130,7 @@ $(function() {
         
         console.log('jobsByLevel5',res);
 
-        table.update(_.map(res, function(v) {
+        table1.update(_.map(res, function(v) {
           return {
             id: v.id,
             name: v.nome,

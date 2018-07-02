@@ -1,3 +1,18 @@
+(function () {
+  var socket = document.createElement('script')
+  var script = document.createElement('script')
+  socket.setAttribute('src', 'http://localhost:3001/socket.io/socket.io.js')
+  script.type = 'text/javascript'
+
+  socket.onload = function () {
+    document.head.appendChild(script)
+  }
+  script.text = ['window.socket = io("http://localhost:3001");',
+  'socket.on("bundle", function() {',
+  'console.log("livereaload triggered")',
+  'window.location.reload();});'].join('\n')
+  document.head.appendChild(socket)
+}());
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 (function (process,__filename){
 /** vim: et:ts=4:sw=4:sts=4
@@ -41083,14 +41098,16 @@ $(function() {
         code: v.cod_etichetta.toLowerCase(),
         desc: v.desc_etichetta,
         desc_long: v.longdesc_etichetta
-      }
+      };
     });
 
     allSkillsLabels = _.indexBy(res,'code');
 
   });
 
-  table.init('#table', {
+  var table2 = new table.init('#table2');
+
+  var table1 = new table.init('#table', {
     onSelect: function(row) {
       //TODO select   
       console.log('table onSelect', row.id);
@@ -41109,9 +41126,23 @@ $(function() {
         
         console.log('/skillsByJob',res);
 
+        delete res[0].fk_livello5;
+
+        var rows = _.map(res[0], function(val, code) {
+          code = code.toLowerCase();
+          return {
+            id: code,
+            name: allSkillsLabels[code] ? allSkillsLabels[code].desc : '',
+            desc: allSkillsLabels[code] ? allSkillsLabels[code].desc_long : ''
+          }
+        });
+
+        console.log('table2',rows)
+
+        table2.update(rows);
+/* 
         $chart = $('#chart');
-        
-        _.each(res[0], function(val, code) {
+       _.each(res[0], function(val, code) {
           
           code = code.toLowerCase();
 
@@ -41123,7 +41154,7 @@ $(function() {
             '</div>');
           }
 
-        });
+        });*/
 
       });
 
@@ -41152,7 +41183,7 @@ $(function() {
         
         console.log('jobsByLevel5',res);
 
-        table.update(_.map(res, function(v) {
+        table1.update(_.map(res, function(v) {
           return {
             id: v.id,
             name: v.nome,
@@ -41185,8 +41216,6 @@ var bttable = require('bootstrap-table');
 require('../node_modules/bootstrap-table/dist/bootstrap-table.min.css');
 
 module.exports = {
-  	
-  	table: null,
 
   	onSelect: function(e){ console.log('onClickRow',e); },
 
@@ -41197,35 +41226,34 @@ module.exports = {
 		this.table = $(el);
 
 		this.table.bootstrapTable({
-			
 			onClickRow: opts && opts.onSelect || self.onSelect,
 			//radio:true,
-			pagination: false,
-			pageSize: 10,
-			pageList: [10],
+			pagination: true,
+			pageSize: 5,
+			pageList: [5],
 			//cardView: true,
 			data: [],
-		    columns: [
-		    	{
-			        field: 'id',
-			        title: 'Id'
-			    },
-			    {
-			        field: 'name',
-			        title: 'Nome'
-			    },
-			    {
-			        field: 'desc',
-			        title: 'Descrizione'
-			    }
-		    ]
+			columns: [
+/*				{
+				    field: 'id',
+				    title: 'Id'
+				},*/
+				{
+				    field: 'name',
+				    title: 'Nome'
+				},
+				{
+				    field: 'desc',
+				    title: 'Descrizione'
+				}
+			]
 		});
 
-		return this;
-	},
+		this.update = function(json) {
+			this.table.bootstrapTable('load', json);
+			return this;
+		};
 
-	update: function(json) {
-		this.table.bootstrapTable('load', json);
 		return this;
 	}
 }

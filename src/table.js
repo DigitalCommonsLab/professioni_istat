@@ -8,8 +8,6 @@ var bttable = require('bootstrap-table');
 require('../node_modules/bootstrap-table/dist/bootstrap-table.min.css');
 
 module.exports = {
-  	
-  	table: null,
 
   	onSelect: function(e){ console.log('onClickRow',e); },
 
@@ -20,35 +18,34 @@ module.exports = {
 		this.table = $(el);
 
 		this.table.bootstrapTable({
-			
 			onClickRow: opts && opts.onSelect || self.onSelect,
 			//radio:true,
-			pagination: false,
-			pageSize: 10,
-			pageList: [10],
+			pagination: true,
+			pageSize: 5,
+			pageList: [5],
 			//cardView: true,
 			data: [],
-		    columns: [
-		    	{
-			        field: 'id',
-			        title: 'Id'
-			    },
-			    {
-			        field: 'name',
-			        title: 'Nome'
-			    },
-			    {
-			        field: 'desc',
-			        title: 'Descrizione'
-			    }
-		    ]
+			columns: [
+/*				{
+				    field: 'id',
+				    title: 'Id'
+				},*/
+				{
+				    field: 'name',
+				    title: 'Nome'
+				},
+				{
+				    field: 'desc',
+				    title: 'Descrizione'
+				}
+			]
 		});
 
-		return this;
-	},
+		this.update = function(json) {
+			this.table.bootstrapTable('load', json);
+			return this;
+		};
 
-	update: function(json) {
-		this.table.bootstrapTable('load', json);
 		return this;
 	}
 }
