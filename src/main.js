@@ -22,7 +22,7 @@ var tree = require('./tree');
 var table = require('./table');
 var profile = require('./profile');
 
-var baseUrl = "http://api-test.smartcommunitylab.it/t/sco.cartella/";
+var baseUrl = "//api-test.smartcommunitylab.it/t/sco.cartella/";
 //             http://api-test.smartcommunitylab.it/t/sco.cartella/asl-stats/1.0/api/statistics/skills/student
 //var baseUrlLevels = "http://localhost/smartcommunitylab/t/sco.cartella/isfol/1.0.0/istatLevel";
 
