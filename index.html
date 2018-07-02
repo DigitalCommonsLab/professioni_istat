@@ -7,38 +7,53 @@
 </head>
 <body>
 
-<label>Professione:</label>
-<select id="selectId">
-  <option value="2.2.2.2.0">2.2.2.2.0 - Cartografi e fotogrammetristi</option>
-  <option value="3.1.3.4.0">3.1.3.4.0 - Tecnici elettronici</option>
-  <option value="6.2.1.2.0">6.2.1.2.0 - Saldatori e tagliatori a fiamma</option>
-  <option value="8.1.1.1.0">8.1.1.1.0 - Venditori ambulanti di beni</option>
-  <option disabled></option>
-  <option value="3.2.1.2.7">3.2.1.2.7 - Educatori professionali</option>
-  <option value="2.3.1.1.1">2.3.1.1.1 - Biologi e professioni assimilate</option>
-</select>
-
 <div class="container-fluid">		
 
 	<div class="row">
 	    <div class="col-md-12">
+	    	<h4>Profilo Studente</h4>
+			<div id="profile">
+				<h4>Competenze acquisite</h4>
+				<div id="skills">
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+	    <div class="col-md-12">
+			<h4>Professioni suggerite <small>(sulla base delle compentenze)</small></h4>
+			<select id="select_jobs">
+			  <option value="2.2.2.2.0">2.2.2.2.0 - Cartografi e fotogrammetristi</option>
+			  <option value="3.1.3.4.0">3.1.3.4.0 - Tecnici elettronici</option>
+			  <option value="6.2.1.2.0">6.2.1.2.0 - Saldatori e tagliatori a fiamma</option>
+			  <option value="8.1.1.1.0">8.1.1.1.0 - Venditori ambulanti di beni</option>
+			  <option disabled></option>
+			  <option value="3.2.1.2.7">3.2.1.2.7 - Educatori professionali</option>
+			  <option value="2.3.1.1.1">2.3.1.1.1 - Biologi e professioni assimilate</option>
+			</select>	    	
 			<div id="tree">
 			</div>
 		</div>
 	</div>
+
 	<div class="row">
-		<div class="col-md-3">
-			<h3>Professioni</h3>
+		<div class="col-md-2">
+			<h4>Professioni simili</h4>
 			<div id="table">
 			</div>
 		</div>
-		<div class="col-md-9">
-			<h3>Competenze</h3>
+<!-- 		<div class="col-md-5">
+			<h4>Competenze Aquisite</h4>
 			<div id="table2">
 			</div>
-<!-- 			<div id="chart">
-			</div> -->
-		</div>
+		</div> -->
+		<div class="col-md-5">
+			<h4>Competenze Mancanti</h4>
+			<div id="table2">
+			</div>
+		</div>		
 	</div>
 
 </div>

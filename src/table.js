@@ -25,7 +25,7 @@ module.exports = {
 			pageList: [5],
 			//cardView: true,
 			data: [],
-			columns: [
+			columns: opts.columns || [
 /*				{
 				    field: 'id',
 				    title: 'Id'

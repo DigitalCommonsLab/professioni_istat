@@ -15,44 +15,136 @@ window.$ = $;
 window.DEBUG_MODE = true;
 //load JSON file instead of remote API rest
 
+window.SKILLS_THRESHOLD = 50;
+
 var utils = require('./utils');
 var tree = require('./tree');
 var table = require('./table');
+var profile = require('./profile');
 
-var baseUrl = "http://api-test.smartcommunitylab.it/t/sco.cartella/isfol/1.0.0/";
+var baseUrl = "http://api-test.smartcommunitylab.it/t/sco.cartella/";
+//             http://api-test.smartcommunitylab.it/t/sco.cartella/asl-stats/1.0/api/statistics/skills/student
 //var baseUrlLevels = "http://localhost/smartcommunitylab/t/sco.cartella/isfol/1.0.0/istatLevel";
 
 window.allSkillsLabels = {};
+window.profileSkills = [];
+
+window.serializeSkills = function(o) {
+  var ret = '';
+  for(var p in o) {
+    ret += "_"+p+o[p];
+  }
+  return ret;
+}
 
 $(function() {
+  
+  var url = DEBUG_MODE ? 'data/debug/allSkillsLabels.json' : baseUrl+'isfol/1.0.0/allSkillsLabels';
+  //$.getJSON(url, function(json) {
+  $.ajax({
+    url: url,
+    conteType: 'json',
+    async: false,
+    success: function(json) {
+      if(!json['Entries'])
+        return null;
 
-  var $tree = $('#tree');
+      var res = [],
+          ee = json['Entries']['Entry'],
+          res = _.isArray(ee) ? ee : [ee];
+      
+      console.log('/allSkillsLabels',res);
 
-  var url = DEBUG_MODE ? 'data/debug/allSkillsLabels.json' : baseUrl+'allSkillsLabels';
-  $.getJSON(url, function(json) {
+      res = _.map(res, function(v) {
+        return {
+          code: v.cod_etichetta.toLowerCase(),
+          desc: v.desc_etichetta,
+          desc_long: v.longdesc_etichetta
+        };
+      });
+
+      allSkillsLabels = _.indexBy(res,'code');
+    }
+  });
+
+  var $profile = $('#profile'),
+      $skills = $('#skills'),
+      $select_jobs = $('#select_jobs');
+
+  $select_jobs.on('change', function (e) {
     
-    if(!json['Entries'])
-      return null;
-
-    var res = [],
-        ee = json['Entries']['Entry'],
-        res = _.isArray(ee) ? ee : [ee];
+    var code = $(this).val();
     
-    console.log('/allSkillsLabels',res);
+    tree.buildTreeByCode(code);
 
-    res = _.map(res, function(v) {
-      return {
-        code: v.cod_etichetta.toLowerCase(),
-        desc: v.desc_etichetta,
-        desc_long: v.longdesc_etichetta
-      };
+  });
+  
+  profile.init('#profile', {
+    baseUrl: baseUrl
+  });
+
+  profile.getData('skills', function(skills) {
+    
+    console.log('profile skills: ', skills);
+
+    var skillsObj = {};
+
+    for(var i in skills) {
+      var code = skills[i],
+          label = allSkillsLabels[ code ] && allSkillsLabels[ code ].desc,
+          val = SKILLS_THRESHOLD;
+      
+      skillsObj[code]= val;
+
+      $skills.append('<span class="badge badge-primary">'+label+'</span>');
+    }
+
+    profileSkills = _.keys(skillsObj)
+
+    var paramSkills = $.param(skillsObj).replace(/[a]/g,'');
+    var url = DEBUG_MODE ? 'data/debug/jobsBySkills_'+serializeSkills(skillsObj)+'.json' : baseUrl+'isfol/1.0.0/jobsBySkills?'+paramSkills;
+    $.getJSON(url, function(json) {
+      
+      if(!json['Entries'])
+        return null;
+
+      var res = [],
+          ee = json['Entries']['Entry'],
+          res = _.isArray(ee) ? ee : [ee];
+      
+      res = _.uniq(_.pluck(res,'idJobs'));
+
+      console.log('/jobsBySkills', res);
+
+      $select_jobs.empty();
+
+      _.each(res, function(id) {
+        $select_jobs.append('<option value="'+id+'">'+id+'</option>')
+      });
+
     });
-
-    allSkillsLabels = _.indexBy(res,'code');
 
   });
 
-  var table2 = new table.init('#table2');
+
+  var $tree = $('#tree');
+
+  var table2 = new table.init('#table2', {
+    columns: [
+        {
+            field: 'val',
+            title: 'Importanza'
+        },
+        {
+            field: 'name',
+            title: 'Nome'
+        },
+        {
+            field: 'desc',
+            title: 'Descrizione'
+        }
+      ]
+  });
 
   var table1 = new table.init('#table', {
     onSelect: function(row) {
@@ -61,7 +153,7 @@ $(function() {
 
       var level5 = tree.getIdParent(row.id);
 
-      var url = DEBUG_MODE ? 'data/debug/skillsByJob_'+level5+'.json' : baseUrl+'skillsByJob/'+level5;
+      var url = DEBUG_MODE ? 'data/debug/skillsByJob_'+level5+'.json' : baseUrl+'isfol/1.0.0/skillsByJob/'+level5;
       $.getJSON(url, function(json) {
         
         if(!json['Entries'])
@@ -79,29 +171,20 @@ $(function() {
           code = code.toLowerCase();
           return {
             id: code,
+            val: val,
             name: allSkillsLabels[code] ? allSkillsLabels[code].desc : '',
             desc: allSkillsLabels[code] ? allSkillsLabels[code].desc_long : ''
           }
         });
 
+        //remove aquired skills
+        rows = _.filter(rows, function(row) {
+          return !_.contains(profileSkills, row.id);
+        });
+
         console.log('table2',rows)
 
         table2.update(rows);
-/* 
-        $chart = $('#chart');
-       _.each(res[0], function(val, code) {
-          
-          code = code.toLowerCase();
-
-          if(allSkillsLabels[code]) {
-            $chart.append('<div class="skill">'+
-              '<b>'+val+'</b>'+
-              allSkillsLabels[code].desc+'<br />'+
-              '<small>'+allSkillsLabels[code].desc_long+'</small>'+
-            '</div>');
-          }
-
-        });*/
 
       });
 
@@ -109,7 +192,7 @@ $(function() {
   });
 
   tree.init($tree, {
-    baseUrl: baseUrl,
+    baseUrl: baseUrl+'isfol/1.0.0/',
     width: $tree.outerWidth(),
     height: $tree.outerHeight(),
     onSelect: function(node) {
@@ -118,7 +201,7 @@ $(function() {
 
       if(node.level!==5) return false;
       
-      var url = DEBUG_MODE ? 'data/debug/jobsByLevel5_'+node.id+'.json' : baseUrl+'jobsByLevel5/'+node.id;
+      var url = DEBUG_MODE ? 'data/debug/jobsByLevel5_'+node.id+'.json' : baseUrl+'isfol/1.0.0/jobsByLevel5/'+node.id;
       $.getJSON(url, function(json) {
         
         if(!json['Entries'])
@@ -141,13 +224,5 @@ $(function() {
       });
     }
   });
-
-  $('#selectId').on('change', function (e) {
-    var code = $(this).val();
-
-    tree.buildTreeByCode(code);
-
-  })
-  .val('3.2.1.2.7').trigger('change');
 
 });  

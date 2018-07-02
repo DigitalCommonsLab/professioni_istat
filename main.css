@@ -40,6 +40,18 @@ html {
   stroke-width: 6px;
 }
 
+#profile {
+  border: 1px solid coral;
+}
+#profile #skills {
+  list-style: none;
+}
+
+#profile #skills span {
+    display: inline-block;
+    margin-right: 10px;
+}
+
 #tree {
 /*  position:absolute;
   left: 5px;
