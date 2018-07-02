@@ -217,6 +217,9 @@ module.exports = {
 		.text(function(d) {
 			//return d.id+': '+d.name;
 			return d.name;
+		})
+		.on("click", function(d) {
+			self.onSelect.call(self, d);
 		});
 
 		var link = self.svg.selectAll("path.link")
