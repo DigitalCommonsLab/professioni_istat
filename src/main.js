@@ -179,6 +179,7 @@ $(function() {
         
         console.log('/skillsByJob',res);
 
+        //TODO filter by API side
         delete res[0].fk_livello5;
 
         var rows = _.map(res[0], function(val, code) {
@@ -191,12 +192,17 @@ $(function() {
           }
         });
 
-        //remove aquired skills
+        //remove not important skills for this job
+        rows = _.filter(rows, function(row) {
+          return row.val > SKILLS_THRESHOLD;
+        });
+
+        //remove profile aquired skills
         rows = _.filter(rows, function(row) {
           return !_.contains(profileSkills, row.id);
         });
 
-        console.log('table2',rows)
+        console.log('table2',rows);
 
         table2.update(rows);
 
