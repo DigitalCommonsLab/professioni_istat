@@ -41202,7 +41202,7 @@ $(function() {
     onSelect: function(row) {
       //TODO select   
       console.log('table onSelect', row.id);
-
+      
       var level5 = tree.getIdParent(row.id);
 
       var url = DEBUG_MODE ? 'data/debug/skillsByJob_'+level5+'.json' : baseUrl+'isfol/1.0.0/skillsByJob/'+level5;
@@ -41258,6 +41258,8 @@ $(function() {
       console.log('onSelect node', node)
 
       if(node.level!==5) return false;
+
+      tree.buildTreeByCode(node.id);
       
       var url = DEBUG_MODE ? 'data/debug/jobsByLevel5_'+node.id+'.json' : baseUrl+'isfol/1.0.0/jobsByLevel5/'+node.id;
       $.getJSON(url, function(json) {
