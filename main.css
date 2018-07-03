@@ -43,11 +43,8 @@ html {
 #profile {
   border: 1px solid coral;
 }
-#profile #skills {
-  list-style: none;
-}
 
-#profile #skills span {
+#skills span {
     display: inline-block;
     margin-right: 10px;
 }

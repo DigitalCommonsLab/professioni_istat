@@ -41185,6 +41185,20 @@ $(function() {
   });
 
   var table1 = new table.init('#table', {
+    columns: [
+      {
+          field: 'id',
+          title: 'Isfol'
+      },
+      {
+          field: 'name',
+          title: 'Nome'
+      },
+      {
+          field: 'desc',
+          title: 'Descrizione'
+      }
+    ],
     onSelect: function(row) {
       //TODO select   
       console.log('table onSelect', row.id);
