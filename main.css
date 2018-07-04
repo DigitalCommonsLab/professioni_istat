@@ -9,6 +9,7 @@ html {
 .node {
 	cursor: pointer;
 }
+
 .node circle {
   fill: #fff;
   stroke: steelblue;
@@ -25,7 +26,13 @@ html {
   text-transform: lowercase;
 }
 
+.node:hover text,
+.node:hover circle {
+  fill: steelblue;
+}
+
 .node.highlight text {
+  fill: black;
   font-size: 12px;
   font-weight: bold;
   text-transform: capitalize;
@@ -55,6 +62,7 @@ html {
   border: 1px solid blue;
   height: 500px;
   border: 1px solid blue;
+  position: relative;
 }
 
 #table {
@@ -74,15 +82,18 @@ html {
 }
 
 .tooltip { 
-    position: absolute;     
+    position: absolute;
+    right: 0;
+    bottom: 0;   
     text-align: justify;    
-    width: 500px;          
+    width: 33%;          
     height: auto;         
     padding: 8px;
+    margin: 16px;
     font: 12px sans-serif;    
     background: #fff;
-    box-shadow: 2px 2px 16px rgba(0,0,0,0.4);
-    border: 1px solid rgba(0,0,0,0.2);
+    box-shadow: 8px 8px 8px rgba(0,0,0,0.4);
+    border: 2px solid steelblue;
     border-radius: 3px;
     pointer-events: none;     
 }

@@ -124,7 +124,7 @@ module.exports = {
 
 		self.$tree = $(el);
 
-		self.tooltip = d3.select("body").append("div") 
+		self.tooltip = d3.select(self.$tree.get(0)).append("div") 
 			.attr("class", "tooltip")
 			.style("opacity", 0);
 
@@ -176,8 +176,8 @@ module.exports = {
 			  line = [];
 			  tspan = text.append('tspan')
 			  	.attr('x', self.config.circleRadius+(d.children?-(self.config.circleRadius*3):5) )
-			  	.attr('y', self.config.circleRadius+(d.children?-(self.config.circleRadius*3):5) )
-			  	.attr('dy', (++lineNumber) + (dy-0.5) + 'em')			
+			  	.attr('y', self.config.circleRadius+(d.children?-(self.config.circleRadius*3):y) )
+			  	.attr('dy', (++lineNumber) + (dy-0.6) + 'em')			
 
 			  while (!!(word = words.pop())) {
 			    line.push(word);
@@ -188,8 +188,8 @@ module.exports = {
 			      line = [word];
 			      tspan = text.append('tspan')
 			      	.attr('x', self.config.circleRadius+(d.children?-(self.config.circleRadius*3):5) )
-			      	.attr('y', self.config.circleRadius+(d.children?-(self.config.circleRadius*3):5) )
-			      	.attr('dy', (lineNumber) + (dy+0.5) + 'em')
+			      	.attr('y', self.config.circleRadius+(d.children?-(self.config.circleRadius*3):y) )
+			      	.attr('dy', (lineNumber) + (dy+0.6) + 'em')
 			      	.text(he.decode(word));
 			    }
 			  }
@@ -249,8 +249,8 @@ module.exports = {
 				y = d3.event.pageY;
 
 			self.tooltip
-				.style("left", (x - self.config.tooltipOffsetX) + "px")
-				.style("top", (y - self.config.tooltipOffsetY) + "px")
+				//.style("left", (x - self.config.tooltipOffsetX) + "px")
+				//.style("top", (y - self.config.tooltipOffsetY) + "px")
 				.html(self.tmpls.node_tooltip(d))
 				.style("opacity", 1);
 		})
@@ -262,6 +262,19 @@ module.exports = {
 		});
 
 		nodeEnter.append("text")
+		.on("mouseover", function(d) {
+			var x = d3.event.pageX,
+				y = d3.event.pageY;
+
+			self.tooltip
+				//.style("left", (x - self.config.tooltipOffsetX) + "px")
+				//.style("top", (y - self.config.tooltipOffsetY) + "px")
+				.html(self.tmpls.node_tooltip(d))
+				.style("opacity", 1);
+		})
+		.on("mouseout", function(d) {
+			self.tooltip.style("opacity", 0);
+		})		
 		.on("click", function(d) {
 			self.onSelect.call(self, d);
 		})
