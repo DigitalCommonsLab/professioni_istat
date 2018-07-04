@@ -7,6 +7,7 @@ var S = require('underscore.string');
 _.mixin({str: S});
 var H = require('handlebars');
 var d3 = require('d3');
+var he = require('he');
 var utils = require('./utils');
 
 d3.selection.prototype.moveToFront = function() {  
@@ -149,6 +150,44 @@ module.exports = {
 		return self;
 	},
 
+	wrap: function(text, width) {
+
+		text.each(function(d) {
+			var values = [],
+			  text = d3.select(this),
+			  words,
+			  word,
+			  line,
+			  lineNumber = 0,
+			  lineHeight = 1.1,
+			  y = parseInt(text.attr('y')),
+			  dy = parseFloat(text.attr('dy')),
+			  tspan;
+
+			var t = text.text();
+			text.text(null)
+
+			values.push(t);
+
+			_.each(values, function(value, i) {
+			  words = value.split(/\s+/).reverse();
+			  line = [];
+			  tspan = text.append('tspan').attr('x', 0).attr('y', y).attr('dy', (lineNumber++ * lineHeight) + dy + 'em');
+
+			  while (!!(word = words.pop())) {
+			    line.push(word);
+			    tspan.text(he.decode(line.join(' ')));
+			    if (tspan.node().getComputedTextLength() > width) {
+			      line.pop();
+			      tspan.text(he.decode(line.join(' ')));
+			      line = [word];
+			      tspan = text.append('tspan').attr('x', 0).attr('y', y).attr('dy', (lineNumber++ * lineHeight) + dy + 'em').text(he.decode(word));
+			    }
+			  }
+			});
+		});
+
+    },
 
 	draw: function(source, code) {
 
@@ -159,9 +198,16 @@ module.exports = {
 		var nodes = self.tree.nodes(source).reverse(),
 			links = self.tree.links(nodes);
 
+		var nodeWidth = 0, dy = 0,
+			nodeWidthMax = self.width/(self.config.numLevels+1);
+			
 		nodes.forEach(function(d) {
-			d.y = d.depth * (self.width/(self.config.numLevels+1));
+			d.y = d.depth * nodeWidthMax;
+			nodeWidth = Math.abs(Math.min(nodeWidth, d.y - dy));
+			dy = d.y;
 		});
+		if (!nodeWidth)
+			nodeWidth = nodeWidthMax;
 
 		var node = self.svg.selectAll("g.node")
 		.data(nodes, function(d) {
@@ -205,6 +251,9 @@ module.exports = {
 		});
 
 		nodeEnter.append("text")
+		.on("click", function(d) {
+			self.onSelect.call(self, d);
+		})
 		.attr({
 			"dy": ".35em",
 			"x": function(d) {
@@ -215,12 +264,10 @@ module.exports = {
 			}
 		})
 		.text(function(d) {
-			//return d.id+': '+d.name;
 			return d.name;
 		})
-		.on("click", function(d) {
-			self.onSelect.call(self, d);
-		});
+		.call(self.wrap, Math.round(nodeWidth));
+		
 
 		var link = self.svg.selectAll("path.link")
 		.data(links, function(d) {
