@@ -14,6 +14,7 @@ html {
   stroke: steelblue;
   stroke-width: 3px;
 }
+
 .node.highlight circle {
   fill: steelblue;
 }
@@ -27,6 +28,7 @@ html {
 .node.highlight text {
   font-size: 12px;
   font-weight: bold;
+  text-transform: capitalize;
 }
 
 .link {
@@ -50,21 +52,15 @@ html {
 }
 
 #tree {
-/*  position:absolute;
-  left: 5px;
-  right: 5px;
-  top: 20px;
-  bottom: 5px;*/
   border: 1px solid blue;
   height: 500px;
-  
   border: 1px solid blue;
 }
 
 #table {
-  
   border: 1px solid green;
 }
+
 #table tr {
   cursor: pointer;
 }

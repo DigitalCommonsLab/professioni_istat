@@ -212,14 +212,15 @@ $(function() {
   });
 
   tree.init($tree, {
-    baseUrl: baseUrl+'isfol/1.0.0/',
+    baseUrl: baseUrl +'isfol/1.0.0/',
     width: $tree.outerWidth(),
     height: $tree.outerHeight(),
     onSelect: function(node) {
       
       console.log('onSelect node', node)
 
-      if(node.level!==5) return false;
+      if(node.level!==5)
+          return false;
 
       tree.buildTreeByCode(node.id);
       

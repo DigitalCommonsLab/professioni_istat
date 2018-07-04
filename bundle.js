@@ -41596,14 +41596,15 @@ $(function() {
   });
 
   tree.init($tree, {
-    baseUrl: baseUrl+'isfol/1.0.0/',
+    baseUrl: baseUrl +'isfol/1.0.0/',
     width: $tree.outerWidth(),
     height: $tree.outerHeight(),
     onSelect: function(node) {
       
       console.log('onSelect node', node)
 
-      if(node.level!==5) return false;
+      if(node.level!==5)
+          return false;
 
       tree.buildTreeByCode(node.id);
       
@@ -41794,11 +41795,11 @@ module.exports = {
 			top: 0,		bottom: 0,
 			right: 80,	left: 80
 		},
-
 		circleRadius: 10,
 		timeDuration: 100,
 		numLevels: 5,
-		tooltipOffsetX: -10,
+		textOffset: 10,
+		tooltipOffsetX: -20,
 		tooltipOffsetY: 0
 	},
 
@@ -41899,16 +41900,18 @@ module.exports = {
 		return self;
 	},
 
-	wrap: function(text, width) {
+	wrapText: function(nodes, width) {
 
-		text.each(function(d) {
+		var self = this;
+
+		nodes.each(function(d) {
 			var values = [],
 			  text = d3.select(this),
 			  words,
 			  word,
 			  line,
 			  lineNumber = 0,
-			  lineHeight = 1.1,
+			  lineHeight = 1,
 			  y = parseInt(text.attr('y')),
 			  dy = parseFloat(text.attr('dy')),
 			  tspan;
@@ -41921,7 +41924,10 @@ module.exports = {
 			_.each(values, function(value, i) {
 			  words = value.split(/\s+/).reverse();
 			  line = [];
-			  tspan = text.append('tspan').attr('x', 0).attr('y', y).attr('dy', (lineNumber++ * lineHeight) + dy + 'em');
+			  tspan = text.append('tspan')
+			  	.attr('x', self.config.circleRadius+(d.children?-(self.config.circleRadius*3):5) )
+			  	.attr('y', self.config.circleRadius+(d.children?-(self.config.circleRadius*3):5) )
+			  	.attr('dy', (++lineNumber) + (dy-0.5) + 'em')			
 
 			  while (!!(word = words.pop())) {
 			    line.push(word);
@@ -41930,7 +41936,11 @@ module.exports = {
 			      line.pop();
 			      tspan.text(he.decode(line.join(' ')));
 			      line = [word];
-			      tspan = text.append('tspan').attr('x', 0).attr('y', y).attr('dy', (lineNumber++ * lineHeight) + dy + 'em').text(he.decode(word));
+			      tspan = text.append('tspan')
+			      	.attr('x', self.config.circleRadius+(d.children?-(self.config.circleRadius*3):5) )
+			      	.attr('y', self.config.circleRadius+(d.children?-(self.config.circleRadius*3):5) )
+			      	.attr('dy', (lineNumber) + (dy+0.5) + 'em')
+			      	.text(he.decode(word));
 			    }
 			  }
 			});
@@ -41947,15 +41957,17 @@ module.exports = {
 		var nodes = self.tree.nodes(source).reverse(),
 			links = self.tree.links(nodes);
 
-		var nodeWidth = 0, dy = 0,
+		var nodeWidth = 0,
+			dy = 0,
 			nodeWidthMax = self.width/(self.config.numLevels+1);
-			
+
 		nodes.forEach(function(d) {
 			d.y = d.depth * nodeWidthMax;
 			nodeWidth = Math.abs(Math.min(nodeWidth, d.y - dy));
 			dy = d.y;
 		});
-		if (!nodeWidth)
+		
+		if(!nodeWidth)
 			nodeWidth = nodeWidthMax;
 
 		var node = self.svg.selectAll("g.node")
@@ -41971,7 +41983,7 @@ module.exports = {
 			"class": function(d) {
 
 			  if( d.children || 
-		      d.id === code ||
+		      	  d.id === code ||
 			     (d.level === 5 && self.getIdParent(code) === d.id)
 			     )
 			    return "node highlight";
@@ -42004,20 +42016,22 @@ module.exports = {
 			self.onSelect.call(self, d);
 		})
 		.attr({
-			"dy": ".35em",
+			"dy": 0,
 			"x": function(d) {
-				return d.children || d._children ? -20 : 20;
+				return (d.children || d._children) ? -(self.config.textOffset) : self.config.textOffset;
 			},
 			"text-anchor": function(d) { 
-				return d.children || d._children ? "end" : "start";
+				return (d.children || d._children) ? "end" : "start";
 			}
 		})
 		.text(function(d) {
-			return d.name;
+			return d.name.toLowerCase();
 		})
-		.call(self.wrap, Math.round(nodeWidth));
+		.call(function(d) {
+			var textWidth = Math.round(nodeWidth);
+			self.wrapText(d, textWidth);
+		});
 		
-
 		var link = self.svg.selectAll("path.link")
 		.data(links, function(d) {
 			return d.target.id;
@@ -42075,7 +42089,6 @@ module.exports = {
 				self.reformatJSON(l4[0]),
 				self.reformatJSON(l5[0])
 			];
-
 
 			var data = {
 			  id: '0',
