@@ -17,6 +17,8 @@ window.DEBUG_MODE = true;
 
 window.SKILLS_THRESHOLD = 50;
 
+var config = require('./config');
+
 var utils = require('./utils');
 var tree = require('./tree');
 var table = require('./table');
@@ -28,14 +30,6 @@ var baseUrl = "//api-test.smartcommunitylab.it/t/sco.cartella/";
 
 window.allSkillsLabels = {};
 window.profileSkills = [];
-
-window.serializeSkills = function(o) {
-  var ret = '';
-  for(var p in o) {
-    ret += "_"+p+o[p];
-  }
-  return ret;
-}
 
 $(function() {
   
@@ -101,7 +95,15 @@ $(function() {
 
     profileSkills = _.keys(skillsObj)
 
+    function serializeSkills(o) {
+      var ret = '';
+      for(var p in o) {
+        ret += "_"+p+o[p];
+      }
+      return ret;
+    }
     var paramSkills = $.param(skillsObj).replace(/[a]/g,'');
+
     var url = DEBUG_MODE ? 'data/debug/jobsBySkills_'+serializeSkills(skillsObj)+'.json' : baseUrl+'isfol/1.0.0/jobsBySkills?'+paramSkills;
     $.getJSON(url, function(json) {
       

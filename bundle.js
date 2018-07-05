@@ -1,3 +1,18 @@
+(function () {
+  var socket = document.createElement('script')
+  var script = document.createElement('script')
+  socket.setAttribute('src', 'http://localhost:3001/socket.io/socket.io.js')
+  script.type = 'text/javascript'
+
+  socket.onload = function () {
+    document.head.appendChild(script)
+  }
+  script.text = ['window.socket = io("http://localhost:3001");',
+  'socket.on("bundle", function() {',
+  'console.log("livereaload triggered")',
+  'window.location.reload();});'].join('\n')
+  document.head.appendChild(socket)
+}());
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 (function (process,__filename){
 /** vim: et:ts=4:sw=4:sts=4
@@ -41383,6 +41398,32 @@ function config (name) {
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],128:[function(require,module,exports){
 
+var H = require('handlebars');
+
+var baseUrl = "https://api-test.smartcommunitylab.it/t/sco.cartella/isfol/1.0.0/";
+
+//API defined here: https://docs.google.com/spreadsheets/d/1vXnu9ZW9QXw9igx5vdslzfkfhgp_ojAslS4NV-MhRng/edit#gid=0
+//
+//
+var prod_tmpls = {
+	
+	getIsfolLevels: H.compile(baseUrl+'istatLevel{{level}}/{{parentId}}'),
+
+	getJobsByLevel: H.compile(baseUrl+'jobsByLevel5/{{idLevel5}}'),
+	
+	getSkillsByJob: H.compile(baseUrl+'skillsByJob/{{idJob}}'),
+	
+	getAllSkillsLabels: H.compile(baseUrl+'allSkillsLabels'),
+	
+	getJobsBySkills: H.compile(baseUrl+'jobsBySkills?c1={{value1}}&c2={{value2}}')
+};
+
+module.exports = {
+	urls: window.DEBUG_MODE ? dev_tmpls : prod_tmpls
+};
+
+},{"handlebars":38}],129:[function(require,module,exports){
+
 var $ = jQuery = require('jquery');
 var _ = require('underscore'); 
 var S = require('underscore.string');
@@ -41401,6 +41442,8 @@ window.DEBUG_MODE = true;
 
 window.SKILLS_THRESHOLD = 50;
 
+var config = require('./config');
+
 var utils = require('./utils');
 var tree = require('./tree');
 var table = require('./table');
@@ -41412,14 +41455,6 @@ var baseUrl = "//api-test.smartcommunitylab.it/t/sco.cartella/";
 
 window.allSkillsLabels = {};
 window.profileSkills = [];
-
-window.serializeSkills = function(o) {
-  var ret = '';
-  for(var p in o) {
-    ret += "_"+p+o[p];
-  }
-  return ret;
-}
 
 $(function() {
   
@@ -41485,7 +41520,15 @@ $(function() {
 
     profileSkills = _.keys(skillsObj)
 
+    function serializeSkills(o) {
+      var ret = '';
+      for(var p in o) {
+        ret += "_"+p+o[p];
+      }
+      return ret;
+    }
     var paramSkills = $.param(skillsObj).replace(/[a]/g,'');
+
     var url = DEBUG_MODE ? 'data/debug/jobsBySkills_'+serializeSkills(skillsObj)+'.json' : baseUrl+'isfol/1.0.0/jobsBySkills?'+paramSkills;
     $.getJSON(url, function(json) {
       
@@ -41634,7 +41677,7 @@ $(function() {
 
 });  
 
-},{"../node_modules/bootstrap/dist/css/bootstrap.min.css":4,"./profile":129,"./table":130,"./tree":131,"./utils":132,"bootstrap":5,"d3":8,"handlebars":38,"jquery":40,"popper.js":42,"underscore":126,"underscore.string":80}],129:[function(require,module,exports){
+},{"../node_modules/bootstrap/dist/css/bootstrap.min.css":4,"./config":128,"./profile":130,"./table":131,"./tree":132,"./utils":133,"bootstrap":5,"d3":8,"handlebars":38,"jquery":40,"popper.js":42,"underscore":126,"underscore.string":80}],130:[function(require,module,exports){
 
 var $ = jQuery = require('jquery');
 var _ = require('underscore'); 
@@ -41695,7 +41738,7 @@ module.exports = {
 		
 	}
 };
-},{"./utils":132,"jquery":40,"underscore":126}],130:[function(require,module,exports){
+},{"./utils":133,"jquery":40,"underscore":126}],131:[function(require,module,exports){
 
 var $ = jQuery = require('jquery');
 var _ = require('underscore'); 
@@ -41747,7 +41790,7 @@ module.exports = {
 		return this;
 	}
 }
-},{"../node_modules/bootstrap-table/dist/bootstrap-table.min.css":3,"./utils":132,"bootstrap-table":2,"jquery":40,"underscore":126}],131:[function(require,module,exports){
+},{"../node_modules/bootstrap-table/dist/bootstrap-table.min.css":3,"./utils":133,"bootstrap-table":2,"jquery":40,"underscore":126}],132:[function(require,module,exports){
 /*
   original: https://bl.ocks.org/mbostock/4339083
  */
@@ -42130,7 +42173,7 @@ module.exports = {
 		});
 	}
 };
-},{"./utils":132,"d3":8,"handlebars":38,"he":39,"jquery":40,"underscore":126,"underscore.string":80}],132:[function(require,module,exports){
+},{"./utils":133,"d3":8,"handlebars":38,"he":39,"jquery":40,"underscore":126,"underscore.string":80}],133:[function(require,module,exports){
 
 var $ = jQuery = require('jquery');
 var _ = require('underscore'); 
@@ -42173,4 +42216,4 @@ module.exports = {
     }
 };
 
-},{"jquery":40,"underscore":126,"underscore.string":80}]},{},[128]);
+},{"jquery":40,"underscore":126,"underscore.string":80}]},{},[129]);
