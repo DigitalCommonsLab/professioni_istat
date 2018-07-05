@@ -41982,13 +41982,16 @@ module.exports = {
 			},
 			"class": function(d) {
 
-			  if( d.children || 
-		      	  d.id === code ||
-			     (d.level === 5 && self.getIdParent(code) === d.id)
-			     )
-			    return "node highlight";
-			  else
-			    return "node";   
+				var classname = "node level"+d.level;
+
+				if( d.children || d.id === code ||
+				   (d.level === 5 && self.getIdParent(code) === d.id)
+				  ) {
+					classname += " highlight";
+				}
+				
+
+				return classname;
 			}
 		});
 
