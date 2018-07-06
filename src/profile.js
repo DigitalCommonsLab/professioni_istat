@@ -1,6 +1,8 @@
 
 var $ = jQuery = require('jquery');
 var _ = require('underscore'); 
+
+var config = require('./config');
 var utils = require('./utils');
 
 module.exports = {
@@ -29,13 +31,12 @@ module.exports = {
 
 		if(name==='skills') {
 
-			var skillsUrl = this.baseUrl+'skills/student';
-
-			if(self.data.skills)
+			if(self.data.skills) {
 				cb(self.data.skills);
+			}
 			else
 			{
-				$.getJSON(skillsUrl, function(json) {
+				$.getJSON(config.urls.getProfileSkills(), function(json) {
 
 					self.data.skills = [];
 

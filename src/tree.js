@@ -8,6 +8,8 @@ _.mixin({str: S});
 var H = require('handlebars');
 var d3 = require('d3');
 var he = require('he');
+
+var config = require('./config');
 var utils = require('./utils');
 
 d3.selection.prototype.moveToFront = function() {  
@@ -33,9 +35,6 @@ module.exports = {
 	onSelect: function(e){ console.log('onClickNode',e); },
 
 	config: {
-		
-		baseUrl: '',
-
 		width: 960,
 		height: 400,
 
@@ -89,15 +88,10 @@ module.exports = {
 	},
 
 	urlLevelByCode: function(code) {
-		var url = '';
-
-		if(DEBUG_MODE)
-			url = 'data/debug/istatLevel' + (code ? (code.split('.').length+1)+"_"+code : '1')+'.json';
-		else
-			url = this.config.baseUrl + 'istatLevel' + (code ? (code.split('.').length+1)+"/"+code : '1');
-
-		//console.log(code, url);
-		return url;
+		return config.urls.getIsfolLevels({
+			level: code ? code.split('.').length+1 : '1',
+			parentId: code
+		});
 	},
 
 	getIdParent: function(id) {
@@ -318,6 +312,7 @@ module.exports = {
 			}
 		});
 
+		self.svg.selectAll("link").moveToBack();
 		self.svg.selectAll(".highlight").moveToFront();
 	},
 

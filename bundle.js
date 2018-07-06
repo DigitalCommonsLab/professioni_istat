@@ -41385,26 +41385,45 @@ function config (name) {
 
 var H = require('handlebars');
 
-var baseUrl = "https://api-test.smartcommunitylab.it/t/sco.cartella/isfol/1.0.0/";
+var baseUrlPro = "https://api-test.smartcommunitylab.it/t/sco.cartella/";
+var baseUrlDev = "./data/debug/";
 
-//API defined here: https://docs.google.com/spreadsheets/d/1vXnu9ZW9QXw9igx5vdslzfkfhgp_ojAslS4NV-MhRng/edit#gid=0
-//
-//
-var prod_tmpls = {
-	
-	getIsfolLevels: H.compile(baseUrl+'istatLevel{{level}}/{{parentId}}'),
-
-	getJobsByLevel: H.compile(baseUrl+'jobsByLevel5/{{idLevel5}}'),
-	
-	getSkillsByJob: H.compile(baseUrl+'skillsByJob/{{idJob}}'),
-	
-	getAllSkillsLabels: H.compile(baseUrl+'allSkillsLabels'),
-	
-	getJobsBySkills: H.compile(baseUrl+'jobsBySkills?c1={{value1}}&c2={{value2}}')
+if(!window.DEBUG_MODE)	//API defined here: https://docs.google.com/spreadsheets/d/1vXnu9ZW9QXw9igx5vdslzfkfhgp_ojAslS4NV-MhRng/edit#gid=0
+{
+	urls = {
+		getProfileSkills: H.compile(baseUrlPro+'skills/student'),
+		//ISFOL API
+		getJobsByLevel: H.compile(baseUrlPro+'isfol/1.0.0/jobsByLevel5/{{idLevel5}}'),
+		getSkillsByJob: H.compile(baseUrlPro+'isfol/1.0.0/skillsByJob/{{idJob}}'),
+		getAllSkillsLabels: H.compile(baseUrlPro+'isfol/1.0.0/allSkillsLabels'),
+		getJobsBySkills: function(o) {
+			//remove 'a' from end of codes
+			var pars = $.param(o).replace(/[a]/g,'');
+			return baseUrlPro+'isfol/1.0.0/jobsBySkills' + '?' + pars;
+		}
+	};
+}
+else	//DEBUG API via json files in
+{
+	urls = {
+		getProfileSkills: H.compile(baseUrlDev+'student.json'),
+		//ISFOL API
+		getIsfolLevels: H.compile(baseUrlDev+'istatLevel{{level}}_{{parentId}}.json'),
+		getJobsByLevel: H.compile(baseUrlDev+'jobsByLevel5_{{idLevel5}}.json'),
+		getSkillsByJob: H.compile(baseUrlDev+'skillsByJob_{{idJob}}.json'),
+		getAllSkillsLabels: H.compile(baseUrlDev+'allSkillsLabels.json'),
+		getJobsBySkills: function(o) {
+			var pars = '';
+			for(var p in o) {
+				pars += "_"+p+o[p];
+			}
+			return baseUrlDev+'jobsBySkills' + '_' + pars + '.json';
+		}
+	};
 };
 
 module.exports = {
-	urls: window.DEBUG_MODE ? dev_tmpls : prod_tmpls
+	urls: urls
 };
 
 },{"handlebars":38}],129:[function(require,module,exports){
@@ -41435,18 +41454,13 @@ var table = require('./table');
 var profile = require('./profile');
 
 var baseUrl = "//api-test.smartcommunitylab.it/t/sco.cartella/";
-//             http://api-test.smartcommunitylab.it/t/sco.cartella/asl-stats/1.0/api/statistics/skills/student
-//var baseUrlLevels = "http://localhost/smartcommunitylab/t/sco.cartella/isfol/1.0.0/istatLevel";
-
 window.allSkillsLabels = {};
 window.profileSkills = [];
 
 $(function() {
-  
-  var url = DEBUG_MODE ? 'data/debug/allSkillsLabels.json' : baseUrl+'isfol/1.0.0/allSkillsLabels';
-  //$.getJSON(url, function(json) {
+
   $.ajax({
-    url: url,
+    url: config.urls.getAllSkillsLabels(),
     conteType: 'json',
     async: false,
     success: function(json) {
@@ -41505,17 +41519,7 @@ $(function() {
 
     profileSkills = _.keys(skillsObj)
 
-    function serializeSkills(o) {
-      var ret = '';
-      for(var p in o) {
-        ret += "_"+p+o[p];
-      }
-      return ret;
-    }
-    var paramSkills = $.param(skillsObj).replace(/[a]/g,'');
-
-    var url = DEBUG_MODE ? 'data/debug/jobsBySkills_'+serializeSkills(skillsObj)+'.json' : baseUrl+'isfol/1.0.0/jobsBySkills?'+paramSkills;
-    $.getJSON(url, function(json) {
+    $.getJSON(config.urls.getJobsBySkills(skillsObj), function(json) {
       
       if(!json['Entries'])
         return null;
@@ -41574,13 +41578,10 @@ $(function() {
       }
     ],
     onSelect: function(row) {
-      //TODO select   
-      console.log('table onSelect', row.id);
       
-      var level5 = tree.getIdParent(row.id);
+      var parentId = tree.getIdParent(row.id);
 
-      var url = DEBUG_MODE ? 'data/debug/skillsByJob_'+level5+'.json' : baseUrl+'isfol/1.0.0/skillsByJob/'+level5;
-      $.getJSON(url, function(json) {
+      $.getJSON(config.urls.getSkillsByJob({idJob: parentId }), function(json) {
         
         if(!json['Entries'])
           return null;
@@ -41588,8 +41589,6 @@ $(function() {
         var res = [],
             ee = json['Entries']['Entry'],
             res = _.isArray(ee) ? ee : [ee];
-        
-        console.log('/skillsByJob',res);
 
         //TODO filter by API side
         delete res[0].fk_livello5;
@@ -41624,20 +41623,16 @@ $(function() {
   });
 
   tree.init($tree, {
-    baseUrl: baseUrl +'isfol/1.0.0/',
     width: $tree.outerWidth(),
     height: $tree.outerHeight(),
     onSelect: function(node) {
-      
-      console.log('onSelect node', node)
 
       if(node.level!==5)
           return false;
 
       tree.buildTreeByCode(node.id);
       
-      var url = DEBUG_MODE ? 'data/debug/jobsByLevel5_'+node.id+'.json' : baseUrl+'isfol/1.0.0/jobsByLevel5/'+node.id;
-      $.getJSON(url, function(json) {
+      $.getJSON(config.urls.getJobsByLevel({idLevel5: node.id }), function(json) {
         
         if(!json['Entries'])
           return null;
@@ -41645,8 +41640,6 @@ $(function() {
         var res = [],
             ee = json['Entries']['Entry'],
             res = _.isArray(ee) ? ee : [ee];
-        
-        console.log('jobsByLevel5',res);
 
         table1.update(_.map(res, function(v) {
           return {
@@ -41666,6 +41659,8 @@ $(function() {
 
 var $ = jQuery = require('jquery');
 var _ = require('underscore'); 
+
+var config = require('./config');
 var utils = require('./utils');
 
 module.exports = {
@@ -41694,13 +41689,12 @@ module.exports = {
 
 		if(name==='skills') {
 
-			var skillsUrl = this.baseUrl+'skills/student';
-
-			if(self.data.skills)
+			if(self.data.skills) {
 				cb(self.data.skills);
+			}
 			else
 			{
-				$.getJSON(skillsUrl, function(json) {
+				$.getJSON(config.urls.getProfileSkills(), function(json) {
 
 					self.data.skills = [];
 
@@ -41723,7 +41717,7 @@ module.exports = {
 		
 	}
 };
-},{"./utils":133,"jquery":40,"underscore":126}],131:[function(require,module,exports){
+},{"./config":128,"./utils":133,"jquery":40,"underscore":126}],131:[function(require,module,exports){
 
 var $ = jQuery = require('jquery');
 var _ = require('underscore'); 
@@ -41786,6 +41780,8 @@ _.mixin({str: S});
 var H = require('handlebars');
 var d3 = require('d3');
 var he = require('he');
+
+var config = require('./config');
 var utils = require('./utils');
 
 d3.selection.prototype.moveToFront = function() {  
@@ -41811,9 +41807,6 @@ module.exports = {
 	onSelect: function(e){ console.log('onClickNode',e); },
 
 	config: {
-		
-		baseUrl: '',
-
 		width: 960,
 		height: 400,
 
@@ -41867,15 +41860,10 @@ module.exports = {
 	},
 
 	urlLevelByCode: function(code) {
-		var url = '';
-
-		if(DEBUG_MODE)
-			url = 'data/debug/istatLevel' + (code ? (code.split('.').length+1)+"_"+code : '1')+'.json';
-		else
-			url = this.config.baseUrl + 'istatLevel' + (code ? (code.split('.').length+1)+"/"+code : '1');
-
-		//console.log(code, url);
-		return url;
+		return config.urls.getIsfolLevels({
+			level: code ? code.split('.').length+1 : '1',
+			parentId: code
+		});
 	},
 
 	getIdParent: function(id) {
@@ -42096,6 +42084,7 @@ module.exports = {
 			}
 		});
 
+		self.svg.selectAll("link").moveToBack();
 		self.svg.selectAll(".highlight").moveToFront();
 	},
 
@@ -42158,7 +42147,7 @@ module.exports = {
 		});
 	}
 };
-},{"./utils":133,"d3":8,"handlebars":38,"he":39,"jquery":40,"underscore":126,"underscore.string":80}],133:[function(require,module,exports){
+},{"./config":128,"./utils":133,"d3":8,"handlebars":38,"he":39,"jquery":40,"underscore":126,"underscore.string":80}],133:[function(require,module,exports){
 
 var $ = jQuery = require('jquery');
 var _ = require('underscore'); 

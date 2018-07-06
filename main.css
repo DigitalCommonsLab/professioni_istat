@@ -12,12 +12,12 @@ html {
 
 .node circle {
   fill: #fff;
-  stroke: steelblue;
+  stroke: #007bff;
   stroke-width: 3px;
 }
 
 .node.highlight circle {
-  fill: steelblue;
+  fill: #007bff;
 }
 
 .node text {
@@ -28,7 +28,7 @@ html {
 
 .node:hover text,
 .node:hover circle {
-  fill: steelblue;
+  fill: #007bff;
 }
 
 .node.highlight text {
@@ -45,7 +45,7 @@ html {
 }
 
 .link.highlight {
-  stroke: steelblue;
+  stroke: #007bff;
   stroke-width: 6px;
 }
 
@@ -93,7 +93,7 @@ html {
     font: 12px sans-serif;    
     background: #fff;
     box-shadow: 4px 4px 12px rgba(0,0,0,0.4);
-    border: 2px solid steelblue;
+    border: 2px solid #007bff;
     border-radius: 3px;
     pointer-events: none;     
 }
