@@ -6,7 +6,7 @@ html {
 }
 
 /* SVG */
-.node {
+.node.level5 {
 	cursor: pointer;
 }
 
