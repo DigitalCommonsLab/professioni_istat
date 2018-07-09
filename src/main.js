@@ -77,7 +77,7 @@ $(function() {
 
     //TODO MOVE inside profile.js
     
-    console.log('profile skills: ', skills);
+      console.log('profile skills: ', skills);
 
     var skillsObj = {};
 
@@ -227,6 +227,8 @@ $(function() {
             desc: ""
           }
         }));
+
+        table2.update([]);
 
       });
     }
