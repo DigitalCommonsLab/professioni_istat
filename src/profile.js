@@ -14,15 +14,6 @@ module.exports = {
 		this.profile = $(el);
 
 		this.data = {};
-
-		this.baseUrl = opts.baseUrl+'asl-stats/1.0/api/statistics/';
-
-/*	//TODO
-	if(DEBUG_MODE)
-			url = 'data/debug/istatLevel' + (code ? (code.split('.').length+1)+"_"+code : '1')+'.json';
-		else
-			url = opts.baseUrl + 'istatLevel' + (code ? (code.split('.').length+1)+"/"+code : '1');
-*/
 	},
 
 	getData: function(name, cb) {

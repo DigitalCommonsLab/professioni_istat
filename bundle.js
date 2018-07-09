@@ -1,3 +1,18 @@
+(function () {
+  var socket = document.createElement('script')
+  var script = document.createElement('script')
+  socket.setAttribute('src', 'http://localhost:3001/socket.io/socket.io.js')
+  script.type = 'text/javascript'
+
+  socket.onload = function () {
+    document.head.appendChild(script)
+  }
+  script.text = ['window.socket = io("http://localhost:3001");',
+  'socket.on("bundle", function() {',
+  'console.log("livereaload triggered")',
+  'window.location.reload();});'].join('\n')
+  document.head.appendChild(socket)
+}());
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 (function (process,__filename){
 /** vim: et:ts=4:sw=4:sts=4
@@ -41384,49 +41399,58 @@ function config (name) {
 },{}],128:[function(require,module,exports){
 
 var H = require('handlebars');
+var _ = require('underscore');
 
-var baseUrlPro = "https://api-test.smartcommunitylab.it/t/sco.cartella/";
-var baseUrlDev = "./data/debug/";
+var urls = {
+	baseUrlPro: "https://api-test.smartcommunitylab.it/t/sco.cartella/",
+	baseUrlDev: "./data/debug/"
+};
 
 if(!window.DEBUG_MODE)	//API defined here: https://docs.google.com/spreadsheets/d/1vXnu9ZW9QXw9igx5vdslzfkfhgp_ojAslS4NV-MhRng/edit#gid=0
 {
-	urls = {
-		getProfileSkills: H.compile(baseUrlPro+'skills/student'),
+	_.extend(urls, {
+		getProfileSkills: H.compile(urls.baseUrlPro+'asl-stats/1.0/api/statistics/skills/student'),
 		//ISFOL API
-		getJobsByLevel: H.compile(baseUrlPro+'isfol/1.0.0/jobsByLevel5/{{idLevel5}}'),
-		getSkillsByJob: H.compile(baseUrlPro+'isfol/1.0.0/skillsByJob/{{idJob}}'),
-		getAllSkillsLabels: H.compile(baseUrlPro+'isfol/1.0.0/allSkillsLabels'),
+		getIsfolLevels: H.compile(urls.baseUrlPro+'isfol/1.0.0/istatLevel{{level}}{{#if parentId}}/{{parentId}}{{else}}{{/if}}'),
+		getJobsByLevel: H.compile(urls.baseUrlPro+'isfol/1.0.0/jobsByLevel5/{{idLevel5}}'),
+		getSkillsByJob: H.compile(urls.baseUrlPro+'isfol/1.0.0/skillsByJob/{{idJob}}'),
+		getAllSkillsLabels: H.compile(urls.baseUrlPro+'isfol/1.0.0/allSkillsLabels'),
 		getJobsBySkills: function(o) {
 			//remove 'a' from end of codes
 			var pars = $.param(o).replace(/[a]/g,'');
-			return baseUrlPro+'isfol/1.0.0/jobsBySkills' + '?' + pars;
+			return urls.baseUrlPro+'isfol/1.0.0/jobsBySkills' + '?' + pars;
 		}
-	};
+	});
 }
 else	//DEBUG API via json files in
 {
-	urls = {
-		getProfileSkills: H.compile(baseUrlDev+'student.json'),
+	_.extend(urls, {
+		getProfileSkills: H.compile(urls.baseUrlDev+'student.json'),
 		//ISFOL API
-		getIsfolLevels: H.compile(baseUrlDev+'istatLevel{{level}}_{{parentId}}.json'),
-		getJobsByLevel: H.compile(baseUrlDev+'jobsByLevel5_{{idLevel5}}.json'),
-		getSkillsByJob: H.compile(baseUrlDev+'skillsByJob_{{idJob}}.json'),
-		getAllSkillsLabels: H.compile(baseUrlDev+'allSkillsLabels.json'),
+		getIsfolLevels: H.compile(urls.baseUrlDev+'istatLevel{{level}}_{{parentId}}.json'),
+		getJobsByLevel: H.compile(urls.baseUrlDev+'jobsByLevel5_{{idLevel5}}.json'),
+		getSkillsByJob: H.compile(urls.baseUrlDev+'skillsByJob_{{idJob}}.json'),
+		getAllSkillsLabels: H.compile(urls.baseUrlDev+'allSkillsLabels.json'),
 		getJobsBySkills: function(o) {
 			var pars = '';
 			for(var p in o) {
 				pars += "_"+p+o[p];
 			}
-			return baseUrlDev+'jobsBySkills' + '_' + pars + '.json';
+			return urls.baseUrlDev+'jobsBySkills' + '_' + pars + '.json';
 		}
-	};
+	});
 };
 
 module.exports = {
-	urls: urls
+	urls: urls,
+	init: function(opts) {
+		if(opts && opts.baseUrl) {
+			baseUrlPro = opts.baseUrl;
+		}
+	}
 };
 
-},{"handlebars":38}],129:[function(require,module,exports){
+},{"handlebars":38,"underscore":126}],129:[function(require,module,exports){
 
 var $ = jQuery = require('jquery');
 var _ = require('underscore'); 
@@ -41441,7 +41465,7 @@ require('../node_modules/bootstrap/dist/css/bootstrap.min.css');
 window._ = _;
 window.$ = $;
 
-window.DEBUG_MODE = true;
+window.DEBUG_MODE = false;
 //load JSON file instead of remote API rest
 
 window.SKILLS_THRESHOLD = 50;
@@ -41453,11 +41477,14 @@ var tree = require('./tree');
 var table = require('./table');
 var profile = require('./profile');
 
-var baseUrl = "//api-test.smartcommunitylab.it/t/sco.cartella/";
 window.allSkillsLabels = {};
 window.profileSkills = [];
 
 $(function() {
+
+  config.init({
+    baseUrl: "//api-test.smartcommunitylab.it/t/sco.cartella/"
+  });
 
   $.ajax({
     url: config.urls.getAllSkillsLabels(),
@@ -41497,9 +41524,7 @@ $(function() {
 
   });
   
-  profile.init('#profile', {
-    baseUrl: baseUrl
-  });
+  profile.init('#profile');
 
   profile.getData('skills', function(skills) {
     
@@ -41672,15 +41697,6 @@ module.exports = {
 		this.profile = $(el);
 
 		this.data = {};
-
-		this.baseUrl = opts.baseUrl+'asl-stats/1.0/api/statistics/';
-
-/*	//TODO
-	if(DEBUG_MODE)
-			url = 'data/debug/istatLevel' + (code ? (code.split('.').length+1)+"_"+code : '1')+'.json';
-		else
-			url = opts.baseUrl + 'istatLevel' + (code ? (code.split('.').length+1)+"/"+code : '1');
-*/
 	},
 
 	getData: function(name, cb) {

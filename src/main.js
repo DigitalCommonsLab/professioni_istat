@@ -12,7 +12,7 @@ require('../node_modules/bootstrap/dist/css/bootstrap.min.css');
 window._ = _;
 window.$ = $;
 
-window.DEBUG_MODE = true;
+window.DEBUG_MODE = false;
 //load JSON file instead of remote API rest
 
 window.SKILLS_THRESHOLD = 50;
@@ -24,11 +24,14 @@ var tree = require('./tree');
 var table = require('./table');
 var profile = require('./profile');
 
-var baseUrl = "//api-test.smartcommunitylab.it/t/sco.cartella/";
 window.allSkillsLabels = {};
 window.profileSkills = [];
 
 $(function() {
+
+  config.init({
+    baseUrl: "//api-test.smartcommunitylab.it/t/sco.cartella/"
+  });
 
   $.ajax({
     url: config.urls.getAllSkillsLabels(),
@@ -68,9 +71,7 @@ $(function() {
 
   });
   
-  profile.init('#profile', {
-    baseUrl: baseUrl
-  });
+  profile.init('#profile');
 
   profile.getData('skills', function(skills) {
     
