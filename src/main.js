@@ -74,6 +74,8 @@ $(function() {
   profile.init('#profile');
 
   profile.getData('skills', function(skills) {
+
+    //TODO MOVE inside profile.js
     
     console.log('profile skills: ', skills);
 
@@ -100,14 +102,19 @@ $(function() {
           ee = json['Entries']['Entry'],
           res = _.isArray(ee) ? ee : [ee];
       
-      res = _.uniq(_.pluck(res,'idJobs'));
+      res = _.map(res, function(v,k) {
+        return {
+          code: v['idJobs'],
+          name: v['nome']
+        }
+      });
 
-      console.log('/jobsBySkills', res);
+      //console.log('getJobsBySkills', res);
 
       $select_jobs.empty();
 
-      _.each(res, function(id) {
-        $select_jobs.append('<option value="'+id+'">'+id+'</option>')
+      _.each(res, function(row) {
+        $select_jobs.append('<option value="'+row.code+'">'+(row.code+' '+row.name)+'</option>')
       });
 
     });
