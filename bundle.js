@@ -41515,10 +41515,6 @@ $(function() {
 
   profile.getData('skills', function(skills) {
 
-    //TODO MOVE inside profile.js
-    
-      console.log('profile skills: ', skills);
-
     var skillsObj = {};
 
     for(var i in skills) {
@@ -41549,8 +41545,6 @@ $(function() {
         }
       });
 
-      //console.log('getJobsBySkills', res);
-
       $select_jobs.empty();
 
       _.each(res, function(row) {
@@ -41561,40 +41555,21 @@ $(function() {
 
   });
 
-
   var $tree = $('#tree');
 
   var table2 = new table.init('#table2', {
     columns: [
-        {
-            field: 'val',
-            title: 'Importanza'
-        },
-        {
-            field: 'name',
-            title: 'Nome'
-        },
-        {
-            field: 'desc',
-            title: 'Descrizione'
-        }
+        { field: 'val', title: 'Importanza' },
+        { field: 'name', title: 'Nome' },
+        { field: 'desc', title: 'Descrizione' }
       ]
   });
 
   var table1 = new table.init('#table', {
     columns: [
-      {
-          field: 'id',
-          title: 'Isfol'
-      },
-      {
-          field: 'name',
-          title: 'Nome'
-      },
-      {
-          field: 'desc',
-          title: 'Descrizione'
-      }
+      { field: 'id', title: 'Isfol' },
+      { field: 'name', title: 'Nome' },
+      { field: 'desc', title: 'Descrizione' }
     ],
     onSelect: function(row) {
       
@@ -41632,7 +41607,8 @@ $(function() {
           return !_.contains(profileSkills, row.id);
         });
 
-        console.log('table2',rows);
+        //sort by importance
+        rows = _.sortBy(rows, 'val').reverse();
 
         table2.update(rows);
 
