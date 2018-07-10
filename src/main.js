@@ -24,39 +24,10 @@ var tree = require('./tree');
 var table = require('./table');
 var profile = require('./profile');
 
-window.allSkillsLabels = {};
-window.profileSkills = [];
-
 $(function() {
 
   config.init({
     baseUrl: "//api-test.smartcommunitylab.it/t/sco.cartella/"
-  });
-
-  $.ajax({
-    url: config.urls.getAllSkillsLabels(),
-    conteType: 'json',
-    async: false,
-    success: function(json) {
-      if(!json['Entries'])
-        return null;
-
-      var res = [],
-          ee = json['Entries']['Entry'],
-          res = _.isArray(ee) ? ee : [ee];
-      
-      //console.log('/allSkillsLabels',res);
-
-      res = _.map(res, function(v) {
-        return {
-          code: v.cod_etichetta.toLowerCase(),
-          desc: v.desc_etichetta,
-          desc_long: v.longdesc_etichetta
-        };
-      });
-
-      allSkillsLabels = _.indexBy(res,'code');
-    }
   });
 
   var $profile = $('#profile'),
@@ -82,15 +53,13 @@ $(function() {
 
     for(var i in skills) {
       var code = skills[i],
-          label = allSkillsLabels[ code ] && allSkillsLabels[ code ].desc,
+          label = profile.skillsLabels[ code ] && profile.skillsLabels[ code ].desc,
           val = SKILLS_THRESHOLD;
       
       skillsObj[code]= val;
 
       $skills.append('<span class="badge badge-primary">'+label+'</span>');
     }
-
-    profileSkills = _.keys(skillsObj)
 
     $.getJSON(config.urls.getJobsBySkills(skillsObj), function(json) {
       
@@ -100,7 +69,7 @@ $(function() {
       var res = [],
           ee = json['Entries']['Entry'],
           res = _.isArray(ee) ? ee : [ee];
-      
+
       res = _.map(res, function(v,k) {
         return {
           code: v['idJobs'],
@@ -109,7 +78,6 @@ $(function() {
       });
 
       $select_jobs.empty();
-
       _.each(res, function(row) {
         $select_jobs.append('<option value="'+row.code+'">'+(row.code+' '+row.name)+'</option>')
       });
@@ -155,8 +123,8 @@ $(function() {
           return {
             id: code,
             val: val,
-            name: allSkillsLabels[code] ? allSkillsLabels[code].desc : '',
-            desc: allSkillsLabels[code] ? allSkillsLabels[code].desc_long : ''
+            name: profile.skillsLabels[code] ? profile.skillsLabels[code].desc : '',
+            desc: profile.skillsLabels[code] ? profile.skillsLabels[code].desc_long : ''
           }
         });
 
@@ -167,7 +135,7 @@ $(function() {
 
         //remove profile aquired skills
         rows = _.filter(rows, function(row) {
-          return !_.contains(profileSkills, row.id);
+          return !_.contains(profile.data.skills, row.id);
         });
 
         //sort by importance
