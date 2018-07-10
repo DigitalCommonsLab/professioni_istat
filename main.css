@@ -50,7 +50,7 @@ html {
 }
 
 #profile {
-  border: 1px solid coral;
+  border: 1px solid #ccc;
 }
 
 #skills span {
@@ -59,22 +59,13 @@ html {
 }
 
 #tree {
-  border: 1px solid blue;
+  border: 1px solid #ccc;
   height: 500px;
-  border: 1px solid blue;
   position: relative;
-}
-
-#table {
-  border: 1px solid green;
 }
 
 #table tr {
   cursor: pointer;
-}
-
-#table2 {
-  border: 1px solid red;
 }
 
 .tooltip .title {

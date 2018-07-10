@@ -70,6 +70,7 @@ $(function() {
     tree.buildTreeByCode(code);
 
     table1.update([]);
+    table2.update([]);
 
   });
   
