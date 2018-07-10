@@ -1,4 +1,6 @@
 
+var pkg = require('../package.json'); 
+
 var $ = jQuery = require('jquery');
 var _ = require('underscore'); 
 var S = require('underscore.string');
@@ -25,6 +27,8 @@ var table = require('./table');
 var profile = require('./profile');
 
 $(function() {
+
+  $('#version').text('v'+pkg.version);
 
   config.init({
     baseUrl: "//api-test.smartcommunitylab.it/t/sco.cartella/"

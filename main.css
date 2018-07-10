@@ -96,3 +96,12 @@ html {
   padding: 3px;
 
 }
+
+#version {
+  color:#ccc;
+  padding: 4px;
+  font-style: italic;
+  position: fixed;
+  top:0;
+  right:0;
+}

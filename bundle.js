@@ -41382,6 +41382,58 @@ function config (name) {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],128:[function(require,module,exports){
+module.exports={
+  "name": "professioni_istat",
+  "version": "1.1.0",
+  "description": "",
+  "main": "bundle.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DigitalCommonsLab/professioni_istat.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DigitalCommonsLab/professioni_istat/issues"
+  },
+  "homepage": "https://github.com/DigitalCommonsLab/professioni_istat#readme",
+  "dependencies": {
+    "bootstrap": "^4.1.1",
+    "bootstrap-table": "^1.12.1",
+    "d3": "^3.4.11",
+    "handlebars": "^4.0.11",
+    "he": "^1.1.1",
+    "jquery": "3.3.1",
+    "popper.js": "^1.14.3",
+    "underscore": "1.8.3",
+    "underscore.string": "3.3.4"
+  },
+  "scripts": {
+    "build": "browserify src/main.js -o bundle.js",
+    "start": "watchify -p browserify-livereload src/main.js -o bundle.js"
+  },
+  "devDependencies": {
+    "browserify": "^16.2.2",
+    "browserify-css": "^0.14.0",
+    "browserify-livereload": "^1.0.10",
+    "watchify": "^3.11.0"
+  },
+  "browserify-css": {
+    "autoInject": true,
+    "autoInjectOptions": {
+      "insertAt": "top"
+    },
+    "minify": true,
+    "rootDir": "."
+  },
+  "browserify": {
+    "transform": [
+      "browserify-css"
+    ]
+  }
+}
+
+},{}],129:[function(require,module,exports){
 
 var H = require('handlebars');
 var _ = require('underscore');
@@ -41435,7 +41487,9 @@ module.exports = {
 	}
 };
 
-},{"handlebars":38,"underscore":126}],129:[function(require,module,exports){
+},{"handlebars":38,"underscore":126}],130:[function(require,module,exports){
+
+var pkg = require('../package.json'); 
 
 var $ = jQuery = require('jquery');
 var _ = require('underscore'); 
@@ -41463,6 +41517,8 @@ var table = require('./table');
 var profile = require('./profile');
 
 $(function() {
+
+  $('#version').text('v'+pkg.version);
 
   config.init({
     baseUrl: "//api-test.smartcommunitylab.it/t/sco.cartella/"
@@ -41621,7 +41677,7 @@ $(function() {
 
 });  
 
-},{"../node_modules/bootstrap/dist/css/bootstrap.min.css":4,"./config":128,"./profile":130,"./table":131,"./tree":132,"./utils":133,"bootstrap":5,"d3":8,"handlebars":38,"jquery":40,"popper.js":42,"underscore":126,"underscore.string":80}],130:[function(require,module,exports){
+},{"../node_modules/bootstrap/dist/css/bootstrap.min.css":4,"../package.json":128,"./config":129,"./profile":131,"./table":132,"./tree":133,"./utils":134,"bootstrap":5,"d3":8,"handlebars":38,"jquery":40,"popper.js":42,"underscore":126,"underscore.string":80}],131:[function(require,module,exports){
 
 var $ = jQuery = require('jquery');
 var _ = require('underscore'); 
@@ -41700,7 +41756,7 @@ module.exports = {
 		
 	}
 };
-},{"./config":128,"./utils":133,"jquery":40,"underscore":126}],131:[function(require,module,exports){
+},{"./config":129,"./utils":134,"jquery":40,"underscore":126}],132:[function(require,module,exports){
 
 var $ = jQuery = require('jquery');
 var _ = require('underscore'); 
@@ -41752,7 +41808,7 @@ module.exports = {
 		return this;
 	}
 }
-},{"../node_modules/bootstrap-table/dist/bootstrap-table.min.css":3,"./utils":133,"bootstrap-table":2,"jquery":40,"underscore":126}],132:[function(require,module,exports){
+},{"../node_modules/bootstrap-table/dist/bootstrap-table.min.css":3,"./utils":134,"bootstrap-table":2,"jquery":40,"underscore":126}],133:[function(require,module,exports){
 /*
   original: https://bl.ocks.org/mbostock/4339083
  */
@@ -42134,7 +42190,7 @@ module.exports = {
 		});
 	}
 };
-},{"./config":128,"./utils":133,"d3":8,"handlebars":38,"he":39,"jquery":40,"underscore":126,"underscore.string":80}],133:[function(require,module,exports){
+},{"./config":129,"./utils":134,"d3":8,"handlebars":38,"he":39,"jquery":40,"underscore":126,"underscore.string":80}],134:[function(require,module,exports){
 
 var $ = jQuery = require('jquery');
 var _ = require('underscore'); 
@@ -42177,4 +42233,4 @@ module.exports = {
     }
 };
 
-},{"jquery":40,"underscore":126,"underscore.string":80}]},{},[129]);
+},{"jquery":40,"underscore":126,"underscore.string":80}]},{},[130]);
