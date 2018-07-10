@@ -161,7 +161,8 @@ module.exports = {
 			  tspan;
 
 			var t = text.text();
-			text.text(null)
+			
+			text.text(null);
 
 			values.push(t);
 
@@ -276,6 +277,7 @@ module.exports = {
 			self.onSelect.call(self, d);
 		})
 		.attr({
+			"y": 0,
 			"dy": 0,
 			"x": function(d) {
 				return (d.children || d._children) ? -(self.config.textOffset) : self.config.textOffset;
@@ -322,7 +324,7 @@ module.exports = {
 
 	buildTreeByCode: function(code) {
 
-		console.log('buildTreeByCode: ', code);
+		//console.log('buildTreeByCode: ', code);
 
 		var self = this;
 

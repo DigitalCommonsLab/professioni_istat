@@ -45,7 +45,7 @@ $(function() {
           ee = json['Entries']['Entry'],
           res = _.isArray(ee) ? ee : [ee];
       
-      console.log('/allSkillsLabels',res);
+      //console.log('/allSkillsLabels',res);
 
       res = _.map(res, function(v) {
         return {
