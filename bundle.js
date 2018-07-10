@@ -42038,10 +42038,12 @@ module.exports = {
 			self.onSelect.call(self, d);
 		})
 		.attr({
-			"y": 0,
 			"dy": 0,
 			"x": function(d) {
 				return (d.children || d._children) ? -(self.config.textOffset) : self.config.textOffset;
+			},
+			"y": function(d) {
+				return -(self.config.textOffset);
 			},
 			"text-anchor": function(d) { 
 				return (d.children || d._children) ? "end" : "start";
