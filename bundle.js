@@ -41522,6 +41522,8 @@ $(function() {
     
     tree.buildTreeByCode(code);
 
+    table1.update([]);
+
   });
   
   profile.init('#profile');
