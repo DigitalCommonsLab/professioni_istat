@@ -25,6 +25,7 @@ var utils = require('./utils');
 var tree = require('./tree');
 var table = require('./table');
 var profile = require('./profile');
+var radar = require('../src/chart_radar');
 
 $(function() {
 
@@ -152,6 +153,10 @@ $(function() {
     }
   });
 
+  var chart = radar.init('#chart_radar', {
+    labels: profile.skillsLabels
+  });
+
   tree.init($tree, {
     width: $tree.outerWidth(),
     height: $tree.outerHeight(),
@@ -180,6 +185,32 @@ $(function() {
         }));
 
         table2.update([]);
+
+        chart.update([
+            _.map(_.range(1,11), function(i) {
+              return {
+                value: _.shuffle(_.range(3.2,4.8,0.4))[0]
+              };
+            }),
+            _.map([
+              //TODO USING type attribute or split in more Radar charts
+              {type: 'esiti' },
+              {type: 'esiti' },
+              {type: 'esiti' },
+              {type: 'esiti' },
+              {type: 'processi' },
+              {type: 'processi' },
+              {type: 'processi' },
+              {type: 'processi' },
+              {type: 'processi' },
+              {type: 'processi' },
+              {type: 'processi' },
+            ], function(o) {
+              //ADD RANDOM VALUES
+              o.value = _.shuffle(_.range(1,7,0.2))[0]; 
+              return o;
+            })
+          ]);
 
       });
     }
