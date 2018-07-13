@@ -1,18 +1,3 @@
-(function () {
-  var socket = document.createElement('script')
-  var script = document.createElement('script')
-  socket.setAttribute('src', 'http://localhost:3001/socket.io/socket.io.js')
-  script.type = 'text/javascript'
-
-  socket.onload = function () {
-    document.head.appendChild(script)
-  }
-  script.text = ['window.socket = io("http://localhost:3001");',
-  'socket.on("bundle", function() {',
-  'console.log("livereaload triggered")',
-  'window.location.reload();});'].join('\n')
-  document.head.appendChild(socket)
-}());
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 (function (process,__filename){
 /** vim: et:ts=4:sw=4:sts=4
@@ -41399,7 +41384,7 @@ function config (name) {
 },{}],128:[function(require,module,exports){
 module.exports={
   "name": "professioni_istat",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "",
   "main": "bundle.js",
   "repository": {
@@ -41449,48 +41434,6 @@ module.exports={
 }
 
 },{}],129:[function(require,module,exports){
-
-var $ = jQuery = require('jquery');
-var _ = require('underscore'); 
-var d3 = require('d3');
-var utils = require('./utils');
-
-var RadarChart = require('./lib/radarChart');
-
-module.exports = {
-  	
-  	chart: null,
-
-  	//onSelect: function(e){ console.log('onClickRow',e); }
-
-	init: function(el, opts) {
-		this.el =  el;
-		this.labels = opts && opts.labels;
-		return this;
-	},
-
-	update: function(data) {
-
-		//console.log('RadarChart update', data)
-
-		var margin = {top: 100, right: 100, bottom: 100, left: 100},
-			width = Math.min(500, window.innerWidth - 10) - margin.left - margin.right,
-			height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
-
-		this.chart = RadarChart(this.el, {
-			data: data,
-			labels: this.labels,
-			colors: ["red","green","blue"],
-			w: width,
-			h: height,
-			margin: margin,
-			maxValue: 0.5,
-			levels: 5,
-			roundStrokes: true
-		});
-	}
-}
-},{"./lib/radarChart":131,"./utils":136,"d3":8,"jquery":40,"underscore":126}],130:[function(require,module,exports){
 
 var H = require('handlebars');
 var _ = require('underscore');
@@ -41544,7 +41487,7 @@ module.exports = {
 	}
 };
 
-},{"handlebars":38,"underscore":126}],131:[function(require,module,exports){
+},{"handlebars":38,"underscore":126}],130:[function(require,module,exports){
 /////////////////////////////////////////////////////////
 /////////////// The Radar Chart Function ////////////////
 /////////////// Written by Nadieh Bremer ////////////////
@@ -41556,6 +41499,8 @@ module.exports = {
 	source: http://bl.ocks.org/nbremer/raw/21746a9668ffdf6d8242/radarChart.js
 	based on: https://github.com/alangrafu/radar-chart-d3
  */
+var d3 = require('d3');
+
 module.exports = function(el, options) {
 
 	var cfg = {
@@ -41821,7 +41766,7 @@ module.exports = function(el, options) {
 	
 }//RadarChart
 
-},{}],132:[function(require,module,exports){
+},{"d3":8}],131:[function(require,module,exports){
 
 var pkg = require('../package.json'); 
 
@@ -41849,7 +41794,9 @@ var utils = require('./utils');
 var tree = require('./tree');
 var table = require('./table');
 var profile = require('./profile');
-var radar = require('../src/chart_radar');
+var radar = require('../src/lib/radarChart');
+
+window.profile = profile;
 
 $(function() {
 
@@ -41869,8 +41816,8 @@ $(function() {
     
     tree.buildTreeByCode(code);
 
-    table1.update([]);
-    table2.update([]);
+    table1.reset();
+    table2.reset();
 
   });
   
@@ -41914,7 +41861,7 @@ $(function() {
     });
 
   });
-
+  
   var $tree = $('#tree');
 
   var table2 = new table.init('#table2', {
@@ -41977,9 +41924,7 @@ $(function() {
     }
   });
 
-  var chart = radar.init('#chart_radar', {
-    labels: profile.skillsLabels
-  });
+window.table2 = table2;
 
   tree.init($tree, {
     width: $tree.outerWidth(),
@@ -42008,41 +41953,42 @@ $(function() {
           }
         }));
 
-        table2.update([]);
+        table2.reset();
 
-        chart.update([
-            _.map(_.range(1,11), function(i) {
-              return {
-                value: _.shuffle(_.range(3.2,4.8,0.4))[0]
-              };
-            }),
-            _.map([
-              //TODO USING type attribute or split in more Radar charts
-              {type: 'esiti' },
-              {type: 'esiti' },
-              {type: 'esiti' },
-              {type: 'esiti' },
-              {type: 'processi' },
-              {type: 'processi' },
-              {type: 'processi' },
-              {type: 'processi' },
-              {type: 'processi' },
-              {type: 'processi' },
-              {type: 'processi' },
-            ], function(o) {
-              //ADD RANDOM VALUES
-              o.value = _.shuffle(_.range(1,7,0.2))[0]; 
-              return o;
-            })
-          ]);
+    /*
+    //TODO test radar for skills
+    
+        var $radar = $('#radar');
 
+        var radarLabels = _.pluck(profile.skillsLabels,'desc'), 
+            radarData = [
+              _.map(_.range(1, radarLabels.length), function(i) {
+                return {
+                  value: _.shuffle(_.range(3.2,4.8,0.4))[0]
+                };
+              }),
+              _.map(_.range(1, radarLabels.length), function(o) {
+                //ADD RANDOM VALUES
+                o.value = _.shuffle(_.range(1,7,0.2))[0]; 
+                return o;
+              })
+            ];
+
+        radar($radar[0], {
+          data: radarData,
+          labels: radarLabels,
+          colors: ["red","green","blue"],
+          w: $radar.outerWidth(),
+          h: $radar.outerHeight()
+        });
+*/
       });
     }
   });
 
 });  
 
-},{"../node_modules/bootstrap/dist/css/bootstrap.min.css":4,"../package.json":128,"../src/chart_radar":129,"./config":130,"./profile":133,"./table":134,"./tree":135,"./utils":136,"bootstrap":5,"d3":8,"handlebars":38,"jquery":40,"popper.js":42,"underscore":126,"underscore.string":80}],133:[function(require,module,exports){
+},{"../node_modules/bootstrap/dist/css/bootstrap.min.css":4,"../package.json":128,"../src/lib/radarChart":130,"./config":129,"./profile":132,"./table":133,"./tree":134,"./utils":135,"bootstrap":5,"d3":8,"handlebars":38,"jquery":40,"popper.js":42,"underscore":126,"underscore.string":80}],132:[function(require,module,exports){
 
 var $ = jQuery = require('jquery');
 var _ = require('underscore'); 
@@ -42121,7 +42067,7 @@ module.exports = {
 		
 	}
 };
-},{"./config":130,"./utils":136,"jquery":40,"underscore":126}],134:[function(require,module,exports){
+},{"./config":129,"./utils":135,"jquery":40,"underscore":126}],133:[function(require,module,exports){
 
 var $ = jQuery = require('jquery');
 var _ = require('underscore'); 
@@ -42150,7 +42096,7 @@ module.exports = {
 			//cardView: true,
 			data: [],
 			columns: opts.columns || [
-/*				{
+			/*	{
 				    field: 'id',
 				    title: 'Id'
 				},*/
@@ -42170,10 +42116,15 @@ module.exports = {
 			return this;
 		};
 
+		this.reset = function() {
+			this.table.bootstrapTable('refresh', {pageNumber: 1});
+			return this;
+		};
+
 		return this;
 	}
 }
-},{"../node_modules/bootstrap-table/dist/bootstrap-table.min.css":3,"./utils":136,"bootstrap-table":2,"jquery":40,"underscore":126}],135:[function(require,module,exports){
+},{"../node_modules/bootstrap-table/dist/bootstrap-table.min.css":3,"./utils":135,"bootstrap-table":2,"jquery":40,"underscore":126}],134:[function(require,module,exports){
 /*
   original: https://bl.ocks.org/mbostock/4339083
  */
@@ -42555,7 +42506,7 @@ module.exports = {
 		});
 	}
 };
-},{"./config":130,"./utils":136,"d3":8,"handlebars":38,"he":39,"jquery":40,"underscore":126,"underscore.string":80}],136:[function(require,module,exports){
+},{"./config":129,"./utils":135,"d3":8,"handlebars":38,"he":39,"jquery":40,"underscore":126,"underscore.string":80}],135:[function(require,module,exports){
 
 var $ = jQuery = require('jquery');
 var _ = require('underscore'); 
@@ -42598,4 +42549,4 @@ module.exports = {
     }
 };
 
-},{"jquery":40,"underscore":126,"underscore.string":80}]},{},[132]);
+},{"jquery":40,"underscore":126,"underscore.string":80}]},{},[131]);

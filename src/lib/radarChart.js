@@ -9,6 +9,8 @@
 	source: http://bl.ocks.org/nbremer/raw/21746a9668ffdf6d8242/radarChart.js
 	based on: https://github.com/alangrafu/radar-chart-d3
  */
+var d3 = require('d3');
+
 module.exports = function(el, options) {
 
 	var cfg = {

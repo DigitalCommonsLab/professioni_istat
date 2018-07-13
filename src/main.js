@@ -25,7 +25,9 @@ var utils = require('./utils');
 var tree = require('./tree');
 var table = require('./table');
 var profile = require('./profile');
-var radar = require('../src/chart_radar');
+var radar = require('../src/lib/radarChart');
+
+window.profile = profile;
 
 $(function() {
 
@@ -45,8 +47,8 @@ $(function() {
     
     tree.buildTreeByCode(code);
 
-    table1.update([]);
-    table2.update([]);
+    table1.reset();
+    table2.reset();
 
   });
   
@@ -90,7 +92,7 @@ $(function() {
     });
 
   });
-
+  
   var $tree = $('#tree');
 
   var table2 = new table.init('#table2', {
@@ -153,9 +155,7 @@ $(function() {
     }
   });
 
-  var chart = radar.init('#chart_radar', {
-    labels: profile.skillsLabels
-  });
+window.table2 = table2;
 
   tree.init($tree, {
     width: $tree.outerWidth(),
@@ -184,34 +184,35 @@ $(function() {
           }
         }));
 
-        table2.update([]);
+        table2.reset();
 
-        chart.update([
-            _.map(_.range(1,11), function(i) {
-              return {
-                value: _.shuffle(_.range(3.2,4.8,0.4))[0]
-              };
-            }),
-            _.map([
-              //TODO USING type attribute or split in more Radar charts
-              {type: 'esiti' },
-              {type: 'esiti' },
-              {type: 'esiti' },
-              {type: 'esiti' },
-              {type: 'processi' },
-              {type: 'processi' },
-              {type: 'processi' },
-              {type: 'processi' },
-              {type: 'processi' },
-              {type: 'processi' },
-              {type: 'processi' },
-            ], function(o) {
-              //ADD RANDOM VALUES
-              o.value = _.shuffle(_.range(1,7,0.2))[0]; 
-              return o;
-            })
-          ]);
+    /*
+    //TODO test radar for skills
+    
+        var $radar = $('#radar');
 
+        var radarLabels = _.pluck(profile.skillsLabels,'desc'), 
+            radarData = [
+              _.map(_.range(1, radarLabels.length), function(i) {
+                return {
+                  value: _.shuffle(_.range(3.2,4.8,0.4))[0]
+                };
+              }),
+              _.map(_.range(1, radarLabels.length), function(o) {
+                //ADD RANDOM VALUES
+                o.value = _.shuffle(_.range(1,7,0.2))[0]; 
+                return o;
+              })
+            ];
+
+        radar($radar[0], {
+          data: radarData,
+          labels: radarLabels,
+          colors: ["red","green","blue"],
+          w: $radar.outerWidth(),
+          h: $radar.outerHeight()
+        });
+*/
       });
     }
   });
