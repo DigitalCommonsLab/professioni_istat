@@ -172,8 +172,9 @@ $(function() {
             res = _.isArray(ee) ? ee : [ee];
 
         table1.update(_.map(res, function(v) {
+          var code = v.id;
           return {
-            id: v.id,
+            id: code,//'<a target="_blank" href="http://fabbisogni.isfol.it/scheda.php?limite=1&amp;id='+code+'"/>Isfol:'+code+'</a>',
             name: v.nome,
             desc: ""
           }
