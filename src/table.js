@@ -47,6 +47,7 @@ module.exports = {
 		};
 
 		this.reset = function() {
+			this.table.bootstrapTable('load', []);
 			this.table.bootstrapTable('refresh', {pageNumber: 1});
 			return this;
 		};
