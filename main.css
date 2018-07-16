@@ -49,9 +49,6 @@ html {
   stroke-width: 6px;
 }
 
-#profile {
-  border: 1px solid #ccc;
-}
 
 #skills span {
     display: inline-block;
@@ -62,6 +59,11 @@ html {
   border: 1px solid #ccc;
   height: 500px;
   position: relative;
+}
+
+#radar {
+  width:100%;
+  height:300px;
 }
 
 #table tr {

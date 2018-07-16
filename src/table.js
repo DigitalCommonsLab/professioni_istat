@@ -26,7 +26,7 @@ module.exports = {
 			//cardView: true,
 			data: [],
 			columns: opts.columns || [
-/*				{
+			/*	{
 				    field: 'id',
 				    title: 'Id'
 				},*/
@@ -43,6 +43,11 @@ module.exports = {
 
 		this.update = function(json) {
 			this.table.bootstrapTable('load', json);
+			return this;
+		};
+
+		this.reset = function() {
+			this.table.bootstrapTable('refresh', {pageNumber: 1});
 			return this;
 		};
 
