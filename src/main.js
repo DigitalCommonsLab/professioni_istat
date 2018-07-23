@@ -17,8 +17,6 @@ window.$ = $;
 window.DEBUG_MODE = false;
 //load JSON file instead of remote API rest
 
-window.SKILLS_THRESHOLD = 50;
-
 var config = require('./config');
 
 var utils = require('./utils');
@@ -60,10 +58,9 @@ $(function() {
 
     for(var i in skills) {
       var code = skills[i],
-          label = profile.skillsLabels[ code ] && profile.skillsLabels[ code ].desc,
-          val = SKILLS_THRESHOLD;
+          label = profile.skillsLabels[ code ] && profile.skillsLabels[ code ].desc;
       
-      skillsObj[code]= val;
+      skillsObj[code]= config.skillsThresholds[ code ] || 50;
 
       $skills.append('<span class="badge badge-primary">'+label+'</span>');
     }
@@ -99,7 +96,8 @@ $(function() {
     columns: [
         { field: 'val', title: 'Importanza' },
         { field: 'name', title: 'Nome' },
-        { field: 'desc', title: 'Descrizione' }
+        { field: 'desc', title: 'Descrizione' },
+        { field: 'tval', title: 'Soglia' },
       ]
   });
 
@@ -130,6 +128,7 @@ $(function() {
           return {
             id: code,
             val: val,
+            tval: config.skillsThresholds[ code ],
             name: profile.skillsLabels[code] ? profile.skillsLabels[code].desc : '',
             desc: profile.skillsLabels[code] ? profile.skillsLabels[code].desc_long : ''
           }
@@ -137,7 +136,7 @@ $(function() {
 
         //remove not important skills for this job
         rows = _.filter(rows, function(row) {
-          return row.val > SKILLS_THRESHOLD;
+          return row.val > config.skillsThresholds[ row.id ];
         });
 
         //remove profile aquired skills

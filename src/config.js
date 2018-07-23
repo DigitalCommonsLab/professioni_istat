@@ -2,6 +2,9 @@
 var H = require('handlebars');
 var _ = require('underscore');
 
+//https://github.com/DigitalCommonsLab/isfoldata/blob/master/valori_significativi_skills.csv
+var skills_thresholds = require('../data/skills_thresholds.json');
+
 var urls = {
 	baseUrlPro: "https://api-test.smartcommunitylab.it/t/sco.cartella/",
 	baseUrlDev: "./data/debug/"
@@ -43,6 +46,7 @@ else	//DEBUG API via json files in
 };
 
 module.exports = {
+	skillsThresholds: skills_thresholds,
 	urls: urls,
 	init: function(opts) {
 		if(opts && opts.baseUrl) {
