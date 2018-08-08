@@ -41437,7 +41437,7 @@ function config (name) {
 },{}],129:[function(require,module,exports){
 module.exports={
   "name": "professioni_istat",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "",
   "main": "bundle.js",
   "repository": {
