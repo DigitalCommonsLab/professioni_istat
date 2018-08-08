@@ -103,7 +103,18 @@ html {
   color:#ccc;
   padding: 4px;
   font-style: italic;
-  position: fixed;
-  top:0;
-  right:0;
+  text-align: right;
+}
+
+#searchjobs_wrap {
+  position: relative;
+}
+#searchlist {
+  position: absolute;
+  z-index: 2000;
+  max-height: 400px;
+  overflow-y: auto;
+}
+#searchlis .list-group-item {
+  cursor: pointer;
 }

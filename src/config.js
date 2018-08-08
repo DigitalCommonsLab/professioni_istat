@@ -23,7 +23,8 @@ if(!window.DEBUG_MODE)	//API defined here: https://docs.google.com/spreadsheets/
 			//remove 'a' from end of codes
 			var pars = $.param(o).replace(/[a]/g,'');
 			return urls.baseUrlPro+'isfol/1.0.0/jobsBySkills' + '?' + pars;
-		}
+		},
+		getJobsByName: H.compile(urls.baseUrlPro+'isfol/1.0.0/jobsByName?param={{name}}'),
 	});
 }
 else	//DEBUG API via json files in
@@ -41,7 +42,8 @@ else	//DEBUG API via json files in
 				pars += "_"+p+o[p];
 			}
 			return urls.baseUrlDev+'jobsBySkills' + '_' + pars + '.json';
-		}
+		},
+		getJobsByName: H.compile(urls.baseUrlDev+'jobsByName.json'),
 	});
 };
 

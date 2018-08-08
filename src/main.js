@@ -23,7 +23,11 @@ var utils = require('./utils');
 var tree = require('./tree');
 var table = require('./table');
 var profile = require('./profile');
-var radar = require('../src/lib/radarChart');
+//var radar = require('../src/lib/radarChart');
+
+var btlist = require('bootstrap-list-filter');
+
+window.btlist = btlist;
 
 window.profile = profile;
 
@@ -37,7 +41,42 @@ $(function() {
 
   var $profile = $('#profile'),
       $skills = $('#skills'),
-      $select_jobs = $('#select_jobs');
+      $select_jobs = $('#select_jobs'),
+      $searchjobs = $('#searchjobs'),
+      $searchlist = $('#searchlist');
+
+  $searchlist
+  .on('click','.list-group-item', function(e) {
+    e.preventDefault();
+    
+    var code = $(e.currentTarget).data('id');
+
+    tree.buildTreeByCode(code);
+
+    table1.reset();
+    table2.reset();
+    
+  })
+  .btsListFilter('#searchjobs', {
+    loadingClass: 'loading',
+    sourceTmpl: '<a class="list-group-item" href="#" data-id="{id}"><span>{nome} {id}</span></a>',
+    sourceData: function(text, cb) {
+      return $.getJSON(config.urls.getJobsByName({name: text}), function(json) {
+        var res = [],
+          ee = json['Entries']['Entry'],
+          res = _.isArray(ee) ? ee : [ee];
+        
+        res = _.map(res, function(v) {
+          v.title = v.nome;
+          return v;
+        });
+
+        console.log('search',text, res);
+
+        cb(res);
+      });
+    }
+  });
 
   $select_jobs.on('change', function (e) {
     
