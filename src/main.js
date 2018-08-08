@@ -59,7 +59,7 @@ $(function() {
   })
   .btsListFilter('#searchjobs', {
     loadingClass: 'loading',
-    sourceTmpl: '<a class="list-group-item" href="#" data-id="{id}"><span>{nome} {id}</span></a>',
+    sourceTmpl: '<a class="list-group-item" href="#" data-id="{id}"><span>{nome} <small class="text-muted">{id}</small></span></a>',
     sourceData: function(text, cb) {
       return $.getJSON(config.urls.getJobsByName({name: text}), function(json) {
         var res = [],
