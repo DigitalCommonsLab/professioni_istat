@@ -3,8 +3,8 @@ var H = require('handlebars');
 var _ = require('underscore');
 
 var urls = {
-	baseUrlPro: "https://api-test.smartcommunitylab.it/t/sco.cartella/",
-	baseUrlDev: "./data/debug/"
+	baseUrlPro: window.baseUrlPro || "https://api-test.smartcommunitylab.it/t/sco.cartella/",
+	baseUrlDev: window.baseUrlDev || "./data/debug/"
 };
 
 if(!window.DEBUG_MODE)	//API defined here: https://docs.google.com/spreadsheets/d/1vXnu9ZW9QXw9igx5vdslzfkfhgp_ojAslS4NV-MhRng/edit#gid=0

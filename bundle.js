@@ -1,18 +1,3 @@
-(function () {
-  var socket = document.createElement('script')
-  var script = document.createElement('script')
-  socket.setAttribute('src', 'http://localhost:3001/socket.io/socket.io.js')
-  script.type = 'text/javascript'
-
-  socket.onload = function () {
-    document.head.appendChild(script)
-  }
-  script.text = ['window.socket = io("http://localhost:3001");',
-  'socket.on("bundle", function() {',
-  'console.log("livereaload triggered")',
-  'window.location.reload();});'].join('\n')
-  document.head.appendChild(socket)
-}());
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 (function (process,__filename){
 /** vim: et:ts=4:sw=4:sts=4
@@ -41584,7 +41569,7 @@ function config (name) {
 },{}],129:[function(require,module,exports){
 module.exports={
   "name": "professioni_istat",
-  "version": "1.3.5",
+  "version": "1.4.0",
   "description": "",
   "main": "bundle.js",
   "repository": {
@@ -41640,8 +41625,8 @@ var H = require('handlebars');
 var _ = require('underscore');
 
 var urls = {
-	baseUrlPro: "https://api-test.smartcommunitylab.it/t/sco.cartella/",
-	baseUrlDev: "./data/debug/"
+	baseUrlPro: window.baseUrlPro || "https://api-test.smartcommunitylab.it/t/sco.cartella/",
+	baseUrlDev: window.baseUrlDev || "./data/debug/"
 };
 
 if(!window.DEBUG_MODE)	//API defined here: https://docs.google.com/spreadsheets/d/1vXnu9ZW9QXw9igx5vdslzfkfhgp_ojAslS4NV-MhRng/edit#gid=0
