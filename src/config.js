@@ -2,9 +2,6 @@
 var H = require('handlebars');
 var _ = require('underscore');
 
-//https://github.com/DigitalCommonsLab/isfoldata/blob/master/valori_significativi_skills.csv
-var skills_thresholds = require('../data/skills_thresholds.json');
-
 var urls = {
 	baseUrlPro: "https://api-test.smartcommunitylab.it/t/sco.cartella/",
 	baseUrlDev: "./data/debug/"
@@ -20,6 +17,7 @@ if(!window.DEBUG_MODE)	//API defined here: https://docs.google.com/spreadsheets/
 		getSkillsByJob: H.compile(urls.baseUrlPro+'isfol/1.0.0/skillsByJob/{{idJob}}'),
 		getAllSkillsLabels: H.compile(urls.baseUrlPro+'isfol/1.0.0/allSkillsLabels'),
 		getStatsThresholds: H.compile(urls.baseUrlPro+'isfol/1.0.0/getStatsThresholds'),
+		//https://github.com/DigitalCommonsLab/isfoldata/blob/master/valori_significativi_skills.csv
 		getJobsBySkills: function(o) {
 			//remove 'a' from end of codes
 			var pars = $.param(o).replace(/[a]/g,'');
@@ -50,11 +48,49 @@ else	//DEBUG API via json files in
 };
 
 module.exports = {
-	skillsThresholds: skills_thresholds,
+	
 	urls: urls,
-	init: function(opts) {
+
+	init: function(opts, cb) {
 		if(opts && opts.baseUrl) {
 			baseUrlPro = opts.baseUrl;
 		}
-	}
+
+		this._skillsLabels = {};
+
+		this._skillsThresholds = {};
+
+		$.ajax({
+			url: config.urls.getAllSkillsLabels(),
+			conteType: 'json',
+			
+			async: false,
+			//TODO remove
+
+			success: function(json) {
+			  if(!json['Entries'])
+			    return null;
+
+			  var res = [],
+			      ee = json['Entries']['Entry'],
+			      res = _.isArray(ee) ? ee : [ee];
+
+			  res = _.map(res, function(v) {
+			    return {
+			      code: v.cod_etichetta.toLowerCase(),
+			      desc: v.desc_etichetta,
+			      desc_long: v.longdesc_etichetta
+			    };
+			  });
+
+			  self.skillsLabels = _.indexBy(res,'code');
+			}
+		});
+	},
+	skillsLabels: function(code) {
+		return this._skillsLabels[ code ];
+	},
+	skillsThresholds: function(code) {
+		return this._skillsThresholds[ code ];
+	},	
 };

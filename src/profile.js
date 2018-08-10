@@ -14,34 +14,6 @@ module.exports = {
 		this.profile = $(el);
 
 		this.data = {};
-
-		this.skillsLabels = {};
-
-		this.skillsThresholds = {};
-
-		$.ajax({
-			url: config.urls.getAllSkillsLabels(),
-			conteType: 'json',
-			async: false,
-			success: function(json) {
-			  if(!json['Entries'])
-			    return null;
-
-			  var res = [],
-			      ee = json['Entries']['Entry'],
-			      res = _.isArray(ee) ? ee : [ee];
-
-			  res = _.map(res, function(v) {
-			    return {
-			      code: v.cod_etichetta.toLowerCase(),
-			      desc: v.desc_etichetta,
-			      desc_long: v.longdesc_etichetta
-			    };
-			  });
-
-			  self.skillsLabels = _.indexBy(res,'code');
-			}
-		});	
 	},
 
 	getData: function(name, cb) {

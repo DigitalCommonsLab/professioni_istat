@@ -97,7 +97,7 @@ $(function() {
 
     for(var i in skills) {
       var code = skills[i],
-          label = profile.skillsLabels[ code ] && profile.skillsLabels[ code ].desc;
+          label = config.skillsLabels(code);
       
       skillsObj[code]= config.skillsThresholds[ code ] || 50;
 
