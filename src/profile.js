@@ -17,6 +17,8 @@ module.exports = {
 
 		this.skillsLabels = {};
 
+		this.skillsThresholds = {};
+
 		$.ajax({
 			url: config.urls.getAllSkillsLabels(),
 			conteType: 'json',

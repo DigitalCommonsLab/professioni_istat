@@ -19,6 +19,7 @@ if(!window.DEBUG_MODE)	//API defined here: https://docs.google.com/spreadsheets/
 		getJobsByLevel: H.compile(urls.baseUrlPro+'isfol/1.0.0/jobsByLevel5/{{idLevel5}}'),
 		getSkillsByJob: H.compile(urls.baseUrlPro+'isfol/1.0.0/skillsByJob/{{idJob}}'),
 		getAllSkillsLabels: H.compile(urls.baseUrlPro+'isfol/1.0.0/allSkillsLabels'),
+		getStatsThresholds: H.compile(urls.baseUrlPro+'isfol/1.0.0/getStatsThresholds'),
 		getJobsBySkills: function(o) {
 			//remove 'a' from end of codes
 			var pars = $.param(o).replace(/[a]/g,'');
@@ -36,6 +37,7 @@ else	//DEBUG API via json files in
 		getJobsByLevel: H.compile(urls.baseUrlDev+'jobsByLevel5_{{idLevel5}}.json'),
 		getSkillsByJob: H.compile(urls.baseUrlDev+'skillsByJob_{{idJob}}.json'),
 		getAllSkillsLabels: H.compile(urls.baseUrlDev+'allSkillsLabels.json'),
+		getStatsThresholds: H.compile(urls.baseUrlPro+'getStatsThresholds.json'),
 		getJobsBySkills: function(o) {
 			var pars = '';
 			for(var p in o) {
