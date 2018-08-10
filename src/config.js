@@ -16,7 +16,7 @@ if(!window.DEBUG_MODE)	//API defined here: https://docs.google.com/spreadsheets/
 		getJobsByLevel: H.compile(urls.baseUrlPro+'isfol/1.0.0/jobsByLevel5/{{idLevel5}}'),
 		getSkillsByJob: H.compile(urls.baseUrlPro+'isfol/1.0.0/skillsByJob/{{idJob}}'),
 		getAllSkillsLabels: H.compile(urls.baseUrlPro+'isfol/1.0.0/allSkillsLabels'),
-		getStatsThresholds: H.compile(urls.baseUrlPro+'isfol/1.0.0/getStatsThresholds'),
+		getSkillsThresholds: H.compile(urls.baseUrlPro+'isfol/1.0.0/getStatsThresholds'),
 		//https://github.com/DigitalCommonsLab/isfoldata/blob/master/valori_significativi_skills.csv
 		getJobsBySkills: function(o) {
 			//remove 'a' from end of codes
@@ -35,7 +35,7 @@ else	//DEBUG API via json files in
 		getJobsByLevel: H.compile(urls.baseUrlDev+'jobsByLevel5_{{idLevel5}}.json'),
 		getSkillsByJob: H.compile(urls.baseUrlDev+'skillsByJob_{{idJob}}.json'),
 		getAllSkillsLabels: H.compile(urls.baseUrlDev+'allSkillsLabels.json'),
-		getStatsThresholds: H.compile(urls.baseUrlPro+'getStatsThresholds.json'),
+		getSkillsThresholds: H.compile(urls.baseUrlPro+'getStatsThresholds.json'),
 		getJobsBySkills: function(o) {
 			var pars = '';
 			for(var p in o) {
@@ -60,13 +60,18 @@ module.exports = {
 
 		this._skillsThresholds = {};
 
+		this._fillCache();
+	},
+
+	_fillCache: function() {
+
+		var self = this;
+
 		$.ajax({
 			url: config.urls.getAllSkillsLabels(),
 			conteType: 'json',
-			
 			async: false,
 			//TODO remove
-
 			success: function(json) {
 			  if(!json['Entries'])
 			    return null;
@@ -83,14 +88,41 @@ module.exports = {
 			    };
 			  });
 
-			  self.skillsLabels = _.indexBy(res,'code');
+			  self._skillsLabels = _.indexBy(res,'code');
+			}
+		});
+
+		$.ajax({
+			url: config.urls.getSkillsThresholds(),
+			conteType: 'json',
+			async: false,
+			//TODO remove
+			success: function(json) {
+			  if(!json['Entries'])
+			    return null;
+
+			  var res = [],
+			      ee = json['Entries']['Entry'],
+			      res = _.isArray(ee) ? ee : [ee];
+
+			  res = _.map(res[0], function(v,k) {
+			    return {
+			      code: k.toLowerCase(),
+			      val: parseFloat(v)
+			    };
+			  });
+
+			  self._skillsThresholds = _.indexBy(res,'code');
 			}
 		});
 	},
-	skillsLabels: function(code) {
-		return this._skillsLabels[ code ];
+
+	skillsLabels: function(code, prop) {
+		prop = prop || 'desc';
+		return this._skillsLabels[ code ] ? this._skillsLabels[ code ][ prop ] : '';
 	},
-	skillsThresholds: function(code) {
-		return this._skillsThresholds[ code ];
-	},	
+	skillsThresholds: function(code, prop) {
+		prop = prop || 'val';
+		return this._skillsThresholds[ code ] ? this._skillsThresholds[ code ][ prop ] : 50;
+	}
 };

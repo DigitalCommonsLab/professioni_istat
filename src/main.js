@@ -10,6 +10,7 @@ var d3 = require('d3');
 var popper = require('popper.js');
 var bt = require('bootstrap');
 require('../node_modules/bootstrap/dist/css/bootstrap.min.css');
+var btlist = require('bootstrap-list-filter');
 
 window._ = _;
 window.$ = $;
@@ -25,9 +26,7 @@ var table = require('./table');
 var profile = require('./profile');
 //var radar = require('../src/lib/radarChart');
 
-var btlist = require('bootstrap-list-filter');
-
-window.btlist = btlist;
+window.config = config;
 
 window.profile = profile;
 
@@ -99,7 +98,7 @@ $(function() {
       var code = skills[i],
           label = config.skillsLabels(code);
       
-      skillsObj[code]= config.skillsThresholds[ code ] || 50;
+      skillsObj[code]= config.skillsThresholds(code) || 50;
 
       $skills.append('<span class="badge badge-primary">'+label+'</span>');
     }
@@ -167,15 +166,15 @@ $(function() {
           return {
             id: code,
             val: val,
-            tval: config.skillsThresholds[ code ],
-            name: profile.skillsLabels[code] ? profile.skillsLabels[code].desc : '',
-            desc: profile.skillsLabels[code] ? profile.skillsLabels[code].desc_long : ''
+            name: config.skillsLabels(code, 'desc'),
+            desc: config.skillsLabels(code, 'desc_long'),
+            tval: config.skillsThresholds(code)
           }
         });
 
         //remove not important skills for this job
         rows = _.filter(rows, function(row) {
-          return row.val > config.skillsThresholds[ row.id ];
+          return row.val > config.skillsThresholds(row.id);
         });
 
         //remove profile aquired skills
