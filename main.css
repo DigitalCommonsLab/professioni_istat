@@ -66,10 +66,6 @@ html {
   height:300px;
 }
 
-#table tr {
-  cursor: pointer;
-}
-
 .tooltip .title {
   text-align: left;
 }
