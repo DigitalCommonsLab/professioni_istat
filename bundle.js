@@ -41569,7 +41569,7 @@ function config (name) {
 },{}],129:[function(require,module,exports){
 module.exports={
   "name": "professioni_istat",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "",
   "main": "bundle.js",
   "repository": {
@@ -41776,7 +41776,6 @@ var utils = require('./utils');
 var tree = require('./tree');
 var table = require('./table');
 var profile = require('./profile');
-//var radar = require('../src/lib/radarChart');
 
 window.config = config;
 
@@ -41897,7 +41896,7 @@ $(function() {
       { field: 'name', title: 'Nome' },
       { field: 'desc', title: 'Descrizione' }
     ],
-    onSelect: function(row) {
+    /*//MOVE into tree select onSelect: function(row) {
       
       var parentId = tree.getIdParent(row.id);
 
@@ -41941,7 +41940,7 @@ $(function() {
 
       });
 
-    }
+    }*/
   });
 
 window.table2 = table2;
@@ -41974,35 +41973,52 @@ window.table2 = table2;
           }
         }));
 
-        table2.reset();
+        //table2.reset();
 
-    /*
-    //TODO test radar for skills
-    
-        var $radar = $('#radar');
+      });
 
-        var radarLabels = _.pluck(profile.skillsLabels,'desc'), 
-            radarData = [
-              _.map(_.range(1, radarLabels.length), function(i) {
-                return {
-                  value: _.shuffle(_.range(3.2,4.8,0.4))[0]
-                };
-              }),
-              _.map(_.range(1, radarLabels.length), function(o) {
-                //ADD RANDOM VALUES
-                o.value = _.shuffle(_.range(1,7,0.2))[0]; 
-                return o;
-              })
-            ];
 
-        radar($radar[0], {
-          data: radarData,
-          labels: radarLabels,
-          colors: ["red","green","blue"],
-          w: $radar.outerWidth(),
-          h: $radar.outerHeight()
+      //var parentId = tree.getIdParent(node.id);
+
+      $.getJSON(config.urls.getSkillsByJob({idJob: node.id }), function(json) {
+        
+
+        if(!json['Entries'])
+          return null;
+
+        var res = [],
+            ee = json['Entries']['Entry'],
+            res = _.isArray(ee) ? ee : [ee];
+
+        //TODO filter by API side
+        delete res[0].fk_livello5;
+
+        var rows = _.map(res[0], function(val, code) {
+          code = code.toLowerCase();
+          return {
+            id: code,
+            val: val,
+            name: config.skillsLabels(code, 'desc'),
+            desc: config.skillsLabels(code, 'desc_long'),
+            tval: config.skillsThresholds(code)
+          }
         });
-*/
+
+        //remove not important skills for this job
+        rows = _.filter(rows, function(row) {
+          return row.val > config.skillsThresholds(row.id);
+        });
+
+        //remove profile aquired skills
+        rows = _.filter(rows, function(row) {
+          return !_.contains(profile.data.skills, row.id);
+        });
+
+        //sort by importance
+        rows = _.sortBy(rows, 'val').reverse();
+
+        table2.update(rows);
+
       });
     }
   });
