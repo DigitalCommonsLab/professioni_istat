@@ -41569,7 +41569,7 @@ function config (name) {
 },{}],129:[function(require,module,exports){
 module.exports={
   "name": "professioni_istat",
-  "version": "1.5.2",
+  "version": "1.5.5",
   "description": "",
   "main": "bundle.js",
   "repository": {
@@ -41894,7 +41894,7 @@ $(function() {
     columns: [
       { field: 'id', title: 'Isfol' },
       { field: 'name', title: 'Nome' },
-      { field: 'desc', title: 'Descrizione' }
+      //{ field: 'desc', title: 'Descrizione' }
     ],
     /*//MOVE into tree select onSelect: function(row) {
       
@@ -41969,7 +41969,7 @@ window.table2 = table2;
           return {
             id: code,//'<a target="_blank" href="http://fabbisogni.isfol.it/scheda.php?limite=1&amp;id='+code+'"/>Isfol:'+code+'</a>',
             name: v.nome,
-            desc: ""
+            //desc: ""
           }
         }));
 
