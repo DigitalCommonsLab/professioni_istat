@@ -41569,7 +41569,7 @@ function config (name) {
 },{}],129:[function(require,module,exports){
 module.exports={
   "name": "professioni_istat",
-  "version": "1.5.0",
+  "version": "1.5.2",
   "description": "",
   "main": "bundle.js",
   "repository": {
