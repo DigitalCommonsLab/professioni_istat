@@ -14,6 +14,7 @@ var btlist = require('bootstrap-list-filter');
 
 window._ = _;
 window.$ = $;
+window.d3 = d3;
 
 window.DEBUG_MODE = false;
 //load JSON file instead of remote API rest

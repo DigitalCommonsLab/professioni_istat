@@ -118,6 +118,7 @@ module.exports = {
 
 		self.$tree = $(el);
 
+
 		self.tooltip = d3.select(self.$tree.get(0)).append("div") 
 			.attr("class", "tooltip")
 			.style("opacity", 0);
@@ -127,13 +128,18 @@ module.exports = {
 
 		self.idCounter = 0;
 
-		self.tree = d3.layout.tree()
-			.size([self.height, self.width]);
-
-		self.diagonal = d3.svg.diagonal()
+		self.tree = d3.select(self.$tree.get(0))//d3.tree()
+			//.size([self.height, self.width]);
+window.tree= self.tree;
+/*		self.diagonal = d3.svg.diagonal()
 			.projection(function(d) {
 				return [d.y, d.x];
-			});
+			});*/
+
+		self.diagonal = d3.linkHorizontal()
+			.x(function(d) { return d.y; })
+			.y(function(d) { return d.x; });
+
 
 		self.svg = d3.select(self.$tree.get(0)).append("svg")
 			.attr("width", self.width + self.config.margin.right + self.config.margin.left)
@@ -303,7 +309,13 @@ module.exports = {
 
 		link.enter().insert("path", "g")
 		.attr({
-			"d": self.diagonal,
+			"d": function link(d) {
+				console.log(d)
+  return "M" + d.source.y + "," + d.source.x
+      + "C" + (d.source.y + d.target.y) / 2 + "," + d.source.x
+      + " " + (d.source.y + d.target.y) / 2 + "," + d.target.x
+      + " " + d.target.y + "," + d.target.x;
+},
 			"class": function(d) {
 
 				if( d.target.children || 
