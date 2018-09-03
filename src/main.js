@@ -26,7 +26,6 @@ var table = require('./table');
 var profile = require('./profile');
 
 window.config = config;
-
 window.profile = profile;
 
 $(function() {
@@ -39,7 +38,7 @@ $(function() {
 
   var $profile = $('#profile'),
       $skills = $('#skills'),
-      $select_jobs = $('#select_jobs'),
+      $selectjobs = $('#selectjobs'),
       $searchjobs = $('#searchjobs'),
       $searchlist = $('#searchlist');
 
@@ -76,7 +75,7 @@ $(function() {
     }
   });
 
-  $select_jobs.on('change', function (e) {
+  $selectjobs.on('change', function (e) {
     
     var code = $(this).val();
     
@@ -118,9 +117,9 @@ $(function() {
         }
       });
 
-      $select_jobs.empty();
+      $selectjobs.empty();
       _.each(res, function(row) {
-        $select_jobs.append('<option value="'+row.code+'">'+(row.code+' '+row.name)+'</option>')
+        $selectjobs.append('<option value="'+row.code+'">'+(row.code+' '+row.name)+'</option>')
       });
 
     });
@@ -143,55 +142,8 @@ $(function() {
       { field: 'id', title: 'Isfol' },
       { field: 'name', title: 'Nome' },
       //{ field: 'desc', title: 'Descrizione' }
-    ],
-    /*//MOVE into tree select onSelect: function(row) {
-      
-      var parentId = tree.getIdParent(row.id);
-
-      $.getJSON(config.urls.getSkillsByJob({idJob: parentId }), function(json) {
-        
-        if(!json['Entries'])
-          return null;
-
-        var res = [],
-            ee = json['Entries']['Entry'],
-            res = _.isArray(ee) ? ee : [ee];
-
-        //TODO filter by API side
-        delete res[0].fk_livello5;
-
-        var rows = _.map(res[0], function(val, code) {
-          code = code.toLowerCase();
-          return {
-            id: code,
-            val: val,
-            name: config.skillsLabels(code, 'desc'),
-            desc: config.skillsLabels(code, 'desc_long'),
-            tval: config.skillsThresholds(code)
-          }
-        });
-
-        //remove not important skills for this job
-        rows = _.filter(rows, function(row) {
-          return row.val > config.skillsThresholds(row.id);
-        });
-
-        //remove profile aquired skills
-        rows = _.filter(rows, function(row) {
-          return !_.contains(profile.data.skills, row.id);
-        });
-
-        //sort by importance
-        rows = _.sortBy(rows, 'val').reverse();
-
-        table2.update(rows);
-
-      });
-
-    }*/
+    ]
   });
-
-window.table2 = table2;
 
   tree.init($tree, {
     width: $tree.outerWidth(),
@@ -270,5 +222,11 @@ window.table2 = table2;
       });
     }
   });
+/*
+  setTimeout(function() {
+    
+    $selectjobs.val('2.1.1.4.1').trigger('change');
+
+  },1000);*/
 
 });  

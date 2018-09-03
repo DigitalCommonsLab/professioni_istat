@@ -1,18 +1,3 @@
-(function () {
-  var socket = document.createElement('script')
-  var script = document.createElement('script')
-  socket.setAttribute('src', 'http://localhost:3001/socket.io/socket.io.js')
-  script.type = 'text/javascript'
-
-  socket.onload = function () {
-    document.head.appendChild(script)
-  }
-  script.text = ['window.socket = io("http://localhost:3001");',
-  'socket.on("bundle", function() {',
-  'console.log("livereaload triggered")',
-  'window.location.reload();});'].join('\n')
-  document.head.appendChild(socket)
-}());
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 (function (process,__filename){
 /** vim: et:ts=4:sw=4:sts=4
@@ -41584,7 +41569,7 @@ function config (name) {
 },{}],129:[function(require,module,exports){
 module.exports={
   "name": "professioni_istat",
-  "version": "1.5.5",
+  "version": "1.5.6",
   "description": "",
   "main": "bundle.js",
   "repository": {
@@ -41793,7 +41778,6 @@ var table = require('./table');
 var profile = require('./profile');
 
 window.config = config;
-
 window.profile = profile;
 
 $(function() {
@@ -41806,7 +41790,7 @@ $(function() {
 
   var $profile = $('#profile'),
       $skills = $('#skills'),
-      $select_jobs = $('#select_jobs'),
+      $selectjobs = $('#selectjobs'),
       $searchjobs = $('#searchjobs'),
       $searchlist = $('#searchlist');
 
@@ -41843,7 +41827,7 @@ $(function() {
     }
   });
 
-  $select_jobs.on('change', function (e) {
+  $selectjobs.on('change', function (e) {
     
     var code = $(this).val();
     
@@ -41885,9 +41869,9 @@ $(function() {
         }
       });
 
-      $select_jobs.empty();
+      $selectjobs.empty();
       _.each(res, function(row) {
-        $select_jobs.append('<option value="'+row.code+'">'+(row.code+' '+row.name)+'</option>')
+        $selectjobs.append('<option value="'+row.code+'">'+(row.code+' '+row.name)+'</option>')
       });
 
     });
@@ -41910,55 +41894,8 @@ $(function() {
       { field: 'id', title: 'Isfol' },
       { field: 'name', title: 'Nome' },
       //{ field: 'desc', title: 'Descrizione' }
-    ],
-    /*//MOVE into tree select onSelect: function(row) {
-      
-      var parentId = tree.getIdParent(row.id);
-
-      $.getJSON(config.urls.getSkillsByJob({idJob: parentId }), function(json) {
-        
-        if(!json['Entries'])
-          return null;
-
-        var res = [],
-            ee = json['Entries']['Entry'],
-            res = _.isArray(ee) ? ee : [ee];
-
-        //TODO filter by API side
-        delete res[0].fk_livello5;
-
-        var rows = _.map(res[0], function(val, code) {
-          code = code.toLowerCase();
-          return {
-            id: code,
-            val: val,
-            name: config.skillsLabels(code, 'desc'),
-            desc: config.skillsLabels(code, 'desc_long'),
-            tval: config.skillsThresholds(code)
-          }
-        });
-
-        //remove not important skills for this job
-        rows = _.filter(rows, function(row) {
-          return row.val > config.skillsThresholds(row.id);
-        });
-
-        //remove profile aquired skills
-        rows = _.filter(rows, function(row) {
-          return !_.contains(profile.data.skills, row.id);
-        });
-
-        //sort by importance
-        rows = _.sortBy(rows, 'val').reverse();
-
-        table2.update(rows);
-
-      });
-
-    }*/
+    ]
   });
-
-window.table2 = table2;
 
   tree.init($tree, {
     width: $tree.outerWidth(),
@@ -42037,6 +41974,12 @@ window.table2 = table2;
       });
     }
   });
+/*
+  setTimeout(function() {
+    
+    $selectjobs.val('2.1.1.4.1').trigger('change');
+
+  },1000);*/
 
 });  
 

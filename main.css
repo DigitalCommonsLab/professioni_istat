@@ -26,8 +26,11 @@ html {
   text-transform: lowercase;
 }
 
-.node:hover text,
-.node:hover circle {
+.node:hover text {
+  fill: #007bff;
+}
+
+.node.level5:hover circle {
   fill: #007bff;
 }
 
