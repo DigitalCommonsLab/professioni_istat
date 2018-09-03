@@ -119,7 +119,7 @@ $(function() {
 
       $selectjobs.empty();
       _.each(res, function(row) {
-        $selectjobs.append('<option value="'+row.code+'">'+(row.code+' '+row.name)+'</option>')
+        $selectjobs.append('<option value="'+row.code+'">'+row.name+'</option>')
       });
 
     });
@@ -128,21 +128,21 @@ $(function() {
   
   var $tree = $('#tree');
 
-  var table2 = new table.init('#table2', {
-    columns: [
-        { field: 'val', title: 'Importanza' },
-        { field: 'name', title: 'Nome' },
-        { field: 'desc', title: 'Descrizione' },
-        { field: 'tval', title: 'Soglia' },
-      ]
-  });
-
   var table1 = new table.init('#table', {
     columns: [
-      { field: 'id', title: 'Isfol' },
+      //{ field: 'id', title: 'Isfol' },
       { field: 'name', title: 'Nome' },
       //{ field: 'desc', title: 'Descrizione' }
     ]
+  });
+
+  var table2 = new table.init('#table2', {
+    columns: [
+        //{ field: 'val', title: 'Importanza' },
+        { field: 'name', title: 'Nome' },
+        { field: 'desc', title: 'Descrizione' },
+        //{ field: 'tval', title: 'Soglia' },
+      ]
   });
 
   tree.init($tree, {
@@ -173,16 +173,10 @@ $(function() {
           }
         }));
 
-        //table2.reset();
-
       });
-
-
-      //var parentId = tree.getIdParent(node.id);
 
       $.getJSON(config.urls.getSkillsByJob({idJob: node.id }), function(json) {
         
-
         if(!json['Entries'])
           return null;
 
@@ -222,10 +216,16 @@ $(function() {
       });
     }
   });
+
+  //DEBUG
 /*
+  window.tree = tree;
+
+  var testVal = '2.1.1.4.1';
+
   setTimeout(function() {
     
-    $selectjobs.val('2.1.1.4.1').trigger('change');
+    $selectjobs.val(testVal).trigger('change');
 
   },1000);*/
 

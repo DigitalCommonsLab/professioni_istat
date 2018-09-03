@@ -41569,7 +41569,7 @@ function config (name) {
 },{}],129:[function(require,module,exports){
 module.exports={
   "name": "professioni_istat",
-  "version": "1.5.6",
+  "version": "1.6.0",
   "description": "",
   "main": "bundle.js",
   "repository": {
@@ -41871,7 +41871,7 @@ $(function() {
 
       $selectjobs.empty();
       _.each(res, function(row) {
-        $selectjobs.append('<option value="'+row.code+'">'+(row.code+' '+row.name)+'</option>')
+        $selectjobs.append('<option value="'+row.code+'">'+row.name+'</option>')
       });
 
     });
@@ -41880,21 +41880,21 @@ $(function() {
   
   var $tree = $('#tree');
 
-  var table2 = new table.init('#table2', {
-    columns: [
-        { field: 'val', title: 'Importanza' },
-        { field: 'name', title: 'Nome' },
-        { field: 'desc', title: 'Descrizione' },
-        { field: 'tval', title: 'Soglia' },
-      ]
-  });
-
   var table1 = new table.init('#table', {
     columns: [
-      { field: 'id', title: 'Isfol' },
+      //{ field: 'id', title: 'Isfol' },
       { field: 'name', title: 'Nome' },
       //{ field: 'desc', title: 'Descrizione' }
     ]
+  });
+
+  var table2 = new table.init('#table2', {
+    columns: [
+        //{ field: 'val', title: 'Importanza' },
+        { field: 'name', title: 'Nome' },
+        { field: 'desc', title: 'Descrizione' },
+        //{ field: 'tval', title: 'Soglia' },
+      ]
   });
 
   tree.init($tree, {
@@ -41925,16 +41925,10 @@ $(function() {
           }
         }));
 
-        //table2.reset();
-
       });
-
-
-      //var parentId = tree.getIdParent(node.id);
 
       $.getJSON(config.urls.getSkillsByJob({idJob: node.id }), function(json) {
         
-
         if(!json['Entries'])
           return null;
 
@@ -41974,10 +41968,16 @@ $(function() {
       });
     }
   });
+
+  //DEBUG
 /*
+  window.tree = tree;
+
+  var testVal = '2.1.1.4.1';
+
   setTimeout(function() {
     
-    $selectjobs.val('2.1.1.4.1').trigger('change');
+    $selectjobs.val(testVal).trigger('change');
 
   },1000);*/
 
@@ -42132,14 +42132,14 @@ module.exports = {
 	onSelect: function(e){ console.log('onClickNode',e); },
 
 	config: {
-		width: 960,
-		height: 400,
+		width: 1300,
+		height: 600,
 
 		vMargin: 0,
 		hMargin: 80,
 		margin: {
-			top: 0,		bottom: 0,
-			right: 80,	left: 80
+			top: 0,	  bottom: 0,
+			right: 0, left: 0
 		},
 		circleRadius: 10,
 		timeDuration: 100,
@@ -42267,9 +42267,10 @@ module.exports = {
 			  words = value.split(/\s+/).reverse();
 			  line = [];
 			  tspan = text.append('tspan')
-			  	.attr('x', self.config.circleRadius+(d.children?-(self.config.circleRadius*3):5) )
-			  	.attr('y', self.config.circleRadius+(d.children?-(self.config.circleRadius*3):y) )
-			  	.attr('dy', (++lineNumber) + (dy-0.6) + 'em')			
+			  	.attr('x', self.config.circleRadius)//self.config.circleRadius+(d.children?-(self.config.circleRadius*3):5) )
+			  	.attr('y', self.config.circleRadius)//+(d.children?-(self.config.circleRadius*3):y) )
+			  	.attr('dy', (++lineNumber) + (dy-0.6) + 'em')
+
 
 			  while (!!(word = words.pop())) {
 			    line.push(word);
@@ -42279,7 +42280,7 @@ module.exports = {
 			      tspan.text(he.decode(line.join(' ')));
 			      line = [word];
 			      tspan = text.append('tspan')
-			      	.attr('x', self.config.circleRadius+(d.children?-(self.config.circleRadius*3):5) )
+			      	.attr('x', self.config.circleRadius)//self.config.circleRadius+(d.children?-(self.config.circleRadius*3):5) )
 			      	.attr('y', self.config.circleRadius+(d.children?-(self.config.circleRadius*3):y) )
 			      	.attr('dy', (lineNumber) + (dy+0.6) + 'em')
 			      	.text(he.decode(word));
@@ -42299,12 +42300,22 @@ module.exports = {
 		var nodes = self.tree.nodes(source).reverse(),
 			links = self.tree.links(nodes);
 
+		//REMOVE FIRST NODE
+		nodes = _.filter(nodes, function(n) {
+			return n.id!=='0';
+		});
+		links = _.filter(links, function(l) {
+			return l.source.id!=='0';
+		});
+
+		self.nodes = nodes;
+
 		var nodeWidth = 0,
 			dy = 0,
-			nodeWidthMax = self.width/(self.config.numLevels+1);
+			nodeWidthMax = self.width/(self.config.numLevels)
 
 		nodes.forEach(function(d) {
-			d.y = d.depth * nodeWidthMax;
+			d.y = d.depth * nodeWidthMax - self.height+300;
 			nodeWidth = Math.abs(Math.min(nodeWidth, d.y - dy));
 			dy = d.y;
 		});
@@ -42331,7 +42342,6 @@ module.exports = {
 				  ) {
 					classname += " highlight";
 				}
-				
 
 				return classname;
 			}
@@ -42376,14 +42386,15 @@ module.exports = {
 		.attr({
 			"dy": 0,
 			"x": function(d) {
-				return (d.children || d._children) ? -(self.config.textOffset) : self.config.textOffset;
+			//	return (d.children || d._children) ? -(self.config.textOffset) : self.config.textOffset;
+				return self.config.textOffset;
 			},
 			"y": function(d) {
 				return -(self.config.textOffset);
 			},
-			"text-anchor": function(d) { 
+/*			"text-anchor": function(d) { 
 				return (d.children || d._children) ? "end" : "start";
-			}
+			}*/
 		})
 		.text(function(d) {
 			return d.name.toLowerCase();
@@ -42392,7 +42403,31 @@ module.exports = {
 			var textWidth = Math.round(nodeWidth);
 			self.wrapText(d, textWidth);
 		});
-		
+
+		nodeEnter.append("rect")
+		.attr({
+			"y": function(d) {
+				var t = d3.select(this.parentNode).select('text')[0][0];
+				return t.getBBox().y-4;
+			},
+			"x": function(d) {
+				var t = d3.select(this.parentNode).select('text')[0][0];
+				console.log()
+				return t.getBBox().x-4;
+			},
+			"height": function(d) {
+				var t = d3.select(this.parentNode).select('text')[0][0];
+				return t.getBBox().height+10;
+			},
+			"width": function(d) {
+				var t = d3.select(this.parentNode).select('text')[0][0];
+				return t.getBBox().width+10;
+			},
+		})
+		.call(function(d) {
+			this.moveToBack()
+		});
+
 		var link = self.svg.selectAll("path.link")
 		.data(links, function(d) {
 			return d.target.id;
@@ -42423,8 +42458,6 @@ module.exports = {
 
 	buildTreeByCode: function(code) {
 
-		//console.log('buildTreeByCode: ', code);
-
 		var self = this;
 
 		var n = code.split('.'),
@@ -42441,8 +42474,6 @@ module.exports = {
 			$.getJSON(self.urlLevelByCode(levelId4)),
 			$.getJSON(self.urlLevelByCode(levelId5))
 		).then(function(l1, l2, l3, l4, l5) {
-
-			//console.log('DATALEVELS', arguments);
 
 			var dataLevels = [
 				self.reformatJSON(l1[0]),
@@ -42470,7 +42501,7 @@ module.exports = {
 			  }
 			}
 
-			fillTree(data, {id:'0'});
+			fillTree(data);
 
 			self.draw(data, code);
 		});

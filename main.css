@@ -34,6 +34,15 @@ html {
   fill: #007bff;
 }
 
+/* PATCH AFTER UX REVIEW */
+.node rect {
+  opacity:0.6;
+  fill: none;
+}
+.node.highlight rect {
+  fill: #007bff;
+}
+
 .node.highlight text {
   fill: black;
   font-size: 12px;
@@ -59,7 +68,7 @@ html {
 }
 
 #tree {
-  border: 1px solid #ccc;
+  border: 1px solid #f0f;
   height: 500px;
   position: relative;
 }
@@ -116,4 +125,9 @@ html {
 }
 #searchlis .list-group-item {
   cursor: pointer;
+}
+
+#selectjobs {
+  width: 100%;
+  height: 500px
 }
