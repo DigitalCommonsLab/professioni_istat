@@ -301,7 +301,9 @@ module.exports = {
 			return d.name.toLowerCase();
 		})
 		.call(function(d) {
-			var textWidth = Math.round(nodeWidth-self.config.circleRadius*2);
+			
+			var textWidth = Math.round(nodeWidth - 8 - self.config.circleRadius*2);
+
 			self.wrapText(d, textWidth);
 		});
 
