@@ -1,3 +1,18 @@
+(function () {
+  var socket = document.createElement('script')
+  var script = document.createElement('script')
+  socket.setAttribute('src', 'http://localhost:3001/socket.io/socket.io.js')
+  script.type = 'text/javascript'
+
+  socket.onload = function () {
+    document.head.appendChild(script)
+  }
+  script.text = ['window.socket = io("http://localhost:3001");',
+  'socket.on("bundle", function() {',
+  'console.log("livereaload triggered")',
+  'window.location.reload();});'].join('\n')
+  document.head.appendChild(socket)
+}());
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 (function (process,__filename){
 /** vim: et:ts=4:sw=4:sts=4
@@ -41885,8 +41900,8 @@ $(function() {
 
   var table1 = new table.init('#table', {
     columns: [
-      //{ field: 'id', title: 'Isfol' },
       { field: 'name', title: 'Nome' },
+      { field: 'id', title: 'Isfol' },
       //{ field: 'desc', title: 'Descrizione' }
     ]
   });
@@ -41909,6 +41924,10 @@ $(function() {
           return false;
 
       tree.buildTreeByCode(node.id);
+
+      console.log('onSelect',node)
+
+      $('#results').show();
       
       $.getJSON(config.urls.getJobsByLevel({idLevel5: node.id }), function(json) {
         
@@ -41920,9 +41939,9 @@ $(function() {
             res = _.isArray(ee) ? ee : [ee];
 
         table1.update(_.map(res, function(v) {
-          var code = v.id;
+          var id = v.id;
           return {
-            id: code,//'<a target="_blank" href="http://fabbisogni.isfol.it/scheda.php?limite=1&amp;id='+code+'"/>Isfol:'+code+'</a>',
+            id: '<a target="_blank" href="http://fabbisogni.isfol.it/scheda.php?limite=1&amp;id='+id+'"/>'+id+'</a>',
             name: v.nome,
             //desc: ""
           }
@@ -42240,6 +42259,9 @@ module.exports = {
 			.attr("height", self.height + self.config.margin.top + self.config.margin.bottom)
 			//.append("g")
 			//.attr("transform", "translate(" + self.config.margin.left + "," + self.config.margin.top + ")");
+		
+		self.$sel = $('<div id4="tree_selection"></div>');
+		self.$tree.after(self.$sel)
 
 		return self;
 	},
@@ -42270,8 +42292,8 @@ module.exports = {
 			  words = value.split(/\s+/).reverse();
 			  line = [];
 			  tspan = text.append('tspan')
-			  	.attr('x', self.config.circleRadius)//self.config.circleRadius+(d.children?-(self.config.circleRadius*3):5) )
-			  	.attr('y', self.config.circleRadius)//+(d.children?-(self.config.circleRadius*3):y) )
+			  	.attr('x', self.config.circleRadius*2)//self.config.circleRadius+(d.children?-(self.config.circleRadius*3):5) )
+			  	.attr('y', -0.6)//+(d.children?-(self.config.circleRadius*3):y) )
 			  	.attr('dy', (++lineNumber) + (dy-0.6) + 'em');
 
 			  while (!!(word = words.pop())) {
@@ -42282,10 +42304,10 @@ module.exports = {
 			      tspan.text(he.decode(line.join(' ')));
 			      line = [word];
 			      tspan = text.append('tspan')
-			      	.attr('x', self.config.circleRadius)//self.config.circleRadius+(d.children?-(self.config.circleRadius*3):5) )
-			      	.attr('y', self.config.circleRadius+(d.children?-(self.config.circleRadius*3):y) )
+			      	.attr('x', self.config.circleRadius*2)//self.config.circleRadius+(d.children?-(self.config.circleRadius*3):5) )
+			      	//.attr('y',  (d.children?self.config.circleRadius/2:y) )
 			      	.attr('dy', (lineNumber) + (dy+0.6) + 'em')
-			      	.text(he.decode(word));
+			      	.text( he.decode(word) );
 			    }
 			  }
 			});
@@ -42353,28 +42375,34 @@ module.exports = {
 		.attr("r", self.config.circleRadius)
 		.on("click", function(d) {
 			self.onSelect.call(self, d);
+			d.desc = $('<textarea />').html(d.desc).val();
+			self.$sel.html( self.tmpls.node_tooltip(d) );
 		});
 
 		nodeEnter.append("text")
 		.on("mouseover", function(d) {
-			var pos = d3.transform(d3.select(this.parentNode).attr("transform")).translate,
+/*			var pos = d3.transform(d3.select(this.parentNode).attr("transform")).translate,
 				off = self.$tree.offset(),
 				x = pos[0]+ off.left + self.config.textOffset,
-				y = pos[1]+ off.top - 40;
+				y = pos[1]+ off.top + 20;
 
 				console.log(d3.select(this.parentNode))
 
 			self.tooltip
 				.style("left", x + "px")
-				.style("top", y + "px")
-				.html(self.tmpls.node_tooltip(d))
-				.style("opacity", 1);
+				.style("top", y + "px")*/
+			d.desc = $('<textarea />').html(d.desc).val();
+
+			self.tooltip.html(self.tmpls.node_tooltip(d)).style("opacity", 1);
 		})
 		.on("mouseout", function(d) {
 			self.tooltip.style("opacity", 0);
 		})
 		.on("click", function(d) {
 			self.onSelect.call(self, d);
+
+			d.desc = $('<textarea />').html(d.desc).val();
+			self.$sel.html(self.tmpls.node_tooltip(d));
 		})
 		.attr({
 			"dy": 0,
@@ -42382,7 +42410,7 @@ module.exports = {
 				return self.config.textOffset;
 			},
 			"y": function(d) {
-				return -(self.config.textOffset);
+				return self.config.textOffset;
 			},
 /*			"text-anchor": function(d) { 
 				return (d.children || d._children) ? "end" : "start";

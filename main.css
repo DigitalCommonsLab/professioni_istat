@@ -61,7 +61,34 @@ html {
   stroke-width: 6px;
 }
 
+.fixed-table-container {
+  border:none;
+}
+.table th {
+  border-top: none
+}
+.bootstrap-table .table {
+  border-bottom: none;
+}
+.pagination-detail {
+  display: none;
+}
+.page-link {
+  border:none;
+}
+.page-item.page-pre a,
+.page-item.page-next a{
+  font-size: 36px;
+  display: inline-block;
+  line-height: 20px
+}
 
+#tree_selection .desc {
+  font-size: 12px;
+}
+#tree_selection .desc {
+  font-size: 12px;
+}
 #skills span {
     display: inline-block;
     margin-right: 10px;
@@ -79,28 +106,29 @@ html {
 }
 
 .tooltip .title {
-  text-align: left;
+  font-size: 18px;
 }
 
 .tooltip { 
-    /*position: absolute;
+    position: absolute;
     right: 0;
     bottom: 0;  
     margin: 16px;
-    */
-    position: fixed; 
+    /*position: fixed; */
     text-align: justify;    
     width: 36%;          
     height: auto;         
     padding: 8px;
-    font: 12px sans-serif;    
+    font-size: 12px;
     background: #fff;
     box-shadow: 4px 4px 12px rgba(0,0,0,0.4);
     border: 2px solid #007bff;
     border-radius: 3px;
     pointer-events: none;     
 }
-
+.tooltip .isfol {
+  display: none;
+}
 
 .skill {
   background: #eee;
@@ -131,5 +159,5 @@ html {
 
 #selectjobs {
   width: 100%;
-  height: 500px
+  height: 800px
 }

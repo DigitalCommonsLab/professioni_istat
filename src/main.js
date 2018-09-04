@@ -133,8 +133,8 @@ $(function() {
 
   var table1 = new table.init('#table', {
     columns: [
-      //{ field: 'id', title: 'Isfol' },
       { field: 'name', title: 'Nome' },
+      { field: 'id', title: 'Isfol' },
       //{ field: 'desc', title: 'Descrizione' }
     ]
   });
@@ -157,6 +157,10 @@ $(function() {
           return false;
 
       tree.buildTreeByCode(node.id);
+
+      console.log('onSelect',node)
+
+      $('#results').show();
       
       $.getJSON(config.urls.getJobsByLevel({idLevel5: node.id }), function(json) {
         
@@ -168,9 +172,9 @@ $(function() {
             res = _.isArray(ee) ? ee : [ee];
 
         table1.update(_.map(res, function(v) {
-          var code = v.id;
+          var id = v.id;
           return {
-            id: code,//'<a target="_blank" href="http://fabbisogni.isfol.it/scheda.php?limite=1&amp;id='+code+'"/>Isfol:'+code+'</a>',
+            id: '<a target="_blank" href="http://fabbisogni.isfol.it/scheda.php?limite=1&amp;id='+id+'"/>'+id+'</a>',
             name: v.nome,
             //desc: ""
           }
