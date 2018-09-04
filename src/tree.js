@@ -48,7 +48,7 @@ module.exports = {
 		timeDuration: 100,
 		numLevels: 5,
 		textOffset: 10,
-		tooltipOffsetX: -20,
+		tooltipOffsetX: 0,
 		tooltipOffsetY: 0
 	},
 
@@ -256,9 +256,17 @@ module.exports = {
 			var x = d3.event.pageX,
 				y = d3.event.pageY;
 
+				//var c = d3.select(this.parentNode).select('circle')[0];
+
+				var off = self.$tree.offset();
+
+				var pos = d3.transform(d3.select(this.parentNode).attr("transform")).translate,
+					x = pos[0]+ off.left + 10,
+					y = pos[1]+ off.top - 40;
+
 			self.tooltip
-				//.style("left", (x - self.config.tooltipOffsetX) + "px")
-				//.style("top", (y - self.config.tooltipOffsetY) + "px")
+				.style("left", x + "px")
+				.style("top", y + "px")
 				.html(self.tmpls.node_tooltip(d))
 				.style("opacity", 1);
 		})
@@ -270,19 +278,19 @@ module.exports = {
 		});
 
 		nodeEnter.append("text")
-		.on("mouseover", function(d) {
+/*		.on("mouseover", function(d) {
 			var x = d3.event.pageX,
 				y = d3.event.pageY;
 
 			self.tooltip
-				//.style("left", (x - self.config.tooltipOffsetX) + "px")
-				//.style("top", (y - self.config.tooltipOffsetY) + "px")
+				.style("left", (x - self.config.tooltipOffsetX) + "px")
+				.style("top", (y - self.config.tooltipOffsetY) + "px")
 				.html(self.tmpls.node_tooltip(d))
 				.style("opacity", 1);
 		})
 		.on("mouseout", function(d) {
 			self.tooltip.style("opacity", 0);
-		})		
+		})	*/	
 		.on("click", function(d) {
 			self.onSelect.call(self, d);
 		})
@@ -315,7 +323,6 @@ module.exports = {
 			},
 			"x": function(d) {
 				var t = d3.select(this.parentNode).select('text')[0][0];
-				console.log()
 				return t.getBBox().x-4;
 			},
 			"height": function(d) {

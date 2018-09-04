@@ -83,14 +83,16 @@ html {
 }
 
 .tooltip { 
-    position: absolute;
+    /*position: absolute;
     right: 0;
-    bottom: 0;   
+    bottom: 0;  
+    margin: 16px;
+    */
+    position: fixed; 
     text-align: justify;    
     width: 36%;          
     height: auto;         
     padding: 8px;
-    margin: 16px;
     font: 12px sans-serif;    
     background: #fff;
     box-shadow: 4px 4px 12px rgba(0,0,0,0.4);

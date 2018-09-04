@@ -102,7 +102,7 @@ $(function() {
     }
 
     $.getJSON(config.urls.getJobsBySkills(skillsObj), function(json) {
-      
+      console.log(json)
       if(!json['Entries'])
         return null;
 
@@ -119,6 +119,9 @@ $(function() {
 
       $selectjobs.empty();
       _.each(res, function(row) {
+        
+        //console.log(row);
+
         $selectjobs.append('<option value="'+row.code+'">'+row.name+'</option>')
       });
 
