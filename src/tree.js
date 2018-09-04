@@ -138,8 +138,8 @@ module.exports = {
 		self.svg = d3.select(self.$tree.get(0)).append("svg")
 			.attr("width", self.width + self.config.margin.right + self.config.margin.left)
 			.attr("height", self.height + self.config.margin.top + self.config.margin.bottom)
-			.append("g")
-			.attr("transform", "translate(" + self.config.margin.left + "," + self.config.margin.top + ")");
+			//.append("g")
+			//.attr("transform", "translate(" + self.config.margin.left + "," + self.config.margin.top + ")");
 
 		return self;
 	},
@@ -172,8 +172,7 @@ module.exports = {
 			  tspan = text.append('tspan')
 			  	.attr('x', self.config.circleRadius)//self.config.circleRadius+(d.children?-(self.config.circleRadius*3):5) )
 			  	.attr('y', self.config.circleRadius)//+(d.children?-(self.config.circleRadius*3):y) )
-			  	.attr('dy', (++lineNumber) + (dy-0.6) + 'em')
-
+			  	.attr('dy', (++lineNumber) + (dy-0.6) + 'em');
 
 			  while (!!(word = words.pop())) {
 			    line.push(word);
@@ -218,7 +217,7 @@ module.exports = {
 			nodeWidthMax = self.width/(self.config.numLevels)
 
 		nodes.forEach(function(d) {
-			d.y = d.depth * nodeWidthMax - self.height+300;
+			d.y = d.depth * nodeWidthMax - self.height + $('#jobs').width();
 			nodeWidth = Math.abs(Math.min(nodeWidth, d.y - dy));
 			dy = d.y;
 		});
@@ -252,17 +251,18 @@ module.exports = {
 
 		nodeEnter.append("circle")
 		.attr("r", self.config.circleRadius)
+		.on("click", function(d) {
+			self.onSelect.call(self, d);
+		});
+
+		nodeEnter.append("text")
 		.on("mouseover", function(d) {
-			var x = d3.event.pageX,
-				y = d3.event.pageY;
+			var pos = d3.transform(d3.select(this.parentNode).attr("transform")).translate,
+				off = self.$tree.offset(),
+				x = pos[0]+ off.left + self.config.textOffset,
+				y = pos[1]+ off.top - 40;
 
-				//var c = d3.select(this.parentNode).select('circle')[0];
-
-				var off = self.$tree.offset();
-
-				var pos = d3.transform(d3.select(this.parentNode).attr("transform")).translate,
-					x = pos[0]+ off.left + 10,
-					y = pos[1]+ off.top - 40;
+				console.log(d3.select(this.parentNode))
 
 			self.tooltip
 				.style("left", x + "px")
@@ -275,29 +275,10 @@ module.exports = {
 		})
 		.on("click", function(d) {
 			self.onSelect.call(self, d);
-		});
-
-		nodeEnter.append("text")
-/*		.on("mouseover", function(d) {
-			var x = d3.event.pageX,
-				y = d3.event.pageY;
-
-			self.tooltip
-				.style("left", (x - self.config.tooltipOffsetX) + "px")
-				.style("top", (y - self.config.tooltipOffsetY) + "px")
-				.html(self.tmpls.node_tooltip(d))
-				.style("opacity", 1);
-		})
-		.on("mouseout", function(d) {
-			self.tooltip.style("opacity", 0);
-		})	*/	
-		.on("click", function(d) {
-			self.onSelect.call(self, d);
 		})
 		.attr({
 			"dy": 0,
 			"x": function(d) {
-			//	return (d.children || d._children) ? -(self.config.textOffset) : self.config.textOffset;
 				return self.config.textOffset;
 			},
 			"y": function(d) {
@@ -311,7 +292,7 @@ module.exports = {
 			return d.name.toLowerCase();
 		})
 		.call(function(d) {
-			var textWidth = Math.round(nodeWidth);
+			var textWidth = Math.round(nodeWidth-self.config.circleRadius*2);
 			self.wrapText(d, textWidth);
 		});
 
