@@ -171,16 +171,37 @@ html {
 #searchlist {
   position: absolute;
   z-index: 2000;
-  max-height: 400px;
-  overflow-y: auto;
+  max-height: 800px;
+  width: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
-#searchlis .list-group-item {
+
+.list-group {
+  background-color: #e6e6e6;
+}
+.list-group-item:first-child {
+  border-radius: 0;
+}
+.list-group-item {
+  background-color: #e6e6e6;
   cursor: pointer;
+  border:none;
+  white-space: nowrap;
+  padding: 4px;
+  color: #000
+}
+.list-group-item.active {
+  background-color: #ffc200;
+  border:none;
+  color: #000;
 }
 
 #selectjobs {
   width: 100%;
-  height: 800px
+  height: 800px;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .isfol,
@@ -197,7 +218,7 @@ html {
 }
 .grey-bg {
   color: #000;
-  background: #ddd;
+  background: #e6e6e6;
 }
 option {
   padding: 8px;

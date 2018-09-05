@@ -41,8 +41,9 @@ $(function() {
 
   var $profile = $('#profile'),
       $skills = $('#skills'),
-      $selectjobs = $('#selectjobs'),
-      $searchjobs = $('#searchjobs'),
+      $selectjobs = $('#selectjobs');
+
+  var $searchjobs = $('#searchjobs'),
       $searchlist = $('#searchlist');
 
   $searchlist
@@ -79,9 +80,15 @@ $(function() {
     }
   });
 
-  $selectjobs.on('change', function (e) {
+  $selectjobs.on('click','a', function (e) {
     
-    var code = $(this).val();
+    e.preventDefault()
+
+    $that = $(this);
+    $that.parent().find('a').removeClass('active');
+    $that.addClass('active');
+
+    var code = $(this).data('id');
     
     tree.buildTreeByCode(code);
 
@@ -125,7 +132,8 @@ $(function() {
 
       $selectjobs.empty();
       _.each(res, function(row) {
-        $selectjobs.append('<option value="'+row.code+'">'+row.name+'</option>')
+        //$selectjobs.append('<option value="'+row.code+'">'+row.name+'</option>')
+        $selectjobs.append('<a class="list-group-item" href="#" data-id="'+row.code+'"><span>'+row.name+'</span></a>');
       });
 
     });

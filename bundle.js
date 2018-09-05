@@ -14,7 +14,7 @@
   document.head.appendChild(socket)
 }());
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-var css = "body,html{margin:0;padding:0}.node.level5{cursor:pointer}.node circle{fill:#fff;stroke:#007bff;stroke-width:3px}.node.highlight circle{fill:#007bff}.node text{font:10px sans-serif;text-shadow:0 0 2px #fff;text-transform:lowercase}.node:hover text{fill:#007bff}.node.level5:hover circle{fill:#007bff}.node rect{opacity:.6;fill:none}.node.highlight rect{fill:#007bff}.node.highlight text{fill:#000;font-size:12px;font-weight:700;text-transform:capitalize}.link{fill:none;stroke:#ccc;stroke-width:2px}.link.highlight{stroke:#007bff;stroke-width:6px}.fixed-table-container{border:none}.table th{border-top:none}.bootstrap-table .table{border-bottom:none}.table .isfol{color:#ffc200}.pagination-detail{display:none}.page-link{border:none}.page-item.page-next a,.page-item.page-pre a{font-size:36px;display:inline-block;line-height:20px;color:#ffc200}.page-item.active .page-link{background-color:#ffc200}.badge{font-size:16px;margin-bottom:6px;border-radius:0;font-weight:400}#tree_selection .desc{font-size:12px}#tree_selection .desc{font-size:12px}#skills span{display:inline-block;margin-right:10px}#tree{height:500px;position:relative}#radar{width:100%;height:300px}.tooltip .title{font-size:18px}.tooltip{position:absolute;right:0;bottom:0;margin:16px;text-align:justify;width:36%;height:auto;padding:8px;font-size:12px;background:#fff;box-shadow:4px 4px 12px rgba(0,0,0,.4);border:2px solid #007bff;border-radius:3px;pointer-events:none}.tooltip .isfol{display:none}.isfol{color:#ffc200;cursor:pointer}.skill{background:#eee;margin:3px 0;padding:3px}#version{color:#ccc;padding:4px;font-style:italic;text-align:right;height:16px}#searchjobs_wrap{position:relative}#searchlist{position:absolute;z-index:2000;max-height:400px;overflow-y:auto}#searchlis .list-group-item{cursor:pointer}#selectjobs{width:100%;height:800px}.isfol,.orange-text{color:#ffc200!important}.orange-bg{color:#000;background:#ffc200}.blue-bg{color:#fff;background:#36474f}.grey-bg{color:#000;background:#ddd}option{padding:8px}option:checked{background-color:#ffc200}.navbar{border-bottom:10px solid #36474f;padding-bottom:0;margin-top:80px}.navbar-nav{margin-bottom:-10px}li.nav-item{padding:0 10px}li.nav-item.logout{border-left:3px solid #36474f}.nav-link{color:#36474f;font-size:20px}.nav-link.active{border-bottom:10px solid #ffc200}.navbar-brand{position:relative;width:250px;height:50px;display:inline-block}.navbar-brand img{top:-80px;position:absolute;display:inline-block;vertical-align:bottom}"; (require("browserify-css").createStyle(css, {}, { "insertAt": "top" })); module.exports = css;
+var css = "body,html{margin:0;padding:0}.node.level5{cursor:pointer}.node circle{fill:#fff;stroke:#007bff;stroke-width:3px}.node.highlight circle{fill:#007bff}.node text{font:10px sans-serif;text-shadow:0 0 2px #fff;text-transform:lowercase}.node:hover text{fill:#007bff}.node.level5:hover circle{fill:#007bff}.node rect{opacity:.6;fill:none}.node.highlight rect{fill:#007bff}.node.highlight text{fill:#000;font-size:12px;font-weight:700;text-transform:capitalize}.link{fill:none;stroke:#ccc;stroke-width:2px}.link.highlight{stroke:#007bff;stroke-width:6px}.fixed-table-container{border:none}.table th{border-top:none}.bootstrap-table .table{border-bottom:none}.table .isfol{color:#ffc200}.pagination-detail{display:none}.page-link{border:none}.page-item.page-next a,.page-item.page-pre a{font-size:36px;display:inline-block;line-height:20px;color:#ffc200}.page-item.active .page-link{background-color:#ffc200}.badge{font-size:16px;margin-bottom:6px;border-radius:0;font-weight:400}#tree_selection .desc{font-size:12px}#tree_selection .desc{font-size:12px}#skills span{display:inline-block;margin-right:10px}#tree{height:500px;position:relative}#radar{width:100%;height:300px}.tooltip .title{font-size:18px}.tooltip{position:absolute;right:0;bottom:0;margin:16px;text-align:justify;width:36%;height:auto;padding:8px;font-size:12px;background:#fff;box-shadow:4px 4px 12px rgba(0,0,0,.4);border:2px solid #007bff;border-radius:3px;pointer-events:none}.tooltip .isfol{display:none}.isfol{color:#ffc200;cursor:pointer}.skill{background:#eee;margin:3px 0;padding:3px}#version{color:#ccc;padding:4px;font-style:italic;text-align:right;height:16px}#searchjobs_wrap{position:relative}#searchlist{position:absolute;z-index:2000;max-height:800px;width:100%;overflow-y:scroll;overflow-x:hidden}.list-group{background-color:#e6e6e6}.list-group-item:first-child{border-radius:0}.list-group-item{background-color:#e6e6e6;cursor:pointer;border:none;white-space:nowrap;padding:4px;color:#000}.list-group-item.active{background-color:#ffc200;border:none;color:#000}#selectjobs{width:100%;height:800px;overflow-x:hidden;overflow-y:scroll}.isfol,.orange-text{color:#ffc200!important}.orange-bg{color:#000;background:#ffc200}.blue-bg{color:#fff;background:#36474f}.grey-bg{color:#000;background:#e6e6e6}option{padding:8px}option:checked{background-color:#ffc200}.navbar{border-bottom:10px solid #36474f;padding-bottom:0;margin-top:80px}.navbar-nav{margin-bottom:-10px}li.nav-item{padding:0 10px}li.nav-item.logout{border-left:3px solid #36474f}.nav-link{color:#36474f;font-size:20px}.nav-link.active{border-bottom:10px solid #ffc200}.navbar-brand{position:relative;width:250px;height:50px;display:inline-block}.navbar-brand img{top:-80px;position:absolute;display:inline-block;vertical-align:bottom}"; (require("browserify-css").createStyle(css, {}, { "insertAt": "top" })); module.exports = css;
 },{"browserify-css":8}],2:[function(require,module,exports){
 (function (process,__filename){
 /** vim: et:ts=4:sw=4:sts=4
@@ -41810,8 +41810,9 @@ $(function() {
 
   var $profile = $('#profile'),
       $skills = $('#skills'),
-      $selectjobs = $('#selectjobs'),
-      $searchjobs = $('#searchjobs'),
+      $selectjobs = $('#selectjobs');
+
+  var $searchjobs = $('#searchjobs'),
       $searchlist = $('#searchlist');
 
   $searchlist
@@ -41848,9 +41849,15 @@ $(function() {
     }
   });
 
-  $selectjobs.on('change', function (e) {
+  $selectjobs.on('click','a', function (e) {
     
-    var code = $(this).val();
+    e.preventDefault()
+
+    $that = $(this);
+    $that.parent().find('a').removeClass('active');
+    $that.addClass('active');
+
+    var code = $(this).data('id');
     
     tree.buildTreeByCode(code);
 
@@ -41894,7 +41901,8 @@ $(function() {
 
       $selectjobs.empty();
       _.each(res, function(row) {
-        $selectjobs.append('<option value="'+row.code+'">'+row.name+'</option>')
+        //$selectjobs.append('<option value="'+row.code+'">'+row.name+'</option>')
+        $selectjobs.append('<a class="list-group-item" href="#" data-id="'+row.code+'"><span>'+row.name+'</span></a>');
       });
 
     });
