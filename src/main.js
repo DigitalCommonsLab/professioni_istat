@@ -243,16 +243,4 @@ $(function() {
     }
   });
 
-  //DEBUG
-/*
-  window.tree = tree;
-
-  var testVal = '2.1.1.4.1';
-
-  setTimeout(function() {
-    
-    $selectjobs.val(testVal).trigger('change');
-
-  },1000);*/
-
 });  

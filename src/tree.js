@@ -141,7 +141,7 @@ module.exports = {
 			//.append("g")
 			//.attr("transform", "translate(" + self.config.margin.left + "," + self.config.margin.top + ")");
 		
-		self.$sel = $('<div id4="tree_selection"></div>');
+		self.$sel = $('<div id="tree_selection"></div>');
 		self.$tree.after(self.$sel)
 
 		return self;
@@ -220,7 +220,7 @@ module.exports = {
 			nodeWidthMax = self.width/(self.config.numLevels)
 
 		nodes.forEach(function(d) {
-			d.y = d.depth * nodeWidthMax - self.height + $('#jobs').width();
+			d.y = d.depth * nodeWidthMax - self.height + $('#skills').width();
 			nodeWidth = Math.abs(Math.min(nodeWidth, d.y - dy));
 			dy = d.y;
 		});

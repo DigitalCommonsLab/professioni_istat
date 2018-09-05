@@ -5,6 +5,13 @@ html {
   padding: 0
 }
 
+#page_index #searchjobs_wrap {
+  display: none;
+}
+
+#page_search #jobs {
+  display: none;
+}
 
 /* SVG */
 .node.level5 {
@@ -169,8 +176,8 @@ html {
   position: relative;
 }
 #searchlist {
-  position: absolute;
-  z-index: 2000;
+  /*position: absolute;
+  z-index: 2000;*/
   max-height: 800px;
   width: 100%;
   overflow-y: scroll;
