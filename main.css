@@ -5,6 +5,7 @@ html {
   padding: 0
 }
 
+
 /* SVG */
 .node.level5 {
 	cursor: pointer;
@@ -70,6 +71,9 @@ html {
 .bootstrap-table .table {
   border-bottom: none;
 }
+.table .isfol {
+  color: #ffc200;
+}
 .pagination-detail {
   display: none;
 }
@@ -80,9 +84,21 @@ html {
 .page-item.page-next a{
   font-size: 36px;
   display: inline-block;
-  line-height: 20px
+  line-height: 20px;
+  color: #ffc200
 }
-
+.page-item.active .page-link {
+  background-color: #ffc200;
+}
+.badge {
+  font-size: 16px;
+  margin-bottom: 6px;
+  border-radius: 0;
+  font-weight: normal;
+}/*
+#tree_selection .title {
+  font-weight: bold;
+}*/
 #tree_selection .desc {
   font-size: 12px;
 }
@@ -95,7 +111,6 @@ html {
 }
 
 #tree {
-  border: 1px solid #f0f;
   height: 500px;
   position: relative;
 }
@@ -130,6 +145,11 @@ html {
   display: none;
 }
 
+.isfol {
+  color: #ffc200;
+  cursor: pointer;
+}
+
 .skill {
   background: #eee;
   margin: 3px 0;
@@ -142,6 +162,7 @@ html {
   padding: 4px;
   font-style: italic;
   text-align: right;
+  height: 16px;
 }
 
 #searchjobs_wrap {
@@ -160,4 +181,65 @@ html {
 #selectjobs {
   width: 100%;
   height: 800px
+}
+
+.isfol,
+.orange-text {
+  color: #ffc200 !important;
+}
+.orange-bg {
+  color: #000;
+  background: #ffc200
+}
+.blue-bg {
+  color: #fff;
+  background: #36474F
+}
+.grey-bg {
+  color: #000;
+  background: #ddd;
+}
+option {
+  padding: 8px;
+}
+option:checked { 
+  background-color: #ffc200; 
+}
+
+.navbar {
+  border-bottom: 10px solid #36474F;
+  padding-bottom: 0;
+  /*margin-bottom: 10px;*/
+  margin-top: 80px;
+}
+
+.navbar-nav {
+  margin-bottom: -10px
+}
+
+li.nav-item {
+  padding: 0 10px;
+}
+li.nav-item.logout {
+  border-left: 3px solid #36474F;
+}
+.nav-link {
+  color: #36474F;
+  font-size: 20px;
+}
+
+.nav-link.active {
+  border-bottom: 10px solid #ffc200;
+}
+.navbar-brand {
+  position: relative;
+  width: 250px;
+  height: 50px;
+  display: inline-block;
+}
+.navbar-brand img {
+  top: -80px;
+  position: absolute;
+  display: inline-block;
+  vertical-align: bottom;
 }

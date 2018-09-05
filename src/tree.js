@@ -174,7 +174,7 @@ module.exports = {
 			  line = [];
 			  tspan = text.append('tspan')
 			  	.attr('x', self.config.circleRadius*2)//self.config.circleRadius+(d.children?-(self.config.circleRadius*3):5) )
-			  	.attr('y', -0.6)//+(d.children?-(self.config.circleRadius*3):y) )
+			  	//.attr('y', 0)//+(d.children?-(self.config.circleRadius*3):y) )
 			  	.attr('dy', (++lineNumber) + (dy-0.6) + 'em');
 
 			  while (!!(word = words.pop())) {

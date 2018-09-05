@@ -3,42 +3,75 @@
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <link href="main.css" rel="stylesheet">
 </head>
 <body>
+
+<header class="navbar navbar-expand flex-column flex-md-row bd-navbar">
+
+  <div class="navbar-nav-scroll">
+    <ul class="navbar-nav bd-navbar-nav flex-row">
+      <li class="nav-item">
+        <a class="nav-link " href="#">SCUOLA</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="#">IL MIO PERCORSO</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="#">ASPIRAZIONI</a>
+      </li>
+    </ul>
+  </div>
+
+  <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+    <li class="nav-item">
+      <a class="nav-item nav-link mr-md-2" href="#" id="bd-versions" aria-haspopup="true" aria-expanded="false">
+        NOME STUDENTE
+      </a>
+    </li>
+    <li class="nav-item logout">
+      <a class="nav-item nav-link mr-md-2 orange-text" href="#" id="bd-versions" aria-haspopup="true" aria-expanded="false">
+        LOGOUT
+      </a>
+    </li>    
+	<li class="nav-item">
+		<a class="navbar-brand mr-0 mr-md-2" href="/" aria-label="Bootstrap">
+			<img src="images/cedus_logo.png" />
+		</a>
+    </li>
+  </ul>
+
+</header>
+
 <div id="version"></div>
+
+
 <div class="container-fluid">
 	<div class="row">
-	    <div class="col-md-3" style="border: 1px solid red">
-	    	<h5>Profilo studente</h5>
-	    	<div id="profile">
-			</div>
-		</div>
-		<div class="col-md-3" style="border: 1px solid green">
-			<form id="searchjobs_wrap" role="form float-right">
-				<h5>Cerca Professioni per nome</h5>
-				<div class="form-group">
-					<input class="form-control" id="searchjobs" type="search" placeholder="Cerca professione..." />
-				</div>
-				<div id="searchlist" class="list-group">
-					
-				</div>
-			</form>
-		</div>
-	</div>
+	    <div class="col-md-2 blue-bg">
 
-	<div class="row">
-	    <div class="col-md-2">
+			<br />
 
-			<h5>Le mie competenze</h5>
+			<label>Le mie competenze</label>
 			<div id="skills">
 			</div>
 
 			<br />
 
+			<form id="searchjobs_wrap" role="form float-right">
+				<label>Cerca Professioni</label>
+				<div class="form-group">
+					<input class="form-control grey-bg" id="searchjobs" type="search" placeholder="Inserisci il nome..." />
+				</div>
+				<div id="searchlist" class="list-group">
+					
+				</div>
+			</form>
+
+			<br />
+
 	    	<div id="jobs">
-				<h5>Professioni suggerite</h5>
-				<select id="selectjobs" size="20">
+				<label>Professioni suggerite</label>
+				<select id="selectjobs" size="20" class="grey-bg">
 
 				</select>
 			</div>
@@ -72,7 +105,7 @@
 <div class="desc">
 	{{desc}}
 	<br >
-	<a class="isfol" target="_blank" href="#">Isfol {{id}}</a>
+	<a class="isfol" target="_blank" href="http://fabbisogni.isfol.it/scheda.php?limite=1&amp;id={{id}}">ISFOL {{id}}</a>
 	<br />
 </div>
 </script>

@@ -10,6 +10,7 @@ var d3 = require('d3');
 var popper = require('popper.js');
 var bt = require('bootstrap');
 require('../node_modules/bootstrap/dist/css/bootstrap.min.css');
+
 var btlist = require('bootstrap-list-filter');
 
 window._ = _;
@@ -27,6 +28,8 @@ var profile = require('./profile');
 
 window.config = config;
 window.profile = profile;
+
+require('../main.css');
 
 $(function() {
 
@@ -68,8 +71,6 @@ $(function() {
           return v;
         });
 
-        console.log('search',text, res);
-
         cb(res);
       });
     }
@@ -98,11 +99,11 @@ $(function() {
       
       skillsObj[code]= config.skillsThresholds(code) || 50;
 
-      $skills.append('<span class="badge badge-primary">'+label+'</span>');
+      $skills.append('<span class="badge orange-bg">'+label+'</span>');
     }
 
     $.getJSON(config.urls.getJobsBySkills(skillsObj), function(json) {
-      console.log(json)
+    
       if(!json['Entries'])
         return null;
 
@@ -133,9 +134,18 @@ $(function() {
   var table1 = new table.init('#table', {
     columns: [
       { field: 'name', title: 'Nome' },
-      { field: 'id', title: 'Isfol' },
-      //{ field: 'desc', title: 'Descrizione' }
-    ]
+      {
+        field: 'id', title: 'Isfol',
+        cellStyle: function(value, row, index, field) {
+          return {
+            classes: 'isfol'
+          }
+        },
+      },
+    ],
+    onSelect: function(row) {
+      location.href = "http://fabbisogni.isfol.it/scheda.php?limite=1&amp;id="+row.id
+    }
   });
 
   var table2 = new table.init('#table2', {
@@ -157,8 +167,6 @@ $(function() {
 
       tree.buildTreeByCode(node.id);
 
-      console.log('onSelect',node)
-
       $('#results').show();
       
       $.getJSON(config.urls.getJobsByLevel({idLevel5: node.id }), function(json) {
@@ -171,11 +179,9 @@ $(function() {
             res = _.isArray(ee) ? ee : [ee];
 
         table1.update(_.map(res, function(v) {
-          var id = v.id;
           return {
-            id: '<a target="_blank" href="http://fabbisogni.isfol.it/scheda.php?limite=1&amp;id='+id+'"/>'+id+'</a>',
-            name: v.nome,
-            //desc: ""
+            id: v.id,
+            name: v.nome
           }
         }));
 
