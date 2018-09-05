@@ -41818,8 +41818,12 @@ $(function() {
   $searchlist
   .on('click','.list-group-item', function(e) {
     e.preventDefault();
-    
-    var code = $(e.currentTarget).data('id');
+
+    $that = $(this);
+    $that.parent().find('a').removeClass('active');
+    $that.addClass('active');
+
+    var code = $that.data('id');
 
     tree.buildTreeByCode(code);
 
@@ -41850,14 +41854,13 @@ $(function() {
   });
 
   $selectjobs.on('click','a', function (e) {
-    
     e.preventDefault()
 
     $that = $(this);
     $that.parent().find('a').removeClass('active');
     $that.addClass('active');
 
-    var code = $(this).data('id');
+    var code = $that.data('id');
     
     tree.buildTreeByCode(code);
 
