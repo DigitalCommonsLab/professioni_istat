@@ -29,8 +29,6 @@ var profile = require('./profile');
 window.config = config;
 window.profile = profile;
 
-require('../main.css');
-
 $(function() {
 
   $('#version').text('v'+pkg.version);
@@ -115,30 +113,33 @@ $(function() {
       $skills.append('<span class="badge orange-bg">'+label+'</span>');
     }
 
-    $.getJSON(config.urls.getJobsBySkills(skillsObj), function(json) {
-    
-      if(!json['Entries'])
-        return null;
+    if($('body').is('#page_index')) {
 
-      var res = [],
-          ee = json['Entries']['Entry'],
-          res = _.isArray(ee) ? ee : [ee];
+      $.getJSON(config.urls.getJobsBySkills(skillsObj), function(json) {
+      
+        if(!json['Entries'])
+          return null;
 
-      res = _.map(res, function(v,k) {
-        return {
-          code: v['idJobs'],
-          name: v['nome']
-        }
+        var res = [],
+            ee = json['Entries']['Entry'],
+            res = _.isArray(ee) ? ee : [ee];
+
+        res = _.map(res, function(v,k) {
+          return {
+            code: v['idJobs'],
+            name: v['nome']
+          }
+        });
+
+        res = _.sortBy(res,'name');
+
+        $selectjobs.empty();
+        _.each(res, function(row) {
+          $selectjobs.append('<a class="list-group-item" href="#" data-id="'+row.code+'"><span>'+row.name+'</span></a>');
+        });
+
       });
-
-      res = _.sortBy(res,'name');
-
-      $selectjobs.empty();
-      _.each(res, function(row) {
-        $selectjobs.append('<a class="list-group-item" href="#" data-id="'+row.code+'"><span>'+row.name+'</span></a>');
-      });
-
-    });
+    }
 
   });
   
