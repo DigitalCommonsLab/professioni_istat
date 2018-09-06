@@ -72,41 +72,7 @@ html {
   stroke: #007bff;
   stroke-width: 6px;
 }
-
-.fixed-table-container {
-  border:none;
-}
-.table th {
-  border-top: none
-}
-.bootstrap-table .table {
-  border-bottom: none;
-}
-.table .isfol {
-  color: #ffc200;
-}
-.pagination-detail {
-  display: none;
-}
-.page-link {
-  border:none;
-}
-.page-item.page-pre a,
-.page-item.page-next a{
-  font-size: 36px;
-  display: inline-block;
-  line-height: 20px;
-  color: #ffc200
-}
-.page-item.active .page-link {
-  background-color: #ffc200;
-}
-.badge {
-  font-size: 16px;
-  margin-bottom: 6px;
-  border-radius: 0;
-  font-weight: normal;
-}/*
+/*
 #tree_selection .title {
   font-weight: bold;
 }*/
@@ -215,6 +181,41 @@ html {
   font-style: italic;
   text-align: right;
   height: 16px;
+}
+
+.fixed-table-container {
+  border:none;
+}
+.table th {
+  border-top: none
+}
+.bootstrap-table .table {
+  border-bottom: none;
+}
+.table .isfol {
+  color: #ffc200;
+}
+.pagination-detail {
+  display: none;
+}
+.page-link {
+  border:none;
+}
+.page-item.page-pre a,
+.page-item.page-next a{
+  font-size: 36px;
+  display: inline-block;
+  line-height: 20px;
+  color: #ffc200
+}
+.page-item.active .page-link {
+  background-color: #ffc200;
+}
+.badge {
+  font-size: 16px;
+  margin-bottom: 6px;
+  border-radius: 0;
+  font-weight: normal;
 }
 .isfol,
 .orange-text {
