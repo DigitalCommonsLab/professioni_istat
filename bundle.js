@@ -41571,7 +41571,7 @@ function config (name) {
 },{}],130:[function(require,module,exports){
 module.exports={
   "name": "professioni_istat",
-  "version": "2.0.0",
+  "version": "2.2.0",
   "description": "",
   "main": "bundle.js",
   "repository": {
@@ -41653,7 +41653,7 @@ if(!window.DEBUG_MODE)	//API defined here: https://docs.google.com/spreadsheets/
 else	//DEBUG API via json files in
 {
 	_.extend(urls, {
-		getProfileSkills: H.compile(urls.baseUrlDev+'student.json'),
+		getProfileSkills: H.compile(urls.baseUrlDev+'statistics_skills_student.json'),
 		//ISFOL API
 		getIsfolLevels: H.compile(urls.baseUrlDev+'istatLevel{{level}}_{{parentId}}.json'),
 		getJobsByLevel: H.compile(urls.baseUrlDev+'jobsByLevel5_{{idLevel5}}.json'),
@@ -41889,7 +41889,6 @@ $(function() {
 
       $selectjobs.empty();
       _.each(res, function(row) {
-        //$selectjobs.append('<option value="'+row.code+'">'+row.name+'</option>')
         $selectjobs.append('<a class="list-group-item" href="#" data-id="'+row.code+'"><span>'+row.name+'</span></a>');
       });
 
@@ -42049,7 +42048,6 @@ module.exports = {
 				});	
 			}
 		}
-		
 	}
 };
 },{"./config":131,"./utils":136,"jquery":42,"underscore":128}],134:[function(require,module,exports){

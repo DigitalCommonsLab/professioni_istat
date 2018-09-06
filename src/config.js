@@ -29,7 +29,7 @@ if(!window.DEBUG_MODE)	//API defined here: https://docs.google.com/spreadsheets/
 else	//DEBUG API via json files in
 {
 	_.extend(urls, {
-		getProfileSkills: H.compile(urls.baseUrlDev+'student.json'),
+		getProfileSkills: H.compile(urls.baseUrlDev+'statistics_skills_student.json'),
 		//ISFOL API
 		getIsfolLevels: H.compile(urls.baseUrlDev+'istatLevel{{level}}_{{parentId}}.json'),
 		getJobsByLevel: H.compile(urls.baseUrlDev+'jobsByLevel5_{{idLevel5}}.json'),

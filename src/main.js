@@ -135,7 +135,6 @@ $(function() {
 
       $selectjobs.empty();
       _.each(res, function(row) {
-        //$selectjobs.append('<option value="'+row.code+'">'+row.name+'</option>')
         $selectjobs.append('<a class="list-group-item" href="#" data-id="'+row.code+'"><span>'+row.name+'</span></a>');
       });
 
