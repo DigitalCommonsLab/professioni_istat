@@ -1,4 +1,8 @@
 
+body {
+  font-family: 'Titillium Web', sans-serif;
+}
+
 body,
 html {
   margin: 0;
@@ -164,14 +168,6 @@ html {
 
 }
 
-#version {
-  color:#ccc;
-  padding: 4px;
-  font-style: italic;
-  text-align: right;
-  height: 16px;
-}
-
 #searchjobs_wrap {
   position: relative;
 }
@@ -211,6 +207,15 @@ html {
   overflow-y: scroll;
 }
 
+
+/* CEDUS STYLES */
+#version {
+  color:#ccc;
+  padding: 4px;
+  font-style: italic;
+  text-align: right;
+  height: 16px;
+}
 .isfol,
 .orange-text {
   color: #ffc200 !important;
@@ -226,12 +231,6 @@ html {
 .grey-bg {
   color: #000;
   background: #e6e6e6;
-}
-option {
-  padding: 8px;
-}
-option:checked { 
-  background-color: #ffc200; 
 }
 
 .navbar {
