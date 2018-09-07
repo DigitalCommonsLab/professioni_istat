@@ -20,11 +20,21 @@ module.exports = {
 		self.getData('student', function(json) {
 			self.$profile.text( json.name+' '+json.surname );
 		});
+
+		self.data.token = '';
+
+	},
+
+	getToken: function() {
+
+		return this.data.token;
 	},
 
 	getData: function(name, cb) {
 		
 		var self = this;
+
+		cb = cb || _.noop;
 
 		if(name==='skills') {
 
@@ -33,7 +43,7 @@ module.exports = {
 			}
 			else
 			{
-				$.getJSON(config.urls.getProfileSkills(), function(json) {
+				utils.getData(config.urls.getProfileSkills(), function(json) {
 
 					self.data.skills = [];
 
@@ -60,7 +70,7 @@ module.exports = {
 			}
 			else
 			{
-				$.getJSON(config.urls.getProfileStudent(), function(json) {
+				utils.getData(config.urls.getProfileStudent(), function(json) {
 
 					self.data.student = json;
 

@@ -41,11 +41,7 @@ $(function() {
       $skills = $('#skills'),
       $selectjobs = $('#selectjobs');
 
-  var $searchjobs = $('#searchjobs'),
-      $searchlist = $('#searchlist');
-
-  $searchlist
-  .on('click','.list-group-item', function(e) {
+  $('#searchlist').on('click','.list-group-item', function(e) {
     e.preventDefault();
 
     $that = $(this);
@@ -67,7 +63,7 @@ $(function() {
     loadingClass: 'loading',
     sourceTmpl: '<a class="list-group-item" href="#" data-id="{id}"><span>{nome}</span></a>',
     sourceData: function(text, cb) {
-      return $.getJSON(config.urls.getJobsByName({name: text}), function(json) {
+      return utils.getData(config.urls.getJobsByName({name: text}), function(json) {
         var res = [],
           ee = json['Entries']['Entry'],
           res = _.isArray(ee) ? ee : [ee];
@@ -81,6 +77,7 @@ $(function() {
       });
     }
   });
+  // END SEARCH BOX
 
   $selectjobs.on('click','a', function (e) {
     e.preventDefault()
@@ -115,7 +112,7 @@ $(function() {
 
     if($('body').is('#page_index')) {
 
-      $.getJSON(config.urls.getJobsBySkills(skillsObj), function(json) {
+      utils.getData(config.urls.getJobsBySkills(skillsObj), function(json) {
       
         if(!json['Entries'])
           return null;
@@ -183,7 +180,7 @@ $(function() {
 
       $('#results').show();
       
-      $.getJSON(config.urls.getJobsByLevel({idLevel5: node.id }), function(json) {
+      utils.getData(config.urls.getJobsByLevel({idLevel5: node.id }), function(json) {
         
         if(!json['Entries'])
           return null;
@@ -201,7 +198,7 @@ $(function() {
 
       });
 
-      $.getJSON(config.urls.getSkillsByJob({idJob: node.id }), function(json) {
+      utils.getData(config.urls.getSkillsByJob({idJob: node.id }), function(json) {
         
         if(!json['Entries'])
           return null;

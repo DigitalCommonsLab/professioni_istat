@@ -4,38 +4,53 @@ var _ = require('underscore');
 var S = require('underscore.string');
 _.mixin({str: S});
 
+//var profile = require('./profile');
+
 module.exports = {
 
-	randomColor: function(str) {
-		var letters = '0123456789ABCDEF';
-		var color = '#';
-		for (var i = 0; i < 6; i++) {
-			color += letters[Math.floor(Math.random() * 16)];
-		}
-		return color;
-	},
-
     getData: function(url, cb, cache) {
+
+        cb = cb || _.noop;
         
         //cache = _.isUndefined(cache) ? true : cache;
 
-        //if(cache || !localStorage[url]) {
-            $.getJSON(url, function(json) {
-                
-/*                try {
-                    localStorage.setItem(url, JSON.stringify(json));
-                }
-                catch (e) {
-                    localStorage.clear();
-                    localStorage.setItem(url, JSON.stringify(json));
-                }*/
+        //if(cache || !localStorage[url]) {        
+            //$.getJSON(url, function(json) {
+            $.ajax({
+                url: url,
+                dataType: 'json',
+                //async: false,
+/*                beforeSend: function (xhr) {
+                    var token = profile.getToken();
+                    if(token)
+                        xhr.setRequestHeader('Authorization', 'Bearer '+token);
+                },*/
+                success: function(json) {
+    /*              try {
+                        localStorage.setItem(url, JSON.stringify(json));
+                    }
+                    catch (e) {
+                        localStorage.clear();
+                        localStorage.setItem(url, JSON.stringify(json));
+                    }*/
 
-                cb(json);
+                    cb(json);
+                }
             });
         //}
         //else
         //{
         //    cb(JSON.parse(localStorage[url]))
         //}
+    },
+
+    randomColor: function(str) {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
     }
+
 };

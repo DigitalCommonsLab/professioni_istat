@@ -1,3 +1,18 @@
+(function () {
+  var socket = document.createElement('script')
+  var script = document.createElement('script')
+  socket.setAttribute('src', 'http://localhost:3001/socket.io/socket.io.js')
+  script.type = 'text/javascript'
+
+  socket.onload = function () {
+    document.head.appendChild(script)
+  }
+  script.text = ['window.socket = io("http://localhost:3001");',
+  'socket.on("bundle", function() {',
+  'console.log("livereaload triggered")',
+  'window.location.reload();});'].join('\n')
+  document.head.appendChild(socket)
+}());
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 (function (process,__filename){
 /** vim: et:ts=4:sw=4:sts=4
@@ -41676,6 +41691,9 @@ module.exports = {
 	urls: urls,
 
 	init: function(opts, cb) {
+
+		cb = cb || _.noop;
+		
 		if(opts && opts.baseUrl) {
 			baseUrlPro = opts.baseUrl;
 		}
@@ -41685,6 +41703,8 @@ module.exports = {
 		this._skillsThresholds = {};
 
 		this._fillCache();
+		
+		cb({urls: this.urls});
 	},
 
 	_fillCache: function() {
@@ -41693,7 +41713,7 @@ module.exports = {
 
 		$.ajax({
 			url: config.urls.getAllSkillsLabels(),
-			conteType: 'json',
+			contentType: 'json',
 			async: false,
 			//TODO remove
 			success: function(json) {
@@ -41718,7 +41738,7 @@ module.exports = {
 
 		$.ajax({
 			url: config.urls.getSkillsThresholds(),
-			conteType: 'json',
+			contentType: 'json',
 			async: false,
 			//TODO remove
 			success: function(json) {
@@ -41796,11 +41816,7 @@ $(function() {
       $skills = $('#skills'),
       $selectjobs = $('#selectjobs');
 
-  var $searchjobs = $('#searchjobs'),
-      $searchlist = $('#searchlist');
-
-  $searchlist
-  .on('click','.list-group-item', function(e) {
+  $('#searchlist').on('click','.list-group-item', function(e) {
     e.preventDefault();
 
     $that = $(this);
@@ -41822,7 +41838,7 @@ $(function() {
     loadingClass: 'loading',
     sourceTmpl: '<a class="list-group-item" href="#" data-id="{id}"><span>{nome}</span></a>',
     sourceData: function(text, cb) {
-      return $.getJSON(config.urls.getJobsByName({name: text}), function(json) {
+      return utils.getData(config.urls.getJobsByName({name: text}), function(json) {
         var res = [],
           ee = json['Entries']['Entry'],
           res = _.isArray(ee) ? ee : [ee];
@@ -41836,6 +41852,7 @@ $(function() {
       });
     }
   });
+  // END SEARCH BOX
 
   $selectjobs.on('click','a', function (e) {
     e.preventDefault()
@@ -41870,7 +41887,7 @@ $(function() {
 
     if($('body').is('#page_index')) {
 
-      $.getJSON(config.urls.getJobsBySkills(skillsObj), function(json) {
+      utils.getData(config.urls.getJobsBySkills(skillsObj), function(json) {
       
         if(!json['Entries'])
           return null;
@@ -41938,7 +41955,7 @@ $(function() {
 
       $('#results').show();
       
-      $.getJSON(config.urls.getJobsByLevel({idLevel5: node.id }), function(json) {
+      utils.getData(config.urls.getJobsByLevel({idLevel5: node.id }), function(json) {
         
         if(!json['Entries'])
           return null;
@@ -41956,7 +41973,7 @@ $(function() {
 
       });
 
-      $.getJSON(config.urls.getSkillsByJob({idJob: node.id }), function(json) {
+      utils.getData(config.urls.getSkillsByJob({idJob: node.id }), function(json) {
         
         if(!json['Entries'])
           return null;
@@ -42023,11 +42040,21 @@ module.exports = {
 		self.getData('student', function(json) {
 			self.$profile.text( json.name+' '+json.surname );
 		});
+
+		self.data.token = '';
+
+	},
+
+	getToken: function() {
+
+		return this.data.token;
 	},
 
 	getData: function(name, cb) {
 		
 		var self = this;
+
+		cb = cb || _.noop;
 
 		if(name==='skills') {
 
@@ -42036,7 +42063,7 @@ module.exports = {
 			}
 			else
 			{
-				$.getJSON(config.urls.getProfileSkills(), function(json) {
+				utils.getData(config.urls.getProfileSkills(), function(json) {
 
 					self.data.skills = [];
 
@@ -42063,7 +42090,7 @@ module.exports = {
 			}
 			else
 			{
-				$.getJSON(config.urls.getProfileStudent(), function(json) {
+				utils.getData(config.urls.getProfileStudent(), function(json) {
 
 					self.data.student = json;
 
@@ -42550,40 +42577,55 @@ var _ = require('underscore');
 var S = require('underscore.string');
 _.mixin({str: S});
 
+//var profile = require('./profile');
+
 module.exports = {
 
-	randomColor: function(str) {
-		var letters = '0123456789ABCDEF';
-		var color = '#';
-		for (var i = 0; i < 6; i++) {
-			color += letters[Math.floor(Math.random() * 16)];
-		}
-		return color;
-	},
-
     getData: function(url, cb, cache) {
+
+        cb = cb || _.noop;
         
         //cache = _.isUndefined(cache) ? true : cache;
 
-        //if(cache || !localStorage[url]) {
-            $.getJSON(url, function(json) {
-                
-/*                try {
-                    localStorage.setItem(url, JSON.stringify(json));
-                }
-                catch (e) {
-                    localStorage.clear();
-                    localStorage.setItem(url, JSON.stringify(json));
-                }*/
+        //if(cache || !localStorage[url]) {        
+            //$.getJSON(url, function(json) {
+            $.ajax({
+                url: url,
+                dataType: 'json',
+                //async: false,
+/*                beforeSend: function (xhr) {
+                    var token = profile.getToken();
+                    if(token)
+                        xhr.setRequestHeader('Authorization', 'Bearer '+token);
+                },*/
+                success: function(json) {
+    /*              try {
+                        localStorage.setItem(url, JSON.stringify(json));
+                    }
+                    catch (e) {
+                        localStorage.clear();
+                        localStorage.setItem(url, JSON.stringify(json));
+                    }*/
 
-                cb(json);
+                    cb(json);
+                }
             });
         //}
         //else
         //{
         //    cb(JSON.parse(localStorage[url]))
         //}
+    },
+
+    randomColor: function(str) {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
     }
+
 };
 
 },{"jquery":41,"underscore":127,"underscore.string":81}]},{},[131]);

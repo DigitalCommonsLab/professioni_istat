@@ -54,6 +54,9 @@ module.exports = {
 	urls: urls,
 
 	init: function(opts, cb) {
+
+		cb = cb || _.noop;
+		
 		if(opts && opts.baseUrl) {
 			baseUrlPro = opts.baseUrl;
 		}
@@ -63,6 +66,8 @@ module.exports = {
 		this._skillsThresholds = {};
 
 		this._fillCache();
+		
+		cb({urls: this.urls});
 	},
 
 	_fillCache: function() {
@@ -71,7 +76,7 @@ module.exports = {
 
 		$.ajax({
 			url: config.urls.getAllSkillsLabels(),
-			conteType: 'json',
+			contentType: 'json',
 			async: false,
 			//TODO remove
 			success: function(json) {
@@ -96,7 +101,7 @@ module.exports = {
 
 		$.ajax({
 			url: config.urls.getSkillsThresholds(),
-			conteType: 'json',
+			contentType: 'json',
 			async: false,
 			//TODO remove
 			success: function(json) {
