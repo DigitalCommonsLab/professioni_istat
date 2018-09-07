@@ -11,9 +11,15 @@ module.exports = {
 
 		var self = this;
 
-		this.profile = $(el);
+		self.$profile = $(el);
 
-		this.data = {};
+		self.data = {
+			//
+		};
+
+		self.getData('student', function(json) {
+			self.$profile.text( json.name+' '+json.surname );
+		});
 	},
 
 	getData: function(name, cb) {
@@ -44,6 +50,21 @@ module.exports = {
 					});
 					
 					cb(self.data.skills);
+				});	
+			}
+		}
+		else if(name==='student') {
+			
+			if(self.data.student) {
+				cb(self.data.student);
+			}
+			else
+			{
+				$.getJSON(config.urls.getProfileStudent(), function(json) {
+
+					self.data.student = json;
+
+					cb(self.data.student);
 				});	
 			}
 		}

@@ -10,6 +10,7 @@ var urls = {
 if(!window.DEBUG_MODE)	//API defined here: https://docs.google.com/spreadsheets/d/1vXnu9ZW9QXw9igx5vdslzfkfhgp_ojAslS4NV-MhRng/edit#gid=0
 {
 	_.extend(urls, {
+		getProfileStudent: H.compile(urls.baseUrlPro+'cs-stats/1.0/api/statistics/profile/student'),
 		getProfileSkills: H.compile(urls.baseUrlPro+'asl-stats/1.0/api/statistics/skills/student'),
 		//ISFOL API
 		getIsfolLevels: H.compile(urls.baseUrlPro+'isfol/1.0.0/istatLevel{{level}}{{#if parentId}}/{{parentId}}{{else}}{{/if}}'),
@@ -29,6 +30,7 @@ if(!window.DEBUG_MODE)	//API defined here: https://docs.google.com/spreadsheets/
 else	//DEBUG API via json files in
 {
 	_.extend(urls, {
+		getProfileStudent: H.compile(urls.baseUrlDev+'statistics_profile_student.json'),
 		getProfileSkills: H.compile(urls.baseUrlDev+'statistics_skills_student.json'),
 		//ISFOL API
 		getIsfolLevels: H.compile(urls.baseUrlDev+'istatLevel{{level}}_{{parentId}}.json'),
@@ -121,6 +123,7 @@ module.exports = {
 		prop = prop || 'desc';
 		return this._skillsLabels[ code ] ? this._skillsLabels[ code ][ prop ] : '';
 	},
+	
 	skillsThresholds: function(code, prop) {
 		prop = prop || 'val';
 		return this._skillsThresholds[ code ] ? this._skillsThresholds[ code ][ prop ] : 50;
