@@ -41703,8 +41703,52 @@ module.exports = {
 		this._skillsThresholds = {};
 
 		this._fillCache();
+
+		this.getToken();
 		
 		cb({urls: this.urls});
+	},
+
+	getToken: function() {
+
+		var self = this;
+
+//////////TOKEN
+
+		var aacUrl = 'https://am-dev.smartcommunitylab.it/aac';	
+		var clientId = '69b61f8f-0562-45fb-ba15-b0a61d4456f0';
+		var redirectUri = location.href;
+		//var clientSecret=
+		
+		var queryString = location.hash.substring(1);
+		var params = {};
+		var regex = /([^&=]+)=([^&]*)/g, m;
+
+		var passedToken = null;
+
+		while (m = regex.exec(queryString)) {
+			params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+			// Try to exchange the param values for an access token.
+			if (params['access_token']) {
+				passedToken = params['access_token'];
+				break;
+			}
+		}
+
+		if (passedToken == null) {
+			self.token = sessionStorage.access_token;
+			if (!self.token || self.token == 'null' || self.token == 'undefined') {
+				window.location = aacUrl + '/eauth/authorize?client_id='+clientId+'&redirect_uri='+redirectUri+'&response_type=token';      
+			}
+		} else {
+			sessionStorage.access_token = passedToken;
+			window.location.hash = '';
+			window.location.reload();
+		}
+
+		console.log('TOKEN',self.token);
+
+		return self.token;
 	},
 
 	_fillCache: function() {
@@ -41713,9 +41757,13 @@ module.exports = {
 
 		$.ajax({
 			url: config.urls.getAllSkillsLabels(),
-			contentType: 'json',
+			dataType: 'json',
 			async: false,
-			//TODO remove
+            beforeSend: function (xhr) {
+                var token = config.getToken();
+                if(token)
+                    xhr.setRequestHeader('Authorization', 'Bearer '+token);
+            },
 			success: function(json) {
 			  if(!json['Entries'])
 			    return null;
@@ -41738,9 +41786,13 @@ module.exports = {
 
 		$.ajax({
 			url: config.urls.getSkillsThresholds(),
-			contentType: 'json',
+			dataType: 'json',
 			async: false,
-			//TODO remove
+            beforeSend: function (xhr) {
+                var token = config.getToken();
+                if(token)
+                    xhr.setRequestHeader('Authorization', 'Bearer '+token);
+            },
 			success: function(json) {
 			  if(!json['Entries'])
 			    return null;
@@ -42038,16 +42090,18 @@ module.exports = {
 		};
 
 		self.getData('student', function(json) {
-			self.$profile.text( json.name+' '+json.surname );
+			self.$profile.find('#username').text( json.name+' '+json.surname );
 		});
 
-		self.data.token = '';
-
+		self.$profile.find('#logout').on('click', function(e) {
+			e.preventDefault();
+			self.logout();
+		});
 	},
-
-	getToken: function() {
-
-		return this.data.token;
+	
+	logout: function() {
+		delete sessionStorage.access_token;
+		location.reload();
 	},
 
 	getData: function(name, cb) {
@@ -42577,7 +42631,7 @@ var _ = require('underscore');
 var S = require('underscore.string');
 _.mixin({str: S});
 
-//var profile = require('./profile');
+var config = require('./config');
 
 module.exports = {
 
@@ -42588,16 +42642,21 @@ module.exports = {
         //cache = _.isUndefined(cache) ? true : cache;
 
         //if(cache || !localStorage[url]) {        
-            //$.getJSON(url, function(json) {
+            /*$.getJSON(url, function(json) {
+                cb(json)
+            });
+            return*/
             $.ajax({
                 url: url,
                 dataType: 'json',
                 //async: false,
-/*                beforeSend: function (xhr) {
-                    var token = profile.getToken();
+                beforeSend: function (xhr) {
+                    var token = config.getToken();
                     if(token)
                         xhr.setRequestHeader('Authorization', 'Bearer '+token);
-                },*/
+
+                    console.log('beforeSend xhr', xhr)
+                },
                 success: function(json) {
     /*              try {
                         localStorage.setItem(url, JSON.stringify(json));
@@ -42628,4 +42687,4 @@ module.exports = {
 
 };
 
-},{"jquery":41,"underscore":127,"underscore.string":81}]},{},[131]);
+},{"./config":130,"jquery":41,"underscore":127,"underscore.string":81}]},{},[131]);

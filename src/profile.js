@@ -18,16 +18,18 @@ module.exports = {
 		};
 
 		self.getData('student', function(json) {
-			self.$profile.text( json.name+' '+json.surname );
+			self.$profile.find('#username').text( json.name+' '+json.surname );
 		});
 
-		self.data.token = '';
-
+		self.$profile.find('#logout').on('click', function(e) {
+			e.preventDefault();
+			self.logout();
+		});
 	},
-
-	getToken: function() {
-
-		return this.data.token;
+	
+	logout: function() {
+		delete sessionStorage.access_token;
+		location.reload();
 	},
 
 	getData: function(name, cb) {
