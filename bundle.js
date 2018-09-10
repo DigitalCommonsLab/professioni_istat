@@ -41714,7 +41714,10 @@ module.exports = {
 		var self = this;
 
 //////////TOKEN
-
+/*
+	RESPONSE EXAMPLE:
+	access_token=81fcdw16-cbd3-4bfe-af12-fb23d1de16b4&token_type=bearer&expires_in=42885&scope=default
+ */
 		var aacUrl = 'https://am-dev.smartcommunitylab.it/aac';	
 		var clientId = '69b61f8f-0562-45fb-ba15-b0a61d4456f0';
 		var redirectUri = location.href;
@@ -41725,6 +41728,12 @@ module.exports = {
 		var regex = /([^&=]+)=([^&]*)/g, m;
 
 		var passedToken = null;
+
+		if(!sessionStorage.queryString) {
+			sessionStorage.queryString = queryString;
+		}
+		
+		console.log('queryString', sessionStorage.queryString);
 
 		while (m = regex.exec(queryString)) {
 			params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
@@ -41738,7 +41747,9 @@ module.exports = {
 		if (passedToken == null) {
 			self.token = sessionStorage.access_token;
 			if (!self.token || self.token == 'null' || self.token == 'undefined') {
-				window.location = aacUrl + '/eauth/authorize?client_id='+clientId+'&redirect_uri='+redirectUri+'&response_type=token';      
+				window.location = aacUrl + '/eauth/authorize?response_type=token'+
+					'&client_id='+clientId+
+					'&redirect_uri='+redirectUri;      
 			}
 		} else {
 			sessionStorage.access_token = passedToken;
@@ -41855,6 +41866,7 @@ var profile = require('./profile');
 
 window.config = config;
 window.profile = profile;
+window.utils = utils;
 
 $(function() {
 
@@ -42634,6 +42646,17 @@ _.mixin({str: S});
 var config = require('./config');
 
 module.exports = {
+
+    hashParams: function() {
+        //https://stackoverflow.com/questions/8486099/how-do-i-parse-a-url-query-parameters-in-javascript
+        var query = location.hash.substr(1);
+        var result = {};
+        query.split("&").forEach(function(part) {
+            var item = part.split("=");
+            result[item[0]] = decodeURIComponent(item[1]);
+        });
+        return result;
+    },
 
     getData: function(url, cb, cache) {
 

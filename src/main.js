@@ -28,6 +28,7 @@ var profile = require('./profile');
 
 window.config = config;
 window.profile = profile;
+window.utils = utils;
 
 $(function() {
 
