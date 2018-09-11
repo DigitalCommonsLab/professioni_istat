@@ -8,17 +8,6 @@ var config = require('./config');
 
 module.exports = {
 
-    hashParams: function() {
-        //https://stackoverflow.com/questions/8486099/how-do-i-parse-a-url-query-parameters-in-javascript
-        var query = location.hash.substr(1);
-        var result = {};
-        query.split("&").forEach(function(part) {
-            var item = part.split("=");
-            result[item[0]] = decodeURIComponent(item[1]);
-        });
-        return result;
-    },
-
     getData: function(url, cb, cache) {
 
         cb = cb || _.noop;
@@ -38,8 +27,6 @@ module.exports = {
                     var token = config.getToken();
                     if(token)
                         xhr.setRequestHeader('Authorization', 'Bearer '+token);
-
-                    console.log('beforeSend xhr', xhr)
                 },
                 success: function(json) {
     /*              try {

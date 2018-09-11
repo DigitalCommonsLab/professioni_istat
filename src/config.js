@@ -3,9 +3,16 @@ var H = require('handlebars');
 var _ = require('underscore');
 
 var urls = {
-	baseUrlPro: window.baseUrlPro || "https://api-test.smartcommunitylab.it/t/sco.cartella/",
-	baseUrlDev: window.baseUrlDev || "./data/debug/"
-};
+		baseUrlPro: window.baseUrlPro || "https://api-test.smartcommunitylab.it/t/sco.cartella/",
+		baseUrlDev: window.baseUrlDev || "./data/debug/",
+		aacBaseUrl: window.aacBaseUrl || "https://am-dev.smartcommunitylab.it/aac/eauth/authorize?"
+	},
+	cfg = {
+		clientId: window.clientId || '69b61f8f-0562-45fb-ba15-b0a61d4456f0',
+		//clientSecret: window.clientSecret || null
+	};
+
+urls.aacUrl = H.compile(urls.aacBaseUrl + 'response_type=token&client_id='+cfg.clientId+'&redirect_uri='+location.href);
 
 if(!window.DEBUG_MODE)	//API defined here: https://docs.google.com/spreadsheets/d/1vXnu9ZW9QXw9igx5vdslzfkfhgp_ojAslS4NV-MhRng/edit#gid=0
 {
@@ -18,13 +25,12 @@ if(!window.DEBUG_MODE)	//API defined here: https://docs.google.com/spreadsheets/
 		getSkillsByJob: H.compile(urls.baseUrlPro+'isfol/1.0.0/skillsByJob/{{idJob}}'),
 		getAllSkillsLabels: H.compile(urls.baseUrlPro+'isfol/1.0.0/allSkillsLabels'),
 		getSkillsThresholds: H.compile(urls.baseUrlPro+'isfol/1.0.0/getStatsThresholds'),
-		//https://github.com/DigitalCommonsLab/isfoldata/blob/master/valori_significativi_skills.csv
+		getJobsByName: H.compile(urls.baseUrlPro+'isfol/1.0.0/jobsByName?param={{name}}'),
 		getJobsBySkills: function(o) {
 			//remove 'a' from end of codes
 			var pars = $.param(o).replace(/[a]/g,'');
 			return urls.baseUrlPro+'isfol/1.0.0/jobsBySkills' + '?' + pars;
-		},
-		getJobsByName: H.compile(urls.baseUrlPro+'isfol/1.0.0/jobsByName?param={{name}}'),
+		}
 	});
 }
 else	//DEBUG API via json files in
@@ -38,14 +44,14 @@ else	//DEBUG API via json files in
 		getSkillsByJob: H.compile(urls.baseUrlDev+'skillsByJob_{{idJob}}.json'),
 		getAllSkillsLabels: H.compile(urls.baseUrlDev+'allSkillsLabels.json'),
 		getSkillsThresholds: H.compile(urls.baseUrlPro+'getStatsThresholds.json'),
+		getJobsByName: H.compile(urls.baseUrlDev+'jobsByName.json'),
 		getJobsBySkills: function(o) {
 			var pars = '';
 			for(var p in o) {
 				pars += "_"+p+o[p];
 			}
 			return urls.baseUrlDev+'jobsBySkills' + '_' + pars + '.json';
-		},
-		getJobsByName: H.compile(urls.baseUrlDev+'jobsByName.json'),
+		}
 	});
 };
 
@@ -72,47 +78,32 @@ module.exports = {
 		cb({urls: this.urls});
 	},
 
+    hashParams: function(key) {
+        //https://stackoverflow.com/questions/8486099/how-do-i-parse-a-url-query-parameters-in-javascript
+        var query = location.hash.substr(1);
+        var result = {};
+        query.split("&").forEach(function(part) {
+            var item = part.split("=");
+            result[item[0]] = decodeURIComponent(item[1]);
+        });
+        return key ? result[key] : result;
+    },
+
 	getToken: function() {
 
+
 		var self = this;
-
-//////////TOKEN
-/*
-	RESPONSE EXAMPLE:
-	access_token=81fcdw16-cbd3-4bfe-af12-fb23d1de16b4&token_type=bearer&expires_in=42885&scope=default
- */
-		var aacUrl = 'https://am-dev.smartcommunitylab.it/aac';	
-		var clientId = '69b61f8f-0562-45fb-ba15-b0a61d4456f0';
-		var redirectUri = location.href;
-		//var clientSecret=
+		/*
+			RESPONSE EXAMPLE:
+			access_token=81fcdw16-cbd3-4bfe-af12-fb23d1de16b4&token_type=bearer&expires_in=42885&scope=default
+		 */
 		
-		var queryString = location.hash.substring(1);
-		var params = {};
-		var regex = /([^&=]+)=([^&]*)/g, m;
+		var passedToken = this.hashParams('access_token');
 
-		var passedToken = null;
-
-		if(!sessionStorage.queryString) {
-			sessionStorage.queryString = queryString;
-		}
-		
-		console.log('queryString', sessionStorage.queryString);
-
-		while (m = regex.exec(queryString)) {
-			params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
-			// Try to exchange the param values for an access token.
-			if (params['access_token']) {
-				passedToken = params['access_token'];
-				break;
-			}
-		}
-
-		if (passedToken == null) {
+		if (!passedToken) {
 			self.token = sessionStorage.access_token;
 			if (!self.token || self.token == 'null' || self.token == 'undefined') {
-				window.location = aacUrl + '/eauth/authorize?response_type=token'+
-					'&client_id='+clientId+
-					'&redirect_uri='+redirectUri;      
+				window.location = self.urls.aacUrl;   
 			}
 		} else {
 			sessionStorage.access_token = passedToken;
