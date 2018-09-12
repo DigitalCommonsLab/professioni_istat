@@ -26,10 +26,14 @@ module.exports = {
 			self.logout();
 		});
 	},
+
+	isLogged: function() {
+		return !!config.getToken();
+	},
 	
 	logout: function() {
 		delete sessionStorage.access_token;
-		location.reload();
+		location.href = 'login.html';
 	},
 
 	getData: function(name, cb) {

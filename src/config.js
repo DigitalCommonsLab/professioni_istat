@@ -9,12 +9,12 @@ var urls = {
 		aacRedirect: window.aacRedirect || location.href
 	},
 	cfg = {
-		clientId: window.clientId || '69b61f8f-0562-45fb-ba15-b0a61d4456f0',
-		//clientSecret: window.clientSecret || null
+		aacClientId: window.aacClientId || '69b61f8f-0562-45fb-ba15-b0a61d4456f0',
+		//aacClientSecret: window.clientSecret || null
 	};
 
 urls.aacUrl = H.compile(urls.aacBaseUrl + 'response_type=token'+
-	'&client_id='+cfg.clientId+
+	'&client_id='+cfg.aacClientId+
 	'&redirect_uri='+urls.aacRedirect);
 
 if(!window.DEBUG_MODE)	//API defined here: https://docs.google.com/spreadsheets/d/1vXnu9ZW9QXw9igx5vdslzfkfhgp_ojAslS4NV-MhRng/edit#gid=0
@@ -72,8 +72,8 @@ module.exports = {
 			baseUrlPro = opts.baseUrl;
 		}
 
+		self.token = null;
 		self._skillsLabels = {};
-
 		self._skillsThresholds = {};
 
 		self.getToken(function(t) {

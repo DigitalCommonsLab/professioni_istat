@@ -34,6 +34,9 @@ $(function() {
 
   $('#version').text('v'+pkg.version);
 
+
+  if($('body').is('#page_login')) return;
+  
   config.init({
     baseUrl: "//api-test.smartcommunitylab.it/t/sco.cartella/"
   });
