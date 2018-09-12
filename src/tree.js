@@ -370,11 +370,11 @@ module.exports = {
 			levelId5 = [n[0],n[1],n[2],n[3]].join('.');
 
 		$.when(
-			$.getJSON(self.urlLevelByCode(levelId1)),
-			$.getJSON(self.urlLevelByCode(levelId2)),
-			$.getJSON(self.urlLevelByCode(levelId3)),
-			$.getJSON(self.urlLevelByCode(levelId4)),
-			$.getJSON(self.urlLevelByCode(levelId5))
+			utils.getData(self.urlLevelByCode(levelId1)),
+			utils.getData(self.urlLevelByCode(levelId2)),
+			utils.getData(self.urlLevelByCode(levelId3)),
+			utils.getData(self.urlLevelByCode(levelId4)),
+			utils.getData(self.urlLevelByCode(levelId5))
 		).then(function(l1, l2, l3, l4, l5) {
 
 			var dataLevels = [

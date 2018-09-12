@@ -14,12 +14,8 @@ module.exports = {
         
         //cache = _.isUndefined(cache) ? true : cache;
 
-        //if(cache || !localStorage[url]) {        
-            /*$.getJSON(url, function(json) {
-                cb(json)
-            });
-            return*/
-            $.ajax({
+        //if(cache || !localStorage[url]) {
+            return $.ajax({
                 url: url,
                 dataType: 'json',
                 //async: false,
@@ -36,7 +32,6 @@ module.exports = {
                         localStorage.clear();
                         localStorage.setItem(url, JSON.stringify(json));
                     }*/
-
                     cb(json);
                 }
             });

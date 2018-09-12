@@ -41708,9 +41708,11 @@ module.exports = {
 
 		this._skillsThresholds = {};
 
-		this._fillCache();
+		this.getToken(function(t) {
+			console.log('get token',t)
+		});
 
-		this.getToken();
+		this._fillCache();
 		
 		cb({urls: this.urls});
 	},
@@ -41721,13 +41723,12 @@ module.exports = {
         var result = {};
         query.split("&").forEach(function(part) {
             var item = part.split("=");
-            result[item[0]] = decodeURIComponent(item[1]);
+            result[ item[0] ] = decodeURIComponent( item[1] );
         });
         return key ? result[key] : result;
     },
 
-	getToken: function() {
-
+	getToken: function(cb) {
 
 		var self = this;
 		/*
@@ -41735,20 +41736,23 @@ module.exports = {
 			access_token=81fcdw16-cbd3-4bfe-af12-fb23d1de16b4&token_type=bearer&expires_in=42885&scope=default
 		 */
 		
-		var passedToken = this.hashParams('access_token');
+		var passedToken = self.hashParams('access_token');
 
 		if (!passedToken) {
 			self.token = sessionStorage.access_token;
 			if (!self.token || self.token == 'null' || self.token == 'undefined') {
-				window.location = self.urls.aacUrl;   
+				window.location = self.urls.aacUrl();   
 			}
 		} else {
 			sessionStorage.access_token = passedToken;
 			window.location.hash = '';
 			window.location.reload();
+
+			if(_.isFunction(cb))
+				cb(self.token);
 		}
 
-		console.log('TOKEN',self.token);
+		//console.log('TOKEN', self.token);
 
 		return self.token;
 	},
@@ -41758,11 +41762,11 @@ module.exports = {
 		var self = this;
 
 		$.ajax({
-			url: config.urls.getAllSkillsLabels(),
+			url: self.urls.getAllSkillsLabels(),
 			dataType: 'json',
 			async: false,
             beforeSend: function (xhr) {
-                var token = config.getToken();
+                var token = self.getToken();
                 if(token)
                     xhr.setRequestHeader('Authorization', 'Bearer '+token);
             },
@@ -41787,11 +41791,11 @@ module.exports = {
 		});
 
 		$.ajax({
-			url: config.urls.getSkillsThresholds(),
+			url: self.urls.getSkillsThresholds(),
 			dataType: 'json',
 			async: false,
             beforeSend: function (xhr) {
-                var token = config.getToken();
+                var token = self.getToken();
                 if(token)
                     xhr.setRequestHeader('Authorization', 'Bearer '+token);
             },
@@ -42588,11 +42592,11 @@ module.exports = {
 			levelId5 = [n[0],n[1],n[2],n[3]].join('.');
 
 		$.when(
-			$.getJSON(self.urlLevelByCode(levelId1)),
-			$.getJSON(self.urlLevelByCode(levelId2)),
-			$.getJSON(self.urlLevelByCode(levelId3)),
-			$.getJSON(self.urlLevelByCode(levelId4)),
-			$.getJSON(self.urlLevelByCode(levelId5))
+			utils.getData(self.urlLevelByCode(levelId1)),
+			utils.getData(self.urlLevelByCode(levelId2)),
+			utils.getData(self.urlLevelByCode(levelId3)),
+			utils.getData(self.urlLevelByCode(levelId4)),
+			utils.getData(self.urlLevelByCode(levelId5))
 		).then(function(l1, l2, l3, l4, l5) {
 
 			var dataLevels = [
@@ -42644,12 +42648,8 @@ module.exports = {
         
         //cache = _.isUndefined(cache) ? true : cache;
 
-        //if(cache || !localStorage[url]) {        
-            /*$.getJSON(url, function(json) {
-                cb(json)
-            });
-            return*/
-            $.ajax({
+        //if(cache || !localStorage[url]) {
+            return $.ajax({
                 url: url,
                 dataType: 'json',
                 //async: false,
@@ -42666,7 +42666,6 @@ module.exports = {
                         localStorage.clear();
                         localStorage.setItem(url, JSON.stringify(json));
                     }*/
-
                     cb(json);
                 }
             });

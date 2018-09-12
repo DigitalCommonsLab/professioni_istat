@@ -71,9 +71,11 @@ module.exports = {
 
 		this._skillsThresholds = {};
 
-		this._fillCache();
+		this.getToken(function(t) {
+			console.log('get token',t)
+		});
 
-		this.getToken();
+		this._fillCache();
 		
 		cb({urls: this.urls});
 	},
@@ -84,13 +86,12 @@ module.exports = {
         var result = {};
         query.split("&").forEach(function(part) {
             var item = part.split("=");
-            result[item[0]] = decodeURIComponent(item[1]);
+            result[ item[0] ] = decodeURIComponent( item[1] );
         });
         return key ? result[key] : result;
     },
 
-	getToken: function() {
-
+	getToken: function(cb) {
 
 		var self = this;
 		/*
@@ -98,20 +99,23 @@ module.exports = {
 			access_token=81fcdw16-cbd3-4bfe-af12-fb23d1de16b4&token_type=bearer&expires_in=42885&scope=default
 		 */
 		
-		var passedToken = this.hashParams('access_token');
+		var passedToken = self.hashParams('access_token');
 
 		if (!passedToken) {
 			self.token = sessionStorage.access_token;
 			if (!self.token || self.token == 'null' || self.token == 'undefined') {
-				window.location = self.urls.aacUrl;   
+				window.location = self.urls.aacUrl();   
 			}
 		} else {
 			sessionStorage.access_token = passedToken;
 			window.location.hash = '';
 			window.location.reload();
+
+			if(_.isFunction(cb))
+				cb(self.token);
 		}
 
-		console.log('TOKEN',self.token);
+		//console.log('TOKEN', self.token);
 
 		return self.token;
 	},
@@ -121,11 +125,11 @@ module.exports = {
 		var self = this;
 
 		$.ajax({
-			url: config.urls.getAllSkillsLabels(),
+			url: self.urls.getAllSkillsLabels(),
 			dataType: 'json',
 			async: false,
             beforeSend: function (xhr) {
-                var token = config.getToken();
+                var token = self.getToken();
                 if(token)
                     xhr.setRequestHeader('Authorization', 'Bearer '+token);
             },
@@ -150,11 +154,11 @@ module.exports = {
 		});
 
 		$.ajax({
-			url: config.urls.getSkillsThresholds(),
+			url: self.urls.getSkillsThresholds(),
 			dataType: 'json',
 			async: false,
             beforeSend: function (xhr) {
-                var token = config.getToken();
+                var token = self.getToken();
                 if(token)
                     xhr.setRequestHeader('Authorization', 'Bearer '+token);
             },
