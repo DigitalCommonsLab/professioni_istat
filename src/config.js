@@ -5,14 +5,17 @@ var _ = require('underscore');
 var urls = {
 		baseUrlPro: window.baseUrlPro || "https://api-test.smartcommunitylab.it/t/sco.cartella/",
 		baseUrlDev: window.baseUrlDev || "./data/debug/",
-		aacBaseUrl: window.aacBaseUrl || "https://am-dev.smartcommunitylab.it/aac/eauth/authorize?"
+		aacBaseUrl: window.aacBaseUrl || "https://am-dev.smartcommunitylab.it/aac/eauth/authorize?",
+		aacRedirect: window.aacRedirect || location.href
 	},
 	cfg = {
 		clientId: window.clientId || '69b61f8f-0562-45fb-ba15-b0a61d4456f0',
 		//clientSecret: window.clientSecret || null
 	};
 
-urls.aacUrl = H.compile(urls.aacBaseUrl + 'response_type=token&client_id='+cfg.clientId+'&redirect_uri='+location.href);
+urls.aacUrl = H.compile(urls.aacBaseUrl + 'response_type=token'+
+	'&client_id='+cfg.clientId+
+	'&redirect_uri='+urls.aacRedirect);
 
 if(!window.DEBUG_MODE)	//API defined here: https://docs.google.com/spreadsheets/d/1vXnu9ZW9QXw9igx5vdslzfkfhgp_ojAslS4NV-MhRng/edit#gid=0
 {
@@ -61,23 +64,25 @@ module.exports = {
 
 	init: function(opts, cb) {
 
+		var self = this;
+
 		cb = cb || _.noop;
 		
 		if(opts && opts.baseUrl) {
 			baseUrlPro = opts.baseUrl;
 		}
 
-		this._skillsLabels = {};
+		self._skillsLabels = {};
 
-		this._skillsThresholds = {};
+		self._skillsThresholds = {};
 
-		this.getToken(function(t) {
-			console.log('get token',t)
+		self.getToken(function(t) {
+
+			self._loadLabels();
 		});
-
-		this._fillCache();
 		
-		cb({urls: this.urls});
+		if(_.isFunction(cb))
+			cb({urls: self.urls});
 	},
 
     hashParams: function(key) {
@@ -102,25 +107,27 @@ module.exports = {
 		var passedToken = self.hashParams('access_token');
 
 		if (!passedToken) {
+
 			self.token = sessionStorage.access_token;
+
 			if (!self.token || self.token == 'null' || self.token == 'undefined') {
 				window.location = self.urls.aacUrl();   
 			}
+			else {
+				if(_.isFunction(cb))
+					cb(self.token);
+			}
+
 		} else {
 			sessionStorage.access_token = passedToken;
 			window.location.hash = '';
 			window.location.reload();
-
-			if(_.isFunction(cb))
-				cb(self.token);
 		}
-
-		//console.log('TOKEN', self.token);
 
 		return self.token;
 	},
 
-	_fillCache: function() {
+	_loadLabels: function() {
 
 		var self = this;
 
@@ -129,9 +136,9 @@ module.exports = {
 			dataType: 'json',
 			async: false,
             beforeSend: function (xhr) {
-                var token = self.getToken();
-                if(token)
-                    xhr.setRequestHeader('Authorization', 'Bearer '+token);
+                //var token = self.getToken();
+                if(self.token)
+                    xhr.setRequestHeader('Authorization', 'Bearer '+self.token);
             },
 			success: function(json) {
 			  if(!json['Entries'])
@@ -158,9 +165,9 @@ module.exports = {
 			dataType: 'json',
 			async: false,
             beforeSend: function (xhr) {
-                var token = self.getToken();
-                if(token)
-                    xhr.setRequestHeader('Authorization', 'Bearer '+token);
+                //var token = self.getToken();
+                if(self.token)
+                    xhr.setRequestHeader('Authorization', 'Bearer '+self.token);
             },
 			success: function(json) {
 			  if(!json['Entries'])

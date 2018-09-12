@@ -49,6 +49,9 @@ module.exports = {
 
 					self.data.skills = [];
 
+					if(!json || !json.skills)
+						return self.data.skills;
+
 					_.each(json.skills.acquired, function(ss, id) {
 
 						for(var i in ss) {
@@ -73,6 +76,8 @@ module.exports = {
 			else
 			{
 				utils.getData(config.urls.getProfileStudent(), function(json) {
+
+					if(!json) return false;
 
 					self.data.student = json;
 
