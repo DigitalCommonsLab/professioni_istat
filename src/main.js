@@ -37,9 +37,7 @@ $(function() {
 
   if($('body').is('#page_login')) return;
   
-  config.init({
-    baseUrl: "//api-test.smartcommunitylab.it/t/sco.cartella/"
-  });
+  config.init();
 
   var $profile = $('#profile'),
       $skills = $('#skills'),

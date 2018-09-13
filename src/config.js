@@ -67,10 +67,6 @@ module.exports = {
 		var self = this;
 
 		cb = cb || _.noop;
-		
-		if(opts && opts.baseUrl) {
-			baseUrlPro = opts.baseUrl;
-		}
 
 		self.token = null;
 		self._skillsLabels = {};
