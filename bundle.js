@@ -42681,6 +42681,8 @@ module.exports = {
     
     getData: function(url, cb, cache) {
 
+        var self = this;
+
         cb = cb || _.noop;
         
         //cache = _.isUndefined(cache) ? true : cache;
