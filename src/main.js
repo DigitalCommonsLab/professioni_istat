@@ -39,8 +39,7 @@ $(function() {
   
   config.init();
 
-  var $profile = $('#profile'),
-      $skills = $('#skills'),
+  var $skills = $('#skills'),
       $selectjobs = $('#selectjobs');
 
   $('#searchlist').on('click','.list-group-item', function(e) {
