@@ -28,7 +28,8 @@ module.exports = {
 	},
 
 	isLogged: function() {
-		return !!config.getToken();
+		//TODO check if is expired
+		return !!sessionStorage.access_token;
 	},
 	
 	logout: function() {
