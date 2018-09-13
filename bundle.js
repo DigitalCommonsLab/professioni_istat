@@ -1,18 +1,3 @@
-(function () {
-  var socket = document.createElement('script')
-  var script = document.createElement('script')
-  socket.setAttribute('src', 'http://localhost:3001/socket.io/socket.io.js')
-  script.type = 'text/javascript'
-
-  socket.onload = function () {
-    document.head.appendChild(script)
-  }
-  script.text = ['window.socket = io("http://localhost:3001");',
-  'socket.on("bundle", function() {',
-  'console.log("livereaload triggered")',
-  'window.location.reload();});'].join('\n')
-  document.head.appendChild(socket)
-}());
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 (function (process,__filename){
 /** vim: et:ts=4:sw=4:sts=4
@@ -41643,7 +41628,8 @@ var urls = {
 		baseUrlPro: window.baseUrlPro || "https://api-test.smartcommunitylab.it/t/sco.cartella/",
 		baseUrlDev: window.baseUrlDev || "./data/debug/",
 		aacBaseUrl: window.aacBaseUrl || "https://am-dev.smartcommunitylab.it/aac/eauth/authorize?",
-		aacRedirect: window.aacRedirect || location.href
+		aacRedirect: window.aacRedirect || location.href,
+		aacDomain: window.aacDomain || "smartcommunitylab.it"	//domain to send auth header
 	},
 	cfg = {
 		aacClientId: window.aacClientId || '69b61f8f-0562-45fb-ba15-b0a61d4456f0',
@@ -42655,6 +42641,44 @@ var config = require('./config');
 
 module.exports = {
 
+    getHostname: function(url) {
+        var hostname;
+        //find & remove protocol (http, ftp, etc.) and get hostname
+
+        if (url.indexOf("//") > -1) {
+            hostname = url.split('/')[2];
+        }
+        else {
+            hostname = url.split('/')[0];
+        }
+
+        //find & remove port number
+        hostname = hostname.split(':')[0];
+        //find & remove "?"
+        hostname = hostname.split('?')[0];
+
+        return hostname;
+    },
+
+    getDomain: function(url) {
+        
+        var domain = this.getHostname(url),
+            splitArr = domain.split('.'),
+            arrLen = splitArr.length;
+
+        //extracting the root domain here
+        //if there is a subdomain 
+        if (arrLen > 2) {
+            domain = splitArr[arrLen - 2] + '.' + splitArr[arrLen - 1];
+            //check to see if it's using a Country Code Top Level Domain (ccTLD) (i.e. ".me.uk")
+            if (splitArr[arrLen - 2].length == 2 && splitArr[arrLen - 1].length == 2) {
+                //this is using a ccTLD
+                domain = splitArr[arrLen - 3] + '.' + domain;
+            }
+        }
+        return domain;
+    },
+    
     getData: function(url, cb, cache) {
 
         cb = cb || _.noop;
@@ -42666,10 +42690,15 @@ module.exports = {
                 url: url,
                 dataType: 'json',
                 //async: false,
-                beforeSend: function (xhr) {
-                    var token = config.getToken();
-                    if(token)
-                        xhr.setRequestHeader('Authorization', 'Bearer '+token);
+                beforeSend: function (xhr, req) {
+
+                    if(self.getDomain(req.url) === config.urls.aacDomain) {
+
+                        var token = config.getToken();
+                        if(token) {
+                            xhr.setRequestHeader('Authorization', 'Bearer '+token);
+                        }
+                    }
                 },
                 success: function(json) {
     /*              try {

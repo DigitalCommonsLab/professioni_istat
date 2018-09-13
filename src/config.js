@@ -6,7 +6,8 @@ var urls = {
 		baseUrlPro: window.baseUrlPro || "https://api-test.smartcommunitylab.it/t/sco.cartella/",
 		baseUrlDev: window.baseUrlDev || "./data/debug/",
 		aacBaseUrl: window.aacBaseUrl || "https://am-dev.smartcommunitylab.it/aac/eauth/authorize?",
-		aacRedirect: window.aacRedirect || location.href
+		aacRedirect: window.aacRedirect || location.href,
+		aacDomain: window.aacDomain || "smartcommunitylab.it"	//domain to send auth header
 	},
 	cfg = {
 		aacClientId: window.aacClientId || '69b61f8f-0562-45fb-ba15-b0a61d4456f0',
