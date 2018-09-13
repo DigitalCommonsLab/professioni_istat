@@ -41716,6 +41716,8 @@ module.exports = {
 
 	getToken: function(cb) {
 
+		cb = cb || _.noop;
+
 		var self = this;
 		/*
 			RESPONSE EXAMPLE:
@@ -41731,10 +41733,8 @@ module.exports = {
 			if (!self.token || self.token == 'null' || self.token == 'undefined') {
 				window.location = self.urls.aacUrl();   
 			}
-			else {
-				if(_.isFunction(cb))
-					cb(self.token);
-			}
+			else
+				cb(self.token);
 
 		} else {
 			sessionStorage.access_token = passedToken;
