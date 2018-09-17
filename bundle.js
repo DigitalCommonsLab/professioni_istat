@@ -41621,23 +41621,26 @@ module.exports={
 
 },{}],130:[function(require,module,exports){
 
+var $ = jQuery = require('jquery');
 var H = require('handlebars');
 var _ = require('underscore');
 
+
 var urls = {
-		baseUrlPro: window.baseUrlPro || "https://api-test.smartcommunitylab.it/t/sco.cartella/",
 		baseUrlDev: window.baseUrlDev || "./data/debug/",
+		baseUrlPro: window.baseUrlPro || "https://api-test.smartcommunitylab.it/t/sco.cartella/",
 		aacBaseUrl: window.aacBaseUrl || "https://am-dev.smartcommunitylab.it/aac/eauth/authorize?",
-		aacRedirect: window.aacRedirect || location.href,
-		aacDomain: window.aacDomain || "smartcommunitylab.it"	//domain to send auth header
+		aacRedirect: window.aacRedirect || location.href
 	},
-	cfg = {
-		aacClientId: window.aacClientId || '69b61f8f-0562-45fb-ba15-b0a61d4456f0',
-		//aacClientSecret: window.clientSecret || null
+	auth = {
+		enabled: true, 
+		clientId: window.aacClientId || '69b61f8f-0562-45fb-ba15-b0a61d4456f0',
+		//clientSecret: window.aacClientSecret || null,
+		matchPath: window.aacMatchPath || "/(asl|cs)-stats/"	//domain to send auth header
 	};
 
 urls.aacUrl = H.compile(urls.aacBaseUrl + 'response_type=token'+
-	'&client_id='+cfg.aacClientId+
+	'&client_id='+auth.clientId+
 	'&redirect_uri='+urls.aacRedirect);
 
 if(!window.DEBUG_MODE)	//API defined here: https://docs.google.com/spreadsheets/d/1vXnu9ZW9QXw9igx5vdslzfkfhgp_ojAslS4NV-MhRng/edit#gid=0
@@ -41682,6 +41685,8 @@ else	//DEBUG API via json files in
 };
 
 module.exports = {
+
+	auth: auth,
 	
 	urls: urls,
 
@@ -41819,7 +41824,7 @@ module.exports = {
 	}
 };
 
-},{"handlebars":39,"underscore":127}],131:[function(require,module,exports){
+},{"handlebars":39,"jquery":41,"underscore":127}],131:[function(require,module,exports){
 
 var pkg = require('../package.json'); 
 
@@ -42684,7 +42689,9 @@ module.exports = {
         var self = this;
 
         cb = cb || _.noop;
-        
+    
+        var sendAuth = !!url.match(new RegExp(config.auth.matchPath));
+
         //cache = _.isUndefined(cache) ? true : cache;
 
         //if(cache || !localStorage[url]) {
@@ -42694,8 +42701,7 @@ module.exports = {
                 //async: false,
                 beforeSend: function (xhr, req) {
 
-                    if(self.getDomain(req.url) === config.urls.aacDomain) {
-
+                    if(sendAuth) {
                         var token = config.getToken();
                         if(token) {
                             xhr.setRequestHeader('Authorization', 'Bearer '+token);

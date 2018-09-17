@@ -51,7 +51,9 @@ module.exports = {
         var self = this;
 
         cb = cb || _.noop;
-        
+    
+        var sendAuth = !!url.match(new RegExp(config.auth.matchPath));
+
         //cache = _.isUndefined(cache) ? true : cache;
 
         //if(cache || !localStorage[url]) {
@@ -61,8 +63,7 @@ module.exports = {
                 //async: false,
                 beforeSend: function (xhr, req) {
 
-                    if(self.getDomain(req.url) === config.urls.aacDomain) {
-
+                    if(sendAuth) {
                         var token = config.getToken();
                         if(token) {
                             xhr.setRequestHeader('Authorization', 'Bearer '+token);
