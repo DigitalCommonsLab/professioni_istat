@@ -9,7 +9,8 @@ var H = require('handlebars');
 var d3 = require('d3');
 var popper = require('popper.js');
 var bt = require('bootstrap');
-require('../node_modules/bootstrap/dist/css/bootstrap.min.css');
+
+//require('../node_modules/bootstrap/dist/css/bootstrap.min.css');
 
 var btlist = require('bootstrap-list-filter');
 
