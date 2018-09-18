@@ -117,6 +117,8 @@ module.exports = {
 		};
 
 		self.$tree = $(el);
+		self.$sel = $('#tree_selection');
+		self.$loader = $('#tree_loader');
 
 		self.tooltip = d3.select(self.$tree.get(0)).append("div") 
 			.attr("class", "tooltip")
@@ -140,9 +142,6 @@ module.exports = {
 			.attr("height", self.height + self.config.margin.top + self.config.margin.bottom)
 			//.append("g")
 			//.attr("transform", "translate(" + self.config.margin.left + "," + self.config.margin.top + ")");
-		
-		self.$sel = $('<div id="tree_selection"></div>');
-		self.$tree.after(self.$sel)
 
 		return self;
 	},
@@ -405,6 +404,7 @@ module.exports = {
 
 			fillTree(data);
 
+			self.$loader.hide();
 			self.draw(data, code);
 		});
 	}

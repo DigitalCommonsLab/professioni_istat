@@ -77,10 +77,7 @@ html {
   font-weight: bold;
 }*/
 #tree_selection .desc {
-  font-size: 12px;
-}
-#tree_selection .desc {
-  font-size: 12px;
+  font-size: 1rem;
 }
 #skills span {
     display: inline-block;
@@ -90,6 +87,17 @@ html {
 #tree {
   height: 500px;
   position: relative;
+}
+
+#tree_loader {
+  margin-top: 300px;
+  color: #36474F;
+}
+#tree_loader:before {
+  font-size: 30px;
+  line-height: 0px;
+  color:#ffc200;
+  content: "◄";
 }
 
 #radar {

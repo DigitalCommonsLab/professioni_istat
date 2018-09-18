@@ -209,7 +209,7 @@ $(function() {
             ee = json['Entries']['Entry'],
             res = _.isArray(ee) ? ee : [ee];
 
-        //TODO filter by API side
+        //PATCH FOR API filter by API side
         delete res[0].fk_livello5;
 
         var rows = _.map(res[0], function(val, code) {
