@@ -33,8 +33,10 @@ module.exports = {
 	},
 	
 	logout: function() {
+		
 		delete sessionStorage.access_token;
-		location.href = 'login.html';
+
+		location.href = window.aacRedirectLogout || 'login.html';
 	},
 
 	getData: function(name, cb) {
