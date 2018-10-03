@@ -2,7 +2,7 @@
   "name": "professioni_istat",
   "version": "3.0.0",
   "description": "",
-  "main": "bundle.js",
+  "main": "professioni.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DigitalCommonsLab/professioni_istat.git"
@@ -26,8 +26,8 @@
     "underscore.string": "3.3.4"
   },
   "scripts": {
-    "build": "browserify src/main.js -o bundle.js",
-    "start": "watchify -p browserify-livereload src/main.js -o bundle.js"
+    "build": "browserify src/main.js -o professioni.js",
+    "start": "watchify -p browserify-livereload src/main.js -o professioni.js"
   },
   "devDependencies": {
     "browserify": "^16.2.2",
