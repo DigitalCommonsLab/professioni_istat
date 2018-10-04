@@ -1,0 +1,143 @@
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.thymeleaf.org">
+<head>
+	<title>Cedus4School - ASPIRAZIONI</title> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet" />
+	<link rel="stylesheet" href="lib/bootstrap.min.css" />
+	<link rel="stylesheet" href="professioni.css" />
+</head> 
+
+<body id="page_search">
+
+<header class="navbar navbar-expand flex-column flex-md-row bd-navbar">
+
+  <div class="navbar-nav-scroll">
+    <ul class="navbar-nav bd-navbar-nav flex-row">
+      <li class="nav-item">
+        <a class="nav-link " href="../osm4schools/index.html">SCUOLA</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="index.html">IL MIO PERCORSO</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="search.html">ASPIRAZIONI</a>
+      </li>
+    </ul>
+  </div>
+
+  <ul id="profile" class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+    <li class="nav-item">
+      <a class="nav-item nav-link mr-md-2" href="#" id="username" aria-haspopup="true" aria-expanded="false">
+        NOME STUDENTE
+      </a>
+    </li>
+    <li class="nav-item logout">
+      <a class="nav-item nav-link mr-md-2 orange-text" href="#" id="logout" aria-haspopup="true" aria-expanded="false">
+        LOGOUT
+      </a>
+    </li>    
+	<li class="nav-item">
+		<a class="navbar-brand mr-0 mr-md-2" href="/" aria-label="Bootstrap">
+			<img src="images/cedus_logo.png" />
+		</a>
+    </li>
+  </ul>
+
+</header>
+
+<div id="version"></div>
+
+
+<div class="container-fluid">
+	<div class="row">
+	    <div class="col-md-2 blue-bg">
+
+			<br />
+
+			<label>Le mie competenze</label>
+			<div id="skills">
+			</div>
+
+			<br />
+
+			<form id="searchjobs_wrap" role="form float-right">
+				<label>Cerca Professioni</label>
+				<div class="form-group">
+					<input class="form-control grey-bg" id="searchjobs" type="search" placeholder="Inserisci il nome..." />
+				</div>
+				<div id="searchlist" class="list-group">
+					
+				</div>
+			</form>
+
+	    	<div id="jobs">
+				<label>Professioni suggerite</label>
+				<!--<select id="selectjobs" size="20" class="grey-bg">
+				</select>-->
+				<div id="selectjobs" class="list-group">
+				</div>
+			</div>
+		</div>		
+		<div class="col-md-10">
+			
+			<div id="tree">
+			
+			</div>
+			
+			<br /><br />
+			
+			<div id="tree_selection">
+				
+			</div>
+
+			<br />
+
+			<div class="row" id="results" style="display:none">
+				<div class="col-md-3">
+					<h4>Professioni Simili</h4>
+					<div id="table">
+					</div>
+				</div>
+				<div class="col-md-9">
+					<h4>Competenze Mancanti</h4>
+					<div id="table2">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer class="pt-4 my-md-5 pt-md-5 border-top">
+	    <div class="row">
+	      <div class="col-md col-md">
+	        <img class="mb-2" src="images/fbk_logo.png" alt="" />
+	      </div>
+	      <div class="col-md align-bottom">
+	        <a href="#">&copy; 2018 Smart Cities and Communities</a>
+	      </div>
+	      <div class="col-md align-bottom">
+	        <a href="#">Assistenza</a>
+	      </div>
+	      <div class="col-md align-bottom">
+	        <a href="#">Condizioni e Privacy</a>
+	      </div>
+	    </div>
+	</footer>
+	
+</div>
+<script id="tmpl_tooltip" type="text/x-handlebars-template">
+<h4 class="title">{{#if name}} {{name}} {{else}} <i>unamed</i> {{/if}}</h4>
+<div class="desc">
+	{{desc}}
+	<br />
+	<a class="isfol" target="_blank" href="http://fabbisogni.isfol.it/scheda.php?limite=1&amp;id={{id}}">ISFOL {{id}}</a>
+	<br />
+</div>
+</script>
+
+<script src="professioni.js"></script>
+</body>
+</html>
