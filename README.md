@@ -1,5 +1,7 @@
 # professioni_istat
 
-[screenshot](https://raw.githubusercontent.com/DigitalCommonsLab/professioni_istat/master/screenshots/selections.gif)
+![screenshot](screenshots/professioni_istat.gif)
+
+![screenshot](screenshots/load_profile.gif)
 
 ![screenshot](screenshots/selections.gif)
