@@ -6,7 +6,7 @@ var _ = require('underscore');
 
 var urls = {
 		baseUrlDev: window.baseUrlDev || "./data/debug/",
-		baseUrlPro: window.baseUrlPro || "https://api-test.smartcommunitylab.it/t/sco.cartella/",
+		baseUrlPro: window.baseUrlPro || "https://api-dev.smartcommunitylab.it/t/sco.cartella/",
 		aacBaseUrl: window.aacBaseUrl || "https://am-dev.smartcommunitylab.it/aac/eauth/authorize?",
 		aacRedirect: window.aacRedirect || location.href,
 		aacRedirectLogout: window.aacRedirectLogout || 'login.html'

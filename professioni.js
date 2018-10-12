@@ -41567,7 +41567,7 @@ function config (name) {
 },{}],128:[function(require,module,exports){
 module.exports={
   "name": "professioni_istat",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "",
   "main": "professioni.js",
   "repository": {
@@ -41626,7 +41626,7 @@ var _ = require('underscore');
 
 var urls = {
 		baseUrlDev: window.baseUrlDev || "./data/debug/",
-		baseUrlPro: window.baseUrlPro || "https://api-test.smartcommunitylab.it/t/sco.cartella/",
+		baseUrlPro: window.baseUrlPro || "https://api-dev.smartcommunitylab.it/t/sco.cartella/",
 		aacBaseUrl: window.aacBaseUrl || "https://am-dev.smartcommunitylab.it/aac/eauth/authorize?",
 		aacRedirect: window.aacRedirect || location.href,
 		aacRedirectLogout: window.aacRedirectLogout || 'login.html'
