@@ -41567,7 +41567,7 @@ function config (name) {
 },{}],128:[function(require,module,exports){
 module.exports={
   "name": "professioni_istat",
-  "version": "3.1.0",
+  "version": "4.0.0",
   "description": "",
   "main": "professioni.js",
   "repository": {
