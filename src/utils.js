@@ -52,7 +52,7 @@ module.exports = {
 
         cb = cb || _.noop;
     
-        var sendAuth = !!url.match(new RegExp(config.auth.matchPath));
+        var sendAuth = config.auth.enabled && !!url.match(new RegExp(config.auth.matchPath));
 
         //cache = _.isUndefined(cache) ? true : cache;
 

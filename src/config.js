@@ -12,7 +12,7 @@ var urls = {
 		aacRedirectLogout: window.aacRedirectLogout || 'login.html'
 	},
 	auth = {
-		enabled: true, 
+		enabled: false, 
 		clientId: window.aacClientId || '69b61f8f-0562-45fb-ba15-b0a61d4456f0',
 		//clientSecret: window.aacClientSecret || null,
 		matchPath: window.aacMatchPath || "/(asl|cs)-stats/"	//domain to send auth header
