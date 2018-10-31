@@ -12,7 +12,7 @@ var urls = {
 		aacRedirectLogout: window.aacRedirectLogout || 'login.html'
 	},
 	auth = {
-		enabled: false, 
+		enabled: true, 
 		clientId: window.aacClientId || '69b61f8f-0562-45fb-ba15-b0a61d4456f0',
 		//clientSecret: window.aacClientSecret || null,
 		matchPath: window.aacMatchPath || "/(asl|cs)-stats/"	//domain to send auth header
@@ -104,6 +104,11 @@ module.exports = {
 		cb = cb || _.noop;
 
 		var self = this;
+
+		if(!config.auth.enabled) {
+			cb();
+			return
+		}
 		/*
 			RESPONSE EXAMPLE:
 			access_token=81fcdw16-cbd3-4bfe-af12-fb23d1de16b4&token_type=bearer&expires_in=42885&scope=default

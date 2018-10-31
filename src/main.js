@@ -53,6 +53,7 @@ $(function() {
     var code = $that.data('id');
 
     tree.buildTreeByCode(code);
+    tree.onSelect({level:5, id: code});
 
     table1.reset();
     table2.reset();
@@ -91,6 +92,8 @@ $(function() {
     var code = $that.data('id');
     
     tree.buildTreeByCode(code);
+
+    tree.onSelect({level:5, id: code});
 
     table1.reset();
     table2.reset();
@@ -191,7 +194,7 @@ $(function() {
             ee = json['Entries']['Entry'],
             res = _.isArray(ee) ? ee : [ee];
 
-        table1.update(_.map(res, function(v) {
+        table1.update(_.map(res, function(v) {  
           return {
             id: v.id,
             name: v.nome

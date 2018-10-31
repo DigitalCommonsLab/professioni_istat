@@ -41647,7 +41647,7 @@ var urls = {
 		aacRedirectLogout: window.aacRedirectLogout || 'login.html'
 	},
 	auth = {
-		enabled: false, 
+		enabled: true, 
 		clientId: window.aacClientId || '69b61f8f-0562-45fb-ba15-b0a61d4456f0',
 		//clientSecret: window.aacClientSecret || null,
 		matchPath: window.aacMatchPath || "/(asl|cs)-stats/"	//domain to send auth header
@@ -41739,6 +41739,11 @@ module.exports = {
 		cb = cb || _.noop;
 
 		var self = this;
+
+		if(!config.auth.enabled) {
+			cb();
+			return
+		}
 		/*
 			RESPONSE EXAMPLE:
 			access_token=81fcdw16-cbd3-4bfe-af12-fb23d1de16b4&token_type=bearer&expires_in=42885&scope=default
@@ -41894,6 +41899,7 @@ $(function() {
     var code = $that.data('id');
 
     tree.buildTreeByCode(code);
+    tree.onSelect({level:5, id: code});
 
     table1.reset();
     table2.reset();
@@ -41932,6 +41938,8 @@ $(function() {
     var code = $that.data('id');
     
     tree.buildTreeByCode(code);
+
+    tree.onSelect({level:5, id: code});
 
     table1.reset();
     table2.reset();
@@ -42032,7 +42040,7 @@ $(function() {
             ee = json['Entries']['Entry'],
             res = _.isArray(ee) ? ee : [ee];
 
-        table1.update(_.map(res, function(v) {
+        table1.update(_.map(res, function(v) {  
           return {
             id: v.id,
             name: v.nome
