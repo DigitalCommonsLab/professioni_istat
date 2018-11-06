@@ -21,7 +21,7 @@ module.exports = {
 			onClickRow: opts && opts.onSelect || self.onSelect,
 			//radio:true,
 			pagination: true,
-			pageSize: 5,
+			pageSize: opts.pageSize || 5,
 			pageList: [5],
 			//cardView: true,
 			data: [],
