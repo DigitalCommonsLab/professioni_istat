@@ -41987,12 +41987,14 @@ $(function() {
         cellStyle: function(value, row, index, field) {
           return {
             classes: 'isfol'
-          }
-        },
-      },
+          };
+        }
+      }
     ],
     onSelect: function(row) {
-      location.href = "http://fabbisogni.isfol.it/scheda.php?limite=1&amp;id="+row.id
+      var u = "http://fabbisogni.isfol.it/scheda.php?limite=1&amp;id="+row.id;
+      //location.href = u;
+      window.open(u,'_blank');
     }
   });
 
@@ -42200,7 +42202,7 @@ module.exports = {
 			onClickRow: opts && opts.onSelect || self.onSelect,
 			//radio:true,
 			pagination: true,
-			pageSize: 5,
+			pageSize: opts.pageSize || 5,
 			pageList: [5],
 			//cardView: true,
 			data: [],

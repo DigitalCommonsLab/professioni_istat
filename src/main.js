@@ -155,12 +155,14 @@ $(function() {
         cellStyle: function(value, row, index, field) {
           return {
             classes: 'isfol'
-          }
-        },
-      },
+          };
+        }
+      }
     ],
     onSelect: function(row) {
-      location.href = "http://fabbisogni.isfol.it/scheda.php?limite=1&amp;id="+row.id
+      var u = "http://fabbisogni.isfol.it/scheda.php?limite=1&amp;id="+row.id;
+      //location.href = u;
+      window.open(u,'_blank');
     }
   });
 
