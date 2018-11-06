@@ -41594,6 +41594,7 @@ module.exports={
   },
   "scripts": {
     "build": "browserify src/main.js -o professioni.js",
+    "cpcedus": "cp professioni.js ../cedus/cedus-engine/src/main/resources/public/cedus4school/",
     "start": "watchify -p browserify-livereload src/main.js -o professioni.js"
   },
   "devDependencies": {
