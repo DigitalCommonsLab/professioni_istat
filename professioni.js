@@ -41567,7 +41567,7 @@ function config (name) {
 },{}],128:[function(require,module,exports){
 module.exports={
   "name": "professioni_istat",
-  "version": "3.3.0",
+  "version": "3.4.0",
   "description": "",
   "main": "professioni.js",
   "repository": {
@@ -41634,7 +41634,7 @@ var urls = {
 	},
 	auth = {
 		enabled: true, 
-		clientId: window.aacClientId || '69b61f8f-0562-45fb-ba15-b0a61d4456f0',
+		clientId: window.aacClientId || 'c5389529-fe0e-4f67-bf90-c55d9df65b66',
 		//clientSecret: window.aacClientSecret || null,
 		matchPath: window.aacMatchPath || "/(asl|cs)-stats/"	//domain to send auth header
 	},
