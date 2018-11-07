@@ -16,6 +16,9 @@ var urls = {
 		clientId: window.aacClientId || '69b61f8f-0562-45fb-ba15-b0a61d4456f0',
 		//clientSecret: window.aacClientSecret || null,
 		matchPath: window.aacMatchPath || "/(asl|cs)-stats/"	//domain to send auth header
+	},
+	opts = {
+		tablePageSize: window.tablePageSize || 5
 	};
 
 urls.aacUrl = H.compile(urls.aacBaseUrl + 'response_type=token'+
@@ -64,6 +67,8 @@ else	//DEBUG API via json files in
 };
 
 module.exports = {
+
+	opts: opts,
 
 	auth: auth,
 	

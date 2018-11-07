@@ -148,6 +148,7 @@ $(function() {
   var $tree = $('#tree');
 
   var table1 = new table.init('#table', {
+    pageSize: config.opts.tablePageSize,
     columns: [
       { field: 'name', title: 'Nome' },
       {
@@ -167,6 +168,7 @@ $(function() {
   });
 
   var table2 = new table.init('#table2', {
+    pageSize: config.opts.tablePageSize,
     columns: [
         //{ field: 'val', title: 'Importanza' },
         { field: 'name', title: 'Nome' },
