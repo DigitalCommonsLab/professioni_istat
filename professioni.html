@@ -127,6 +127,7 @@
 	</footer>
 
 </div>
+
 <script id="tmpl_tooltip" type="text/x-handlebars-template">
 <h4 class="title">{{#if name}} {{name}} {{else}} <i>unamed</i> {{/if}}</h4>
 <div class="desc">
@@ -136,11 +137,8 @@
 	<br />
 </div>
 </script>
-
-<script>
-	
-//TODO INSIDE cedus  var aacUrl = [[${aacUrl}]];	
-
+<script>	
+//TODO INSIDE cedus  var aacUrl = [[${aacUrl}]];
 //var baseUrlDev = "./data/debug/";
 var baseUrlPro = "https://api-test.smartcommunitylab.it/t/sco.cartella/";
 var aacBaseUrl = "https://am-dev.smartcommunitylab.it/aac/eauth/authorize?";
@@ -148,7 +146,7 @@ var aacRedirect = location.href;
 var aacClientId = '69b61f8f-0562-45fb-ba15-b0a61d4456f0';
 var aacClientSecret = null;
 var aacMatchPath = "/(asl|cs)-stats/"	//domain to send auth heade;
-
+var tablePageSize = 10;
 </script>
 <script src="professioni.js"></script>
 </body>
