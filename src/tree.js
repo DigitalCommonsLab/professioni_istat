@@ -265,9 +265,6 @@ module.exports = {
 				off = self.$tree.offset(),
 				x = pos[0]+ off.left + self.config.textOffset,
 				y = pos[1]+ off.top + 20;
-
-				console.log(d3.select(this.parentNode))
-
 			self.tooltip
 				.style("left", x + "px")
 				.style("top", y + "px")*/

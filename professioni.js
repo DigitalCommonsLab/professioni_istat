@@ -1,3 +1,18 @@
+(function () {
+  var socket = document.createElement('script')
+  var script = document.createElement('script')
+  socket.setAttribute('src', 'http://localhost:3001/socket.io/socket.io.js')
+  script.type = 'text/javascript'
+
+  socket.onload = function () {
+    document.head.appendChild(script)
+  }
+  script.text = ['window.socket = io("http://localhost:3001");',
+  'socket.on("bundle", function() {',
+  'console.log("livereaload triggered")',
+  'window.location.reload();});'].join('\n')
+  document.head.appendChild(socket)
+}());
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 (function (process,__filename){
 /** vim: et:ts=4:sw=4:sts=4
@@ -41567,7 +41582,7 @@ function config (name) {
 },{}],128:[function(require,module,exports){
 module.exports={
   "name": "professioni_istat",
-  "version": "3.4.0",
+  "version": "3.5.0",
   "description": "",
   "main": "professioni.js",
   "repository": {
@@ -41883,18 +41898,22 @@ $(function() {
   $('#searchlist').on('click','.list-group-item', function(e) {
     e.preventDefault();
 
-    $that = $(this);
-    $that.parent().find('a').removeClass('active');
-    $that.addClass('active');
+    var $that = $(this),
+        code = $that.data('id');
 
-    var code = $that.data('id');
+    if(code) {
+      if(code.split('.').length>5)
+        code = tree.getIdParent(code);
 
-    tree.buildTreeByCode(code);
-    tree.onSelect({level:5, id: code});
+      $that.parent().find('a').removeClass('active');
+      $that.addClass('active');
 
-    table1.reset();
-    table2.reset();
-    
+      table1.reset();
+      table2.reset();
+
+      tree.buildTreeByCode(code);
+      tree.onSelect({level:5, id: code});
+    }
   })
   .btsListFilter('#searchjobs', {
     
@@ -41904,14 +41923,15 @@ $(function() {
     sourceTmpl: '<a class="list-group-item" href="#" data-id="{id}"><span>{nome}</span></a>',
     sourceData: function(text, cb) {
       return utils.getData(config.urls.getJobsByName({name: text}), function(json) {
-        var res = [],
-          ee = json['Entries']['Entry'],
-          res = _.isArray(ee) ? ee : [ee];
         
-        res = _.map(res, function(v) {
-          v.title = v.nome;
-          return v;
-        });
+        if(!json['Entries'])
+          json['Entries'] = {'Entries':[]}        
+
+        var res = [],
+            ee = json['Entries']['Entry'],
+            res = _.isArray(ee) ? ee : [ee];
+
+        res = _.compact(res);
 
         cb(res);
       });
@@ -41922,18 +41942,17 @@ $(function() {
   $selectjobs.on('click','a', function (e) {
     e.preventDefault()
 
-    $that = $(this);
+    var $that = $(this),
+        code = $that.data('id');
+
     $that.parent().find('a').removeClass('active');
     $that.addClass('active');
 
-    var code = $that.data('id');
-    
-    tree.buildTreeByCode(code);
-
-    tree.onSelect({level:5, id: code});
-
     table1.reset();
     table2.reset();
+
+    tree.buildTreeByCode(code);
+    tree.onSelect({level:5, id: code});
 
   });
   
@@ -41998,9 +42017,7 @@ $(function() {
       }
     ],
     onSelect: function(row) {
-      var u = "http://fabbisogni.isfol.it/scheda.php?limite=1&amp;id="+row.id;
-      //location.href = u;
-      window.open(u,'_blank');
+      window.open("http://fabbisogni.isfol.it/scheda.php?limite=1&amp;id="+row.id,'_blank');
     }
   });
 
@@ -42511,9 +42528,6 @@ module.exports = {
 				off = self.$tree.offset(),
 				x = pos[0]+ off.left + self.config.textOffset,
 				y = pos[1]+ off.top + 20;
-
-				console.log(d3.select(this.parentNode))
-
 			self.tooltip
 				.style("left", x + "px")
 				.style("top", y + "px")*/

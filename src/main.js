@@ -46,18 +46,22 @@ $(function() {
   $('#searchlist').on('click','.list-group-item', function(e) {
     e.preventDefault();
 
-    $that = $(this);
-    $that.parent().find('a').removeClass('active');
-    $that.addClass('active');
+    var $that = $(this),
+        code = $that.data('id');
 
-    var code = $that.data('id');
+    if(code) {
+      if(code.split('.').length>5)
+        code = tree.getIdParent(code);
 
-    tree.buildTreeByCode(code);
-    tree.onSelect({level:5, id: code});
+      $that.parent().find('a').removeClass('active');
+      $that.addClass('active');
 
-    table1.reset();
-    table2.reset();
-    
+      table1.reset();
+      table2.reset();
+
+      tree.buildTreeByCode(code);
+      tree.onSelect({level:5, id: code});
+    }
   })
   .btsListFilter('#searchjobs', {
     
@@ -67,14 +71,15 @@ $(function() {
     sourceTmpl: '<a class="list-group-item" href="#" data-id="{id}"><span>{nome}</span></a>',
     sourceData: function(text, cb) {
       return utils.getData(config.urls.getJobsByName({name: text}), function(json) {
-        var res = [],
-          ee = json['Entries']['Entry'],
-          res = _.isArray(ee) ? ee : [ee];
         
-        res = _.map(res, function(v) {
-          v.title = v.nome;
-          return v;
-        });
+        if(!json['Entries'])
+          json['Entries'] = {'Entries':[]}        
+
+        var res = [],
+            ee = json['Entries']['Entry'],
+            res = _.isArray(ee) ? ee : [ee];
+
+        res = _.compact(res);
 
         cb(res);
       });
@@ -85,18 +90,17 @@ $(function() {
   $selectjobs.on('click','a', function (e) {
     e.preventDefault()
 
-    $that = $(this);
+    var $that = $(this),
+        code = $that.data('id');
+
     $that.parent().find('a').removeClass('active');
     $that.addClass('active');
 
-    var code = $that.data('id');
-    
-    tree.buildTreeByCode(code);
-
-    tree.onSelect({level:5, id: code});
-
     table1.reset();
     table2.reset();
+
+    tree.buildTreeByCode(code);
+    tree.onSelect({level:5, id: code});
 
   });
   
@@ -161,9 +165,7 @@ $(function() {
       }
     ],
     onSelect: function(row) {
-      var u = "http://fabbisogni.isfol.it/scheda.php?limite=1&amp;id="+row.id;
-      //location.href = u;
-      window.open(u,'_blank');
+      window.open("http://fabbisogni.isfol.it/scheda.php?limite=1&amp;id="+row.id,'_blank');
     }
   });
 
