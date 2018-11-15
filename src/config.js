@@ -121,6 +121,8 @@ module.exports = {
 		
 		var passedToken = self.hashParams('access_token');
 
+		//TODO localstorage var accpet cookie
+
 		if (!passedToken) {
 
 			self.token = sessionStorage.access_token;

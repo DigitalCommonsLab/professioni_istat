@@ -36,6 +36,8 @@ module.exports = {
 		
 		delete sessionStorage.access_token;
 
+		//TODO destroy localstorage del accpet coockie
+
 		location.href = window.aacRedirectLogout || 'login.html';
 	},
 
