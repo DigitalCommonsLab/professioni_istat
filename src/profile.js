@@ -25,6 +25,32 @@ module.exports = {
 			e.preventDefault();
 			self.logout();
 		});
+
+		self.$modal = $('#privacyModal')
+			.on("show.bs.modal", function(e) {
+				var $body = $(this).find(".modal-body");
+				var url = $body.data('source');
+				$body.load( url );
+			})
+			.on('click','#btn-accept', function(e) {
+				//console.log('accept');
+				localStorage.setItem('privacyAccept', 'accept');
+				self.$modal.modal('hide');
+			})
+			.on('click','#btn-cancel', function(e) {
+				//console.log('cancel');
+				self.logout();
+			});
+
+		if(localStorage.privacyAccept!=='accept')
+		{
+			localStorage.setItem('privacyAccept', 'reject');
+			if( self.$modal.length && !self.$modal.hasClass('show') ) {
+				setTimeout(function() {
+					self.$modal.modal('show');
+				}, 1000);
+			}
+		}
 	},
 
 	isLogged: function() {
@@ -35,8 +61,7 @@ module.exports = {
 	logout: function() {
 		
 		delete sessionStorage.access_token;
-
-		//TODO destroy localstorage del accpet coockie
+		delete localStorage.privacyAccept;
 
 		location.href = window.aacRedirectLogout || 'login.html';
 	},

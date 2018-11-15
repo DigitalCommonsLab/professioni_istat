@@ -128,6 +128,29 @@
 
 </div>
 
+<div class="modal fade" id="privacyModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Data Privacy</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" data-source="./privacy.html">
+        Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum <br />
+        Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum <br />
+        Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum <br />
+        Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum <br />
+      </div>
+      <div class="modal-footer">
+        <button id="btn-accept" type="button" class="btn btn-primary">Accetta</button>
+        <button id="btn-cancel" type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script id="tmpl_tooltip" type="text/x-handlebars-template">
 <h4 class="title">{{#if name}} {{name}} {{else}} <i>unamed</i> {{/if}}</h4>
 <div class="desc">
@@ -149,8 +172,10 @@ var aacMatchPath = "/(asl|cs)-stats/"	//domain to send auth heade;
 var tablePageSize = 10;
 
 /* testing for localhost urls */
-var baseUrlPro = "https://api-test.smartcommunitylab.it/t/sco.cartella/";
-var aacClientId = '69b61f8f-0562-45fb-ba15-b0a61d4456f0';
+if(location.hostname==='localhost') {
+	baseUrlPro = "https://api-test.smartcommunitylab.it/t/sco.cartella/";
+	aacClientId = '69b61f8f-0562-45fb-ba15-b0a61d4456f0';
+}
 </script>
 <script src="professioni.js"></script>
 </body>
