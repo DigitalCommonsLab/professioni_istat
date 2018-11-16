@@ -47,8 +47,12 @@ module.exports = {
 			localStorage.setItem('privacyAccept', 'reject');
 			if( self.$modal.length && !self.$modal.hasClass('show') ) {
 				setTimeout(function() {
-					self.$modal.modal('show');
-				}, 1000);
+					self.$modal.modal({
+						show: true, 
+						backdrop: 'static',
+						keyboard: false
+					});
+				}, 100);
 			}
 		}
 	},
