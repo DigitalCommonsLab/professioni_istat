@@ -41567,7 +41567,7 @@ function config (name) {
 },{}],128:[function(require,module,exports){
 module.exports={
   "name": "professioni_istat",
-  "version": "3.5.0",
+  "version": "3.6.0",
   "description": "",
   "main": "professioni.js",
   "repository": {
@@ -42185,18 +42185,32 @@ module.exports = {
 					if(!json || !json.skills)
 						return self.data.skills;
 
-					_.each(json.skills.acquired, function(ss, id) {
-
-						for(var i in ss) {
-							var code = ss[i];
-
-							//ONLY ISFOL CODES "CxxA"
-							if(code[0]==='C') {
-								self.data.skills.push( code.toLowerCase() );
+					if(json.skills.acquired) {
+						_.each(json.skills.acquired, function(ss, id) {
+							for(var i in ss) {
+								var code = ss[i];
+								//ONLY ISFOL CODES "CxxA"
+								if(code[0]==='C') {
+									self.data.skills.push( code.toLowerCase() );
+								}
 							}
-						}
-					});
+						});
+					}
 					
+					if(json.skills.learned) {
+						_.each(json.skills.learned, function(ss, id) {
+							for(var i in ss) {
+								var code = ss[i];
+								//ONLY ISFOL CODES "CxxA"
+								if(code[0]==='C') {
+									self.data.skills.push( code.toLowerCase() );
+								}
+							}
+						});					
+					}
+					
+					self.data.skills = _.uniq(self.data.skills);
+
 					cb(self.data.skills);
 				});	
 			}
