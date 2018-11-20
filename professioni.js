@@ -42105,6 +42105,22 @@ $(function() {
     }
   });
 
+
+  //DEBUG
+  if(location.hash=='#debug') {
+
+    window.utils = utils;
+
+    var ping = setInterval(function() {
+
+      if($selectjobs.find('a:eq(2)').length) {        
+        $selectjobs.find('a:eq(2)').trigger('click');
+        clearInterval(ping)
+      }
+      
+    },100);
+  }
+
 });  
 
 },{"../package.json":128,"./config":129,"./profile":131,"./table":132,"./tree":133,"./utils":134,"bootstrap":5,"bootstrap-list-filter":2,"d3":8,"handlebars":38,"jquery":40,"popper.js":42,"underscore":126,"underscore.string":80}],131:[function(require,module,exports){

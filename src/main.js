@@ -251,4 +251,20 @@ $(function() {
     }
   });
 
+
+  //DEBUG
+  if(location.hash=='#debug') {
+
+    window.utils = utils;
+
+    var ping = setInterval(function() {
+
+      if($selectjobs.find('a:eq(2)').length) {        
+        $selectjobs.find('a:eq(2)').trigger('click');
+        clearInterval(ping)
+      }
+      
+    },100);
+  }
+
 });  
