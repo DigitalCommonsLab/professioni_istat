@@ -257,6 +257,12 @@ $(function() {
 
     window.utils = utils;
 
+    $('header').hide();
+
+    $('#tree > svg').css({
+      border:'3px solid green',
+    });
+
     var ping = setInterval(function() {
 
       if($selectjobs.find('a:eq(2)').length) {        

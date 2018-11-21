@@ -85,8 +85,8 @@ html {
 }
 #tree_wrapper {
   width: auto;
-  overflow-x: scroll;
-  border: 2px solid red;
+  overflow-y: hidden;
+  overflow-x: auto;
 }
 #tree {
   height: 500px;
