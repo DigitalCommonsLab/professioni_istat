@@ -174,7 +174,7 @@ module.exports = {
 			  tspan = text.append('tspan')
 			  	.attr('x', self.config.circleRadius*2)//self.config.circleRadius+(d.children?-(self.config.circleRadius*3):5) )
 			  	//.attr('y', 0)//+(d.children?-(self.config.circleRadius*3):y) )
-			  	.attr('dy', (++lineNumber) + (dy-0.6) + 'em');
+			  	.attr('dy',  (dy-0.8 + lineNumber++) + 'em');
 
 			  while (!!(word = words.pop())) {
 			    line.push(word);
@@ -262,7 +262,9 @@ console.log('skills width',w,self.leftOffeset)
 		.on("click", function(d) {
 			self.onSelect.call(self, d);
 			d.desc = $('<textarea />').html(d.desc).val();
-			self.$sel.html( self.tmpls.node_tooltip(d) );
+			if(d.level===5) {
+				self.$sel.html( self.tmpls.node_tooltip(d) );
+			}
 		});
 
 		nodeEnter.append("text")
@@ -283,9 +285,10 @@ console.log('skills width',w,self.leftOffeset)
 		})
 		.on("click", function(d) {
 			self.onSelect.call(self, d);
-
 			d.desc = $('<textarea />').html(d.desc).val();
-			self.$sel.html(self.tmpls.node_tooltip(d));
+			if(d.level===5) {
+				self.$sel.html(self.tmpls.node_tooltip(d));
+			}
 		})
 		.attr({
 			"dy": 0,
