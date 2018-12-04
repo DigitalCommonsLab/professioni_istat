@@ -111,10 +111,12 @@ module.exports = {
 									self.data.skills.push( code.toLowerCase() );
 								}
 							}
-						});					
+						});		
 					}
 					
 					self.data.skills = _.uniq(self.data.skills);
+
+					//MERGING
 
 					cb(self.data.skills);
 				});	

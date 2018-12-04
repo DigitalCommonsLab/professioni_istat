@@ -35,7 +35,6 @@ $(function() {
 
   $('#version').text('v'+pkg.version);
 
-
   if($('body').is('#page_login')) return;
   
   config.init();
